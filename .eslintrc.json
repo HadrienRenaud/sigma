@@ -1,0 +1,37 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+
+  "plugins": [
+    "react"
+  ],
+
+  "extends": ["eslint:recommended", "plugin:react/recommended"],
+
+  "rules": {
+    "linebreak-style": ["error", "unix"],
+
+    "no-new-object": 1,
+    "object-shorthand": 1,
+
+    "no-var": 1,
+    "prefer-const": 1,
+
+    "no-array-constructor": 1,
+    "prefer-rest-params": 1,
+    "prefer-spread": 1,
+    "prefer-arrow-callback": 1
+  }
+}
