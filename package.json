@@ -10,6 +10,7 @@
     "lint": "eslint src/",
     "serve": "node server.js"
   },
+  "proxy": "http://localhost:3000",
   "author": "Binet Réseau",
   "license": "ISC",
   "dependencies": {
