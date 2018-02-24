@@ -1,10 +1,14 @@
+/*eslint-env node*/
+
+const path = require('path');
+
 const config = {
     entry: [
         './main.js'
     ],
 
     output: {
-        path: __dirname + '/build',
+        path: path.resolve(__dirname,'/build'),
         publicPath: '/',
         filename: 'bundle.js',
     },
@@ -22,8 +26,8 @@ const config = {
             loader: 'babel-loader',
 
             query: {
-               presets: ['es2015', 'react'],
-               plugins: ['transform-decorators-legacy', 'transform-class-properties', 'transform-object-rest-spread']
+                presets: ['env', 'react'],
+                plugins: ['transform-decorators-legacy', 'transform-class-properties', 'transform-object-rest-spread']
             }
         }, {
             test: /\.css$/,
@@ -36,6 +40,6 @@ const config = {
             }
         }]
     }
-}
+};
 
 module.exports = config;

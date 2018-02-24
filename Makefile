@@ -1,14 +1,13 @@
-
 install:
 	npm install
 
 build: install
-	npm build
+	npm run build
 	cp index.html build/index.html
 
 setup: build
 	npm install
-	npm build
+	npm run build
 
 run:
 	npm run serve

@@ -1,0 +1,4 @@
+* text=auto
+
+# JS files will have LF line endings
+*.js text eol= lf
