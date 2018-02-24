@@ -1,3 +1,5 @@
+all: setup
+
 install:
 	npm install
 
