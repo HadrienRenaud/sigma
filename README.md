@@ -22,8 +22,8 @@ Ensuite, `npm run serve` démarre un serveur Express servant l'application à l'
 
 Pour simplifier les choses, le Makefile installe les dépendances, transpile le code et démarre un serveur Express.
 
-    make -f Makefile
+Pour installer les dépendances et compiler,
 
-ou
+    make -f setup
 
-    ./makefile
+ou juste `make` (`mingw32-make` avec Git Bash sous Windows).
