@@ -4,7 +4,7 @@ Ce dépôt contient le _frontend_ de Sigma, le nouveau Frankiz.
 
 Pour obtenir une copie, clonez-le avec
 
-    git clone git@gitlab.binets.fr:fr/sigma-frontend
+    git clone git@gitlab.binets.fr:br/sigma-frontend
 
 ## Installation
 
