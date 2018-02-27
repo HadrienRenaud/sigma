@@ -10,6 +10,6 @@ const ListGroups = ({match}) => (
         List Groups
         TODO
     </div>
-)
+);
 
 export default ListGroups;

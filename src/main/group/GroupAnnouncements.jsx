@@ -9,14 +9,14 @@ import _ from 'lodash';
 import {Announcements} from '../event/Announcement.jsx';
 
 const source = _.times(5, () => ({
-  title: faker.company.companyName(),
-  description: faker.company.catchPhrase(),
-  image: faker.internet.avatar(),
-}))
+    title: faker.company.companyName(),
+    description: faker.company.catchPhrase(),
+    image: faker.internet.avatar(),
+}));
 
 class AnnouncementSearchBar extends React.Component {
     componentWillMount() {
-        this.resetComponent()
+        this.resetComponent();
     }
 
     resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
@@ -24,7 +24,7 @@ class AnnouncementSearchBar extends React.Component {
     handleResultSelect = (e, { result }) => this.setState({ value: result.title })
 
     handleSearchChange = (e, { value }) => {
-        this.setState({ isLoading: true, value })
+        this.setState({ isLoading: true, value });
 
         setTimeout(() => {
             /*
@@ -36,12 +36,12 @@ class AnnouncementSearchBar extends React.Component {
             this.setState({
                 isLoading: value!="",
                 /*results: _.filter(source, isMatch),*/
-            })
-        }, 500)
+            });
+        }, 500);
     }
 
     render() {
-        const { isLoading, value, results } = this.state
+        const { isLoading, value, results } = this.state;
 
         return (
             <Search
@@ -55,7 +55,7 @@ class AnnouncementSearchBar extends React.Component {
                 value={value}
                 {...this.props}
             />
-        )
+        );
     }
 }
 
@@ -67,7 +67,7 @@ const AnnouncementSearch = () => (
             </Grid.Column>
         </Grid>
     </div>
-)
+);
 
 const GroupAnnouncements = ({match}) => (
     <div>
@@ -75,6 +75,6 @@ const GroupAnnouncements = ({match}) => (
         <Divider/>
         <Announcements/>
     </div>
-)
+);
 
 export default GroupAnnouncements;

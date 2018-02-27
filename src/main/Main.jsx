@@ -13,7 +13,7 @@ const Container = () => (
         <Route path="/group" component={Group}/>
         <Route exact path="/" component={Index}/>
     </Switch>
-)
+);
 
 const Main = () => (
     <div className="ui grid">
@@ -33,6 +33,6 @@ const Main = () => (
             </div>
         </div>
     </div>
-)
+);
 
 export default Main;

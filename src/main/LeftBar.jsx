@@ -1,7 +1,7 @@
 import React from 'react';
-import _ from 'lodash'
+import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react'
+import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
 
 const PanelsEvents = _.times(4, (i) => ({
     title: (`Event #${i+1}`),
@@ -17,7 +17,7 @@ const PanelsEvents = _.times(4, (i) => ({
             </div>
         </div>
     ),
-}))
+}));
 
 
 const PinnedEvents = () => (
@@ -34,7 +34,7 @@ const PinnedEvents = () => (
         </Segment>
     </Segment.Group>
 
-)
+);
 
 class GroupPanel extends React.Component {
     constructor() {
@@ -57,7 +57,7 @@ const PinnedGroups = () => (
             <GroupPanel/>
         </Button.Group>
     </Segment.Group>
-)
+);
 
 const LeftBar = () => (
     <div>
@@ -69,6 +69,6 @@ const LeftBar = () => (
         <PinnedEvents/>
         <PinnedGroups/>
     </div>
-)
+);
 
 export default LeftBar;

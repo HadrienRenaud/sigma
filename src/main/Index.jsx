@@ -17,6 +17,6 @@ const Index = ({match}) => (
         <Divider/>
         <GroupAnnouncements/>
     </div>
-)
+);
 
 export default Index;

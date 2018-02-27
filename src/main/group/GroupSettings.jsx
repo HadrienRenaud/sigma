@@ -10,6 +10,6 @@ const GroupSettings = ({match}) => (
         Group Settings
         TODO
     </div>
-)
+);
 
 export default GroupSettings;
