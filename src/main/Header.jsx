@@ -1,7 +1,7 @@
 import React from 'react';
-import _ from 'lodash'
+import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react'
+import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
 
 const Header = () => (
     <div className="ui inverted menu">
@@ -20,7 +20,7 @@ const Header = () => (
             </div>
         </div>
 
-     </div>
-)
+    </div>
+);
 
 export default Header;
