@@ -6,6 +6,8 @@ import Group from './group/Group.jsx';
 import LeftBar from './LeftBar.jsx';
 import RightBar from './RightBar.jsx';
 import Index from './Index.jsx';
+import Header from './Header.jsx';
+import Footer from './Footer.jsx';
 
 const Container = () => (
     <Switch>
@@ -16,22 +18,28 @@ const Container = () => (
 );
 
 const Main = () => (
-    <div className="ui grid">
-        <div className="ui sticky left floated two wide column">
-            <div className="ui segment"/*TODO: Sticky*/>
+    /**La doc normale de Semantic UI n'est pas en accord
+     * Normalement il y a sixteen wide column en pour une ligne
+     * Mais ce code n'utiliser que twelve wide columns
+    */
+    <div className="">
+        <Header/>
+
+        <div className="ui container grid">
+            <div className="two wide column" > 
                 <LeftBar/>
             </div>
-        </div>
 
-        <div className="text container eight wide column">
-            <Container/>
-        </div>
-        
-        <div className="ui sticky right floated two wide column">
-            <div className="ui segment" /*TODO: Sticky*/>
+            <div className="eight wide column">
+                <Container/>
+            </div>
+            
+            <div className="two wide column">
                 <RightBar/>
             </div>
         </div>
+
+        <Footer/>
     </div>
 );
 

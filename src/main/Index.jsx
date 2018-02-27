@@ -8,13 +8,7 @@ const Index = ({match}) => (
         <Divider fitted hidden/>
         <Header as={'h1'} textAlign={"center"}>
             SIGMA
-            <Header.Subheader>
-            Vivement la fin du développement
-            </Header.Subheader>
         </Header>
-        <Divider/>
-        TODO : Modules
-        <Divider/>
         <GroupAnnouncements/>
     </div>
 );
