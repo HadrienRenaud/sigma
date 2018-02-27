@@ -1,5 +1,5 @@
 import React from 'react'
-import { Menu, Button } from 'semantic-ui-react'
+import { Menu, Button, Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router';
 
 class HeaderUnrouted extends React.Component {
@@ -13,23 +13,24 @@ class HeaderUnrouted extends React.Component {
     return (
       <Menu container inverted>
         <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
-          <Menu.Header>Sigma</Menu.Header>
+            <Image alt='logo sigma' src='./images/logo_sigma.png' size='mini' /*Ne fonctionne pas pour le moment, voir comment implémenter une image*//>
+            <Menu.Header>Sigma</Menu.Header>
         </Menu.Item>
         <Menu.Item name='calendrier' active={activeItem === 'messages'} onClick={this.handleItemClick}>
-          Accueil
+            Accueil
         </Menu.Item>
         <Menu.Item name='calendrier' active={activeItem === 'messages'} onClick={this.handleItemClick}>
-          Calendrier
+            Calendrier
         </Menu.Item>
         <Menu.Item name='calendrier' active={activeItem === 'messages'} onClick={this.handleItemClick}>
-          Trombinoscope
+            Trombinoscope
         </Menu.Item>
         <Menu.Item name='services_du_BR' active={activeItem === 'messages'} onClick={this.handleItemClick}>
-          Services du BR
+            Services du BR
         </Menu.Item>
 
         <Menu.Item position='right' name='services_du_BR' active={activeItem === 'messages'} onClick={this.handleItemClick}>
-          <Button color="teal">Sign up</Button>
+            <Button color="teal">Sign up</Button>
         </Menu.Item>
       </Menu>
     )

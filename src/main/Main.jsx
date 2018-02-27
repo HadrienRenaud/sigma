@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Switch, Link, } from 'react-router-dom';
-import {Grid} from 'semantic-ui-react';
+import {Grid, Image} from 'semantic-ui-react';
 
 import Event from './event/Event.jsx';
 import Group from './group/Group.jsx';
@@ -26,7 +26,7 @@ const Main = () => (
     */
     <div>
         <Header/>
-        
+
         <Body/>
 
         <Footer/>
