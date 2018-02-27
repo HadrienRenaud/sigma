@@ -2,6 +2,9 @@ import React from 'react'
 import { Menu, Button, Image } from 'semantic-ui-react'
 import { withRouter } from 'react-router';
 
+/** 
+ * @summary Classe codant pour le bandeau de sigma
+*/
 class HeaderUnrouted extends React.Component {
   state = { activeItem: 'home' }
 
