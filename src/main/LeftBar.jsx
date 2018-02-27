@@ -7,7 +7,7 @@ const PanelsEvents = _.times(4, (i) => ({
     title: (`Event #${i+1}`),
     content: (
         <div>
-            <p>
+            <p style={{textAlign:'center'}}>
                 Cet évènement est trop cool. Viens ! Rejoins nous !
             </p>
             <div style={{textAlign:'center'}}>
@@ -60,12 +60,7 @@ const PinnedGroups = () => (
 )
 
 const LeftBar = () => (
-    <div>
-        <Link to="/">
-            <button className="ui basic button">Acceuil</button>
-        </Link>
-
-        <div className="ui divider"></div>
+    <div class="ui container">
         <PinnedEvents/>
         <PinnedGroups/>
     </div>
