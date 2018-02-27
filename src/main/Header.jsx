@@ -1,26 +1,41 @@
-import React from 'react';
-import _ from 'lodash';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
+import React from 'react'
+import { Menu, Button } from 'semantic-ui-react'
+import { withRouter } from 'react-router';
 
-const Header = () => (
-    <div className="ui inverted menu">
+class HeaderUnrouted extends React.Component {
+  state = { activeItem: 'home' }
 
-        <div className="ui container">
-            <a href="#" className="header item">
-                Sigma
-            </a>
-            <a href="#" className="item">Accueil</a>
-            <a href="#" className="item">Calendrier</a>
-            <a href="#" className="item">Trombinoscope</a>
-            <a href="#" className="item">Services du BR</a>
-            <div className="right aligned item">
-                <a href="#" className="item">Search bar</a>
-                <a href="#" className="item">Login</a>
-            </div>
-        </div>
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
-    </div>
-);
+  render() {
+    const { activeItem } = this.state
+
+    return (
+      <Menu container inverted>
+        <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
+          <Menu.Header>Sigma</Menu.Header>
+        </Menu.Item>
+        <Menu.Item name='calendrier' active={activeItem === 'messages'} onClick={this.handleItemClick}>
+          Accueil
+        </Menu.Item>
+        <Menu.Item name='calendrier' active={activeItem === 'messages'} onClick={this.handleItemClick}>
+          Calendrier
+        </Menu.Item>
+        <Menu.Item name='calendrier' active={activeItem === 'messages'} onClick={this.handleItemClick}>
+          Trombinoscope
+        </Menu.Item>
+        <Menu.Item name='services_du_BR' active={activeItem === 'messages'} onClick={this.handleItemClick}>
+          Services du BR
+        </Menu.Item>
+
+        <Menu.Item position='right' name='services_du_BR' active={activeItem === 'messages'} onClick={this.handleItemClick}>
+          <Button color="teal">Sign up</Button>
+        </Menu.Item>
+      </Menu>
+    )
+  }
+}
+
+const Header = withRouter(HeaderUnrouted);
 
 export default Header;

@@ -7,9 +7,6 @@ import Group from './group/Group.jsx';
 import LeftBar from './LeftBar.jsx';
 import RightBar from './RightBar.jsx';
 import Index from './Index.jsx';
-import Header from './Header.jsx';
-import Footer from './Footer.jsx';
-import Body from './Body.jsx'
 
 const Center = () => (
     <Switch>
@@ -19,18 +16,20 @@ const Center = () => (
     </Switch>
 );
 
-const Main = () => (
-    /**La doc normale de Semantic UI n'est pas en accord
-     * Normalement il y a sixteen wide column en pour une ligne
-     * Mais ce code n'utiliser que twelve wide columns
-    */
-    <div>
-        <Header/>
-        
-        <Body/>
+const Body = () => (
+    <Grid container>
+        <Grid.Column width={2}> 
+            <LeftBar/>
+        </Grid.Column>
 
-        <Footer/>
-    </div>
+        <Grid.Column width={8}>
+            <Center/>
+        </Grid.Column>
+        
+        <Grid.Column width={2}>
+            <RightBar/>
+        </Grid.Column>
+    </Grid>
 );
 
-export default Main;
+export default Body;
