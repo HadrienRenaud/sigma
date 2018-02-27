@@ -26,12 +26,12 @@ const MemberCard = () => (
             <Accordion.Content>
                 <p>
                 TODO : la liste des binets
-                {faker.lorem.paragraphs()}
+                    {faker.lorem.paragraphs()}
                 </p>
             </Accordion.Content>
         </Card.Content>
     </Card>
-)
+);
 
 const Members = () => (
     <Card.Group>
@@ -49,11 +49,11 @@ const Members = () => (
         <MemberCard/>
         <MemberCard/>
     </Card.Group>
-)
+);
 
 class MemberSearchBar extends React.Component {
     componentWillMount() {
-        this.resetComponent()
+        this.resetComponent();
     }
 
     resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
@@ -61,7 +61,7 @@ class MemberSearchBar extends React.Component {
     handleResultSelect = (e, { result }) => this.setState({ value: result.title })
 
     handleSearchChange = (e, { value }) => {
-        this.setState({ isLoading: true, value })
+        this.setState({ isLoading: true, value });
 
         setTimeout(() => {
             /*
@@ -73,12 +73,12 @@ class MemberSearchBar extends React.Component {
             this.setState({
                 isLoading: value!="",
                 /*results: _.filter(source, isMatch),*/
-            })
-        }, 500)
+            });
+        }, 500);
     }
 
     render() {
-        const { isLoading, value, results } = this.state
+        const { isLoading, value, results } = this.state;
 
         return (
             <Search
@@ -92,7 +92,7 @@ class MemberSearchBar extends React.Component {
                 value={value}
                 {...this.props}
             />
-        )
+        );
     }
 }
 
@@ -103,11 +103,11 @@ const MemberSearch = () => (
                 <MemberSearchBar/>
             </Grid.Column>
             <Grid.Column width={3}>
-            	<Checkbox toggle />
+                <Checkbox toggle />
             </Grid.Column>
         </Grid>
     </div>
-)
+);
 
 const ListMembers = ({match}) => (
     <div>
@@ -115,5 +115,5 @@ const ListMembers = ({match}) => (
         <Divider/>
         <Members/>
     </div>
-)
+);
 export default ListMembers;

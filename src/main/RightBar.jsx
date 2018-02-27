@@ -15,6 +15,6 @@ const RightBar = () => ( //TODO change into semantic-ui-react
             </div>
         </div>
     </div>
-)
+);
 
 export default RightBar;

@@ -11,6 +11,6 @@ const Index = ({match}) => (
         </Header>
         <GroupAnnouncements/>
     </div>
-)
+);
 
 export default Index;

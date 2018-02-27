@@ -15,7 +15,7 @@ const Container = () => (
         <Route path="/group" component={Group}/>
         <Route exact path="/" component={Index}/>
     </Switch>
-)
+);
 
 const Main = () => (
     /**La doc normale de Semantic UI n'est pas en accord
@@ -41,6 +41,6 @@ const Main = () => (
 
         <Footer/>
     </div>
-)
+);
 
 export default Main;

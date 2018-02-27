@@ -10,6 +10,6 @@ const GroupEvents = ({match}) => (
     <div>
         <EventCalendar/>
     </div>
-)
+);
 
 export default GroupEvents;

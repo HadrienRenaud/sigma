@@ -22,7 +22,7 @@ const AnnouncementCard = () => (
             buttons, maybe
         </Card.Content>
     </Card>
-)
+);
 
 const Announcements = () => (
     <Card.Group>
@@ -36,6 +36,6 @@ const Announcements = () => (
         <AnnouncementCard/>
         <AnnouncementCard/>
     </Card.Group>
-)
+);
 
 export {Announcements, AnnouncementCard};

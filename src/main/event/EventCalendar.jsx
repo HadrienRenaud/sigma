@@ -77,13 +77,13 @@ const EventsList = [ //TODO
         'group': 0
     },
 
-]
+];
 
 const CustomStyle = function(event, start, end, isSelected) {
     console.log(event);
     var backgroundColor = '#' + event.hexColor;
     var style = {
-        backgroundColor: backgroundColor,
+        backgroundColor,
         borderRadius: '0px',
         opacity: 0.8,
         color: 'black',
@@ -94,9 +94,9 @@ const CustomStyle = function(event, start, end, isSelected) {
         style.backgroundColor = event.color;
     }
     //TODO
-    let GroupColor = {0:'blue',1:'red'};
-    let IdleColor = {'blue':'blue','red':'red'};
-    let SelectedColor = {'blue':'green','red':'green'};
+    const GroupColor = {0:'blue',1:'red'};
+    const IdleColor = {'blue':'blue','red':'red'};
+    const SelectedColor = {'blue':'green','red':'green'};
     if(event.group in Object.keys(GroupColor)){
         if(isSelected){
             style.backgroundColor = SelectedColor[GroupColor[event.group]];
@@ -106,13 +106,13 @@ const CustomStyle = function(event, start, end, isSelected) {
     }
     //EndOfTODO
     return {
-        style: style
+        style
     };
-}
+};
 
 class EventCalendarUnrouted extends React.Component {
     componentWillMount() {
-        this.resetComponent()
+        this.resetComponent();
     }
 
     static propTypes = {
@@ -128,7 +128,7 @@ class EventCalendarUnrouted extends React.Component {
     resetComponent = () => this.setState({})
 
     getEvents() {
-        let _events = EventsList;
+        const _events = EventsList;
         //TODO eventually
         return _events;
     }
@@ -142,10 +142,10 @@ class EventCalendarUnrouted extends React.Component {
     }
 
     render() {
-        const{ contextRef } = this.state  
-        const { match, location, history } = this.props
-        const test = "this is a test"
-        const events = this.getEvents()
+        const{ contextRef } = this.state;  
+        const { match, location, history } = this.props;
+        const test = "this is a test";
+        const events = this.getEvents();
 
         return (
             <div>
@@ -164,7 +164,7 @@ class EventCalendarUnrouted extends React.Component {
                 {this.selectedEvent>=0 ? <Divider/> : ""}
                 {this.selectedEvent>=0 ? <Route component={AnnouncementCard}/> : ""}
             </div>
-        )
+        );
     }
 }
 

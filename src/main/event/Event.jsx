@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import {Route, Switch, Link } from 'react-router-dom';
-import Error404 from '../../Errors.jsx'
+import Error404 from '../../Errors.jsx';
 import {Divider} from 'semantic-ui-react';
 
 import EventCalendar from './EventCalendar.jsx';
@@ -21,15 +21,15 @@ class EventFoundUnrouted extends React.Component {
     setContextRef = contextRef => this.setState({contextRef})
 
     render() {
-        const{ contextRef } = this.state
-        const { match, location, history } = this.props
+        const{ contextRef } = this.state;
+        const { match, location, history } = this.props;
 
         return(
             <div ref={this.setContextRef}>
                 <Divider hidden/>
                 <EventCalendar path={match.url}/>
             </div>
-        )
+        );
     }
 }
 
@@ -42,6 +42,6 @@ const Event = ({match}) => (
             <Route component={EventFound}/>
         </Switch>
     </div>
-)
+);
 
 export default Event;
