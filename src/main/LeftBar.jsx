@@ -60,7 +60,7 @@ const PinnedGroups = () => (
 );
 
 const LeftBar = () => (
-    <div class="ui container">
+    <div className="ui container">
         <PinnedEvents/>
         <PinnedGroups/>
     </div>
