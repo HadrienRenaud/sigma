@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import {Route, Switch, Link } from 'react-router-dom';
 import Error404 from '../../Errors.jsx';
-import {Button, Sticky} from 'semantic-ui-react';
+import {Button, Sticky, Icon, Popup} from 'semantic-ui-react';
 
 import GroupAnnouncements from './GroupAnnouncements.jsx';
 import GroupEvents from './GroupEvents.jsx';
@@ -32,15 +32,21 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
                     <div className="top attached ui menu segment">
                         <h2 className="left menu">Nom du groupe</h2>
                         <div className="right menu ui icon buttons">
-                            <button className="yellow ui button">
-                                <i className="star icon"></i>
-                            </button>
-                            <button className="blue ui button">
-                                <i className="pin icon"></i>
-                            </button>
-                            <button className="pink ui button">
-                                <i className="heart icon"></i>
-                            </button>
+                            <Popup
+                                trigger={<Button color='yellow' icon='star' />}
+                                content='Devenir administrateur'
+                                inverted
+                            />
+                            <Popup
+                                trigger={<Button color='blue' icon='user' />}
+                                content='Devenir membre'
+                                inverted
+                            />
+                            <Popup
+                                trigger={<Button color='pink' icon='heart' />}
+                                content='Devenir sympathisant'
+                                inverted
+                            />
                         </div>
                     </div>
                     <Button.Group fluid attached="top">

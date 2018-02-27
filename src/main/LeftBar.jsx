@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
+import { Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
 
 const PanelsEvents = _.times(4, (i) => ({
     title: (`Event #${i+1}`),
@@ -60,10 +60,10 @@ const PinnedGroups = () => (
 );
 
 const LeftBar = () => (
-    <div className="ui container">
+    <Container>
         <PinnedEvents/>
         <PinnedGroups/>
-    </div>
+    </Container>
 );
 
 export default LeftBar;

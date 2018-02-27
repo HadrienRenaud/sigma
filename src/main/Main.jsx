@@ -22,7 +22,7 @@ const Main = () => (
      * Normalement il y a sixteen wide column en pour une ligne
      * Mais ce code n'utiliser que twelve wide columns
     */
-    <div className="">
+    <div>
         <Header/>
 
         <div className="ui container grid">
