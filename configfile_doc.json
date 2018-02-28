@@ -1,0 +1,25 @@
+{
+    "plugins": ["plugins/markdown", "plugins/summarize"],
+    "recurseDepth": 5,
+    "source": {
+        "include": ["./src","./main.js","./index.html","./server.js"],
+        "exclude": [],
+        "includePattern": ".+\\.(js(doc|x)?|html)$",
+        "excludePattern": "(^|\\/|\\\\)_"
+    },
+    "sourceType": "module",
+    "opts": {
+        "template": "templates/default",
+        "encoding": "utf8",             
+        "destination": "./doc",        
+        "recurse": true
+    },
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc","closure"]
+    },
+    "templates": {
+        "cleverLinks": true,
+        "monospaceLinks": true
+    }
+}
