@@ -1,4 +1,5 @@
 import React from 'react';
+import { render } from 'react-dom';
 import {Route, Switch, Link, } from 'react-router-dom';
 import {Grid, Image} from 'semantic-ui-react';
 
@@ -10,19 +11,26 @@ import Index from './Index.jsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Body from './Body.jsx';
-import ApolloTest from './ApolloTest.jsx';
 
-import { render } from 'react-dom';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import { Query, graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-// Pass your GraphQL endpoint to uri
-const client = new ApolloClient({ uri: 'http://129.104.201.10/graphql' });
+const GET_GROUPS = gql`
+    query {
+        groups {
+            name
+            id
+        }
+    }
+`;
 
-const ApolloApp = () => (
-  <ApolloProvider client={client}>
-    <ApolloTest />
-  </ApolloProvider>
+const MainProt = () => (
+    <div>
+        <Header/>
+        <h1>DIS SHIT WORKS</h1>
+    </div>
 );
 
-render(ApolloApp, document.getElementById('root'));
+const Main = graphql(GET_GROUPS)(MainProt);
+
+export default Main;

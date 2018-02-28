@@ -4,7 +4,7 @@ const path = require('path');
 
 const config = {
     entry: [
-        './main.js'
+        './src/App.jsx'
     ],
 
     output: {
@@ -38,6 +38,13 @@ const config = {
             options: {
                 limit: 10000
             }
+        }, { 
+            test: /.(jpg|png|svg)$/, 
+            loader: 'file-loader', 
+            exclude: /semantic/,
+            options: { 
+                name: '[path][name].[hash].[ext]', 
+            } 
         }]
     }
 };

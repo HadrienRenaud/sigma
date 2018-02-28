@@ -9,7 +9,7 @@ import RightBar from './RightBar.jsx';
 import Index from './Index.jsx';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
-import Body from './Body.jsx'
+import Body from './Body.jsx';
 
 const Main = () => (
     /**La doc normale de Semantic UI n'est pas en accord

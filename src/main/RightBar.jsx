@@ -7,16 +7,16 @@ import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
  * @summary Classe codant pour le bandeau de sigma
 */
 const RightBar = () => (
-    <div class="ui container">
+    <div className="ui container">
         <Segment.Group>
-        <Segment color="teal" inverted>
-            <p>Prénom Nom</p>
-        </Segment>
-        <Button.Group basic fluid vertical>
-            <Link to="/group/1"><Button>Paramètres</Button></Link>
-            <Link to="/group/1"><Button>Déconnexion</Button></Link>
-        </Button.Group>
-    </Segment.Group>
+            <Segment color="teal" inverted>
+                <p>Prénom Nom</p>
+            </Segment>
+            <Button.Group basic fluid vertical>
+                <Link to="/group/1"><Button>Paramètres</Button></Link>
+                <Link to="/group/1"><Button>Déconnexion</Button></Link>
+            </Button.Group>
+        </Segment.Group>
     </div>
 );
 

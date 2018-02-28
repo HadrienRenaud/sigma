@@ -4,9 +4,14 @@ const express = require('express');
 
 const app = express();
 
-app.use(express.static('./build/', {fallthrough: true}) );
+// serving static files
+app.use(express.static('./build', {fallthrough: true}));
+app.use(express.static('./assets'));
+
 app.use((req,res,next) => { res.sendFile('index.html', {root: './build/'}); });
 
-app.listen(8888, () => {
-    console.log( 'Express server listening on port %d in %s mode', 8888, app.settings.env );
+const port = process.env.NODE_PORT || 8888;
+
+app.listen(port, () => {
+    console.log( 'Express server listening on port %d in %s mode', port, app.settings.env );
 });
