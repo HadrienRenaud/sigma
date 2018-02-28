@@ -7,12 +7,14 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack -w",
+    "doc": "jsdoc -c configfile_doc.json",
     "lint": "eslint src/"
   },
   "proxy": "http://localhost:3000",
   "author": "Binet Réseau",
   "license": "ISC",
   "dependencies": {
+    "apollo-boost": "^0.1.1",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -24,10 +26,12 @@
     "css-loader": "^0.28.10",
     "faker": "^4.1.0",
     "file-loader": "^0.11.2",
+    "graphql": "^0.13.1",
     "moment": "^2.18.1",
     "node-sass": "^4.7.2",
     "prop-types": "^15.6.0",
     "react": "^15.6.2",
+    "react-apollo": "^2.0.4",
     "react-big-calendar": "^0.15.0",
     "react-dom": "^15.6.2",
     "react-redux": "^5.0.7",

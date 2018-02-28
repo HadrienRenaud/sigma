@@ -34,9 +34,13 @@ Le _frontend_ est codé à l'aide de ReactJS et Semantic UI.
 
 Le standard JavaScript utilisé est ES6.
 
-Les fichiers source `.jsx` de l'app React se situent dans `src`, et le point d'entrée est [`main.js`](./main.js).
+Il existe deux implémentations différentes de SemanticUI avec React, une native Semantic et une autre qui fait le lien entre React et Semantic directement, nous avons choisi la deuxième. La doc se trouve à : https://react.semantic-ui.com/.
 
-La compilation de `main.js` est ses dépendances dans `src` se fait avec Webpack, qui est configuré dans [`webpack.config.js`](./webpack.config.js).
+La documentation de React et Apollo est disponible sur les sites respectifs.
+
+Les fichiers source `.jsx` de l'app React se situent dans `src`, et le point d'entrée est [`App.jsx`](./App.jsx), qui redirige directement vers [`Main.jsx`](./Main.jsx)
+
+La compilation de `Main.js` est ses dépendances dans `src` se fait avec Webpack, qui est configuré dans [`webpack.config.js`](./webpack.config.js).
 
 La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude, la plupart des fichiers .js sont aussi extensivement documentés plus bas.
 
