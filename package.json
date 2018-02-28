@@ -7,6 +7,7 @@
   "scripts": {
     "build": "webpack",
     "watch": "webpack -w",
+    "doc": "jsdoc -c configfile_doc.json",
     "lint": "eslint src/"
   },
   "proxy": "http://localhost:3000",
