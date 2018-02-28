@@ -9,26 +9,20 @@ import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
+let GRAPHQL_API_URL = "http://localhost:3000/graphql";
+
 const client = new ApolloClient({
-    // By default, this client will send queries to the
-    //  `/graphql` endpoint on the same host
-    // Pass the configuration option { uri: YOUR_GRAPHQL_API_URL } to the `HttpLink` to connect
-    // to a different host
-    link: new HttpLink(),
+    link: new HttpLink(GRAPHQL_API_URL),
     cache: new InMemoryCache(),
 });
-
-const AppProt = () => (
-    <Router>
-        <Route path="/" component={Main} />
-    </Router>
-);
 
 class App extends React.Component {
 
     render() {
         return (<ApolloProvider client={client}>
-            <AppProt />
+            <Router>
+                <Route path="/" component={Main} />
+            </Router>
         </ApolloProvider>);
 
     }    

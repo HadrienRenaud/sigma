@@ -16,7 +16,7 @@ import { Query, graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 const GET_GROUPS = gql`
-    query {
+    query GroupQuery {
         groups {
             name
             id
@@ -24,13 +24,14 @@ const GET_GROUPS = gql`
     }
 `;
 
-const MainProt = () => (
-    <div>
-        <Header/>
-        <h1>DIS SHIT WORKS</h1>
-    </div>
-);
+class Main extends React.Component {
 
-const Main = graphql(GET_GROUPS)(MainProt);
+    render() {
+        return (
+            <div>
+            </div>
+        );
+    }
+}
 
 export default Main;
