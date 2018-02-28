@@ -2,7 +2,7 @@
     "plugins": ["plugins/markdown", "plugins/summarize"],
     "recurseDepth": 5,
     "source": {
-        "include": ["./src","./main.js","./index.html","./server.js"],
+        "include": ["./src","./main.js","./index.html","./server.js","./README.md"],
         "exclude": [],
         "includePattern": ".+\\.(js(doc|x)?|html)$",
         "excludePattern": "(^|\\/|\\\\)_"
