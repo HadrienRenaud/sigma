@@ -12,8 +12,6 @@ const Footer = () => (
                     <div className="ui inverted link list">
                         <a href="#" className="item">Link One</a>
                         <a href="#" className="item">Link Two</a>
-                        <a href="#" className="item">Link Three</a>
-                        <a href="#" className="item">Link Four</a>
                     </div>
                 </div>
                 <div className="three wide column">
@@ -21,8 +19,6 @@ const Footer = () => (
                     <div className="ui inverted link list">
                         <a href="#" className="item">Link One</a>
                         <a href="#" className="item">Link Two</a>
-                        <a href="#" className="item">Link Three</a>
-                        <a href="#" className="item">Link Four</a>
                     </div>
                 </div>
                 <div className="three wide column">
@@ -30,8 +26,6 @@ const Footer = () => (
                     <div className="ui inverted link list">
                         <a href="#" className="item">Link One</a>
                         <a href="#" className="item">Link Two</a>
-                        <a href="#" className="item">Link Three</a>
-                        <a href="#" className="item">Link Four</a>
                     </div>
                 </div>
                 <div className="seven wide column">

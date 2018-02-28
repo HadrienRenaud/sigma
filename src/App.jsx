@@ -1,19 +1,21 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 import Main from './main/Main.jsx';
-
-import { ApolloClient } from 'apollo-client';
-import { ApolloProvider } from 'react-apollo';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { Query, ApolloProvider } from 'react-apollo';
+import { ApolloClient } from 'apollo-client';
 
-let GRAPHQL_API_URL = "http://localhost:3000/graphql";
+const GRAPHQL_API_URL = "http://localhost:3000/graphql";
 
+const httpLink = new HttpLink({
+    uri: GRAPHQL_API_URL
+});
 const client = new ApolloClient({
-    link: new HttpLink(GRAPHQL_API_URL),
-    cache: new InMemoryCache(),
+    link: httpLink,
+    cache: new InMemoryCache()
 });
 
 class App extends React.Component {
@@ -31,4 +33,4 @@ class App extends React.Component {
 import '../semantic/dist/semantic.min.css';
 import '../node_modules/react-big-calendar/lib/css/react-big-calendar.css';
 
-render(<App />, document.getElementById('app'));
+ReactDOM.render(<App />, document.getElementById('app'));

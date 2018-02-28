@@ -1,37 +1,38 @@
 import React from 'react';
-import { render } from 'react-dom';
-import {Route, Switch, Link, } from 'react-router-dom';
-import {Grid, Image} from 'semantic-ui-react';
-
-import Event from './event/Event.jsx';
-import Group from './group/Group.jsx';
-import LeftBar from './LeftBar.jsx';
-import RightBar from './RightBar.jsx';
-import Index from './Index.jsx';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
-import Body from './Body.jsx';
 
-import { Query, graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-
-const GET_GROUPS = gql`
+const GET_ALLGROUPS = gql`
     query GroupQuery {
-        groups {
+        allGroups {
             name
             id
+            website
+            school
         }
     }
 `;
 
-class Main extends React.Component {
+class MainWithoutData extends React.Component {
 
+    componentDidMount() {
+    }
+    
     render() {
+        const groupsToRender = this.props.groupQuery.allGroups;
+        console.log(groupsToRender);
+
         return (
             <div>
+                <Header />
+                <p>Group data yeah !</p>
+                <p>{JSON.stringify(groupsToRender,null,2)}</p>
+                <Footer />
             </div>
         );
     }
 }
 
-export default Main;
+export default graphql(GET_ALLGROUPS, {name: 'groupQuery'})(MainWithoutData);
