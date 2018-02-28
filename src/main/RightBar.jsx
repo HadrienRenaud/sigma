@@ -3,6 +3,9 @@ import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
 
+/** 
+ * @summary Classe codant pour le bandeau de sigma
+*/
 const RightBar = () => (
     <div class="ui container">
         <Segment.Group>
