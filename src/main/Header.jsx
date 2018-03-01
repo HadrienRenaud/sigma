@@ -36,8 +36,9 @@ class HeaderUnrouted extends React.Component {
                 <Menu.Item name='services' active={activeItem === name}>
                 Services BR
                 </Menu.Item>
-                <Menu.Item position='right' name='createAccount' active={activeItem === name}>
-                    <Button as={Link} to='/event' color="blue">Se connecter</Button>
+                {/*Ne fonctionne pas encore*/}
+                <Menu.Item as={Link} to='/event/create' position='right' name='createAccount' active={activeItem === name}>
+                    <Button as={Link} to='/event/create' color="blue">Se connecter</Button>
                 </Menu.Item>
             </Menu>
         );
