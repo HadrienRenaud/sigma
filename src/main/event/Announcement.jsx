@@ -31,10 +31,6 @@ const Announcements = () => (
         <AnnouncementCard/>
         <AnnouncementCard/>
         <AnnouncementCard/>
-        <AnnouncementCard/>
-        <AnnouncementCard/>
-        <AnnouncementCard/>
-        <AnnouncementCard/>
     </Card.Group>
 );
 

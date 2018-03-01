@@ -9,7 +9,7 @@ const Center = () => (
     <Switch>
         <Route path="/event" component={Event} />
         <Route path="/group" component={Group} />
-        <Route exact path="/" component={Index} />
+        <Route path="/" component={Index} />
     </Switch>
 );
 
