@@ -29,22 +29,19 @@ const GET_ALLGROUPS = gql`
 class GroupList extends React.Component {
 
     render() {
+        const { groupQuery: { loading, error, allGroups } } = this.props;
 
-        if (this.props.groupQuery && this.props.groupQuery.loading) {
+        if (loading) {
             return <div>Loading...</div>;
-        }
-
-        if (this.props.groupQuery && this.props.groupQuery.error) {
+        } else if (error) {
             return <div>Error</div>;
         }
-
         return (
-            <div>
-                <span>{JSON.stringify(this.props.groupQuery.allGroups,null,2)}</span>
-                <ul>
-                    {this.props.allGroups}
-                </ul>
-            </div>
+            <ul>
+                {allGroups.map(({ id, name, website }) => (
+                    <li key={id}>ID : {id} Nom : {name}<p>{website}</p></li>
+                ))}
+            </ul>
         );
     }
 }

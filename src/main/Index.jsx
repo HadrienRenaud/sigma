@@ -7,7 +7,7 @@ import logo_sigma_large from '../assets/logo_sigma_large.png';
 const Index = ({match}) => (
     <div>
         <Divider fitted hidden/>
-        <Image alt='Logo' src={logo_sigma_large} size='large' centered='true' />
+        <Image alt='Logo' src={logo_sigma_large} size='large' centered={true} />
         <Header textAlign={"center"}>
         </Header>
         <GroupAnnouncements/>

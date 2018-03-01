@@ -11,9 +11,9 @@ const PanelsEvents = _.times(4, (i) => ({
                 Cet évènement est trop cool. Viens ! Rejoins nous !
             </p>
             <div style={{textAlign:'center'}}>
-                <Link to={"/event/"+i}><Button centered>
-                    Voir
-                </Button></Link>
+                <Link to={"/event/"+i}>
+                    <Button>Voir</Button>
+                </Link>
             </div>
         </div>
     ),

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Main from './main/Main.jsx';
 import { HttpLink } from 'apollo-link-http';
@@ -22,9 +22,9 @@ class App extends React.Component {
 
     render() {
         return (<ApolloProvider client={client}>
-            <Router>
+            <BrowserRouter>
                 <Route path="/" component={Main} />
-            </Router>
+            </BrowserRouter>
         </ApolloProvider>);
 
     }    
