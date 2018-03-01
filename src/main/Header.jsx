@@ -1,10 +1,10 @@
 import React from 'react';
 import { Menu, Button, Image } from 'semantic-ui-react';
 import { withRouter } from 'react-router';
-import sigmaLogo from '../../assets/logo_sigma.png';
+import logo_sigma from '../assets/logo_sigma.png';
 
 /** 
- * @summary Classe codant pour le bandeau de sigma
+ * @summary En-tête des pages sur Sigma
 */
 class HeaderUnrouted extends React.Component {
     state = { activeItem: 'home' }
@@ -17,8 +17,7 @@ class HeaderUnrouted extends React.Component {
         return (
             <Menu inverted>
                 <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick}>
-                    <Image alt='logo sigma' src={sigmaLogo} size='mini' /*Ne fonctionne pas pour le moment, voir comment implémenter une image*//>
-                    <Menu.Header>Σigma</Menu.Header>
+                    <Image alt='Logo' src={logo_sigma} size='mini' /> {/* shit works yo */}
                 </Menu.Item>
                 <Menu.Item name='calendrier' active={activeItem === 'messages'} onClick={this.handleItemClick}>
                 Accueil

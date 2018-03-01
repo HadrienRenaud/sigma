@@ -1,38 +1,25 @@
 import React from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
+import {Route, Switch, Link, } from 'react-router-dom';
+import {Grid, Image} from 'semantic-ui-react';
+
 import Header from './Header.jsx';
 import Footer from './Footer.jsx';
+import Body from './Body.jsx';
+import ListGroups from './group/ListGroups.jsx';
 
-const GET_ALLGROUPS = gql`
-    query GroupQuery {
-        allGroups {
-            name
-            id
-            website
-            school
-        }
-    }
-`;
+const Main = () => (
+    /**La doc normale de Semantic UI n'est pas en accord
+     * Normalement il y a sixteen wide column en pour une ligne
+     * Mais ce code n'utiliser que twelve wide columns
+    */
+    <div>
+        <Header/>
 
-class MainWithoutData extends React.Component {
+        <ListGroups/>
+        <Body/>
 
-    componentDidMount() {
-    }
-    
-    render() {
-        const groupsToRender = this.props.groupQuery.allGroups;
-        console.log(groupsToRender);
+        <Footer/>
+    </div>
+);
 
-        return (
-            <div>
-                <Header />
-                <p>Group data yeah !</p>
-                <p>{JSON.stringify(groupsToRender,null,2)}</p>
-                <Footer />
-            </div>
-        );
-    }
-}
-
-export default graphql(GET_ALLGROUPS, {name: 'groupQuery'})(MainWithoutData);
+export default Main;

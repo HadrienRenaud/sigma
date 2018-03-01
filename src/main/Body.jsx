@@ -2,19 +2,9 @@ import React from 'react';
 import {Route, Switch, Link, } from 'react-router-dom';
 import {Grid} from 'semantic-ui-react';
 
-import Event from './event/Event.jsx';
-import Group from './group/Group.jsx';
 import LeftBar from './LeftBar.jsx';
+import Center from './Center.jsx';
 import RightBar from './RightBar.jsx';
-import Index from './Index.jsx';
-
-const Center = () => (
-    <Switch>
-        <Route path="/event" component={Event}/>
-        <Route path="/group" component={Group}/>
-        <Route exact path="/" component={Index}/>
-    </Switch>
-);
 
 const Body = () => (
     <Grid container>

@@ -14,7 +14,7 @@ const config = {
     },
 
     devServer: {
-        inline: true,
+        contentBase: path.join(__dirname, 'build'),
         port: 80,  
         historyApiFallback: true,
     },
@@ -38,13 +38,6 @@ const config = {
             options: {
                 limit: 10000
             }
-        }, { 
-            test: /.(jpg|png|svg)$/, 
-            loader: 'file-loader', 
-            exclude: /semantic/,
-            options: { 
-                name: '[path][name].[hash].[ext]', 
-            } 
         }]
     }
 };
