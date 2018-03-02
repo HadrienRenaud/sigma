@@ -18,7 +18,7 @@ const Main = () => (
         <ListGroups/>
         <Body/>
 
-        <Footer/>
+        {/*<Footer/>*/}
     </div>
 );
 
