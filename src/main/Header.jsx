@@ -7,6 +7,8 @@ import { Menu, Button, Image, Container } from 'semantic-ui-react';
 import { withRouter, Link, NavLink } from 'react-router';
 import logo_sigma from '../assets/logo_sigma.png';
 
+import LoginForm from './LoginForm.jsx';
+
 class HeaderUnrouted extends React.Component {
 
     /*
@@ -47,8 +49,14 @@ class HeaderUnrouted extends React.Component {
                 <Menu.Item as={NavLink} to='/services' name='services' active={activeItem === name}>
                     <Button>Services BR</Button>
                 </Menu.Item>
+<<<<<<< HEAD
                 <Menu.Item as={NavLink} to='/createAccount' position='right' name='createAccount' active={activeItem === name}>
                     <Button color="blue">Créer son compte</Button>
+=======
+                {/*Ne fonctionne pas encore*/}
+                <Menu.Item as={Link} to='/event/create' position='right' name='createAccount' active={activeItem === name}>
+                    <Button as={Link} to='/event/create' color="blue">Se connecter</Button>
+>>>>>>> 355f229755c1c84402e8d19a5543a36782c0cf81
                 </Menu.Item>
                 */}
             </Menu>

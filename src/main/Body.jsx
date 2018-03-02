@@ -8,17 +8,17 @@ import RightBar from './RightBar.jsx';
 
 const Body = () => (
     <Grid container>
-        <Grid.Column width={2}> 
+        <Grid.Column width={3}> 
             <LeftBar/>
         </Grid.Column>
 
-        <Grid.Column width={8}>
+        <Grid.Column width={9}>
             <Center/>
         </Grid.Column>
         
-        <Grid.Column width={2}>
+        {/*<Grid.Column width={3}>
             <RightBar/>
-        </Grid.Column>
+</Grid.Column>*/}
     </Grid>
 );
 
