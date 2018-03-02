@@ -1,47 +1,60 @@
 import React from 'react';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
+import { Accordion, Button, Segment, Icon, Component, Grid, Container, Header, List } from 'semantic-ui-react';
 
 const Footer = () => (
-    <div className="ui inverted vertical footer segment">
-        <div className="ui center aligned container">
-            <div className="ui stackable inverted divided grid">
-                <div className="three wide column">
-                    <h4 className="ui inverted header">Group 1</h4>
-                    <div className="ui inverted link list">
-                        <a href="#" className="item">Link One</a>
-                        <a href="#" className="item">Link Two</a>
-                    </div>
-                </div>
-                <div className="three wide column">
-                    <h4 className="ui inverted header">Group 2</h4>
-                    <div className="ui inverted link list">
-                        <a href="#" className="item">Link One</a>
-                        <a href="#" className="item">Link Two</a>
-                    </div>
-                </div>
-                <div className="three wide column">
-                    <h4 className="ui inverted header">Group 3</h4>
-                    <div className="ui inverted link list">
-                        <a href="#" className="item">Link One</a>
-                        <a href="#" className="item">Link Two</a>
-                    </div>
-                </div>
-                <div className="seven wide column">
-                    <h4 className="ui inverted header">Footer Header</h4>
-                    <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-                </div>
-            </div>
-            <div className="ui inverted section divider"></div>
-            <div className="ui horizontal inverted small divided link list">
-                <a className="item" href="#">Site Map</a>
-                <a className="item" href="#">Contact Us</a>
-                <a className="item" href="#">Terms and Conditions</a>
-                <a className="item" href="#">Privacy Policy</a>
-            </div>
-        </div>
-    </div>
+    <Segment
+          inverted
+          style={{ margin: '5em 0em 0em', padding: '5em 0em' }}
+          vertical
+        >
+          <Container textAlign='center'>
+            <Grid columns={4} divided stackable inverted>
+              <Grid.Row>
+                <Grid.Column>
+                  <Header inverted as='h4' content='Group 1' />
+                  <List link inverted>
+                    <List.Item as='a'>Link One</List.Item>
+                    <List.Item as='a'>Link Two</List.Item>
+                    <List.Item as='a'>Link Three</List.Item>
+                    <List.Item as='a'>Link Four</List.Item>
+                  </List>
+                </Grid.Column>
+                <Grid.Column>
+                  <Header inverted as='h4' content='Group 2' />
+                  <List link inverted>
+                    <List.Item as='a'>Link One</List.Item>
+                    <List.Item as='a'>Link Two</List.Item>
+                    <List.Item as='a'>Link Three</List.Item>
+                    <List.Item as='a'>Link Four</List.Item>
+                  </List>
+                </Grid.Column>
+                <Grid.Column>
+                  <Header inverted as='h4' content='Group 3' />
+                  <List link inverted>
+                    <List.Item as='a'>Link One</List.Item>
+                    <List.Item as='a'>Link Two</List.Item>
+                    <List.Item as='a'>Link Three</List.Item>
+                    <List.Item as='a'>Link Four</List.Item>
+                  </List>
+                </Grid.Column>
+                <Grid.Column>
+                  <Header inverted as='h4' content='Footer Header' />
+                  <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+            <Divider inverted section />
+            <Image src='/logo.png' centered size='mini' />
+            <List horizontal inverted divided link>
+              <List.Item as='a' href='#'>Site Map</List.Item>
+              <List.Item as='a' href='#'>Contact Us</List.Item>
+              <List.Item as='a' href='#'>Terms and Conditions</List.Item>
+              <List.Item as='a' href='#'>Privacy Policy</List.Item>
+            </List>
+          </Container>
+        </Segment>
 );
 
 export default Footer;
