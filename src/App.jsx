@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import Main from './main/Main.jsx';
+
+// try to have a favicon at all cost~!
+// https://github.com/coryhouse/react-slingshot/issues/128#issuecomment-216363426
+//import icon from  './assets/favicon.ico';
 import path from 'path';
 import Favicon from 'react-favicon';
 
-import Main from './main/Main.jsx';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { Query, ApolloProvider } from 'react-apollo';
@@ -24,12 +28,14 @@ const client = new ApolloClient({
 class App extends React.Component {
 
     render() {
+        console.log("coucou from console in App.jsx");
         return (
             <div>
+                <p>coucou from jsx file in App.jsx</p>
                 {/* <Favicon url={ "http://oflisback.github.io/react-favicon/public/img/github.ico" } /> */}
                 <ApolloProvider client={client}>
                     <BrowserRouter>
-                        <Route path="/" component={Main} />
+                        <Main />
                     </BrowserRouter>
                 </ApolloProvider>
             </div>

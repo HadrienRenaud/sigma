@@ -6,6 +6,8 @@ Pour obtenir une copie, clonez-le avec
 
     git clone git@gitlab.binets.fr:br/sigma-frontend
 
+Installez React Developer Tools sur firefox !!!
+
 ## Structure
 
 La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude, la plupart des fichiers .js(x) sont aussi extensivement documentés plus bas.

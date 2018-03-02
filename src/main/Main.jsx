@@ -1,25 +1,36 @@
 import React from 'react';
-import {Route, Switch, Link, } from 'react-router-dom';
-import {Grid, Image} from 'semantic-ui-react';
+import { Route, Switch, Link, } from 'react-router-dom';
+import { Grid, Image } from 'semantic-ui-react';
 
 import Header from './Header.jsx';
-import Footer from './Footer.jsx';
+// import Footer from './Footer.jsx';
 import Body from './Body.jsx';
 import ListGroups from './group/ListGroups.jsx';
+
+/**
+ * @file Le React.Component principal, celui qui est généré quel que soit le path, et dans lequel
+ * on "importe" les Component Header, ListGroups, Body et Footer.
+ */
 
 const Main = () => (
     /**La doc normale de Semantic UI n'est pas en accord
      * Normalement il y a sixteen wide column en pour une ligne
      * Mais ce code n'utiliser que twelve wide columns
-    */
-    <div>
-        <Header/>
+     */
 
+    <Route path="/"> {/*inclusive path match*/}
+        
+        <span>coucou from Main.jsx</span>
+
+        {/*
+        <Header />
         <ListGroups/>
-        <Body/>
+        <Body />
+        */}
 
-        {/*<Footer/>*/}
-    </div>
+        {/*<Footer/> does not work yet :/ */}
+
+    </Route>
 );
 
 export default Main;

@@ -1,7 +1,7 @@
 /*eslint-env node*/
 
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const config = {
     entry: [
@@ -9,14 +9,14 @@ const config = {
     ],
 
     output: {
-        path: path.join(__dirname,'build'),
-        publicPath: "", // '/'
+        path: path.join(__dirname, 'build'),
+        publicPath: "/", // default: ""
         filename: 'bundle.js'
     },
 
     devServer: {
         contentBase: path.join(__dirname, 'build'),
-        port: 80,  
+        port: 80,
         historyApiFallback: true,
     },
 
@@ -31,14 +31,14 @@ const config = {
 
                 query: {
                     presets: ['env', 'react'],
-                    plugins: ['transform-decorators-legacy', 
-                        'transform-class-properties', 
+                    plugins: ['transform-decorators-legacy',
+                        'transform-class-properties',
                         'transform-object-rest-spread',
                     ]
                 }
             }, {
                 test: /\.css$/,
-                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
+                use: ['style-loader', 'css-loader', 'sass-loader']
             }, {
                 test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
                 loader: 'url-loader',
@@ -50,15 +50,16 @@ const config = {
     },
 
     /*
+    // does not seem to work. injects title and favicon tag as intended, but breaks things
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Projet Sigma',
-            inject: 'head',
+            inject: 'body',
             favicon: 'favicon.ico'
         })
     ]
     */
-   
+
 };
 
 module.exports = config;

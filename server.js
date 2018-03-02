@@ -2,12 +2,7 @@
 
 const path = require('path');
 const express = require('express');
-//const favicon =require('serve-favicon');
-
 const app = express();
-
-// favicon: capital sigma symbol
-//app.use(favicon(path.resolve('./', 'assets', 'favicon.ico')));
 
 // serving static files
 app.use(express.static('./build', 
@@ -36,6 +31,7 @@ app.get('*', (req, res) => {
         }
     });
 });
+
 
 app.listen(port, () => {
     console.log('Express server listening on port %d in %s mode', port, app.settings.env);
