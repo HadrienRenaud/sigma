@@ -94,3 +94,8 @@ qui fait appel au script `eslint src/` défini dans le [`package.json`](../packa
 Sinon, si vous utilisez Atom ou Visual Studio Code pour éditer votre code, il existe des plugins qui font tourner ESLint en _live_ sur le code et vérifient que tout est en ordre.
 
 Pour mieux comprendre ESLint, référez-vous à la [doc](https://eslint.org/docs/user-guide/getting-started).
+
+### Note concernant react-router
+
+On importe *seulement* withRouter de react-router. Tout le reste (BrowserRouter, Route, Link, NavLink...) doit etre importe depuis *react-router-dom*.
+

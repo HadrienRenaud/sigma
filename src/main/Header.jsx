@@ -4,7 +4,8 @@
 
 import React from 'react';
 import { Menu, Button, Image, Container } from 'semantic-ui-react';
-import { withRouter, Link, NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import logo_sigma from '../assets/logo_sigma.png';
 
 class HeaderUnrouted extends React.Component {
