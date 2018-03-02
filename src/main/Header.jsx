@@ -11,7 +11,7 @@ import LoginForm from './LoginForm.jsx';
 
 class HeaderUnrouted extends React.Component {
 
-    /*
+    
     
     state = { 
         activeItem: 'trombi'
@@ -19,11 +19,11 @@ class HeaderUnrouted extends React.Component {
 
     /**
      * @function Change l'élément actif.
-     
+     */
 
     handleClick = (e, { name }) => this.setState({ activeItem: name })
 
-    */
+    
 
     render() {
         //const activeItem = this.state.activeItem;
