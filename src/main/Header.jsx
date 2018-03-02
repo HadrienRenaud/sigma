@@ -31,6 +31,7 @@ class HeaderUnrouted extends React.Component {
         return (
 
             <Menu fixed='top' inverted>
+                
                 <Menu.Item as={Link} exact to='/' content="Status" />
                 <Menu.Item as={Link} to="/queue" content="Hold Queue" />
                 <Menu.Item as={NavLink} to="/messages" content="Messages" />
@@ -49,14 +50,8 @@ class HeaderUnrouted extends React.Component {
                 <Menu.Item as={NavLink} to='/services' name='services' active={activeItem === name}>
                     <Button>Services BR</Button>
                 </Menu.Item>
-<<<<<<< HEAD
                 <Menu.Item as={NavLink} to='/createAccount' position='right' name='createAccount' active={activeItem === name}>
                     <Button color="blue">Créer son compte</Button>
-=======
-                {/*Ne fonctionne pas encore*/}
-                <Menu.Item as={Link} to='/event/create' position='right' name='createAccount' active={activeItem === name}>
-                    <Button as={Link} to='/event/create' color="blue">Se connecter</Button>
->>>>>>> 355f229755c1c84402e8d19a5543a36782c0cf81
                 </Menu.Item>
                 */}
             </Menu>
