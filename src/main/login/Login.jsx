@@ -30,7 +30,7 @@ class LoginUnrouted extends React.Component {
 }
 
 const Login = withRouter(LoginUnrouted);
-
+/*
 const Group = ({ match }) => (
     <div>
         <Switch>
@@ -40,6 +40,6 @@ const Group = ({ match }) => (
         </Switch>
     </div>
 );
-
+*/
 
 export default Login;
