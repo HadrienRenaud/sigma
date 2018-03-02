@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import path from 'path';
+import Favicon from 'react-favicon';
+
 import Main from './main/Main.jsx';
 import { HttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -21,13 +24,18 @@ const client = new ApolloClient({
 class App extends React.Component {
 
     render() {
-        return (<ApolloProvider client={client}>
-            <BrowserRouter>
-                <Route path="/" component={Main} />
-            </BrowserRouter>
-        </ApolloProvider>);
+        return (
+            <div>
+                {/* <Favicon url={ "http://oflisback.github.io/react-favicon/public/img/github.ico" } /> */}
+                <ApolloProvider client={client}>
+                    <BrowserRouter>
+                        <Route path="/" component={Main} />
+                    </BrowserRouter>
+                </ApolloProvider>
+            </div>
+        );
 
-    }    
+    }
 }
 
 import '../semantic/dist/semantic.min.css';
