@@ -14,8 +14,8 @@ import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 const GET_ALLGROUPS = gql`
     query GroupQuery {
         allGroups {
+            uid
             name
-            id
             website
             school
         }
@@ -30,12 +30,20 @@ class GroupList extends React.Component {
         const { groupQuery: { loading, error, allGroups } } = this.props;
 
         if (loading) {
-            return <div>Loading...</div>;
+            return <ul>Loading...</ul>;
         } else if (error) {
-            return <div>Error</div>;
+            return <ul>Error</ul>;
         }
+
+        console.log(JSON.stringify(allGroups));
+
         return (
-            <div>Pomme de terre.</div>
+            <ul>
+                {allGroups.map(item => <ol key={item.uid}>
+                    <li>Name:{item.name}</li> 
+                    <li>Website:{item.website}</li>
+                </ol>)}
+            </ul>
         );
     }
 }
