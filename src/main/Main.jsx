@@ -3,9 +3,9 @@ import { Route, Switch, Link, } from 'react-router-dom';
 import { Grid, Image } from 'semantic-ui-react';
 
 import Header from './Header.jsx';
-// import Footer from './Footer.jsx';
+import Footer from './Footer.jsx';
 import Body from './Body.jsx';
-import ListGroups from './group/ListGroups.jsx';
+import GroupList from './group/GroupList.jsx';
 
 /**
  * @file Le React.Component principal, celui qui est généré quel que soit le path, et dans lequel
@@ -17,19 +17,14 @@ const Main = () => (
      * Normalement il y a sixteen wide column en pour une ligne
      * Mais ce code n'utiliser que twelve wide columns
      */
-
-    <Route path="/"> {/*inclusive path match*/}
+    <Route path="/">
+        <div>
+            <Header />
+            <GroupList/>
+        </div>
         
-        <span>coucou from Main.jsx</span>
-
-        {/*
-        <Header />
-        <ListGroups/>
-        <Body />
-        */}
-
+        {/*<Body />*/}
         {/*<Footer/> does not work yet :/ */}
-
     </Route>
 );
 

@@ -18,7 +18,8 @@ import { ApolloClient } from 'apollo-client';
 const GRAPHQL_API_URL = "http://localhost:3000/graphql";
 
 const httpLink = new HttpLink({
-    uri: GRAPHQL_API_URL
+    uri: GRAPHQL_API_URL,
+    credentials: 'include'
 });
 const client = new ApolloClient({
     link: httpLink,
@@ -30,15 +31,11 @@ class App extends React.Component {
     render() {
         console.log("coucou from console in App.jsx");
         return (
-            <div>
-                <p>coucou from jsx file in App.jsx</p>
-                {/* <Favicon url={ "http://oflisback.github.io/react-favicon/public/img/github.ico" } /> */}
-                <ApolloProvider client={client}>
-                    <BrowserRouter>
-                        <Main />
-                    </BrowserRouter>
-                </ApolloProvider>
-            </div>
+            <ApolloProvider client={client}>
+                <BrowserRouter>
+                    <Main/>
+                </BrowserRouter>
+            </ApolloProvider>
         );
 
     }

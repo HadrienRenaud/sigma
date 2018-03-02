@@ -17,10 +17,10 @@ class HeaderUnrouted extends React.Component {
 
             <Menu>
 
-                <Menu.Item as={NavLink} to='/#' content='Home'>
+                <Menu.Item as={NavLink} to='/#'>
                     <Image alt='Logo' src={logo_sigma} size='mini' />
                 </Menu.Item>
-                <Menu.Item as={NavLink} to='/calendar' content='Calendar'>
+                <Menu.Item as={NavLink} to='/calendar'>
                     Calendrier
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/trombinoscope' name='trombi'>

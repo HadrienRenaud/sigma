@@ -1,8 +1,6 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Header from '../Header.jsx';
-import Footer from '../Footer.jsx';
 import { Route, Link } from 'react-router-dom';
 
 import faker from 'faker';
@@ -37,11 +35,7 @@ class GroupList extends React.Component {
             return <div>Error</div>;
         }
         return (
-            <ul>
-                {allGroups.map(({ id, name, website }) => (
-                    <li key={id}>ID : {id} Nom : {name}<p>{website}</p></li>
-                ))}
-            </ul>
+            <div>Pomme de terre.</div>
         );
     }
 }
