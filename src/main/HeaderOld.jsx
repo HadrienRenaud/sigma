@@ -27,8 +27,8 @@ class HeaderUnrouted extends React.Component {
         //const activeItem = this.state.activeItem;
 
         return (
-
-            <Menu fixed='top' inverted>
+            
+            <Menu>
                 <Menu.Item as={Link} exact to='/' content="Status" />
                 <Menu.Item as={Link} to="/queue" content="Hold Queue" />
                 <Menu.Item as={NavLink} to="/messages" content="Messages" />
@@ -52,7 +52,7 @@ class HeaderUnrouted extends React.Component {
                 </Menu.Item>
                 */}
             </Menu>
-
+            
         );
     }
 }
