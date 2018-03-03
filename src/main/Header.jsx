@@ -20,7 +20,7 @@ class Header extends React.Component {
                 </Menu.Item>
 
                 {/*NavLink to path /calendar, telling Center to render [TODO]*/}
-                <Menu.Item as={NavLink} to='/calendar'>
+                <Menu.Item as={NavLink} to='/event'>
                     Calendrier
                 </Menu.Item>
 

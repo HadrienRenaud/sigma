@@ -23,7 +23,7 @@ const Main = () => (
         <GroupList />
         <PostList />
         <Body />
-        {/*<Footer/> does not work yet :/ */ }
+        <Footer />
     </div>
 );
 
