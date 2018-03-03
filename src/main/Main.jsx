@@ -6,10 +6,11 @@ import Header from './Header.jsx';
 import Footer from './Footer.jsx';
 import Body from './Body.jsx';
 import GroupList from './group/GroupList.jsx';
+import PostList from './messages/PostList.jsx';
 
 /**
- * @file Le React.Component principal, celui qui est généré quel que soit le path, et dans lequel
- * on "importe" les Component Header, GroupList, Body et Footer.
+ * @file Le composant React principal, généré quel que soit le path, et dans lequel
+ * on "importe" les composants Header, GroupList, Body et Footer.
  */
 
 const Main = () => (

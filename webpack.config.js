@@ -2,6 +2,7 @@
 
 const path = require('path');
 // const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const config = {
     entry: [
@@ -45,20 +46,22 @@ const config = {
                 options: {
                     limit: 10000
                 }
+            },{
+                test: /\.html$/,
+                loader: 'file-loader',
+                exclude: /(node_modules|doc)/
             }
         ]
     },
 
-    /*
-    // does not seem to work. injects title and favicon tag as intended, but breaks things
     plugins: [
-        new HtmlWebpackPlugin({
-            title: 'Projet Sigma',
-            inject: 'body',
-            favicon: 'favicon.ico'
-        })
+        new CopyWebpackPlugin(
+            [{
+                from: 'index.html',
+                to: 'index.html'
+            }]
+        )
     ]
-    */
 
 };
 

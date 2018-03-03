@@ -45,31 +45,32 @@
     <section>
         <article><h2>Introduction</h2><p>Ce dépôt contient le <em>frontend</em> de Sigma, le nouveau Frankiz.</p>
 <p>Pour obtenir une copie, clonez-le avec</p>
-<pre class="prettyprint source"><code>git clone git@gitlab.binets.fr:br/sigma-frontend</code></pre><h2>Structure</h2><p>La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude, la plupart des fichiers .js(x) sont aussi extensivement documentés plus bas.</p>
+<pre class="prettyprint source"><code>git clone git@gitlab.binets.fr:br/sigma-frontend</code></pre><p>Installez React Developer Tools sur firefox !!!</p>
+<h2>Structure</h2><p>La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude, la plupart des fichiers .js(x) sont aussi extensivement documentés plus bas.</p>
 <ul>
 <li>Racine du projet : fichiers de configuration ;<ul>
 <li>config.json : données &quot;sensibles&quot; spécifique au projet à priori non partageable (adresse du LDAP, mots de passe),</li>
 <li>configfile_doc.json : JSDoc, l'outil de génération automatique de documentation,</li>
 <li>autres fichiers relatifs à des modules particuliers ou à la gestion de paquets,</li>
-<li><a href="./assets"><code>assets</code></a> : ressources ;<ul>
+<li><a href="../assets"><code>assets</code></a> : ressources ;<ul>
 <li>images et divers (dont l'essentiel flavicon)</li>
 </ul>
 </li>
-<li><a href="./build"><code>build</code></a> : dépendances gérées automatiquement ;<ul>
+<li><a href="../build"><code>build</code></a> : dépendances gérées automatiquement ;<ul>
 <li>bundle.js est un monstrueux fichier généré automatiquement qui gère nos dépendances.</li>
 </ul>
 </li>
-<li><a href="./doc"><code>doc</code></a> : documentation ;<ul>
+<li><a href="../doc"><code>doc</code></a> : documentation ;<ul>
 <li>ensemble de pages html et fichiers associés ; index.html permet de naviguer sereinement sur toute la doc JSDoc.</li>
 </ul>
 </li>
-<li><a href="./node_modules"><code>node_modules</code></a> : gestion automatique des modules.</li>
-<li><a href="./src"><code>src</code></a> : code source<ul>
-<li><a href="./src/main"><code>main</code></a> : ?<ul>
-<li><a href="./src/main/event"><code>event</code></a> : gestion des events</li>
-<li><a href="./src/main/group"><code>group</code></a> : ?</li>
-<li><a href="./src/main/images"><code>images</code></a> : ?</li>
-<li><a href="./src/main/member"><code>member</code></a> : ?</li>
+<li><a href="../node_modules"><code>node_modules</code></a> : gestion automatique des modules.</li>
+<li><a href="../src"><code>src</code></a> : code source<ul>
+<li><a href="../src/main"><code>main</code></a> : ?<ul>
+<li><a href="../src/main/event"><code>event</code></a> : gestion des events</li>
+<li><a href="../src/main/group"><code>group</code></a> : ?</li>
+<li><a href="../src/main/images"><code>images</code></a> : ?</li>
+<li><a href="../src/main/member"><code>member</code></a> : ?</li>
 </ul>
 </li>
 </ul>
@@ -82,15 +83,15 @@
 <p>Le standard JavaScript utilisé est ES6.</p>
 <p>Il existe deux implémentations différentes de SemanticUI avec React, une native Semantic et une autre qui fait le lien entre React et Semantic directement, nous avons choisi la deuxième. La doc se trouve à : https://react.semantic-ui.com/.</p>
 <p>La documentation de React et Apollo est disponible sur les sites respectifs.</p>
-<p>Les fichiers source <code>.jsx</code> de l'app React se situent dans <code>src</code>, et le point d'entrée est <a href="./App.jsx"><code>App.jsx</code></a>, qui redirige directement vers <a href="./Main.jsx"><code>Main.jsx</code></a></p>
-<p>La compilation de <code>Main.js</code> est ses dépendances dans <code>src</code> se fait avec Webpack, qui est configuré dans <a href="./webpack.config.js"><code>webpack.config.js</code></a>.</p>
+<p>Les fichiers source <code>.jsx</code> de l'app React se situent dans <code>src</code>, et le point d'entrée est <a href="../App.jsx"><code>App.jsx</code></a>, qui redirige directement vers <a href="../Main.jsx"><code>Main.jsx</code></a></p>
+<p>La compilation de <code>Main.js</code> est ses dépendances dans <code>src</code> se fait avec Webpack, qui est configuré dans <a href="../webpack.config.js"><code>webpack.config.js</code></a>.</p>
 <p>La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude, la plupart des fichiers .js sont aussi extensivement documentés plus bas.</p>
 <h2>Installation</h2><p>Pour faire tourner le code, il faut</p>
 <ul>
 <li>installer les dépendances npm</li>
 <li>compiler les fichiers source en <code>build/bundle.js</code></li>
 </ul>
-<p>Des scripts npm sont configurés dans <a href="./package.json"><code>package.json</code></a>, et un <a href="./Makefile">makefile</a> est fourni.</p>
+<p>Des scripts npm sont configurés dans <a href="../package.json"><code>package.json</code></a>, et un <a href="../Makefile">makefile</a> est fourni.</p>
 <h3>Simple: Makefile</h3><p>Pour simplifier les choses, le Makefile installe les dépendances et transpile le code.</p>
 <p>Pour installer les dépendances et compiler,</p>
 <pre class="prettyprint source"><code>make setup</code></pre><p>ou juste <code>make</code> (<code>mingw32-make</code> avec Git Bash sous Windows).</p>
@@ -101,14 +102,15 @@
 <li><code>npm run watch</code> lance Webpack avec le flag <code>--watch</code> et recompile lorsqu'un fichier est modifié</li>
 </ul>
 <p>Ensuite, <code>npm start</code> démarre un serveur Express servant l'application à l'adresse http://localhost:8888.</p>
-<h2>Documentation</h2><p>La documentation détaillée du projet est <a href="./doc/index.html">ici</a>. Elle a été compilée avec <a href="http://usejsdoc.org/index.html">JSDoc</a> sous format hmtl selon le fichier de configuration <a href="./configfile_doc.json"><code>configfile_doc.json</code></a> à la racine du projet.</p>
-<p>Les fichiers compilés se situent dans <a href="./doc"><code>doc</code></a> avec leurs fichiers image. Par nature de l'outil JSDoc il est facile de documenter en détail des fonctions .js mais plus compliqué de documenter un fichier.</p>
+<h2>Documentation</h2><p>La documentation détaillée du projet est <a href="./index.html">ici</a>. Elle a été compilée avec <a href="http://usejsdoc.org/index.html">JSDoc</a> sous format hmtl selon le fichier de configuration <a href="../configfile_doc.json"><code>configfile_doc.json</code></a> à la racine du projet.</p>
+<p>Les fichiers compilés se situent dans <a href="."><code>doc</code></a> avec leurs fichiers image. Par nature de l'outil JSDoc il est facile de documenter en détail des fonctions .js mais plus compliqué de documenter un fichier.</p>
 <p>A la fin de ce fichier JSDoc rajjoute les commentaires placés dans chacun des fichiers et des hyperliens pour y accéder.</p>
 <h2>Appendixes</h2><h3>ESLint</h3><p>On utilisera ESLint pour standardiser le code : un ensemble de règles de style pour le code sont appliquées, et quelques-unes d'entre elles sont dans le fichier <code>.eslintrc.json</code>. Pour l'instant, la config ESLint impose d'utiliser quatre espaces pour les indentations et d'utiliser des points-virgule en fin de ligne.</p>
 <p>Il est préférable de l'installer <strong>globalement</strong> avec <code>npm install -g eslint</code>. Pour faire valider les fichiers source par ESLint, utilisez <code>npm run lint</code>.</p>
-<p>qui fait appel au script <code>eslint src/</code> défini dans le <a href="./package.json"><code>package.json</code></a>. L'option <code>--fix</code> permet de corriger les fichiers.</p>
+<p>qui fait appel au script <code>eslint src/</code> défini dans le <a href="../package.json"><code>package.json</code></a>. L'option <code>--fix</code> permet de corriger les fichiers.</p>
 <p>Sinon, si vous utilisez Atom ou Visual Studio Code pour éditer votre code, il existe des plugins qui font tourner ESLint en <em>live</em> sur le code et vérifient que tout est en ordre.</p>
-<p>Pour mieux comprendre ESLint, référez-vous à la <a href="https://eslint.org/docs/user-guide/getting-started">doc</a>.</p></article>
+<p>Pour mieux comprendre ESLint, référez-vous à la <a href="https://eslint.org/docs/user-guide/getting-started">doc</a>.</p>
+<h3>Note concernant react-router</h3><p>On importe <em>seulement</em> withRouter de react-router. Tout le reste (BrowserRouter, Route, Link, NavLink...) doit etre importe depuis <em>react-router-dom</em>.</p></article>
     </section>
 
 
@@ -116,16 +118,303 @@
 
 
 
+
+
+
+<section>
+
+<header>
+    
+        <h2>src/main/Header.jsx</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>En-tête des pages sur Sigma.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Header.jsx.html">Header.jsx</a>, <a href="Header.jsx.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>src/main/login/Login.jsx</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Page de connexion</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-author">Author:</dt>
+    <dd class="tag-author">
+        <ul>
+            <li>guillaume.wang</li>
+        </ul>
+    </dd>
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="login_Login.jsx.html">login/Login.jsx</a>, <a href="login_Login.jsx.html#line1">line 1</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>src/main/Main.jsx</h2>
+        
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+        
+            <div class="description"><p>Le composant React principal, généré quel que soit le path, et dans lequel
+on &quot;importe&quot; les composants Header, GroupList, Body et Footer.</p></div>
+        
+
+        
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="Main.jsx.html">Main.jsx</a>, <a href="Main.jsx.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="HeaderUnrouted.html">HeaderUnrouted</a></li></ul><h3>Global</h3><ul><li><a href="global.html#RightBar">RightBar</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="GroupList.html">GroupList</a></li><li><a href="Post.html">Post</a></li><li><a href="PostList.html">PostList</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Requ%25C3%25AAte">Requête</a></li><li><a href="global.html#RightBar">RightBar</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Feb 28 2018 12:26:02 GMT+0100 (Paris, Madrid)
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Sat Mar 03 2018 01:56:03 GMT+0100 (Romance Standard Time)
 </footer>
 
 <script> prettyPrint(); </script>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: RightBar.jsx</title>
+    <title>JSDoc: Source: messages/PostList.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: RightBar.jsx</h1>
+    <h1 class="page-title">Source: messages/PostList.jsx</h1>
 
     
 
@@ -27,27 +27,54 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
+import { Label } from 'semantic-ui-react';
+import Post from './Post.jsx';
 
-/** 
- * @summary Classe codant pour le bandeau de sigma
-*/
-const RightBar = () => (
-    &lt;div className="ui container">
-        &lt;Segment.Group>
-            &lt;Segment color="teal" inverted>
-                &lt;p>Prénom Nom&lt;/p>
-            &lt;/Segment>
-            &lt;Button.Group basic fluid vertical>
-                &lt;Link to="/settings">&lt;Button>Paramètres&lt;/Button>&lt;/Link>
-                &lt;Link to="/logout">&lt;Button>Déconnexion&lt;/Button>&lt;/Link>
-            &lt;/Button.Group>
-        &lt;/Segment.Group>
-    &lt;/div>
-);
+/**
+ * @constant Requête pour obtenir tous les posts.
+ */
+const ALL_POSTS = gql`
+    query PostQuery {
+        allPosts {
+            id
+            title
+            authors {
+                uid
+                name
+            }
+        }
+    }
+`;
 
-export default RightBar;</code></pre>
+/**
+ * @class Liste des publications effectuées.
+ * @author manifold
+ * @extends React.Component
+ */
+class PostList extends React.Component {
+
+    render() {
+        const { postQuery: { loading, error, allPosts }} = this.props;
+
+        if (loading) {
+            return &lt;div>Loading, please wait...&lt;/div>;
+        } else if (error) {
+            return &lt;div>Error {error}&lt;/div>;
+        }
+
+        return (
+            &lt;div>
+                {allPosts.map(item =>
+                    &lt;Post key={item.id} data={item} />
+                )}
+            &lt;/div>
+        );
+    }
+}
+
+export default graphql(ALL_POSTS, {name: 'postQuery'})(PostList);</code></pre>
         </article>
     </section>
 
