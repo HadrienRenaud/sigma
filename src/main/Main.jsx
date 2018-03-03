@@ -20,8 +20,8 @@ const Main = () => (
      */
     <div>
         <Header />
-        <GroupList />
-        <PostList />
+        {/*<GroupList />*/}
+        {/*<PostList />*/}
         <Body />
         {/*<Footer/> does not work yet :/ */ }
     </div>

@@ -24,13 +24,15 @@ class LoginUnrouted extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userValue: '',
-            passwordValue: ''
+            userInput: "asd",
+            passwordInput: ""
         };
 
         // This binding is necessary to make `this` work in the callback
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+
+        this.handleUserChange = this.handleUserChange.bind(this);
     }
 
     static propTypes = {
@@ -46,10 +48,20 @@ class LoginUnrouted extends React.Component {
 
     handleInputChange(event) {
         const value = event.target.value;
-        const name = event.target.name;
+        const name = event.target.name; //l'attribut "name" du Component qui appelle ce handle (par un onChange)
         this.setState({ [name]: value }); //ES6 computed property name syntax
+
+        console.log("Modified"+name);
+        console.log(this.state.userInput);
+        console.log(this.state.passwordInput);
+        console.log("");
     }
-    
+
+    handleUserChange(event) {
+        this.setState({ userInput: event.target.value });
+        console.log(this.state.userInput);
+    }
+
     render() {
         const { contextRef } = this.state;
         const { match, location, history } = this.props;
@@ -75,7 +87,7 @@ class LoginUnrouted extends React.Component {
                 >
                     <Grid.Column style={{ maxWidth: 450 }}>
                         <Header as='h2' color='teal' textAlign='center'>
-                            <Image src='/logo.png' />
+                            {/*<Image src='./assets/logo_sigma.png' />*/}
                             {' '}Log-in to your account
                         </Header>
                         <Form size='large' onSubmit={this.handleSubmit}>
@@ -85,9 +97,10 @@ class LoginUnrouted extends React.Component {
                                     icon='user'
                                     iconPosition='left'
                                     placeholder='Identifiant Frankiz'
-                                    name='user'
-                                    value={this.state.userValue}
-                                    onChange={this.handleInputChange}
+                                    type='text'
+                                    name='userInput'
+                                    value={this.state.userInput}
+                                    onChange={this.handleUserChange}
                                 />
                                 <Form.Input
                                     fluid
@@ -95,8 +108,8 @@ class LoginUnrouted extends React.Component {
                                     iconPosition='left'
                                     placeholder='Mot de passe'
                                     type='password'
-                                    nane='password'
-                                    value={this.state.passwordValue}
+                                    name='passwordInput'
+                                    value={this.state.passwordInput}
                                     onChange={this.handleInputChange}
                                 />
 
