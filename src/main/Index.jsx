@@ -6,7 +6,8 @@ import logo_sigma_large from '../assets/logo_sigma_large.png';
 
 const Index = ({match}) => (
     <div>
-        <GroupAnnouncements/>
+        <p>Page d'accueil (Index)</p>
+        {/* <GroupAnnouncements/> */}
     </div>
 );
 

@@ -29,11 +29,11 @@ const client = new ApolloClient({
 class App extends React.Component {
 
     render() {
-        console.log("coucou from console in App.jsx");
         return (
             <ApolloProvider client={client}>
                 <BrowserRouter>
-                    <Main/>
+                    <Route path="/" component={Main} />
+                    {/*inclusive path matching*/}
                 </BrowserRouter>
             </ApolloProvider>
         );

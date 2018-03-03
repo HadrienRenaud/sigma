@@ -7,10 +7,9 @@ import Group from './group/Group.jsx';
 import Login from './login/Login.jsx';
 
 const Center = () => (
-    <Switch>
+    <Switch> {/*forces exclusive path matching: routes to the first Route tag that matches*/}
         <Route path="/event" component={Event} />
         <Route path="/group" component={Group} />
-        {/*Mieux comprendre le rôle de Route*/}
         <Route path="/login" component={Login} />
         <Route path="/" component={Index} />
     </Switch>

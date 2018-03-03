@@ -9,7 +9,7 @@ import GroupList from './group/GroupList.jsx';
 
 /**
  * @file Le React.Component principal, celui qui est généré quel que soit le path, et dans lequel
- * on "importe" les Component Header, ListGroups, Body et Footer.
+ * on "importe" les Component Header, GroupList, Body et Footer.
  */
 
 const Main = () => (
@@ -17,15 +17,12 @@ const Main = () => (
      * Normalement il y a sixteen wide column en pour une ligne
      * Mais ce code n'utiliser que twelve wide columns
      */
-    <Route path="/">
-        <div>
-            <Header />
-            <GroupList/>
-        </div>
-        
-        {/*<Body />*/}
-        {/*<Footer/> does not work yet :/ */}
-    </Route>
+    <div>
+        <Header />
+        {/*<GroupList /> does not work yet :/ */}
+        <Body />
+        {/*<Footer/> does not work yet :/ */ }
+    </div>
 );
 
 export default Main;
