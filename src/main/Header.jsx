@@ -35,8 +35,8 @@ class Header extends React.Component {
                 </Menu.Item>
 
                 {/*NavLink to path /login, telling Center to render main/login/Login.jsx*/}
-                <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
-                    <Button color="blue">Se connecter</Button>
+                <Menu.Item position='right' name='loginForm'>
+                    <Button as={NavLink} to='/login' color="blue">Se connecter</Button>
                 </Menu.Item>
 
             </Menu>

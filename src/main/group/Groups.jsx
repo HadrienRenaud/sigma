@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, Link, withRouter } from 'react-router-dom';
 import Error404 from '../../Errors.jsx';
-import {Button, Sticky, Icon, Popup} from 'semantic-ui-react';
+import {Button, Sticky, Icon, Popup, Label} from 'semantic-ui-react';
 
 import GroupAnnouncements from './GroupAnnouncements.jsx';
 import GroupEvents from './GroupEvents.jsx';
@@ -30,7 +30,6 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
                 <div className="ui attached fixed" /*style={{position:"fixed"}}, TODO: Find how to add Sticky*/>
                     <div className="top attached ui menu segment">
                         <h2 className="left menu">Nom du groupe</h2>
-                        <div className="right menu ui icon buttons">
                             <Popup
                                 trigger={<Button color='yellow' icon='star' />}
                                 content='Devenir administrateur'
@@ -41,13 +40,23 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
                                 content='Devenir membre'
                                 inverted
                             />
-                            <Popup
+                            {/*<Popup
                                 trigger={<Button color='pink' icon='heart' />}
                                 content='Devenir sympathisant'
                                 inverted
+                            />*/}
+                            <Popup
+                                trigger={<Button as='div' labelPosition='right'>
+                                <Button color='pink'>
+                                    <Icon name='heart' />
+                                </Button>
+                                <Label as='a' basic color='pink' pointing='left'>2,048</Label>
+                            </Button>}
+                                content='Devenir sympathisant'
+                                inverted
                             />
-                        </div>
                     </div>
+
                     <Button.Group fluid attached="top">
                         <Button as={Link} to={match.url}>Annonces</Button>
                         <Button as={Link} to={match.url+"/events"}>Évènements</Button>
@@ -70,7 +79,7 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
 
 const GroupFound = withRouter(GroupFoundUnrouted);
 
-const Group = ({match}) => (
+const Groups = ({match}) => (
     <div>
         <Switch>
             <Route path={match.url+"/list"} component={GroupList}/>
@@ -80,4 +89,4 @@ const Group = ({match}) => (
     </div>
 );
 
-export default Group;
+export default Groups;
