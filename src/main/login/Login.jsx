@@ -24,17 +24,16 @@ class LoginUnrouted extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            userInput: "asd",
+            userInput: "",
             passwordInput: ""
         };
 
         // This binding is necessary to make `this` work in the callback
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-
-        this.handleUserChange = this.handleUserChange.bind(this);
     }
 
+    // allows using this.props.match/location/history when wrapping with withRouter
     static propTypes = {
         match: PropTypes.object.isRequired,
         location: PropTypes.object.isRequired,
@@ -42,24 +41,15 @@ class LoginUnrouted extends React.Component {
     }
 
     handleSubmit(event) {
-        console.log(this.state.userValue);
-        console.log(this.state.passwordValue);
+        console.log("Submitting");
+        console.log(this.state.userInput);
+        console.log(this.state.passwordInput);
     }
 
     handleInputChange(event) {
         const value = event.target.value;
         const name = event.target.name; //l'attribut "name" du Component qui appelle ce handle (par un onChange)
         this.setState({ [name]: value }); //ES6 computed property name syntax
-
-        console.log("Modified"+name);
-        console.log(this.state.userInput);
-        console.log(this.state.passwordInput);
-        console.log("");
-    }
-
-    handleUserChange(event) {
-        this.setState({ userInput: event.target.value });
-        console.log(this.state.userInput);
     }
 
     render() {
@@ -100,7 +90,7 @@ class LoginUnrouted extends React.Component {
                                     type='text'
                                     name='userInput'
                                     value={this.state.userInput}
-                                    onChange={this.handleUserChange}
+                                    onChange={this.handleInputChange}
                                 />
                                 <Form.Input
                                     fluid
