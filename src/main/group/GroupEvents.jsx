@@ -4,7 +4,7 @@ import {Route, Link} from 'react-router-dom';
 import faker from 'faker';
 
 import {Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
-import EventCalendar from '../event/EventCalendar.jsx';
+import EventCalendar from '../messages/EventCalendar.jsx';
 
 const GroupEvents = ({match}) => (
     <div>

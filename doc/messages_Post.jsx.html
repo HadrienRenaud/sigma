@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: RightBar.jsx</title>
+    <title>JSDoc: Source: messages/Post.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: RightBar.jsx</h1>
+    <h1 class="page-title">Source: messages/Post.jsx</h1>
 
     
 
@@ -27,27 +27,47 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { Label } from 'semantic-ui-react';
 
-/** 
- * @summary Classe codant pour le bandeau de sigma
-*/
-const RightBar = () => (
-    &lt;div className="ui container">
-        &lt;Segment.Group>
-            &lt;Segment color="teal" inverted>
-                &lt;p>Prénom Nom&lt;/p>
-            &lt;/Segment>
-            &lt;Button.Group basic fluid vertical>
-                &lt;Link to="/settings">&lt;Button>Paramètres&lt;/Button>&lt;/Link>
-                &lt;Link to="/logout">&lt;Button>Déconnexion&lt;/Button>&lt;/Link>
-            &lt;/Button.Group>
-        &lt;/Segment.Group>
-    &lt;/div>
-);
+/**
+ * @class Définit le composant Post, qui représentera l'ensemble des Posts
+ * effectués par les groupes.
+ * @author manifold
+ * @extends React.Component
+ */
+class Post extends React.Component {
 
-export default RightBar;</code></pre>
+    /**
+     * Insère les données de `props.data` dans les champs `title` et `authors`.
+     * @param {object} props - Propriétés passées par le parent lorsque
+     * le composant est initialisé.
+     */
+    constructor(props) {
+        super(props);
+        this.props.title = props.data.title;
+        this.props.authors = props.data.authors;
+    }
+
+    static propTypes = {
+        title: PropTypes.string.isRequired,
+        authors: PropTypes.arrayOf(PropTypes.object).isRequired
+    }
+
+    render() {
+        return (
+            &lt;Label>
+                {this.props.title}
+                {this.props.authors.map(gr => 
+                    &lt;li key={gr.uid}>{gr.name}&lt;/li>
+                )}
+            &lt;/Label>
+        );
+    }
+
+}
+
+export default Post;</code></pre>
         </article>
     </section>
 

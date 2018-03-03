@@ -1,3 +1,7 @@
+/**
+ * @file Page de connexion
+ * @author guillaume.wang
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, Link, withRouter } from 'react-router-dom';

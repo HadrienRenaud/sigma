@@ -3,8 +3,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Route, Link } from 'react-router-dom';
 
-import faker from 'faker';
-
 import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 
 
@@ -22,7 +20,8 @@ const GET_ALLGROUPS = gql`
     }
 `;
 /**
- * @description Liste de groupes
+ * @class Liste des groupes.
+ * @author manifold
  */
 class GroupList extends React.Component {
 
@@ -30,19 +29,22 @@ class GroupList extends React.Component {
         const { groupQuery: { loading, error, allGroups } } = this.props;
 
         if (loading) {
-            return <ul>Loading...</ul>;
+            return <li>Loading...</li>;
         } else if (error) {
-            return <ul>Error</ul>;
+            return <li>Error</li>;
         }
 
         console.log(JSON.stringify(allGroups));
 
         return (
             <ul>
-                {allGroups.map(item => <ol key={item.uid}>
-                    <li>Name:{item.name}</li> 
-                    <li>Website:{item.website}</li>
-                </ol>)}
+                {allGroups.map(item => 
+                    <li key={item.uid}>Groupe : {item.name}
+                        <ul> 
+                            <li>École : {item.school}</li>
+                            <li>Site : <a href={"http://"+item.website}>{item.website}</a></li>
+                        </ul>
+                    </li>)}
             </ul>
         );
     }

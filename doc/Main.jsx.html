@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: RightBar.jsx</title>
+    <title>JSDoc: Source: Main.jsx</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: RightBar.jsx</h1>
+    <h1 class="page-title">Source: Main.jsx</h1>
 
     
 
@@ -27,27 +27,38 @@
     <section>
         <article>
             <pre class="prettyprint source linenums"><code>import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component } from 'semantic-ui-react';
+import { Route, Switch, Link, } from 'react-router-dom';
+import { Grid, Image } from 'semantic-ui-react';
 
-/** 
- * @summary Classe codant pour le bandeau de sigma
-*/
-const RightBar = () => (
-    &lt;div className="ui container">
-        &lt;Segment.Group>
-            &lt;Segment color="teal" inverted>
-                &lt;p>Prénom Nom&lt;/p>
-            &lt;/Segment>
-            &lt;Button.Group basic fluid vertical>
-                &lt;Link to="/settings">&lt;Button>Paramètres&lt;/Button>&lt;/Link>
-                &lt;Link to="/logout">&lt;Button>Déconnexion&lt;/Button>&lt;/Link>
-            &lt;/Button.Group>
-        &lt;/Segment.Group>
-    &lt;/div>
+import Header from './Header.jsx';
+import Footer from './Footer.jsx';
+import Body from './Body.jsx';
+import GroupList from './group/GroupList.jsx';
+import PostList from './messages/PostList.jsx';
+
+/**
+ * @file Le composant React principal, généré quel que soit le path, et dans lequel
+ * on "importe" les composants Header, GroupList, Body et Footer.
+ */
+
+const Main = () => (
+    /**La doc normale de Semantic UI n'est pas en accord
+     * Normalement il y a sixteen wide column en pour une ligne
+     * Mais ce code n'utiliser que twelve wide columns
+     */
+    &lt;Route path="/">
+        &lt;div>
+            &lt;Header />
+            &lt;GroupList/>
+            &lt;PostList/>
+        &lt;/div>
+        
+        {/*&lt;Body />*/}
+        {/*&lt;Footer/> does not work yet :/ */}
+    &lt;/Route>
 );
 
-export default RightBar;</code></pre>
+export default Main;</code></pre>
         </article>
     </section>
 

@@ -15,7 +15,7 @@ class HeaderUnrouted extends React.Component {
     render() {
         return (
 
-            <Menu>
+            <Menu inverted>
 
                 <Menu.Item as={NavLink} to='/#'>
                     <Image alt='Logo' src={logo_sigma} size='mini' />
