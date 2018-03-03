@@ -1,64 +1,36 @@
 import React from 'react';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component, Grid, Container, Header, List } from 'semantic-ui-react';
+import { Accordion, Button, Segment, Icon, Component, Grid, Container, Header, List, Divider } from 'semantic-ui-react';
 
-//const Footer = () => (
-{/* 
-    <Segment
-        inverted
-        style={{ margin: '5em 0em 0em', padding: '5em 0em' }}
-        vertical
-    >
+const Footer = () => (
+    <div>
+        <Divider hidden />
+        <Divider hidden />
         <Container textAlign='center'>
-            <Grid columns={4} divided stackable inverted>
-                <Grid.Row>
-                    <Grid.Column>
-                        <Header inverted as='h4' content='Group 1' />
-                        <List link inverted>
-                            <List.Item as='a'>Link One</List.Item>
-                            <List.Item as='a'>Link Two</List.Item>
-                            <List.Item as='a'>Link Three</List.Item>
-                            <List.Item as='a'>Link Four</List.Item>
-                        </List>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Header inverted as='h4' content='Group 2' />
-                        <List link inverted>
-                            <List.Item as='a'>Link One</List.Item>
-                            <List.Item as='a'>Link Two</List.Item>
-                            <List.Item as='a'>Link Three</List.Item>
-                            <List.Item as='a'>Link Four</List.Item>
-                        </List>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Header inverted as='h4' content='Group 3' />
-                        <List link inverted>
-                            <List.Item as='a'>Link One</List.Item>
-                            <List.Item as='a'>Link Two</List.Item>
-                            <List.Item as='a'>Link Three</List.Item>
-                            <List.Item as='a'>Link Four</List.Item>
-                        </List>
-                    </Grid.Column>
-                    <Grid.Column>
-                        <Header inverted as='h4' content='Footer Header' />
-                        <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
-                    </Grid.Column>
-                </Grid.Row>
-            </Grid>
-            <Divider inverted section />
-            <Image src='/logo.png' centered size='mini' />
-            <List horizontal inverted divided link>
-                <List.Item as='a' href='#'>Site Map</List.Item>
-                <List.Item as='a' href='#'>Contact Us</List.Item>
-                <List.Item as='a' href='#'>Terms and Conditions</List.Item>
-                <List.Item as='a' href='#'>Privacy Policy</List.Item>
-            </List>
+            This is the bottom <Icon name='hand outline down' />
         </Container>
-    </Segment>
-    */}
-    
+        <Divider hidden />
+    </div>
 
-//);
+    /*<Segment
+          inverted
+          style={{ margin: '5em 0em 0em', padding: '5em 0em' }}
+          vertical
+                </Grid.Column>
+                <Grid.Column>
+                  <Header inverted as='h4' content='Footer Header' />
+                  <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
+                  <p>This is the bottom<Icon hand outline down /></p>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+              <List.Item as='a' href='#'>Privacy Policy</List.Item>
+            </List>
+          </Container>
+        </Segment>
+    </Segment>*/
+);
 
-//export default Footer;
+export default Footer;
+
