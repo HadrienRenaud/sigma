@@ -29,8 +29,6 @@ class GroupList extends React.Component {
     render() {
         const { groupQuery: { loading, error, accessGroups } } = this.props;
 
-        console.log(accessGroups);
-
         if (loading) {
             return <li>Loading...</li>;
         } else if (error) {
@@ -43,7 +41,7 @@ class GroupList extends React.Component {
                     <li key={item.uid}>
                         <ul>
                             <li>Nom : {item.name} </li>
-                            <li>Site : {item.website} </li>
+                            <li>Site : {item.website}</li>
                         </ul>
                     </li>
                 )}

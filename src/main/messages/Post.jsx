@@ -19,12 +19,19 @@ class Post extends React.Component {
 
     render() {
         return (
-            <Label>
-                {this.props.data.title}
+            <div>
+                <Label>
+                    {this.props.data.title}
+                </Label>
+                {this.props.data.description}
                 {this.props.data.authors.map(gr => 
-                    <li key={gr.uid}>{gr.name}</li>
+                    <div key={gr.uid}>
+                        <p >{gr.name}</p>
+                        <p>{gr.description}</p>
+                        <p>Site : {gr.website}</p>
+                    </div>
                 )}
-            </Label>
+            </div>
         );
     }
 
