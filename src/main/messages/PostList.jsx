@@ -9,12 +9,15 @@ import Post from './Post.jsx';
  */
 const ALL_POSTS = gql`
     query PostQuery {
-        allPosts {
-            id
-            title
-            authors {
-                uid
-                name
+        accessPosts {
+            allPosts {
+                id
+                title
+                description
+                authors {
+                    uid
+                    name
+                }
             }
         }
     }
@@ -28,7 +31,7 @@ const ALL_POSTS = gql`
 class PostList extends React.Component {
 
     render() {
-        const { postQuery: { loading, error, allPosts }} = this.props;
+        const { postQuery: { loading, error, accessPosts }} = this.props;
 
         if (loading) {
             return <div>Loading, please wait...</div>;
@@ -38,7 +41,7 @@ class PostList extends React.Component {
 
         return (
             <div>
-                {allPosts.map(item =>
+                {accessPosts.allPosts.map(item =>
                     <Post key={item.id} data={item} />
                 )}
             </div>

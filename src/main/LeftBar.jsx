@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
+import GroupPanel from './group/GroupPanel.jsx';
 
 const PanelsEvents = _.times(4, (i) => ({
     title: (`Event #${i+1}`),
@@ -35,16 +36,6 @@ const PinnedEvents = () => (
     </Segment.Group>
 
 );
-
-class GroupPanel extends React.Component {
-    constructor() {
-        super();
-    }
-
-    render() { return (
-        <Link to="/group/1"><Button>Groupe</Button></Link>
-    );}
-}
 
 const PinnedGroups = () => (
     <Segment.Group>
