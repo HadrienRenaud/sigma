@@ -22,8 +22,6 @@ const port = process.env.NODE_PORT || 8888;
 // https://tylermcginnis.com/react-router-cannot-get-url-refresh/
 // La methode recommandee est de set devServer{ historyApiFallback: true } dans le webpack.config.json, mais
 // ca ne marche qu'avec webpack-dev-server.
-// Avec cette methode ca marche pas vraiment... quand on entre "[baseurl]/bar" c'est bien redirected,
-// mais pas avec "[baseurl]/foo/bar"...
 app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'build', 'index.html'), (err) => {
         if (err) {
