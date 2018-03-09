@@ -4,15 +4,15 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, Link, withRouter } from 'react-router-dom';
-import Error404 from '../../Errors.jsx';
+import { Route, Switch, Link } from 'react-router-dom';
+import Error404 from '../Errors.jsx';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 
 /** 
  * Copié puis modifié depuis https://semantic-ui.com/usage/layout.html
  */
 
-class LoginUnrouted extends React.Component {
+class Login extends React.Component {
 
     // https://reactjs.org/docs/forms.html
     // this "controlled components" method is the recommended way to manage forms:
@@ -28,13 +28,6 @@ class LoginUnrouted extends React.Component {
         // This binding is necessary to make `this` work in the callback
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    // allows using this.props.match/location/history when wrapping with withRouter
-    static propTypes = {
-        match: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired
     }
 
     handleSubmit(event) {
@@ -60,6 +53,7 @@ class LoginUnrouted extends React.Component {
                 You can do same with CSS, the main idea is that all the elements up to the `Grid`
                 below must have a height of 100%.
                 */}
+                {/*
                 <style>{`
                 body > div,
                 body > div > div,
@@ -67,6 +61,7 @@ class LoginUnrouted extends React.Component {
                     height: 100%;
                 }
                 `}</style>
+                */}
                 <Grid
                     textAlign='center'
                     style={{ height: '100%' }}
@@ -109,7 +104,5 @@ class LoginUnrouted extends React.Component {
         );
     }
 }
-
-const Login = withRouter(LoginUnrouted);
 
 export default Login;

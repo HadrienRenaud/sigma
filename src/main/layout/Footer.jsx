@@ -17,10 +17,10 @@ const Footer = () => (
                         <Grid.Column width={3}>
                             <Header inverted as='h4' content='Group 1' />
                             <List link inverted>
-                                <List.Item as='Link'>Link One</List.Item>
-                                <List.Item as='Link'>Link Two</List.Item>
-                                <List.Item as='Link'>Link Three</List.Item>
-                                <List.Item as='Link'>Link Four</List.Item>
+                                <List.Item as='a'>Link One</List.Item>
+                                <List.Item as='a'>Link Two</List.Item>
+                                <List.Item as='a'>Link Three</List.Item>
+                                <List.Item as='a'>Link Four</List.Item>
                             </List>
                         </Grid.Column>
                         <Grid.Column width={3}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, Link, withRouter } from 'react-router-dom';
-import Error404 from '../../Errors.jsx';
+import Error404 from '../Errors.jsx';
 import {Button, Sticky, Icon, Popup, Label} from 'semantic-ui-react';
 
 import GroupAnnouncements from './GroupAnnouncements.jsx';

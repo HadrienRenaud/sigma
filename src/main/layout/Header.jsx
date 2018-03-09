@@ -12,7 +12,7 @@ class Header extends React.Component {
     render() {
         return (
 
-            <Menu inverted>
+            <Menu>
 
                 {/*NavLink to path /, telling Center to render main/Index.jsx*/}
                 <Menu.Item as={NavLink} to='/#'>
