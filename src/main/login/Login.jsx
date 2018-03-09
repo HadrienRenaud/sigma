@@ -8,9 +8,6 @@ import { Route, Switch, Link, withRouter } from 'react-router-dom';
 import Error404 from '../../Errors.jsx';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
 
-
-import LoginForm from './LoginForm.jsx';
-
 /** 
  * Copié puis modifié depuis https://semantic-ui.com/usage/layout.html
  */

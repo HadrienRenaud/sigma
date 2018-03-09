@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch, Link, } from 'react-router-dom';
 import { Grid, Image } from 'semantic-ui-react';
 
-import Header from './Header.jsx';
-import Footer from './Footer.jsx';
-import Body from './Body.jsx';
+import Header from './layout/Header.jsx';
+import Footer from './layout/Footer.jsx';
+import Body from './layout/Body.jsx';
 import GroupList from './group/GroupList.jsx';
 import PostList from './messages/PostList.jsx';
 
