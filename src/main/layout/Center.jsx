@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, Link, } from 'react-router-dom';
 
 import Event from '../messages/Event.jsx';
-import Index from '../Index.jsx';
+import Index from '../index/Index.jsx';
 import Groups from '../group/Groups.jsx';
 import Login from '../login/Login.jsx';
 import NotFound from '../Errors.jsx';

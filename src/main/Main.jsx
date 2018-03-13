@@ -13,15 +13,12 @@ import PostList from './messages/PostList.jsx';
  * on "importe" les composants Header, GroupList, Body et Footer.
  */
 
+// pour quick-test le render d'un component, merci de le mettre a la schlag dans Center.jsx, plutot
+// que de le mettre a la schlag dans Main.jsx ! sinon ca fout la merde pour le layout avec LeftBar
+
 const Main = () => (
-    /**La doc normale de Semantic UI n'est pas en accord
-     * Normalement il y a sixteen wide column en pour une ligne
-     * Mais ce code n'utiliser que twelve wide columns
-     */
     <div>
         <Header />
-        {/*<GroupList />*/}
-        {/*<PostList />*/}
         <Body />
         <Footer />
     </div>

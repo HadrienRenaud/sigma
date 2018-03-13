@@ -16,9 +16,28 @@ const divStyle = {
     backgroundImage: `url(${Background})`
 };
 
+/**
+ * La doc de Semantic UI "vanilla" (pas semantic-ui-react) semble indiquer qu'il y a 16 colonnes au total
+ * 
+ * En fait (en gros), normalement toutes les columns sont contenues dans une row
+ * et c'est un des attributs du row qui definit le nombre de colonnes dans cette row
+ * 
+ * En semantic-ui-react, toutes les Component Grid.Column devraient etre contenues dans un Grid.Row
+ * et c'est l'attribut columns={n} du Grid.Row qui definit le nombre de colonnes dans cette Row
+ * 
+ * Apparemment si on n'utilise pas Grid.Row et qu'on met directement Grid.Column comme children de Grid,
+ * par defaut il y a 12 colonnes au total.
+ * 
+ * https://react.semantic-ui.com/collections/grid#grid-example-column-count
+ */
+
 const Body = () => (
     <div style={ divStyle }>
         <Grid container>
+            {/*garder une barre d'information a gauche de la page*/}
+            {/*TODO: 
+            est-ce mieux de garder une barre a gauche (comme fait FB) ou a droite (comme fait frankiz)
+            */}
             <Grid.Column width={3}> 
                 <LeftBar/>
             </Grid.Column>
@@ -29,7 +48,7 @@ const Body = () => (
             
             {/*<Grid.Column width={3}>
                 <RightBar/>
-    </Grid.Column>*/}
+              </Grid.Column>*/}
         </Grid>
     </div>
 );
