@@ -1,6 +1,6 @@
 import React from 'react';
 import {Route, Switch, Link, } from 'react-router-dom';
-import {Grid} from 'semantic-ui-react';
+import {Grid, Container} from 'semantic-ui-react';
 
 import LeftBar from './LeftBar.jsx';
 import Center from './Center.jsx';
@@ -34,25 +34,26 @@ const divStyle = {
  */
 
 const Body = () => (
-    <div style={ divStyle }>
+    <Container>
         <Grid columns='equal'>
             {/*garder une barre d'information a gauche de la page*/}
             {/*TODO: 
             est-ce mieux de garder une barre a gauche (comme fait FB) ou a droite (comme fait frankiz)
-            */}
-            <Grid.Column>
-                <Center/>
-            </Grid.Column>
+            Quentin : À droite, c'est plus ludique.*/}
 
             <Grid.Column width={2}>
                 <LeftBar/>
+            </Grid.Column>
+
+            <Grid.Column>
+                <Center/>
             </Grid.Column>
 
             {/*<Grid.Column width={3}>
                 <RightBar/>
               </Grid.Column>*/}
         </Grid>
-    </div>
+    </Container>
 );
 
 export default Body;
