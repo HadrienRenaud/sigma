@@ -1,7 +1,7 @@
 import React from 'react';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
+import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
 import GroupPanel from '../group/GroupPanel.jsx';
 
 const PanelsEvents = _.times(4, (i) => ({
@@ -51,10 +51,33 @@ const PinnedGroups = () => (
 );
 
 const LeftBar = () => (
+
+    <div>
+        {/*}
+        <Grid.Column>
+            <Menu attached tabular widths={3}>
+                <Menu.Item active as='a'>Active Item</Menu.Item>
+                <Menu.Item as='a'>Item</Menu.Item>
+                <Menu.Item as='a'>Item</Menu.Item>
+            </Menu>
+            <Segment attached>Segment</Segment>
+            <Menu attached compact widths={3}>
+                <Menu.Item active as='a'>Active Item</Menu.Item>
+                <Menu.Item as='a'>Item</Menu.Item>
+                <Menu.Item as='a'>Item</Menu.Item>
+            </Menu>
+            <Segment attached='bottom'>Segment</Segment>
+        </Grid.Column>
+        */}
+    
     <Container>
         <PinnedEvents/>
         <PinnedGroups/>
     </Container>
+    
+    </div>
 );
+
+
 
 export default LeftBar;

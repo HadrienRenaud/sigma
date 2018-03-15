@@ -5,6 +5,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import { Container, Divider, Grid, Header, Menu, Message, Segment, Table } from 'semantic-ui-react';
 
 /** 
  * @constant Requête GraphQL pour récupérer tous les groupes.
@@ -25,7 +26,6 @@ class Trombino extends React.Component {
             nom: "",
             formation: "",
             promo: "",
-            binet: "",
         };
 
         // This binding is necessary to make `this` work in the callback
@@ -48,7 +48,62 @@ class Trombino extends React.Component {
     render() {
         return (
             <div>
-                
+                <Grid columns={3}>
+                    <Grid.Column >
+                        <Segment>Critères de filtrage</Segment>{/*<Segmentattached>*/}
+
+                        <Segment.Group>
+                            <Segment>
+                                <p>Identité</p>
+                            </Segment>
+                            <Segment.Group>
+                                <Segment>
+                                    <p>Prénom</p>
+                                </Segment>
+                                <Segment>
+                                    <p>Nom</p>
+                                </Segment>
+                                <Segment>
+                                    <p>Surnom</p>
+                                </Segment>
+                            </Segment.Group>
+                            <Segment>
+                                <p>Collectif</p>
+                            </Segment>
+                            <Segment.Group>
+                                <Segment>
+                                    <p>Promo</p>
+                                </Segment>
+                                <Segment>
+                                    <p>Formation</p>
+                                </Segment>
+                                <Segment>
+                                    <p>Nested Bottom</p>
+                                </Segment>
+                            </Segment.Group>
+                            <Segment>
+                                <p>Autre</p>
+                            </Segment>
+                            <Segment.Group>
+                                <Segment>
+                                    <p>Nested Top</p>
+                                </Segment>
+                                <Segment>
+                                    <p>Nested Middle</p>
+                                </Segment>
+                                <Segment>
+                                    <p>Nested Bottom</p>
+                                </Segment>
+                            </Segment.Group>
+                        </Segment.Group>
+                    </Grid.Column>
+
+                    <Grid.Column>
+                        <p>ici les resultats du trombino</p>
+                        <Segment>coucou</Segment>
+                    </Grid.Column>
+
+                </Grid>
 
             </div>
         );

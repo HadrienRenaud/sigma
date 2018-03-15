@@ -25,6 +25,8 @@ const divStyle = {
  * En semantic-ui-react, toutes les Component Grid.Column devraient etre contenues dans un Grid.Row
  * et c'est l'attribut columns={n} du Grid.Row qui definit le nombre de colonnes dans cette Row
  * 
+ * Alternativement, l'attribut columns de Grid lui-meme permet de definir le nombre de columns par row.
+ * 
  * Apparemment si on n'utilise pas Grid.Row et qu'on met directement Grid.Column comme children de Grid,
  * par defaut il y a 12 colonnes au total.
  * 
@@ -33,19 +35,19 @@ const divStyle = {
 
 const Body = () => (
     <div style={ divStyle }>
-        <Grid container>
+        <Grid columns='equal'>
             {/*garder une barre d'information a gauche de la page*/}
             {/*TODO: 
             est-ce mieux de garder une barre a gauche (comme fait FB) ou a droite (comme fait frankiz)
             */}
-            <Grid.Column width={3}> 
+            <Grid.Column>
+                <Center/>
+            </Grid.Column>
+
+            <Grid.Column width={2}>
                 <LeftBar/>
             </Grid.Column>
 
-            <Grid.Column width={9}>
-                <Center/>
-            </Grid.Column>
-            
             {/*<Grid.Column width={3}>
                 <RightBar/>
               </Grid.Column>*/}
