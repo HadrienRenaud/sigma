@@ -56,35 +56,44 @@ class Trombino extends React.Component {
 
                             <Segment>
                                 Critères de filtrage
-                                <Button fluid content='Envoyer la requête' primary/>
+                                <Button fluid size='large' onClick={this.handleSubmit}>Envoyer la requête</Button>
                             </Segment>{/*<Segment attached>*/}
 
-                            <Segment piled>
-                                <Form.Input
-                                    fluid
-                                    placeholder='Prénom'
-                                    type='text'
-                                    name='prenomInput'
-                                    value={this.state.prenomInput}
-                                    onChange={this.handleInputChange}
-                                />
-                                <Form.Input
-                                    fluid
-                                    placeholder='Nom'
-                                    type='text'
-                                    name='nomInput'
-                                    value={this.state.prenomInput}
-                                    onChange={this.handleInputChange}
-                                />
-                                <Form.Input
-                                    fluid
-                                    placeholder='Surnom'
-                                    type='text'
-                                    name='surnomInput'
-                                    value={this.state.prenomInput}
-                                    onChange={this.handleInputChange}
-                                />
-                            </Segment>
+                            <Segment.Group piled>
+                                <Segment>
+                                    <p>Prénom</p>
+                                    <Form.Input
+                                        fluid
+                                        placeholder='Prénom'
+                                        type='text'
+                                        name='prenomInput'
+                                        value={this.state.prenomInput}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Segment>
+                                <Segment>
+                                    <p>Nom</p>
+                                    <Form.Input
+                                        fluid
+                                        placeholder='Nom'
+                                        type='text'
+                                        name='nomInput'
+                                        value={this.state.prenomInput}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Segment>
+                                <Segment>
+                                    <p>Surnom</p>
+                                    <Form.Input
+                                        fluid
+                                        placeholder='Surnom'
+                                        type='text'
+                                        name='surnomInput'
+                                        value={this.state.prenomInput}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Segment>
+                            </Segment.Group>
                         </Form>
 
 

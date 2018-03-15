@@ -6,17 +6,18 @@ import GroupAnnouncements from '../group/GroupAnnouncements.jsx';
 import Formulaire from './Formulaire.jsx';
 import logo_sigma_large from '../../assets/logo_sigma_large.png';
 import AddFormulaire from './AddFormulaire.jsx';
+import TestComp from './testComp/TestComp.jsx';
 
 /**
  * @file page d'accueil. ce Component wrap tous les minimodules presents sur la page d'accueil
  */
 
-class Index extends Component {
+class Index extends React.Component {
     constructor() {
         super();
         this.state = {
             projects: []
-        }
+        };
     }
 
     //Life cycle method, aller voir internet ce que ça veut dire
@@ -37,19 +38,19 @@ class Index extends Component {
                 title: 'Ecommerce Shopping Cart',
                 category:'Web Developement'
             }
-        ]})
+        ]});
     }
 
     handleAddProject(project) {
-        let projects = this.state.projects;
+        const projects = this.state.projects;
         projects.push(project);
         this.setState({projects:projects});
     }
 
 
-    handleDeleteProject(id) {
-        let projects = this.state.projects;
-        let index = projects.findIndex(x => x.id === id);
+    handleDeleteProject(id) {
+        const projects = this.state.projects;
+        const index = projects.findIndex(x => x.id === id);
         projects.splice(index, 1);
         this.setState({projects:projects});
     }
@@ -59,13 +60,17 @@ class Index extends Component {
             <div>
                 <p>Page d'accueil (Index)</p>
 
+                <TestComp/>
+
+                {/*
                 <p>Voici juste un form de test, il n'est pas persistant !</p>
                 <p>Please don't test, it works.</p>
                 <AddFormulaire addProject={this.handleAddProject.bind(this)}/>
                 <Formulaire projects={this.state.projects} onDelete={this.handleDeleteProject.bind(this)} />
+                */}
                 {/* <GroupAnnouncements/> */}
             </div>
-        )
+        );
     }
 }
 

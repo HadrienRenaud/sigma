@@ -49,9 +49,6 @@ const Body = () => (
                 <Center />
             </Grid.Column>
 
-            <Grid.Column>
-                <Center/>
-            </Grid.Column>
 
             {/*<Grid.Column width={3}>
                 <RightBar/>

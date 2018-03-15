@@ -6,7 +6,7 @@ Pour obtenir une copie, clonez-le avec
 
     git clone git@gitlab.binets.fr:br/sigma-frontend
 
-Installez React Developer Tools sur firefox !!!
+
 
 ## Structure
 
@@ -101,3 +101,8 @@ Pour mieux comprendre ESLint, référez-vous à la [doc](https://eslint.org/docs
 
 On importe *seulement* withRouter de react-router. Tout le reste (BrowserRouter, Route, Link, NavLink...) doit etre importe depuis *react-router-dom*.
 
+### Outils de testage
+
+Sur firefox par exemple il peut être utile d'utiliser React Developper Tools.
+
+Pour developper et tester les minimodules : il faut restreindre le caca au dossier src/main/index. Donc par exemple, creer un sous-dossier "monMinimodule" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx
