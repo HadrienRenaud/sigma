@@ -52,16 +52,14 @@ class Trombino extends React.Component {
                 <Grid columns={3}>
                     <Grid.Column >
 
-
                         <Form size='large' onSubmit={this.handleSubmit}>
-
 
                             <Segment>
                                 Critères de filtrage
-                                <Button content='Primary' primary />
+                                <Button fluid content='Envoyer la requête' primary/>
                             </Segment>{/*<Segment attached>*/}
 
-                            <Segment stacked>
+                            <Segment piled>
                                 <Form.Input
                                     fluid
                                     placeholder='Prénom'

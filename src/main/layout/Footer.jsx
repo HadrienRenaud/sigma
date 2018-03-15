@@ -12,7 +12,7 @@ const Footer = () => (
             style={{ margin: '2em 0em 0em', padding: '2em 0em' }}
         >
             <Container textAlign='center'>
-                <Grid divided inverted stackable>
+                {/*<Grid divided inverted stackable>
                     <Grid.Row>
                         <Grid.Column width={3}>
                             <Header inverted as='h4' content='Group 1' />
@@ -46,9 +46,9 @@ const Footer = () => (
                             <p>Extra space for a call to action inside the footer that could help re-engage users.</p>
                         </Grid.Column>
                     </Grid.Row>
-                </Grid>
+</Grid>
 
-                <Divider inverted section />
+                <Divider inverted section />*/}
                 <Image
                     centered
                     size='mini'
