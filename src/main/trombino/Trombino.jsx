@@ -5,7 +5,8 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Container, Divider, Grid, Header, Menu, Message, Segment, Table } from 'semantic-ui-react';
+import { Form, Button, Input, Container, Divider, 
+    Grid, Header, Menu, Message, Segment, Table } from 'semantic-ui-react';
 
 /** 
  * @constant Requête GraphQL pour récupérer tous les groupes.
@@ -50,23 +51,78 @@ class Trombino extends React.Component {
             <div>
                 <Grid columns={3}>
                     <Grid.Column >
-                        <Segment>Critères de filtrage</Segment>{/*<Segmentattached>*/}
+
+
+                        <Form size='large' onSubmit={this.handleSubmit}>
+
+
+                            <Segment>
+                                Critères de filtrage
+                                <Button content='Primary' primary />
+                            </Segment>{/*<Segment attached>*/}
+
+                            <Segment stacked>
+                                <Form.Input
+                                    fluid
+                                    placeholder='Prénom'
+                                    type='text'
+                                    name='prenomInput'
+                                    value={this.state.prenomInput}
+                                    onChange={this.handleInputChange}
+                                />
+                                <Form.Input
+                                    fluid
+                                    placeholder='Nom'
+                                    type='text'
+                                    name='nomInput'
+                                    value={this.state.prenomInput}
+                                    onChange={this.handleInputChange}
+                                />
+                                <Form.Input
+                                    fluid
+                                    placeholder='Surnom'
+                                    type='text'
+                                    name='surnomInput'
+                                    value={this.state.prenomInput}
+                                    onChange={this.handleInputChange}
+                                />
+                            </Segment>
+                        </Form>
+
 
                         <Segment.Group>
                             <Segment>
                                 <p>Identité</p>
                             </Segment>
-                            <Segment.Group>
-                                <Segment>
-                                    <p>Prénom</p>
-                                </Segment>
-                                <Segment>
-                                    <p>Nom</p>
-                                </Segment>
-                                <Segment>
-                                    <p>Surnom</p>
-                                </Segment>
-                            </Segment.Group>
+                            <Segment stacked>
+                                <Form.Input
+                                    fluid
+                                    placeholder='Prénom'
+                                    type='text'
+                                    name='prenomInput'
+                                    value={this.state.prenomInput}
+                                    onChange={this.handleInputChange}
+                                />
+                                <Form.Input
+                                    fluid
+                                    placeholder='Nom'
+                                    type='text'
+                                    name='nomInput'
+                                    value={this.state.prenomInput}
+                                    onChange={this.handleInputChange}
+                                />
+                                <Form.Input
+                                    fluid
+                                    placeholder='Surnom'
+                                    type='text'
+                                    name='surnomInput'
+                                    value={this.state.prenomInput}
+                                    onChange={this.handleInputChange}
+                                />
+
+                                <Button color='teal' fluid size='large'>Login</Button>
+                            </Segment>
+                            
                             <Segment>
                                 <p>Collectif</p>
                             </Segment>

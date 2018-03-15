@@ -32,8 +32,9 @@ class Login extends React.Component {
 
     handleSubmit(event) {
         console.log("Submitting");
-        console.log(this.state.userInput);
-        console.log(this.state.passwordInput);
+        //console.log(this.state.userInput);
+        //console.log(this.state.passwordInput);
+        console.log(event.target.value);
     }
 
     handleInputChange(event) {
