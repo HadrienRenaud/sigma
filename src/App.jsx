@@ -1,3 +1,8 @@
+/**
+ * @file fichier racine du build de webpack. Wrap le Main.jsx avec ce qu'il faut pour pouvoir utiliser graphql
+ * (apollo-client et les package associes).
+ */
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
@@ -10,6 +15,7 @@ import Main from './main/Main.jsx';
 import path from 'path';
 import Favicon from 'react-favicon';
 
+// les import 'apollo-*' pour utiliser apollo-graphql (une implementation de graphql en javascript)
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -40,6 +46,8 @@ const client = new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache()
 });
+
+
 
 class App extends React.Component {
 

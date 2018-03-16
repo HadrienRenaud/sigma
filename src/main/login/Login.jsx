@@ -32,8 +32,9 @@ class Login extends React.Component {
 
     handleSubmit(event) {
         console.log("Submitting");
-        console.log(this.state.userInput);
-        console.log(this.state.passwordInput);
+        //console.log(this.state.userInput);
+        //console.log(this.state.passwordInput);
+        console.log(event.target.value);
     }
 
     handleInputChange(event) {
@@ -72,7 +73,7 @@ class Login extends React.Component {
                             {/*<Image src='./assets/logo_sigma.png' />*/}
                             {' '}Log-in to your account
                         </Header>
-                        <Form size='large' onSubmit={this.handleSubmit}>
+                        <Form size='large'>
                             <Segment stacked>
                                 <Form.Input
                                     fluid
@@ -95,7 +96,7 @@ class Login extends React.Component {
                                     onChange={this.handleInputChange}
                                 />
 
-                                <Button color='teal' fluid size='large'>Login</Button>
+                                <Button onClick={this.handleSubmit} color='teal' fluid size='large'>Login</Button>
                             </Segment>
                         </Form>
                     </Grid.Column>

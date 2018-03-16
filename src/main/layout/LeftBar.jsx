@@ -70,10 +70,10 @@ const LeftBar = () => (
         </Grid.Column>
         */}
     
-    <Container>
-        <PinnedEvents/>
-        <PinnedGroups/>
-    </Container>
+        <Container>
+            <PinnedEvents/>
+            <PinnedGroups/>
+        </Container>
     
     </div>
 );

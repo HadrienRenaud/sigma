@@ -41,13 +41,14 @@ const Body = () => (
             est-ce mieux de garder une barre a gauche (comme fait FB) ou a droite (comme fait frankiz)
             Quentin : À droite, c'est plus ludique.*/}
 
-            <Grid.Column width={2}>
-                <LeftBar/>
+            <Grid.Column width={3}>
+                <LeftBar />
             </Grid.Column>
 
             <Grid.Column>
-                <Center/>
+                <Center />
             </Grid.Column>
+
 
             {/*<Grid.Column width={3}>
                 <RightBar/>
