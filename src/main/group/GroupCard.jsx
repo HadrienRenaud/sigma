@@ -2,6 +2,10 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 
+/**
+ * Composant pour afficher les informations sur un groupe.
+ * @author manifold
+ */
 export default class GroupCard extends React.Component {
 
     static PropTypes = {
