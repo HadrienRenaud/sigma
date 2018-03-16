@@ -8,7 +8,6 @@ import GroupAnnouncements from './GroupAnnouncements.jsx';
 import GroupEvents from './GroupEvents.jsx';
 import GroupMembers from './GroupMembers.jsx';
 import GroupSettings from './GroupSettings.jsx';
-import GroupList from './GroupList.jsx';
 
 class GroupFoundUnrouted extends React.Component { //TODO change into semantic-ui-react
     state = {}
@@ -82,7 +81,6 @@ const GroupFound = withRouter(GroupFoundUnrouted);
 const Groups = ({match}) => (
     <div>
         <Switch>
-            <Route path={match.url+"/list"} component={GroupList}/>
             <Route path={match.url+"/:id"} component={GroupFound}/>
             <Route component={Error404}/>
         </Switch>

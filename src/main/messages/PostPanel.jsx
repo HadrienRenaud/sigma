@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Label } from 'semantic-ui-react';
+import { Label, Link, Button } from 'semantic-ui-react';
 import Post from './Post.jsx';
 
 /**
@@ -13,10 +13,11 @@ const ALL_POSTS = gql`
             allPosts {
                 id
                 title
-                description
+                content
                 authors {
                     uid
                     name
+                    website
                 }
             }
         }
@@ -28,7 +29,7 @@ const ALL_POSTS = gql`
  * @author manifold
  * @extends React.Component
  */
-class PostList extends React.Component {
+class PostPanel extends React.Component {
 
     render() {
         const { postQuery: { loading, error, accessPosts }} = this.props;
@@ -49,4 +50,4 @@ class PostList extends React.Component {
     }
 }
 
-export default graphql(ALL_POSTS, {name: 'postQuery'})(PostList);
+export default graphql(ALL_POSTS, {name: 'postQuery'})(PostPanel);

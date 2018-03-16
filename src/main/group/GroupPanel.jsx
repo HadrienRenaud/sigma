@@ -33,8 +33,6 @@ class GroupPanel extends React.Component {
             return <li>Error</li>;
         }
 
-        console.log(accessGroups);
-
         return (
             <div>
                 {accessGroups.allGroups.map(gr => {

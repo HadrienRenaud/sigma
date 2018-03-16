@@ -50,9 +50,9 @@ const Body = () => (
             </Grid.Column>
 
 
-            {/*<Grid.Column width={3}>
+            <Grid.Column width={3}>
                 <RightBar/>
-              </Grid.Column>*/}
+            </Grid.Column>
         </Grid>
     </Container>
 );

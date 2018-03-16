@@ -7,6 +7,7 @@ import Formulaire from './Formulaire.jsx';
 import logo_sigma_large from '../../assets/logo_sigma_large.png';
 import AddFormulaire from './AddFormulaire.jsx';
 import TestComp from './testComp/TestComp.jsx';
+import PostPanel from '../messages/PostPanel.jsx';
 
 /**
  * @file page d'accueil. ce Component wrap tous les minimodules presents sur la page d'accueil
@@ -58,7 +59,6 @@ class Index extends React.Component {
     render() {
         return (
             <div>
-                <p>Page d'accueil (Index)</p>
 
                 <TestComp/>
 
@@ -69,6 +69,8 @@ class Index extends React.Component {
                 <Formulaire projects={this.state.projects} onDelete={this.handleDeleteProject.bind(this)} />
                 */}
                 {/* <GroupAnnouncements/> */}
+
+                <PostPanel/>
             </div>
         );
     }
