@@ -58,13 +58,43 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
 
         return(
             <Container ref={this.setContextRef}>
-                <Header as="h1">
+                <Popup
+                    trigger={<Button color='yellow' icon='star' />}
+                    content='Devenir administrateur'
+                    inverted
+                />
+                <Popup
+                    trigger={<Button color='blue' icon='user' />}
+                    content='Devenir membre'
+                    inverted
+                />
+                <Popup
+                    trigger={<Button as='div' labelPosition='right'>
+                        <Button color='pink'>
+                            <Icon name='heart' />
+                        </Button>
+                        <Label as='a' basic color='pink' pointing='left'>2,048</Label>
+                    </Button>}
+                    content='Devenir sympathisant'
+                    inverted
+                />
+                <Header as="h1" attached='top'>
                     {group.name}
+                    <Header.Subheader>
+                        <a href={group.website}>{group.website}</a>
+                    </Header.Subheader>
                 </Header>
-                <a href={group.website}>{group.website}</a>
-                <p>
+                <Segment>
                     {group.description}
-                </p>
+                </Segment>
+                
+                <Button.Group fluid attached="top">
+                    <Button as={Link} to={match.url}>Annonces</Button>
+                    <Button as={Link} to={match.url + "/events"}>Évènements</Button>
+                    <Button as={Link} to={match.url + "/members"}>Membres</Button>
+                    <Button as={Link} to={match.url + "/settings"}>Paramètres</Button>
+                </Button.Group>
+
             </Container>
         );
     }
