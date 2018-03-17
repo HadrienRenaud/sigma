@@ -10,10 +10,11 @@ const config = {
     ],
 
     output: {
-        path: path.join(__dirname, 'build'),
-        publicPath: "/", // default: ""
-        filename: 'bundle.js'
+        filename: "bundle.js",
+        path: path.resolve(__dirname, 'build'),
     },
+
+    target: 'web',
 
     module: {
         rules: [
@@ -53,11 +54,7 @@ const config = {
                 to: 'index.html'
             }]
         )
-    ],
-
-    serve: {
-        port: 8888
-    }
+    ]
 
 };
 
