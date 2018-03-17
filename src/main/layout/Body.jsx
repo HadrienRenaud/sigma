@@ -2,9 +2,8 @@ import React from 'react';
 import {Route, Switch, Link, } from 'react-router-dom';
 import {Grid, Container} from 'semantic-ui-react';
 
-import LeftBar from './LeftBar.jsx';
-import Center from './Center.jsx';
 import RightBar from './RightBar.jsx';
+import Center from './Center.jsx';
 
 import Background from '../../assets/sigma_bg.jpg';
 
@@ -40,19 +39,17 @@ const Body = () => (
             {/*TODO: 
             est-ce mieux de garder une barre a gauche (comme fait FB) ou a droite (comme fait frankiz)
             Quentin : À droite, c'est plus ludique.*/}
-
-            <Grid.Column width={3}>
-                <LeftBar />
-            </Grid.Column>
-
             <Grid.Column>
                 <Center />
             </Grid.Column>
 
-
             <Grid.Column width={3}>
-                <RightBar/>
+                <RightBar />
             </Grid.Column>
+
+            {/*<Grid.Column width={3}>
+                <RightBar/>
+            </Grid.Column>*/}
         </Grid>
     </Container>
 );
