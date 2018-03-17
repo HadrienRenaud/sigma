@@ -41,6 +41,7 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
     render() {
         const{ contextRef } = this.state;
         const { match, location, history } = this.props;
+        
 
         return(
             <div ref={this.setContextRef}>
@@ -94,14 +95,13 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
     }
 }
 
-const GroupView = withRouter(GroupFoundUnrouted);
+const GroupFound = withRouter(GroupFoundUnrouted);
 
-/*
 const GroupView = ({match}) => (
     <Switch>
-        <Route path={match.url+"/:id"} component={GroupFound}/>
+        <Route path={match.url+"/:uid"} component={GroupFound}/>
         <Route component={Error404}/>
     </Switch>
-);*/
+);
 
 export default GroupView;
