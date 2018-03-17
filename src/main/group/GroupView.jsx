@@ -81,7 +81,7 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
                 <Header as="h1" attached='top'>
                     {group.name}
                     <Header.Subheader>
-                        <a href={group.website}>{group.website}</a>
+                        <a href={`http://${group.website}`}>{group.website}</a>
                     </Header.Subheader>
                 </Header>
                 <Segment>
