@@ -2,12 +2,13 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 /**
  * Composant pour afficher les informations sur un groupe.
  * @author manifold
  */
-export default class GroupCard extends React.Component {
+class GroupCard extends React.Component {
 
     static PropTypes = {
         uid: PropTypes.string.isRequired,
@@ -42,3 +43,5 @@ export default class GroupCard extends React.Component {
         );
     }
 }
+
+export default withRouter(GroupCard);

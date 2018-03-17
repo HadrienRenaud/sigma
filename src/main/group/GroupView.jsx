@@ -2,13 +2,29 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, Link, withRouter } from 'react-router-dom';
 import Error404 from '../Errors.jsx';
-import {Button, Sticky, Icon, Popup, Label} from 'semantic-ui-react';
+import { Button, Sticky, Icon, Popup, Label, Segment } from 'semantic-ui-react';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
 import GroupAnnouncements from './GroupAnnouncements.jsx';
 import GroupEvents from './GroupEvents.jsx';
 import GroupMembers from './GroupMembers.jsx';
 import GroupSettings from './GroupSettings.jsx';
 
+const GET_GROUP = gql`
+    query getGroup($uid: String!) {
+        accessGroups {
+            group(uid: $uid) {
+                uid
+                name
+                website
+                createdAt
+                updatedAt
+                school
+            }
+        }
+    }
+`;
 
 
 class GroupFoundUnrouted extends React.Component { //TODO change into semantic-ui-react
@@ -28,8 +44,8 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
 
         return(
             <div ref={this.setContextRef}>
-                <div className="ui attached fixed" /*style={{position:"fixed"}}, TODO: Find how to add Sticky*/>
-                    <div className="top attached ui menu segment">
+                <Segment fixed attached>
+                    <div className="ui attached">
                         <h2 className="left menu">Nom du groupe</h2>
                         <Popup
                             trigger={<Button color='yellow' icon='star' />}
@@ -64,29 +80,28 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
                         <Button as={Link} to={match.url+"/members"}>Membres</Button>
                         <Button as={Link} to={match.url+"/settings"}>Paramètres</Button>
                     </Button.Group>
-                </div>
-                <div className="ui attached segment">
+                </Segment>
+                <Segment attached>
                     <Switch>
                         <Route path={match.url+"/events"} component={GroupEvents}/>
                         <Route path={match.url+"/members"} component={GroupMembers}/>
                         <Route path={match.url+"/settings"} component={GroupSettings}/>
                         <Route component={GroupAnnouncements}/>
                     </Switch>
-                </div>
+                </Segment>
             </div>
         );
     }
 }
 
-const GroupFound = withRouter(GroupFoundUnrouted);
+const GroupView = withRouter(GroupFoundUnrouted);
 
+/*
 const GroupView = ({match}) => (
-    <div>
-        <Switch>
-            <Route path={match.url+"/:id"} component={GroupFound}/>
-            <Route component={Error404}/>
-        </Switch>
-    </div>
-);
+    <Switch>
+        <Route path={match.url+"/:id"} component={GroupFound}/>
+        <Route component={Error404}/>
+    </Switch>
+);*/
 
 export default GroupView;
