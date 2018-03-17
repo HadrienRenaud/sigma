@@ -1,42 +1,40 @@
+# Sigma _frontend_
+
 ## Introduction
 
-Ce dépôt contient le _frontend_ de Sigma, le nouveau Frankiz.
+Ce dépôt contient le code source _frontend_ (c'est-à-dire l'interface client) de Sigma, le nouveau Frankiz.
 
 Pour obtenir une copie, clonez-le avec
 
     git clone git@gitlab.binets.fr:br/sigma-frontend
 
-
-
 ## Structure
 
 La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude, la plupart des fichiers .js(x) sont aussi extensivement documentés plus bas.
 
-- Racine du projet : fichiers de configuration ;
-    - config.json : données "sensibles" spécifique au projet à priori non partageable (adresse du LDAP, mots de passe),
-    - configfile_doc.json : JSDoc, l'outil de génération automatique de documentation,
-    - autres fichiers relatifs à des modules particuliers ou à la gestion de paquets,
-    - [`assets`](../assets) : ressources ;
-        - images et divers (dont l'essentiel flavicon)
-    - [`build`](../build) : dépendances gérées automatiquement ;
-        - bundle.js est un monstrueux fichier généré automatiquement qui gère nos dépendances.
-    - [`doc`](../doc) : documentation ;
-        - ensemble de pages html et fichiers associés ; index.html permet de naviguer sereinement sur toute la doc JSDoc.
-    - [`node_modules`](../node_modules) : gestion automatique des modules.
-    - [`src`](../src) : code source
-        - [`main`](../src/main) : ?
-            - [`event`](../src/main/event) : gestion des events
-            - [`group`](../src/main/group) : ?
-            - [`images`](../src/main/images) : ?
-            - [`member`](../src/main/member) : ?
+* Racine du projet : fichiers de configuration ;
+  * config.json : données "sensibles" spécifique au projet à priori non partageable (adresse du LDAP, mots de passe),
+  * configfile_doc.json : JSDoc, l'outil de génération automatique de documentation,
+  * autres fichiers relatifs à des modules particuliers ou à la gestion de paquets,
+  * [`assets`](../assets) : ressources ;
+    * images et divers (dont l'essentielle favicon)
+  * [`build`](../build) : dépendances gérées automatiquement ;
+    * bundle.js est un monstrueux fichier généré automatiquement qui gère nos dépendances.
+  * [`doc`](../doc) : documentation ;
+        * ensemble de pages html et fichiers associés ; `index.html` permet de naviguer sereinement sur toute la doc JSDoc.
+  * [`node_modules`](../node_modules) : dossier où sont téléchargées les dépendances.
+  * [`src`](../src) : fichiers source
+    * [`main`](../src/main) - composants React
+      * [`event`](../src/main/messages) - composants relatifs aux messages
+      * [`group`](../src/main/group) - relatif aux groupes :
+      * [`images`](../src/main/images) : ?
+      * [`member`](../src/main/member) : ?
 
-La syntaxe adoptée est JavaScript ES6, un standard moderne (2015) de JavaScript. Il permet d'importer des dépendances en utilisant le mot-clé `import`, ce que le serveur Node.js ne comprend pas puisque la version 8 de Node ne comprend que le standard ES5 (2009), qui gère les imports avec `require()`.
+La syntaxe adoptée est JavaScript ES6, un standard moderne (2015) de JavaScript. Il permet d'importer des dépendances en utilisant le mot-clé `import`, ce que ni Node.js ni la plupart des navigateurs ne comprennent complètement (NodeJS n'est parfaitement compatible qu'avec la gestion CommonJS des modules via `require()`).
 
-Le _frontend_ est codé à l'aide de ReactJS et Semantic UI.
+Le _frontend_ est une application React avec des composants Semantic UI. La syntaxe JavaScript utilisée est donc ES6, avec JSX (JavaScript React, une syntaxe spécial permettant d'incorporer facilement du HTML dans son code JavaScript pour définir des éléments React).
 
-Le standard JavaScript utilisé est ES6.
-
-Il existe deux implémentations différentes de SemanticUI avec React, une native Semantic et une autre qui fait le lien entre React et Semantic directement, nous avons choisi la deuxième. La doc se trouve à : https://react.semantic-ui.com/.
+Il existe deux implémentations différentes de SemanticUI avec React, une native Semantic et une autre qui fait le lien entre React et Semantic directement, nous avons choisi la deuxième. La doc se trouve [ici](https://react.semantic-ui.com/).
 
 La documentation de React et Apollo est disponible sur les sites respectifs.
 
@@ -53,27 +51,19 @@ Pour faire tourner le code, il faut
 * installer les dépendances npm
 * compiler les fichiers source en `build/bundle.js`
 
-Des scripts npm sont configurés dans [`package.json`](../package.json), et un [makefile](../Makefile) est fourni.
-
-### Simple: Makefile
-
-Pour simplifier les choses, le Makefile installe les dépendances et transpile le code.
-
-Pour installer les dépendances et compiler,
-
-    make setup
-
-ou juste `make` (`mingw32-make` avec Git Bash sous Windows).
-
-Ensuite, `make run` démarre le serveur Express.
-
-### Scripts npm
+Pour ce faire, des scripts npm sont définis dans le [`package.json`](../package.json).
 
 * `npm install` installe les dépendances
-* `npm run build` compile la source avec Webpack
-* `npm run watch` lance Webpack avec le flag `--watch` et recompile lorsqu'un fichier est modifié
+* `npm run build` compile les fichiers source avec [Webpack](https://webpack.js.org/) (version 4, datant de 2018) pour la *production* : un ensemble d'optimisations pour les navigateurs sont effectuées
+* `npm run dev` lance un serveur de développement Webpack :
+  * les fichiers source sont automatiquement recompilés lorsqu'une modification des fichiers source est faite
+  * l'application est disponible à localhost:8888
 
-Ensuite, `npm start` démarre un serveur Express servant l'application à l'adresse http://localhost:8888.
+### Remarques sur Webpack
+
+La version de Webpack utilisée est Webpack 4.1, nouvelle version datant de 2018 et incorporant des optimisations à la compilation pour la rendre plus rapide.
+
+Le serveur de développement [webpack-serve](https://github.com/webpack-contrib/webpack-serve), successeur plus léger et moderne de [webpack-dev-server](https://github.com/webpack-contrib/webpack-dev-server).
 
 ## Documentation
 
@@ -101,8 +91,8 @@ Pour mieux comprendre ESLint, référez-vous à la [doc](https://eslint.org/docs
 
 On importe *seulement* withRouter de react-router. Tout le reste (BrowserRouter, Route, Link, NavLink...) doit etre importe depuis *react-router-dom*.
 
-### Outils de testage
+### Outils de test
 
-Sur firefox par exemple il peut être utile d'utiliser React Developper Tools.
+Installer le plugin _React dev tools_ dans son navigateur (Chrome, Firefox, Safari) peut être une bonne idée pour inspecter les éléments React au sein d'une page.
 
 Pour developper et tester les minimodules : il faut restreindre le caca au dossier src/main/index. Donc par exemple, creer un sous-dossier "monMinimodule" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx

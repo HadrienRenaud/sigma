@@ -15,16 +15,8 @@ const config = {
         filename: 'bundle.js'
     },
 
-    devServer: {
-        contentBase: path.join(__dirname, 'build'),
-        port: 80,
-        historyApiFallback: true,
-    },
-
     module: {
-        // These options determine how the different types of modules within a project will be treated.
-        // https://webpack.js.org/configuration/module/
-        loaders: [
+        rules: [
             {
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
@@ -61,7 +53,11 @@ const config = {
                 to: 'index.html'
             }]
         )
-    ]
+    ],
+
+    serve: {
+        port: 8888
+    }
 
 };
 
