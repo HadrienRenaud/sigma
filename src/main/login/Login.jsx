@@ -33,6 +33,9 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
+        // INSERER GESTION DE L'AUTHENTIFICATION ICI
+        console.log("submitted userInput: ", this.state.userInput);
+        console.log("submitted passwordInput: ", this.state.passwordInput);
         console.log("Submitting");
     }
 

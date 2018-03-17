@@ -8,7 +8,7 @@ import Body from './layout/Body.jsx';
 
 /**
  * @file Le composant React principal, généré quel que soit le path, et dans lequel
- * on "importe" les composants Header, GroupList, Body et Footer.
+ * on "importe" les composants Header, Body et Footer.
  */
 
 // pour quick-test le render d'un component, merci de le mettre a la schlag dans Center.jsx, plutot

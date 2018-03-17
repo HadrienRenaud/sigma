@@ -1,3 +1,9 @@
+/**
+ * @file Barre d'information et d'acces rapide sur le cote de la page.
+ * Pour le mettre a gauche ou a droite, c'est Body.jsx qu'il faut modifier.
+ * 
+ */
+
 import React from 'react';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
@@ -34,7 +40,7 @@ const PinnedGroups = () => (
     </Segment.Group>
 );
 
-const LeftBar = () => (
+const SideBar = () => (
     <Container>
         {/*}
         <Grid.Column>
@@ -57,4 +63,4 @@ const LeftBar = () => (
     </Container>
 );
 
-export default LeftBar;
+export default SideBar;

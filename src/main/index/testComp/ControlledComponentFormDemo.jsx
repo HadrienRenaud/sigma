@@ -1,3 +1,8 @@
+/**
+ * @file Un exemple jouet pour comprendre comment faire des formulaires en React (+ semantic UI).
+ * Cet exemple est adapté de https://react.semantic-ui.com/collections/form#form-example-capture-values
+ */
+
 import React from 'react';
 import { Form } from 'semantic-ui-react';
 

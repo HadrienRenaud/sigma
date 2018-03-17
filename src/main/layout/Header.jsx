@@ -14,7 +14,7 @@ class Header extends React.Component {
 
             <Menu>
 
-                {/*NavLink to path /, telling Center to render main/Index.jsx*/}
+                {/*NavLink to path /, telling Center to render main/index/Index.jsx*/}
                 <Menu.Item as={NavLink} to='/#'>
                     <Image alt='Logo' src={logo_sigma} size='mini' />
                 </Menu.Item>
@@ -24,12 +24,12 @@ class Header extends React.Component {
                     Calendrier
                 </Menu.Item>
 
-                {/*NavLink to path /trombino, telling Center to render [TODO]*/}
-                <Menu.Item as={NavLink} to='/trombino' name='trombi'>
+                {/*NavLink to path /tol, telling Center to render main/trombino/Trombino.jsx*/}
+                <Menu.Item as={NavLink} to='/tol' name='tol'>
                     Trombinoscope
                 </Menu.Item>
 
-                {/*NavLink to path /services, telling Center to render [TODO]*/}
+                {/*NavLink to path /services, telling Center to render main/services/Services.jsx*/}
                 <Menu.Item as={NavLink} to='/services' name='services'>
                     Services BR
                 </Menu.Item>

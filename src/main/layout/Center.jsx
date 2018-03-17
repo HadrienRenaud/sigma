@@ -1,3 +1,7 @@
+/**
+ * @file Le Child principal de Body; partage horizontalement la page avec SideBar
+ */
+
 import React from 'react';
 import { Route, Switch, Link, } from 'react-router-dom';
 
@@ -14,7 +18,7 @@ const Center = () => (
         <Route path="/event" component={Event} />
         <Route path="/group" component={GroupView} />
         <Route path="/login" component={Login} />
-        <Route path="/trombino" component={Trombino} />
+        <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
         <Route path="/services" component={Services} />
         <Route exact path="/" component={Index} />
         <Route component={NotFound}/>
