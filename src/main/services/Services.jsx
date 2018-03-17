@@ -24,7 +24,7 @@ class Services extends React.Component {
                     <Header as='h2'>
                         <a href="http://gitlab.binets.fr">GitLab</a>
                     </Header>
-                    <Image src={logo_gitlab} size='large' centered/>
+                    <Image src={logo_gitlab} size='medium' centered/>
                     <p>
                         GitLab est un service d'hébergement et de gestion de fichiers particulièrement adapté à du code informatique : que ça soit pour un PSC, un projet de cours de maths ou d'info, un P3A, un modal, du travail pour X-Projets, un site internet pour un binet ou association, vous pouvez y mettre ce que vous voulez.
                     </p>
