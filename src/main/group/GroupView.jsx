@@ -9,6 +9,8 @@ import GroupEvents from './GroupEvents.jsx';
 import GroupMembers from './GroupMembers.jsx';
 import GroupSettings from './GroupSettings.jsx';
 
+
+
 class GroupFoundUnrouted extends React.Component { //TODO change into semantic-ui-react
     state = {}
 
@@ -78,7 +80,7 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
 
 const GroupFound = withRouter(GroupFoundUnrouted);
 
-const Groups = ({match}) => (
+const GroupView = ({match}) => (
     <div>
         <Switch>
             <Route path={match.url+"/:id"} component={GroupFound}/>
@@ -87,4 +89,4 @@ const Groups = ({match}) => (
     </div>
 );
 
-export default Groups;
+export default GroupView;

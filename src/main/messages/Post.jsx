@@ -30,30 +30,9 @@ class Post extends React.Component {
                     {this.props.data.content}
                 </p>
                 {this.props.data.authors.map(gr => 
-                    <GroupCard key={gr.uid} name={gr.name} website={gr.website}/>
+                    <GroupCard key={gr.uid} uid={gr.uid} name={gr.name} website={gr.website}/>
                 )}
             </Segment>
-        );
-    }
-
-}
-
-class GroupPanel extends React.Component {
-    constructor(props) { super(props); }
-    render() {
-        const { groupQuery: { loading, error, accessGroups } } = this.props;
-        if (loading) {
-            return <li>Loading...</li>;
-        } else if (error) {
-            return <li>Error</li>;
-        }
-        return (
-            <div>
-                {accessGroups.allGroups.map(gr => {
-                    return <div key={gr.uid}>
-                        <Link to="/group/1"><Button>{gr.name}</Button></Link>
-                    </div>;})}
-            </div>
         );
     }
 }

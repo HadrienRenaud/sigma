@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Label, Link, Button } from 'semantic-ui-react';
+import { Label, Link, Button, Segment } from 'semantic-ui-react';
 import Post from './Post.jsx';
 
 /**
@@ -41,11 +41,11 @@ class PostPanel extends React.Component {
         }
 
         return (
-            <div>
+            <Segment.Group>
                 {accessPosts.allPosts.map(item =>
                     <Post key={item.id} data={item} />
                 )}
-            </div>
+            </Segment.Group>
         );
     }
 }

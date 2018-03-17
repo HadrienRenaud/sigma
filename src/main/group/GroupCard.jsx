@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 /**
  * Composant pour afficher les informations sur un groupe.
@@ -9,6 +10,7 @@ import PropTypes from 'prop-types';
 export default class GroupCard extends React.Component {
 
     static PropTypes = {
+        uid: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         website: PropTypes.string.isRequired
     }
@@ -25,11 +27,12 @@ export default class GroupCard extends React.Component {
     }
 
     render() {
+        const grouplinkto = "/group/"+this.props.uid;
         return (
             <Card>
                 <Card.Content>
                     <Card.Header>
-                        {this.props.name}
+                        <Link to={grouplinkto}>{this.props.name}</Link>
                     </Card.Header>
                     <Card.Meta>
                         <a href={this.state.website}>{this.props.website}</a>
