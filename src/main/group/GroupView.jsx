@@ -95,6 +95,16 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
                     <Button as={Link} to={match.url + "/settings"}>Paramètres</Button>
                 </Button.Group>
 
+                <Segment attached>
+                    <Switch>
+                        <Route path={match.url + "/events"} component={GroupEvents} />
+                        <Route path={match.url + "/members"} component={GroupMembers} />
+                        <Route path={match.url + "/settings"} component={GroupSettings} />
+                        <Route component={GroupAnnouncements} />
+                    </Switch>
+                </Segment>
+
+
             </Container>
         );
     }
