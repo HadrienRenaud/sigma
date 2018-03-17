@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, Link, withRouter } from 'react-router-dom';
 import Error404 from '../Errors.jsx';
-import { Button, Sticky, Icon, Popup, Label, Segment } from 'semantic-ui-react';
+import { Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
@@ -12,15 +12,15 @@ import GroupMembers from './GroupMembers.jsx';
 import GroupSettings from './GroupSettings.jsx';
 
 const GET_GROUP = gql`
-    query getGroup($uid: String!) {
+    query getGroup($uid: ID!) {
         accessGroups {
             group(uid: $uid) {
                 uid
                 name
                 website
+                description
                 createdAt
                 updatedAt
-                school
             }
         }
     }
@@ -41,61 +41,38 @@ class GroupFoundUnrouted extends React.Component { //TODO change into semantic-u
     render() {
         const{ contextRef } = this.state;
         const { match, location, history } = this.props;
+        const { data: { loading, error, accessGroups } } = this.props;
+
         
+        console.log("Match:",match);
+        console.log("Where:",location);
+        console.log("History:",history);
+        
+        if (loading) {
+            return <div>Please wait...</div>;
+        } else if (error) {
+            return <div>Error {error}</div>;
+        }
+        
+        const group = accessGroups.group;
 
         return(
-            <div ref={this.setContextRef}>
-                <Segment fixed attached>
-                    <div className="ui attached">
-                        <h2 className="left menu">Nom du groupe</h2>
-                        <Popup
-                            trigger={<Button color='yellow' icon='star' />}
-                            content='Devenir administrateur'
-                            inverted
-                        />
-                        <Popup
-                            trigger={<Button color='blue' icon='user' />}
-                            content='Devenir membre'
-                            inverted
-                        />
-                        {/*<Popup
-                                trigger={<Button color='pink' icon='heart' />}
-                                content='Devenir sympathisant'
-                                inverted
-                            />*/}
-                        <Popup
-                            trigger={<Button as='div' labelPosition='right'>
-                                <Button color='pink'>
-                                    <Icon name='heart' />
-                                </Button>
-                                <Label as='a' basic color='pink' pointing='left'>2,048</Label>
-                            </Button>}
-                            content='Devenir sympathisant'
-                            inverted
-                        />
-                    </div>
-
-                    <Button.Group fluid attached="top">
-                        <Button as={Link} to={match.url}>Annonces</Button>
-                        <Button as={Link} to={match.url+"/events"}>Évènements</Button>
-                        <Button as={Link} to={match.url+"/members"}>Membres</Button>
-                        <Button as={Link} to={match.url+"/settings"}>Paramètres</Button>
-                    </Button.Group>
-                </Segment>
-                <Segment attached>
-                    <Switch>
-                        <Route path={match.url+"/events"} component={GroupEvents}/>
-                        <Route path={match.url+"/members"} component={GroupMembers}/>
-                        <Route path={match.url+"/settings"} component={GroupSettings}/>
-                        <Route component={GroupAnnouncements}/>
-                    </Switch>
-                </Segment>
-            </div>
+            <Container ref={this.setContextRef}>
+                <Header as="h1">
+                    {group.name}
+                </Header>
+                <a href={group.website}>{group.website}</a>
+                <p>
+                    {group.description}
+                </p>
+            </Container>
         );
     }
 }
 
-const GroupFound = withRouter(GroupFoundUnrouted);
+const GroupFound = graphql(GET_GROUP,{
+    options: ({ match }) => ({ variables: { uid: match.params.uid } })
+})(withRouter(GroupFoundUnrouted));
 
 const GroupView = ({match}) => (
     <Switch>
