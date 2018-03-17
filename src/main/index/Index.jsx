@@ -6,7 +6,7 @@ import GroupAnnouncements from '../group/GroupAnnouncements.jsx';
 import Formulaire from './Formulaire.jsx';
 import logo_sigma_large from '../../assets/logo_sigma_large.png';
 import AddFormulaire from './AddFormulaire.jsx';
-import TestComp from './testComp/TestComp.jsx';
+import ControlledComponentFormDemo from './testComp/ControlledComponentFormDemo.jsx';
 import PostPanel from '../messages/PostPanel.jsx';
 
 /**
@@ -14,6 +14,9 @@ import PostPanel from '../messages/PostPanel.jsx';
  */
 
 class Index extends React.Component {
+
+    /*
+
     constructor() {
         super();
         this.state = {
@@ -56,11 +59,12 @@ class Index extends React.Component {
         this.setState({projects:projects});
     }
 
+    */
+
     render() {
         return (
             <div>
-
-                <TestComp/>
+                <ControlledComponentFormDemo/>
 
                 {/*
                 <p>Voici juste un form de test, il n'est pas persistant !</p>

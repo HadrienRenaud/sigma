@@ -21,7 +21,7 @@ La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude
   * [`build`](../build) : dépendances gérées automatiquement ;
     * bundle.js est un monstrueux fichier généré automatiquement qui gère nos dépendances.
   * [`doc`](../doc) : documentation ;
-        * ensemble de pages html et fichiers associés ; `index.html` permet de naviguer sereinement sur toute la doc JSDoc.
+      * ensemble de pages html et fichiers associés ; `index.html` permet de naviguer sereinement sur toute la doc JSDoc.
   * [`node_modules`](../node_modules) : dossier où sont téléchargées les dépendances.
   * [`src`](../src) : fichiers source
     * [`main`](../src/main) - composants React
@@ -29,6 +29,8 @@ La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude
       * [`group`](../src/main/group) - relatif aux groupes :
       * [`images`](../src/main/images) : ?
       * [`member`](../src/main/member) : ?
+
+## Syntaxe, packages et dépendances
 
 La syntaxe adoptée est JavaScript ES6, un standard moderne (2015) de JavaScript. Il permet d'importer des dépendances en utilisant le mot-clé `import`, ce que ni Node.js ni la plupart des navigateurs ne comprennent complètement (NodeJS n'est parfaitement compatible qu'avec la gestion CommonJS des modules via `require()`).
 
@@ -42,8 +44,6 @@ Les fichiers source `.jsx` de l'app React se situent dans `src`, et le point d'e
 
 La compilation de `Main.js` est ses dépendances dans `src` se fait avec Webpack, qui est configuré dans [`webpack.config.js`](../webpack.config.js).
 
-La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude, la plupart des fichiers .js sont aussi extensivement documentés plus bas.
-
 ## Installation
 
 Pour faire tourner le code, il faut
@@ -51,7 +51,7 @@ Pour faire tourner le code, il faut
 * installer les dépendances npm
 * compiler les fichiers source en `build/bundle.js`
 
-Pour ce faire, des scripts npm sont définis dans le [`package.json`](../package.json).
+Pour ce faire, des scripts npm sont définis dans le [`package.json`](./package.json).
 
 * `npm install` installe les dépendances
 * `npm run build` compile les fichiers source avec [Webpack](https://webpack.js.org/) (version 4, datant de 2018) pour la *production* : un ensemble d'optimisations pour les navigateurs sont effectuées

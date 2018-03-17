@@ -55,8 +55,8 @@ class App extends React.Component {
         return (
             <ApolloProvider client={client}>
                 <BrowserRouter>
-                    <Route path="/" component={Main} />
-                    {/*inclusive path matching*/}
+                    {/*<Route path="/" component={Main} />*/}{/*inclusive path matching*/}
+                    <Main />
                 </BrowserRouter>
             </ApolloProvider>
         );
@@ -64,6 +64,7 @@ class App extends React.Component {
     }
 }
 
+// import les css de semantic-ui-react et d'autres css utilises
 import '../semantic/dist/semantic.min.css';
 import '../node_modules/react-big-calendar/lib/css/react-big-calendar.css';
 
