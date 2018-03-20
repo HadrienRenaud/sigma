@@ -5,7 +5,7 @@ import faker from 'faker';
 
 import { Container } from 'semantic-ui-react';
 
-import ListMembers from '../member/ListMembers.jsx';
+import ListMembers from '../../member/ListMembers.jsx';
 
 const GroupMembers = ({match}) => (
     <Container>

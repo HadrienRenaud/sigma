@@ -6,7 +6,7 @@ import faker from 'faker';
 import { Search, Grid, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import {Announcements} from '../messages/Announcement.jsx';
+import {Announcements} from '../../messages/Announcement.jsx';
 
 const source = _.times(5, () => ({
     title: faker.company.companyName(),

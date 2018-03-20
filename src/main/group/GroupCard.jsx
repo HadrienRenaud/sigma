@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 /**
- * Composant pour afficher les informations sur un groupe.
+ * @file Composant pour afficher les informations sur un groupe.
+ * L'idee est d'avoir un preview du groupe, a inserer en header/en hover de chaque announcement par ex.
  * @author manifold
  */
 class GroupCard extends React.Component {

@@ -18,8 +18,9 @@ La structure générale du projet est détaillée ci-dessous ; pas d'inquiétude
   * autres fichiers relatifs à des modules particuliers ou à la gestion de paquets,
   * [`assets`](../assets) : ressources ;
     * images et divers (dont l'essentielle favicon)
-  * [`build`](../build) : dépendances gérées automatiquement ;
-    * bundle.js est un monstrueux fichier généré automatiquement qui gère nos dépendances.
+  * ~~ [`build`](../build) : dépendances gérées automatiquement ; ~~
+    * ~~ bundle.js est un monstrueux fichier généré automatiquement qui gère nos dépendances. ~~
+    * ==EDIT:== ce n'est plus le cas depuis qu'on est passe à webpack 4, qui build et sert dans la foulée
   * [`doc`](../doc) : documentation ;
       * ensemble de pages html et fichiers associés ; `index.html` permet de naviguer sereinement sur toute la doc JSDoc.
   * [`node_modules`](../node_modules) : dossier où sont téléchargées les dépendances.
@@ -55,6 +56,7 @@ Pour ce faire, des scripts npm sont définis dans le [`package.json`](./package.
 
 * `npm install` installe les dépendances
 * `npm run build` compile les fichiers source avec [Webpack](https://webpack.js.org/) (version 4, datant de 2018) pour la *production* : un ensemble d'optimisations pour les navigateurs sont effectuées
+  * avec la version et la configuration actuelle de webpack 4, cette commande ne fonctionne pas. Ce n'est pas grave : pour le développement, utiliser directement `npm run dev`
 * `npm run dev` lance un serveur de développement Webpack :
   * les fichiers source sont automatiquement recompilés lorsqu'une modification des fichiers source est faite
   * l'application est disponible à localhost:8888
@@ -96,3 +98,7 @@ On importe *seulement* withRouter de react-router. Tout le reste (BrowserRouter,
 Installer le plugin _React dev tools_ dans son navigateur (Chrome, Firefox, Safari) peut être une bonne idée pour inspecter les éléments React au sein d'une page.
 
 Pour developper et tester les minimodules : il faut restreindre le caca au dossier src/main/index. Donc par exemple, creer un sous-dossier "monMinimodule" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx
+:::info
+Merci de creer une branche git pour chaque minimodule
+:::
+

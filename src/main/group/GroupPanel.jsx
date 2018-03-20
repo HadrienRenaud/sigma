@@ -1,3 +1,8 @@
+/**
+ * @file resume des groupes de l'utilisateur a inserer dans le SideBar
+ * 
+ */
+
 import React from 'react';
 import { Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
