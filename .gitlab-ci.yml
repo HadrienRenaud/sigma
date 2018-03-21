@@ -7,9 +7,8 @@ cache:
 # Build stages
 
 stages:
-  - build
   - install
-
+  - build
 
 ### Jobs ###
 
