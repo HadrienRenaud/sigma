@@ -11,10 +11,6 @@ const config = {
         filename: "bundle.js",
     },
 
-    serve: {
-        port: 8888
-    },
-
     mode: 'development',
 
     target: 'web',

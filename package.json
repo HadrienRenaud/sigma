@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack-serve ./webpack.config.js",
+    "dev": "webpack-serve ./webpack.config.js --port 8888",
     "doc": "jsdoc -c configfile_doc.json",
     "lint": "eslint src/"
   },
