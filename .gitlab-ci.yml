@@ -1,0 +1,37 @@
+image: node:latest
+
+cache:
+  paths:
+  - node_modules/
+
+# Build stages
+
+stages:
+  - install
+  - test
+
+
+### Jobs ###
+
+# Install dependencies, compile the bundle.js,
+# make migrations on and seed the db
+install-dependencies:
+  stage: install
+  script:
+    - npm install -q
+  artifacts:
+    paths:
+      - build/
+      - node_modules/
+  tags:
+    - build
+
+build:
+  stage: build
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - build/
+  tags:
+    - build
