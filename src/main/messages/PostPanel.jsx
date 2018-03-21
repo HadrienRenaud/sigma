@@ -30,7 +30,7 @@ const ALL_POSTS = gql`
 class PostPanel extends React.Component {
 
     render() {
-        const { postQuery: { loading, error, accessPosts }} = this.props;
+        const { postQuery: { loading, error, allPosts }} = this.props;
 
         if (loading) {
             return <div>Loading, please wait...</div>;
@@ -40,7 +40,7 @@ class PostPanel extends React.Component {
 
         return (
             <Segment.Group>
-                {accessPosts.allPosts.map(item =>
+                {allPosts.map(item =>
                     <Post key={item.id} data={item} />
                 )}
             </Segment.Group>

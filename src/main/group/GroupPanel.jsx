@@ -28,7 +28,7 @@ class GroupPanel extends React.Component {
     }
 
     render() { 
-        const { groupQuery: { loading, error, accessGroups } } = this.props;
+        const { groupQuery: { loading, error, allGroups } } = this.props;
 
         if (loading) {
             return <li>Loading...</li>;
@@ -38,7 +38,7 @@ class GroupPanel extends React.Component {
 
         return (
             <div>
-                {accessGroups.allGroups.map(gr => {
+                {allGroups.map(gr => {
                     const linkto = "/group/"+gr.uid;
                     return <div key={gr.uid}>
                         <Link to={linkto}><Button>{gr.name}</Button></Link>
