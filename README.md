@@ -1,5 +1,7 @@
 # Sigma _frontend_
 
+[![pipeline status](https://gitlab.binets.fr/br/sigma-frontend/badges/master/pipeline.svg)](https://gitlab.binets.fr/br/sigma-frontend/commits/master)
+
 ## Introduction
 
 Ce dépôt contient le code source _frontend_ (c'est-à-dire l'interface client) de Sigma, le nouveau Frankiz.
