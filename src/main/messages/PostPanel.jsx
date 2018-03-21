@@ -9,16 +9,14 @@ import Post from './Post.jsx';
  */
 const ALL_POSTS = gql`
     query PostQuery {
-        accessPosts {
-            allPosts {
-                id
-                title
-                content
-                authors {
-                    uid
-                    name
-                    website
-                }
+        allPosts {
+            id
+            title
+            content
+            authors {
+                uid
+                name
+                website
             }
         }
     }

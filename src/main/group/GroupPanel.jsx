@@ -14,12 +14,10 @@ import { graphql } from 'react-apollo';
 */
 const GET_ALLGROUPS = gql`
     query GroupQuery {
-        accessGroups {
-            allGroups {
-                uid
-                name
-                website
-            }
+        allGroups {
+            uid
+            name
+            website
         }
     }
 `;
