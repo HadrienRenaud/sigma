@@ -4,16 +4,18 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, Link, withRouter } from 'react-router-dom';
+import { Route, Switch, NavLink, Link, withRouter } from 'react-router-dom';
 import Error404 from '../Errors.jsx';
-import { Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
+import { Menu, Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
 import GroupAnnouncements from './group_view/GroupAnnouncements.jsx';
+import GroupPosts from './group_view/GroupPosts.jsx';
+import GroupPageInterne from './group_view/GroupPageInterne.jsx';
+import GroupAdministrer from './group_view/GroupAdministrer.jsx';
+import GroupDescription from './group_view/GroupDescription.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
-import GroupMembers from './group_view/GroupMembers.jsx';
-import GroupSettings from './group_view/GroupSettings.jsx';
 
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {
@@ -68,14 +70,17 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
 
         return (
             <Container ref={this.setContextRef}>
+
                 <Popup
                     trigger={<Button color='yellow' icon='star' />}
                     content='Devenir administrateur'
+                    position='top left'
                     inverted
                 />
                 <Popup
                     trigger={<Button color='blue' icon='user' />}
                     content='Devenir membre'
+                    position='top left'
                     inverted
                 />
                 <Popup
@@ -86,31 +91,50 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
                         <Label as='a' basic color='pink' pointing='left'>2,048</Label>
                     </Button>}
                     content='Devenir sympathisant'
+                    position='top left'
                     inverted
                 />
+
                 <Header as="h1" attached='top'>
                     {group.name}
                     <Header.Subheader>
                         <a href={`http://${group.website}`}>{group.website}</a>
                     </Header.Subheader>
+
                 </Header>
-                <Segment>
+
+                <Segment attached='top'>
                     {group.description}
                 </Segment>
-
-                <Button.Group fluid attached="top">
-                    <Button as={Link} to={match.url}>Annonces</Button>
-                    <Button as={Link} to={match.url + "/events"}>Évènements</Button>
-                    <Button as={Link} to={match.url + "/members"}>Membres</Button>
-                    <Button as={Link} to={match.url + "/settings"}>Paramètres</Button>
-                </Button.Group>
+                
+                {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/}
+                <Menu attached='top' pointing>
+                    <Menu.Item as={NavLink} to={match.url + "/annonces"} 
+                        content="Annonces" />
+                    <Menu.Item as={NavLink} to={match.url + "/posts"}
+                        content="Posts" />
+                    <Menu.Item as={NavLink} to={match.url + "/events"}
+                        content="Evénements" />
+                    <Menu.Item as={NavLink} to={match.url + "/interne"}
+                        content="Page interne" /> {/*réservé aux membres du groupe*/}
+                    <Menu.Item as={NavLink} to={match.url + "/admin"}
+                        content="Administrer" /> {/*réservé aux administrateurs du groupe*/}
+                    <Menu.Item as={NavLink} to={match.url + "/description"}
+                        position='right'
+                        content = "Description"/>
+                </Menu>
 
                 <Segment attached>
                     <Switch>
+                        <Route exact path={match.url + "/"} component={GroupAnnouncements} />
+                        {/*la premiere fois qu'on arrive sur la page, on ne change pas le path mais on affiche quand meme GroupAnnouncements*/}
+                        <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
+                        <Route path={match.url + "/posts"} component={GroupPosts} />
                         <Route path={match.url + "/events"} component={GroupEvents} />
-                        <Route path={match.url + "/members"} component={GroupMembers} />
-                        <Route path={match.url + "/settings"} component={GroupSettings} />
-                        <Route component={GroupAnnouncements} />
+                        <Route path={match.url + "/interne"} component={GroupPageInterne} />
+                        <Route path={match.url + "/admin"} component={GroupAdministrer} />
+                        <Route path={match.url + "/description"} component={GroupDescription} />
+                        <Route component={Error404} />
                     </Switch>
                 </Segment>
 
@@ -126,22 +150,6 @@ const GroupWithGraphQL = graphql(GET_GROUP, {
     options: ({ match }) => ({ variables: { uid: match.params.uid } })
 }) (GroupRouted);
 
-/*
- * graphql(.,.) peut pour parametres :
- * 1. la requete graphql (defini par gql `...`)
- * 2. un objet JSON qui contient les options, notamment les variables (a inserer ds la requete graphql)
- *    par exemple :
- *    options: {
- *        variables: {
- *            uid: 'MOI' //parce que je suis egoiste
- *        }
- *    }
- *    Alternativement, les options peuvent etre un callback (comme ci-dessus d'ailleurs) prenant les props passes au composant,
- *    et qui renvoie variables
- * et renvoie un callback (i.e. une fonction) prenant en argument un Component React
- * ce callback "wrappe" le Component avec (i.e. renvoie un Component identique mais qui a en plus) un champ "data" dans ses props.
- * c'est dans ce props "data" que se trouvent les resultats de la requete graphQL.
- */
 
 
 const GroupView = ({ match }) => (
