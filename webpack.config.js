@@ -2,6 +2,9 @@
 
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const convert = require('koa-connect');
+const history = require('connect-history-api-fallback');
+const environment = process.env.NODE_ENV;
 
 const config = {
     entry: './src/App.jsx',
@@ -10,8 +13,6 @@ const config = {
         path: path.resolve(__dirname, 'build'),
         filename: "bundle.js",
     },
-
-    mode: 'development',
 
     target: 'web',
 
@@ -53,5 +54,18 @@ const config = {
     ]
 
 };
+
+if (environment == "development") {
+    config.serve = {
+        add: (app, middleware, options) => {
+            const historyOptions = {
+                // ... see: https://github.com/bripkens/connect-history-api-fallback#options
+            };
+
+            app.use(convert(history(historyOptions)));
+        }
+    };
+    config.mode = "development";
+}
 
 module.exports = config;

@@ -12,7 +12,7 @@ class Services extends React.Component {
             <div>
                 <Container textAlign='justified'>
                     <Header as='h1'>
-                        Services BR
+                        Services proposés par le BR
                     </Header>
                     <p>
                         Le BR propose tout un ensemble de services aux étudiants de l'École polytechnique : hébergement de serveurs, sites pour les associations, machines de calcul, dépannage...
