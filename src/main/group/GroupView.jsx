@@ -17,15 +17,13 @@ import GroupSettings from './group_view/GroupSettings.jsx';
 
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {
-        accessGroups {
-            group(uid: $uid) {
-                uid
-                name
-                website
-                description
-                createdAt
-                updatedAt
-            }
+        group(uid: $uid) {
+            uid
+            name
+            website
+            description
+            createdAt
+            updatedAt
         }
     }
 `;
@@ -51,7 +49,7 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
         const { match, location, history } = this.props;
         
         // 
-        const { data: { loading, error, accessGroups } } = this.props;
+        const { data: { loading, error, group } } = this.props;
 
         console.log("Match:", match);
         console.log("Where:", location);
@@ -63,8 +61,6 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
         } else if (error) {
             return <div>Error {error}</div>;
         }
-
-        const group = accessGroups.group;
 
         return (
             <Container ref={this.setContextRef}>

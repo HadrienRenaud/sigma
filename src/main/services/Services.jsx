@@ -28,6 +28,20 @@ class Services extends React.Component {
                     <p>
                         GitLab est un service d'hébergement et de gestion de fichiers particulièrement adapté à du code informatique : que ça soit pour un PSC, un projet de cours de maths ou d'info, un P3A, un modal, du travail pour X-Projets, un site internet pour un binet ou association, vous pouvez y mettre ce que vous voulez.
                     </p>
+
+                    <Header as='h2'>
+                        <a href="http://carnets.binets.fr">Carnets</a>
+                    </Header>
+                    <p>
+                        Carnets est un service d'édition et d'hébergement de fichiers écrits en Markdown, qui permet de prendre des notes, avec un aperçu en direct du résultat, et les partager avec d'autres tout en contrôlant finement quels utilisateurs peuvent voir le contenu ou l'éditer.
+                    </p>
+
+                    <Header as='h2'>
+                        <a href="http://foyer.binets.fr">Foyer</a>
+                    </Header>
+                    <p>
+                        Foyer, c'est le forum de discussion sur le platal : c'est l'endroit idéal pour chercher des fiches pour un cours, demander de l'aide pour un DM, trouver un partenaire de projet de MAP, sans avoir à faire un post timide sur Facebook qui se perdrait au milieu d'un océan d'annonces d'événements binets.
+                    </p>
                 </Container>
             </div>
         );
