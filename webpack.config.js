@@ -11,6 +11,7 @@ const config = {
 
     output: {
         path: path.resolve(__dirname, 'build'),
+        publicPath: "/",
         filename: "bundle.js",
     },
 
@@ -57,6 +58,7 @@ const config = {
 
 if (environment == "development") {
     config.serve = {
+        content: [__dirname],
         add: (app, middleware, options) => {
             const historyOptions = {
                 // ... see: https://github.com/bripkens/connect-history-api-fallback#options
