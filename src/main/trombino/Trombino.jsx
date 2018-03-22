@@ -15,7 +15,7 @@ class Trombino extends React.Component {
         super(props);
 
         this.state = {
-            uid: "",
+            uid: "louis.vaneau",
             prenom: "",
             nom: "",
             surnom: "",

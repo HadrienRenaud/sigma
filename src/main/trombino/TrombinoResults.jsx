@@ -32,15 +32,23 @@ class TrombinoResults extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            uid: props.query.uid
+        };
     
     }
 
     componentWillReceiveProps(newProps) {
-        console.log(newProps.query);
+        this.setState({ uid: newProps.query.uid });
+
+        const { data: { refetch } } = this.props;
+
+        refetch({ uid: this.state.uid });
+
     }
 
     render() {
-
         const { data: { loading, error, user } } = this.props;
 
         if (loading) {
@@ -69,5 +77,5 @@ class TrombinoResults extends React.Component {
 }
 
 export default graphql(GET_TROMBINO, {
-    options: ({props}) => ({ variables: { uid: "guillaume.wang" } })
+    options: ({ query }) => ({ variables: { uid: query.uid } })
 })(TrombinoResults);

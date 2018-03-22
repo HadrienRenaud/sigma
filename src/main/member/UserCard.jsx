@@ -14,7 +14,7 @@ class UserCard extends React.Component {
     }
     
     componentDidMount() {
-        console.log(`User card for ${this.props.lastName} mounted.`);
+        console.log(`User card mounted.`);
     }
 
     render() {
@@ -29,7 +29,7 @@ class UserCard extends React.Component {
                         <List.Item>
                             <List.Icon name='marker' />
                             <List.Content>
-                                Adresse : {this.props.address[0]}
+                                Adresse : {this.props.address ? this.props.address[0] : "Nulle part..."}
                             </List.Content>
                         </List.Item>
                         <List.Item>
