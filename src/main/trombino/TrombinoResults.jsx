@@ -47,16 +47,16 @@ class TrombinoResults extends React.Component {
 
         return (
             <Query query={GET_TROMBINO}
-                variables={{ uid: this.props.query.uid }}
-                errorPolicy='all'>
+                variables={{ uid: this.props.query.uid }} >
                 {({ loading, error, data, refetch}) => {
                     if (loading) return <div>Chargement, patience SVP...</div>;
-                    else if (error) return <div>Pas trouvé.</div>;
+                    else if (error) return <div>Erreur.</div>;
 
                     const { user } = data;
-
+                    
                     return <UserCard givenName={user.givenName} lastName={user.lastName} mail={user.mail} 
                         address={user.address} groups={user.groups} />;
+                    
 
                 }}
             </Query>
