@@ -4,7 +4,7 @@ import {
     Grid, Header, Menu, Message, Segment, Table
 } from 'semantic-ui-react';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { Query } from 'react-apollo';
 import UserCard from '../member/UserCard.jsx';
 
 /** 
@@ -41,41 +41,27 @@ class TrombinoResults extends React.Component {
 
     componentWillReceiveProps(newProps) {
         this.setState({ uid: newProps.query.uid });
-
-        const { data: { refetch } } = this.props;
-
-        refetch({ uid: this.state.uid });
-
     }
 
     render() {
-        const { data: { loading, error, user } } = this.props;
-
-        if (loading) {
-            return (
-                <div>
-                    {loading}
-                    <p>Chargement, patience s'il vous plaît...</p>
-                </div>
-            );
-        } else if (error) {
-            return (
-                <div>
-                    {error}
-                    <p>Erreur</p>
-                </div>
-            );
-        }
 
         return (
-            <div>
-                <UserCard givenName={user.givenName} lastName={user.lastName} mail={user.mail} 
-                    address={user.address} groups={user.groups} />
-            </div>
+            <Query query={GET_TROMBINO}
+                variables={{ uid: this.props.query.uid }}
+                errorPolicy='all'>
+                {({ loading, error, data, refetch}) => {
+                    if (loading) return <div>Chargement, patience SVP...</div>;
+                    else if (error) return <div>Pas trouvé.</div>;
+
+                    const { user } = data;
+
+                    return <UserCard givenName={user.givenName} lastName={user.lastName} mail={user.mail} 
+                        address={user.address} groups={user.groups} />;
+
+                }}
+            </Query>
         );
     }
 }
 
-export default graphql(GET_TROMBINO, {
-    options: ({ query }) => ({ variables: { uid: query.uid } })
-})(TrombinoResults);
+export default TrombinoResults;

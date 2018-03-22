@@ -25,13 +25,13 @@ class UserCard extends React.Component {
                         {this.props.givenName} {this.props.lastName}
                     </Card.Header>
                     <List>
-                        <List.Item icon='mail' content={<a href={`mailto:${this.props.mail}`}>{this.props.mail}</a>} />
-                        <List.Item>
-                            <List.Icon name='marker' />
-                            <List.Content>
-                                Adresse : {this.props.address ? this.props.address[0] : "Nulle part..."}
-                            </List.Content>
-                        </List.Item>
+                        <List.Item icon='mail' content={<a href={`mailto:${this.props.mail}`}>{this.props.mail}</a>} />    
+                        {this.props.address ? 
+                            <List.Item>
+                                <List.Icon name='marker' />
+                                <List.Content>{this.props.address[0]}</List.Content>
+                            </List.Item> : ""
+                        }
                         <List.Item>
                             <List.Icon name="group" />
                             <List.Content>
