@@ -9,21 +9,13 @@ import { Form, Button, Input, Container, Divider,
     Grid, Header, Menu, Message, Segment, Table } from 'semantic-ui-react';
 import TrombinoResults from './TrombinoResults.jsx';
 
-/** 
- * @constant Requête GraphQL...
-*/
-// TODO
-const GET_TROMBINO = gql`
-    query trombinoQuery {
-        blablablabla
-    }
-`;
-
 class Trombino extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.state = {
+            uid: "",
             prenom: "",
             nom: "",
             surnom: "",
@@ -31,25 +23,11 @@ class Trombino extends React.Component {
             promo: "",
             sport: "",
             binet: "",
-            groupe: "",
-
-            // this.state.data sert a recuperer les infos de graphql pour les passer a TrombinoResults.
-            // est-ce la bonne facon de faire?
-            data:''
+            groupe: ""
         };
 
         // This binding is necessary to make `this` work in the callback
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    handleSubmit(event) {
-        // INSERER ENVOI DE QUERY GRAPHQL ETC ICI
-        console.log("Submitting");
-        console.log(JSON.stringify(this.state));
-
-        //this.setState({ data: /*reponse de graphQL*/ );
-        this.setState({ data: JSON.stringify(this.state) });
     }
     
     handleInputChange(event) {
@@ -58,24 +36,29 @@ class Trombino extends React.Component {
         this.setState({ [name]: value }); //ES6 computed property name syntax
     }
 
+    
+
     render() {
+
         return (
             <div>
                 <Grid columns='equal'>
                     <Grid.Column width={3}>
 
-                        <Form size='large' onSubmit={this.handleSubmit}>
-
-                            <Segment>
-                                Critères de filtrage
-                                <Button 
-                                    fluid 
-                                    color='blue'>
-                                Envoyer la requête
-                                </Button>
-                            </Segment>{/*<Segment attached>*/}
+                        <Form size='large'>
 
                             <Segment.Group piled>
+                                <Segment>
+                                    Identifiant
+                                    <Form.Input
+                                        fluid
+                                        placeholder='louis.vaneau'
+                                        type='text'
+                                        name='uid'
+                                        value={this.state.uid}
+                                        onChange={this.handleInputChange}
+                                    />
+                                </Segment>
                                 <Segment>
                                     Prénom
                                     <Form.Input
@@ -173,33 +156,20 @@ class Trombino extends React.Component {
                                 </Segment>
                             </Segment.Group>
 
-                            <Segment.Group piled>
-                                <Segment>
-                                    <p>Autre</p>
-                                </Segment>
-                                <Segment.Group>
-                                    <Segment>
-                                        <p>Nested Top</p>
-                                    </Segment>
-                                    <Segment>
-                                        <p>Nested Middle</p>
-                                    </Segment>
-                                    <Segment>
-                                        <p>Nested Bottom</p>
-                                    </Segment>
-                                </Segment.Group>
-                            </Segment.Group>
-
                         </Form>
                     </Grid.Column>
 
                     <Grid.Column>
-                        <p>ici les resultats du trombino</p>
-                        <TrombinoResults data={this.state.data}/>
+                        <Header as='h1'>
+                            Trombinoscope
+                        </Header>
+                        <h3>
+                            Résultats pour {this.state.prenom}{this.state.surnom ? ` « ${this.state.surnom} » ` : " "}{this.state.nom}
+                        </h3>
+                        {this.state.uid ? <h4>{this.state.uid}</h4> : ""}
+                        <TrombinoResults query={this.state}/>
                     </Grid.Column>
-
                 </Grid>
-
             </div>
         );
     }

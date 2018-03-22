@@ -6,7 +6,7 @@
   "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "dev": "cross-env NODE_ENV=development webpack-serve ./webpack.config.js --port 8888",
+    "dev": "cross-env NODE_ENV=development webpack-serve ./webpack.config.js",
     "doc": "jsdoc -c configfile_doc.json",
     "lint": "eslint src/"
   },

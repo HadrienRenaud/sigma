@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Label, Link, Button, Segment } from 'semantic-ui-react';
+import { Label, Header, Link, Button, Segment } from 'semantic-ui-react';
 import Post from './Post.jsx';
 
 /**

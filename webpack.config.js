@@ -9,6 +9,8 @@ const environment = process.env.NODE_ENV;
 const config = {
     entry: './src/App.jsx',
 
+    mode: "production",
+
     output: {
         path: path.resolve(__dirname, 'build'),
         publicPath: "/",
@@ -59,6 +61,7 @@ const config = {
 if (environment == "development") {
     config.serve = {
         content: [__dirname],
+        port: 8888,
         add: (app, middleware, options) => {
             const historyOptions = {
                 // ... see: https://github.com/bripkens/connect-history-api-fallback#options
