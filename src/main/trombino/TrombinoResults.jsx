@@ -47,7 +47,8 @@ class TrombinoResults extends React.Component {
                     nickname: this.props.params.nickname,
                     groups: this.props.params.groups
                 }}
-                pollInterval={400} >
+                pollInterval={600}
+                fetchPolicy='cache-first' >
                 {({ loading, error, data, refetch }) => {
                     if (loading) return <div>Chargement, patience SVP...</div>;
                     else if (error) return <div>Erreur.</div>;
