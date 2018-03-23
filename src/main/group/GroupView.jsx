@@ -14,7 +14,7 @@ import GroupAnnouncements from './group_view/GroupAnnouncements.jsx';
 import GroupQanda from './group_view/GroupQanda.jsx';
 import GroupPageInterne from './group_view/GroupPageInterne.jsx';
 import GroupAdministrer from './group_view/GroupAdministrer.jsx';
-import GroupWelcome from './group_view/GroupWelcome.jsx';
+import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
 
 const GET_GROUP = gql`
@@ -26,6 +26,7 @@ const GET_GROUP = gql`
             description
             createdAt
             updatedAt
+            # frontPage # TODO: modifier le schema graphQL et decommenter cette ligne
         }
     }
 `;
@@ -52,6 +53,9 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
         
         // 
         const { data: { loading, error, group } } = this.props;
+        
+        // TODO: modifier le schema graphQL et decommenter cette ligne
+        const fakeFrontPage="_this is a markdown string_ Fake group front page. Must modify *graphQL schema* before we can implement this";
 
         console.log("Match:", match);
         console.log("Where:", location);
@@ -123,7 +127,12 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
 
                 <Segment attached>
                     <Switch>
-                        <Route exact path={match.url + "/"} component={GroupWelcome} />{/*la premiere fois qu'on voit en arrivant sur la page*/}
+                        {/*la premiere chose qu'on voit en arrivant sur la page*/}
+                        <Route exact path={match.url + "/"}
+                            render={() => 
+                                <GroupFrontPage frontPage={fakeFrontPage/*TODO: modifier le schema graphQL et remplacer par: group.frontPage*/}/>
+                            } 
+                        />
                         <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
                         <Route path={match.url + "/qanda"} component={GroupQanda} />
                         <Route path={match.url + "/events"} component={GroupEvents} />

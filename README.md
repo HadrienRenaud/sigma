@@ -93,7 +93,7 @@ Pour mieux comprendre ESLint, référez-vous à la [doc](https://eslint.org/docs
 
 ### Note concernant react-router
 
-On importe *seulement* withRouter de react-router. Tout le reste (BrowserRouter, Route, Link, NavLink...) doit etre importe depuis *react-router-dom*.
+Ne rien importer depuis react-router (le core de react router), mais depuis *react-router-dom* (le package dedie aux sites web). (BrowserRouter, Route, Link, NavLink...) En effet certains Component existent dans les deux mais avec quelques differences.
 
 ### Outils de test
 
