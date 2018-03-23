@@ -1,12 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, Header, List } from 'semantic-ui-react';
+import { Query } from 'react-apollo';
+import gql from 'graphql-tag';
+
+const GET_USER = gql`
+    query getUser($uid: ID) {
+        user(uid: $uid) {
+            lastName
+            givenName
+            mail
+            phone
+            address
+            groups {
+                uid
+                name
+            }
+        }
+    }
+`;
 
 class UserCard extends React.Component {
 
     static propTypes = {
-        givenName: PropTypes.string.isRequired,
-        lastName: PropTypes.string.isRequired
+        uid: PropTypes.string.isRequired
     }
 
     constructor(props) {
@@ -19,34 +36,49 @@ class UserCard extends React.Component {
 
     render() {
         return (
-            <Card>
-                <Card.Content>
-                    <Card.Header as='h2'>
-                        {this.props.givenName} {this.props.lastName}
-                    </Card.Header>
-                    <List>
-                        <List.Item icon='mail' content={<a href={`mailto:${this.props.mail}`}>{this.props.mail}</a>} />    
-                        {this.props.address ? 
-                            <List.Item>
-                                <List.Icon name='marker' />
-                                <List.Content>{this.props.address[0]}</List.Content>
-                            </List.Item> : ""
-                        }
-                        <List.Item>
-                            <List.Icon name="group" />
-                            <List.Content>
-                                Groupes :
-                                <List>
-                                    {this.props.groups.map(gr => 
-                                        <List.Item key={gr.uid}>{gr.name}</List.Item>
-                                    )}
-                                </List>
-                            </List.Content>
-                        </List.Item>
-                    </List>
-                    
-                </Card.Content>
-            </Card>
+            <Query query={GET_USER}
+                variables={{ uid: this.props.uid }}
+            >
+                {
+                    ({ loading, error, data }) => {
+                        if (loading) return <div>Chargement, patientez SVP...</div>;
+                        else if (error) return <div>Erreur.</div>;
+
+                        const { user } = data;
+                        
+                        return (
+                            <Card>
+                                <Card.Content>
+                                    <Card.Header as='h2'>
+                                        {user.givenName} {user.lastName}
+                                    </Card.Header>
+                                    <List>
+                                        <List.Item icon='mail' content={<a href={`mailto:${user.mail}`}>{user.mail}</a>} />    
+                                        {user.address ? 
+                                            <List.Item>
+                                                <List.Icon name='marker' />
+                                                <List.Content>{user.address[0]}</List.Content>
+                                            </List.Item> : ""
+                                        }
+                                        <List.Item>
+                                            <List.Icon name="group" />
+                                            <List.Content>
+                                                Groupes :
+                                                <List>
+                                                    {user.groups.map(gr => 
+                                                        <List.Item key={gr.uid}>{gr.name}</List.Item>
+                                                    )}
+                                                </List>
+                                            </List.Content>
+                                        </List.Item>
+                                    </List>
+                                    
+                                </Card.Content>
+                            </Card>
+                        );
+                    } 
+                }
+            </Query>
         );
     }
 

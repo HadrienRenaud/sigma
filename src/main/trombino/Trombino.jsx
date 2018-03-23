@@ -15,15 +15,13 @@ class Trombino extends React.Component {
         super(props);
 
         this.state = {
-            uid: "louis.vaneau",
-            prenom: "",
-            nom: "",
-            surnom: "",
+            givenName: "Louis",
+            lastName: "Vaneau",
+            nickname: "",
             formation: "",
             promo: "",
             sport: "",
-            binet: "",
-            groupe: ""
+            groups: ""
         };
 
         // This binding is necessary to make `this` work in the callback
@@ -49,24 +47,13 @@ class Trombino extends React.Component {
 
                             <Segment.Group piled>
                                 <Segment>
-                                    Identifiant
-                                    <Form.Input
-                                        fluid
-                                        placeholder='louis.vaneau'
-                                        type='text'
-                                        name='uid'
-                                        value={this.state.uid}
-                                        onChange={this.handleInputChange}
-                                    />
-                                </Segment>
-                                <Segment>
                                     Prénom
                                     <Form.Input
                                         fluid
                                         placeholder='Louis'
                                         type='text'
-                                        name='prenom'
-                                        value={this.state.prenom}
+                                        name='givenName'
+                                        value={this.state.givenName}
                                         onChange={this.handleInputChange}
                                     />
                                 </Segment>
@@ -76,8 +63,8 @@ class Trombino extends React.Component {
                                         fluid
                                         placeholder='Vaneau'
                                         type='text'
-                                        name='nom'
-                                        value={this.state.nom}
+                                        name='lastName'
+                                        value={this.state.lastName}
                                         onChange={this.handleInputChange}
                                     />
                                 </Segment>
@@ -87,8 +74,8 @@ class Trombino extends React.Component {
                                         fluid
                                         placeholder='mythe'
                                         type='text'
-                                        name='surnom'
-                                        value={this.state.surnom}
+                                        name='nickname'
+                                        value={this.state.nickname}
                                         onChange={this.handleInputChange}
                                     />
                                 </Segment>
@@ -138,8 +125,8 @@ class Trombino extends React.Component {
                                         fluid
                                         placeholder='Subaïsse'
                                         type='text'
-                                        name='binet'
-                                        value={this.state.binet}
+                                        name='groups'
+                                        value={this.state.groups}
                                         onChange={this.handleInputChange}
                                     />
                                 </Segment>
@@ -149,8 +136,8 @@ class Trombino extends React.Component {
                                         fluid
                                         placeholder='1829'
                                         type='text'
-                                        name='groupe'
-                                        value={this.state.groupe}
+                                        name='promo'
+                                        value={this.state.promo}
                                         onChange={this.handleInputChange}
                                     />
                                 </Segment>
@@ -164,10 +151,9 @@ class Trombino extends React.Component {
                             Trombinoscope
                         </Header>
                         <h3>
-                            Résultats pour {this.state.prenom}{this.state.surnom ? ` « ${this.state.surnom} » ` : " "}{this.state.nom}
+                            Résultats pour {this.state.givenName}{this.state.nickname ? ` « ${this.state.nickname} » ` : " "}{this.state.lastName}
                         </h3>
-                        {this.state.uid ? <h4>{this.state.uid}</h4> : ""}
-                        <TrombinoResults query={this.state}/>
+                        <TrombinoResults params={this.state}/>
                     </Grid.Column>
                 </Grid>
             </div>

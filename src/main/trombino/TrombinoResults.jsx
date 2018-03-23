@@ -11,17 +11,16 @@ import UserCard from '../member/UserCard.jsx';
  * @constant Requête GraphQL...
 */
 const GET_TROMBINO = gql`
-    query trombinoQuery($uid: ID!) {
-        user(uid: $uid) {
-            lastName
-            givenName
-            mail
-            address
-            groups {
-                uid 
-                name
-            }
-        }
+    query trombinoQuery(
+        $givenName: String,
+        $lastName: String,
+        $nickname: String,
+        $groups: String
+    ) {
+        searchTOL(givenName: $givenName, 
+            lastName: $lastName,
+            nickname: $nickname,
+            groups: $groups)
     }
 `;
 
@@ -32,31 +31,33 @@ class TrombinoResults extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            uid: props.query.uid
-        };
-    
-    }
-
-    componentWillReceiveProps(newProps) {
-        this.setState({ uid: newProps.query.uid });
     }
 
     render() {
 
         return (
             <Query query={GET_TROMBINO}
-                variables={{ uid: this.props.query.uid }} >
-                {({ loading, error, data, refetch}) => {
+                variables={{
+                    givenName: this.props.params.givenName, 
+                    lastName: this.props.params.lastName,
+                    nickname: this.props.params.nickname,
+                    groups: this.props.params.groups
+                }} >
+                {({ loading, error, data, refetch }) => {
                     if (loading) return <div>Chargement, patience SVP...</div>;
                     else if (error) return <div>Erreur.</div>;
 
-                    const { user } = data;
+                    console.log("Request parameters:",this.props.params);
+
+                    const { searchTOL } = data;
                     
-                    return <UserCard givenName={user.givenName} lastName={user.lastName} mail={user.mail} 
-                        address={user.address} groups={user.groups} />;
-                    
+                    return (
+                        <div>
+                            {searchTOL.map(res => {
+                                return <UserCard key={res} uid={res} />;
+                            })}
+                        </div>
+                    );
 
                 }}
             </Query>
