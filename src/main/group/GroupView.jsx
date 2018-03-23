@@ -146,13 +146,4 @@ const GroupWithGraphQL = graphql(GET_GROUP, {
     options: ({ match }) => ({ variables: { uid: match.params.uid } })
 }) (GroupRouted);
 
-
-
-const GroupView = ({ match }) => (
-    <Switch>
-        <Route path={match.url + "/:uid"} component={GroupWithGraphQL} />
-        <Route component={Error404} />
-    </Switch>
-);
-
-export default GroupView;
+export default GroupWithGraphQL;
