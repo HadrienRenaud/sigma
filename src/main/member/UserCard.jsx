@@ -12,6 +12,7 @@ const GET_USER = gql`
             mail
             phone
             address
+            promotion
             groups {
                 uid
                 name
@@ -69,6 +70,12 @@ class UserCard extends React.Component {
                                                         <List.Item key={gr.uid}>{gr.name}</List.Item>
                                                     )}
                                                 </List>
+                                            </List.Content>
+                                        </List.Item>
+                                        <List.Item>
+                                            <List.Icon name="group" />
+                                            <List.Content>
+                                                Promotion : {user.promotion}
                                             </List.Content>
                                         </List.Item>
                                     </List>
