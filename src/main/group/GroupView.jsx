@@ -4,17 +4,17 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, NavLink, Link, withRouter } from 'react-router-dom';
+import { Route, Switch, NavLink, Link, withRouter, Redirect } from 'react-router-dom';
 import Error404 from '../Errors.jsx';
 import { Menu, Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 
 import GroupAnnouncements from './group_view/GroupAnnouncements.jsx';
-import GroupPosts from './group_view/GroupPosts.jsx';
+import GroupQanda from './group_view/GroupQanda.jsx';
 import GroupPageInterne from './group_view/GroupPageInterne.jsx';
 import GroupAdministrer from './group_view/GroupAdministrer.jsx';
-import GroupDescription from './group_view/GroupDescription.jsx';
+import GroupWelcome from './group_view/GroupWelcome.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
 
 const GET_GROUP = gql`
@@ -105,31 +105,30 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
                 
                 {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/}
                 <Menu attached='top' pointing>
-                    <Menu.Item as={NavLink} to={match.url + "/annonces"} 
+                    <Menu.Item as={NavLink} exact to={match.url + "/"}
+                        content="Page d'accueil" />
+                    <Menu.Item as={NavLink} to={match.url + "/annonces"}
                         content="Annonces" />
-                    <Menu.Item as={NavLink} to={match.url + "/posts"}
-                        content="Posts" />
+                    <Menu.Item as={NavLink} to={match.url + "/qanda"}
+                        content="Questions-Réponses" />
                     <Menu.Item as={NavLink} to={match.url + "/events"}
-                        content="Evénements" />
+                        content="Événements" />
+
                     <Menu.Item as={NavLink} to={match.url + "/interne"}
+                        position='right'
                         content="Page interne" /> {/*réservé aux membres du groupe*/}
                     <Menu.Item as={NavLink} to={match.url + "/admin"}
                         content="Administrer" /> {/*réservé aux administrateurs du groupe*/}
-                    <Menu.Item as={NavLink} to={match.url + "/description"}
-                        position='right'
-                        content = "Description"/>
                 </Menu>
 
                 <Segment attached>
                     <Switch>
-                        <Route exact path={match.url + "/"} component={GroupAnnouncements} />
-                        {/*la premiere fois qu'on arrive sur la page, on ne change pas le path mais on affiche quand meme GroupAnnouncements*/}
+                        <Route exact path={match.url + "/"} component={GroupWelcome} />{/*la premiere fois qu'on voit en arrivant sur la page*/}
                         <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
-                        <Route path={match.url + "/posts"} component={GroupPosts} />
+                        <Route path={match.url + "/qanda"} component={GroupQanda} />
                         <Route path={match.url + "/events"} component={GroupEvents} />
                         <Route path={match.url + "/interne"} component={GroupPageInterne} />
                         <Route path={match.url + "/admin"} component={GroupAdministrer} />
-                        <Route path={match.url + "/description"} component={GroupDescription} />
                         <Route component={Error404} />
                     </Switch>
                 </Segment>

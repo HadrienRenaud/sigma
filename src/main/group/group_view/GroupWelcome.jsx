@@ -5,11 +5,11 @@ import faker from 'faker';
 
 import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 
-const GroupPosts = ({ match }) => (
+const GroupDescription = ({ match }) => (
     <div>
-        Group Posts
+        Group Welcome
         TODO
     </div>
 );
 
-export default GroupPosts;
+export default GroupDescription;

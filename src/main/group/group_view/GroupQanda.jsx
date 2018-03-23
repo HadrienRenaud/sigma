@@ -5,11 +5,11 @@ import faker from 'faker';
 
 import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 
-const GroupDescription = ({ match }) => (
+const GroupPosts = ({ match }) => (
     <div>
-        Group Description
+        Group Qandas
         TODO
     </div>
 );
 
-export default GroupDescription;
+export default GroupPosts;
