@@ -33,6 +33,10 @@ class TrombinoResults extends React.Component {
         super(props);
     }
 
+    componentWillReceiveProps(newProps) {
+        console.log(newProps);
+    }
+
     render() {
 
         return (
@@ -42,12 +46,11 @@ class TrombinoResults extends React.Component {
                     lastName: this.props.params.lastName,
                     nickname: this.props.params.nickname,
                     groups: this.props.params.groups
-                }} >
+                }}
+                pollInterval={400} >
                 {({ loading, error, data, refetch }) => {
                     if (loading) return <div>Chargement, patience SVP...</div>;
                     else if (error) return <div>Erreur.</div>;
-
-                    console.log("Request parameters:",this.props.params);
 
                     const { searchTOL } = data;
                     
