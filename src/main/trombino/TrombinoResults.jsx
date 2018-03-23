@@ -48,11 +48,10 @@ class TrombinoResults extends React.Component {
                     groups: this.props.params.groups
                 }}
                 fetchPolicy='cache-first' >
-                {({ loading, error, data, startPolling, stopPolling }) => {
+                {({ loading, error, data }) => {
                     if (loading) return <div>Chargement, patience SVP...</div>;
                     else if (error) return <div>Erreur.</div>;
 
-                    startPolling(600);
                     const { searchTOL } = data;
                     
                     return (
