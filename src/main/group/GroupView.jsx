@@ -32,16 +32,11 @@ const GET_GROUP = gql`
 `;
 
 
-class GroupUnrouted extends React.Component { //TODO change into semantic-ui-react
+class GroupView extends React.Component { //TODO change into semantic-ui-react
     state = {}
 
-    // react-router-dom's withRouter automatically passes the props match, location and history to the withRouter'd Component
-    // these props are useful to interact with the current URL and the browsing history
-    // cf https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/withRouter.md
     static propTypes = {
         match: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired
     }
 
     setContextRef = contextRef => this.setState({ contextRef })
@@ -49,7 +44,7 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
     render() {
         
         const { contextRef } = this.state;
-        const { match, location, history } = this.props;
+        const { match } = this.props;
         
         // 
         const { data: { loading, error, group } } = this.props;
@@ -58,8 +53,6 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
         const fakeFrontPage="_this is a markdown string_ Fake group front page. Must modify *graphQL schema* before we can implement this";
 
         console.log("Match:", match);
-        console.log("Where:", location);
-        console.log("History:", history);
 
         //
         if (loading) {
@@ -148,10 +141,8 @@ class GroupUnrouted extends React.Component { //TODO change into semantic-ui-rea
     }
 }
 
-const GroupRouted = withRouter(GroupUnrouted);
-
-const GroupWithGraphQL = graphql(GET_GROUP, {
+const GroupViewWithGraphQL = graphql(GET_GROUP, {
     options: ({ match }) => ({ variables: { uid: match.params.uid } })
-}) (GroupRouted);
+}) (GroupView);
 
-export default GroupWithGraphQL;
+export default GroupViewWithGraphQL;
