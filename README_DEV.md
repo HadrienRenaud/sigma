@@ -1,5 +1,14 @@
 # A l'attention des développeurs de sigma-frontend
 
+
+:::info
+Pour developper et tester les minimodules, merci de restreindre le caca au dossier src/main/index. Donc par exemple, creer un sous-dossier "monMinimodule" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx
+:::
+
+:::info
+Merci de creer une branche git pour chaque minimodule
+:::
+
 ## Pourquoi ce fichier ?
 
 Ce fichier regroupe toutes les conventions et les remarques que les développeurs ont jugé utile de préciser pour 
@@ -7,6 +16,7 @@ Ce fichier regroupe toutes les conventions et les remarques que les développeur
 2. éviter que le code parte en grosse bouillasse illisible
 
 Les infos regroupées ici ne concernent que les gens qui veulent vraiment comprendre et modifier le code. Il est donc séparé du README.md principal pour ne pas le surcharger inutilement.
+
 
 ## Structure détaillée des fichiers source
 
@@ -103,6 +113,11 @@ const GET_GROUP = gql`
    ce callback wrappe le Component avec (_i.e. renvoie un Component identique mais qui a en plus_) un champ `data` dans ses `props` ; 
    
    c'est dans ce `props` `data` que se trouvent les resultats de la requete graphQL.
+
+
+## Note concernant react-router
+
+Ne rien importer depuis react-router (le core de react router), mais depuis *react-router-dom* (le package dedie aux sites web). (BrowserRouter, Route, Link, NavLink...) En effet certains Component existent dans les deux mais avec quelques differences.
 
 ## Les développeurs du front
 

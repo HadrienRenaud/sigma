@@ -121,10 +121,11 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                 <Segment attached>
                     <Switch>
                         {/*la premiere chose qu'on voit en arrivant sur la page*/}
+                        {/*TODO: modifier le schema graphQL et remplacer :
+                        fakeFrontPage par group.frontPage*/}
+                        {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/}
                         <Route exact path={match.url + "/"}
-                            render={() => 
-                                <GroupFrontPage frontPage={fakeFrontPage/*TODO: modifier le schema graphQL et remplacer par: group.frontPage*/}/>
-                            } 
+                            render={() => <GroupFrontPage frontPage={fakeFrontPage}/> } 
                         />
                         <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
                         <Route path={match.url + "/qanda"} component={GroupQanda} />

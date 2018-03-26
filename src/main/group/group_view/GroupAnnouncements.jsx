@@ -1,3 +1,8 @@
+/**
+ * @file page listant les Annonces _écrites_ par ce groupe.
+ */
+
+
 import React from 'react';
 import {Route, Link} from 'react-router-dom';
 
