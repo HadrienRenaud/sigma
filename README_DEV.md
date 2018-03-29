@@ -23,29 +23,27 @@ Les infos regroupées ici ne concernent que les gens qui veulent vraiment compre
 Pour la structure générale du projet, aller voir le README principal.
 
 Principes généraux : 
-- à côté d'un ```<Route>```, toujours mettre un commentaire pour dire où se trouve le .jsx qui est rendered par le path concerné
+- à côté d'un ```<Route>```, merci de toujours mettre un commentaire pour dire où se trouve le .jsx qui est rendered par le path concerné
 - dans l'idée, un dossier par sous-path, même si ce sera forcément plus compliqué que ça. par exemple src/main/trombino/ contient tous les fichiers nécessaires pour render la page du TOL.
 
 Structure des fichiers source :
-* src/
-    * assets/
-    * main/
-        * group/
-            * group_view/ : les Component à insérer dans GroupView
-                [TODO]
-            * GroupView.jsx : la page d'accueil d'un groupe
-            [TODO]
-        * index/ : [TODO]
-        * layout/ : [TODO]
-        * login/ : [TODO]
-        * member/ : [TODO]
-        * services/ : [TODO]
-        * trombino/ : [TODO]
-        * Errors.jsx
-        * Main.jsx
-    * App.jsx : le point d'entrée de webpack
-
-== TODO: y a-t-il un meilleur moyen de représenter l'arborescence? aller voir dans carnets.bin/features... ==
+* __`src/`__
+    * __`assets/`__ : fichiers et images utilisees
+    * __`main/`__ : les fichiers jsx source
+        * __`group/`__ : page d'un groupe
+            * __`group_view/`__ : les Component à insérer dans GroupView
+        * __`index/`__ : page d'accueil de sigma
+            * `formulaire_blablabla.jsx` : ne pas en tenir compte, c'est a quentin louis >.>
+            * __`testComp`__ : poubelle de la poubelle
+                * `ControlledComponentFormDemo.jsx` : title says it all
+        * __`layout/`__ : les Component directement generes par Main.jsx, et qui contiendront tous les Component interessants, et definiront leur position.
+        * __`login/`__ : page de login
+        * __`member/`__ : page d'un utilisateur. Fournit aussi certaines "briques de base" de l'affichage du tol
+        * __`services/`__ : page listant et presentant tous les sites eleve interessants
+        * __`trombino/`__ : le TOL
+        * `Errors.jsx` : Components d'erreur (dont la fameuse page 404)
+        * `Main.jsx` : Component a la base de tout, contenant les comopnent de layout
+    * `App.jsx` : le point d'entrée de webpack, wrappant Main.jsx pour permettre d'utiliser apollo et react-router-dom sans se poser (trop) de questions
 
 ## Utilisation de graphQL
 
@@ -75,15 +73,13 @@ Par exemple :
 ```javascript
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {
-        accessGroups {
-            group(uid: $uid) {
-                uid
-                name
-                website
-                description
-                createdAt
-                updatedAt
-            }
+        group(uid: $uid) {
+            uid
+            name
+            website
+            description
+            createdAt
+            updatedAt
         }
     }
 `;
@@ -92,6 +88,13 @@ const GET_GROUP = gql`
 ### Envoyer la requête graphQL et recupérer les données renvoyées
 
 *Principe* : on wrap le Component avec une fonction de apollo-client qui donne une props supplémentaire contenant les données. On peut considérer, en écrivant le Component, que les résultats sont dans `this.props.data`.
+
+Modèle :
+```javascript
+const GroupViewWithGraphQL = graphql(GET_GROUP, {
+    options: ({ match }) => ({ variables: { uid: match.params.uid } })
+}) (GroupView);
+```
 
 `graphql(.,.)` prend pour parametres :
 1. la requête graphql (définie par ```gql `...` ```)
@@ -105,14 +108,16 @@ const GET_GROUP = gql`
    }
    ```
 
+
    Alternativement, les options peuvent etre un callback (*comme ci-dessus d'ailleurs*) prenant les props passes au composant,
    et qui renvoie `variables`, 
    
-   et renvoie un callback (_i.e. une fonction_) prenant en argument un Component React ;
-   
-   ce callback wrappe le Component avec (_i.e. renvoie un Component identique mais qui a en plus_) un champ `data` dans ses `props` ; 
-   
-   c'est dans ce `props` `data` que se trouvent les resultats de la requete graphQL.
+et renvoie un callback (_i.e. une fonction_) prenant en argument un Component React ;
+
+ce callback wrappe le Component avec (_i.e. renvoie un Component identique mais qui a en plus_) un champ `data` dans ses `props` ; 
+
+c'est dans ce `props` `data` que se trouvent les resultats de la requete graphQL.
+
 
 
 ## Note concernant react-router
