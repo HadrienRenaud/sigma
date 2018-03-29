@@ -9,7 +9,7 @@ import logo_sigma_large from '../../assets/logo_sigma_large.png';
 import AddFormulaire from './AddFormulaire.jsx';
 import ControlledComponentFormDemo from './testComp/ControlledComponentFormDemo.jsx';
 import PostPanel from '../messages/PostPanel.jsx';
-
+import TOS from './minimodules/TOS/TOS.jsx';
 /**
  * @file page d'accueil. ce Component wrap tous les minimodules presents sur la page d'accueil
  */
@@ -66,7 +66,7 @@ class Index extends React.Component {
         return (
             <div>
                 <ControlledComponentFormDemo/>
-
+                <TOS/>
                 {/*
                 <p>Voici juste un form de test, il n'est pas persistant !</p>
                 <p>Please don't test, it works.</p>
