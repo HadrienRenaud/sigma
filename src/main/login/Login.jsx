@@ -93,8 +93,8 @@ class Login extends React.Component {
                 </Grid>
 
                 <strong>onChange:</strong>
-                <pre>{JSON.stringify(this.state.userInput, null, 2)}</pre>
-                <pre>{JSON.stringify(this.state.passwordInput, null, 2)}</pre>
+                <pre>{JSON.stringify(this.state.userInput)}</pre>
+                <pre>{JSON.stringify(this.state.passwordInput)}</pre>
                 
             </div>
         );

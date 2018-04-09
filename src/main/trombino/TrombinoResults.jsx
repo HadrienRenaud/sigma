@@ -33,7 +33,11 @@ class TrombinoResults extends React.Component {
         super(props);
     }
 
-    componentWillReceiveProps(newProps) {
+    componentWillReceiveProps(newProps, prevState) {
+        /*
+        getDerivedStateFromProps is invoked after a component is instantiated as well as when it receives new props. 
+        It should return an object to update state, or null to indicate that the new props do not require any state updates.
+        */
         console.log(newProps);
     }
 
@@ -47,22 +51,26 @@ class TrombinoResults extends React.Component {
                     nickname: this.props.params.nickname,
                     groups: this.props.params.groups
                 }}
-                fetchPolicy='cache-first' >
-                {({ loading, error, data }) => {
+                fetchPolicy='cache-first' 
+            >
+                { ({ loading, error, data }) => {
                     if (loading) return <div>Chargement, patience SVP...</div>;
                     else if (error) return <div>Erreur.</div>;
 
-                    const { searchTOL } = data;
+                    const { searchTOL } = data; //extracts the actual data from object 'data'
                     
                     return (
                         <div>
                             {searchTOL.map(res => {
+                                //since searchTOL is of type [String], we must use
+                                //'map' to produce multiple UserCards (in this case), 
+                                //one for each value returned by searchTOL
+                                //it is necessary to give a "key" attribute (https://reactjs.org/docs/lists-and-keys.html)
                                 return <UserCard key={res} uid={res} />;
                             })}
                         </div>
                     );
-
-                }}
+                } }
             </Query>
         );
     }

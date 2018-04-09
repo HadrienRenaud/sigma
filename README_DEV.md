@@ -87,6 +87,110 @@ const GET_GROUP = gql`
 
 ### Envoyer la requête graphQL et recupérer les données renvoyées
 
+Le code ci-dessous est un MWE (minimal working example) de Component utilisant une requête GraphQL. L'auteur estime qu'il est lisible et compréhensible tel quel, et donc facilement copiable-modifiable.
+
+```javascript
+/**
+ * @author kadabra
+ * 
+ * Dans cet exemple, supposons qu'il y a dans le schema 
+ *  - une Query 'searchPaintCatalog' qui renvoie une [ID!] des numeros de produits qui correspondent aux criteres de recherche (color et quality)
+ *  - une Query 'popularity' qui renvoie un Int (entre 1 et 10 par ex) qui indique si la couleur est populaire.
+*/
+
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+
+/**
+ * @constant Requête GraphQL
+ * 
+*/
+const GET_PAINT = gql`
+    query getPaintQuery( # ce nom ("getPaintQuery") sert juste a donner un nom mais n'est pas vraiment utile
+        $color: String, # arguments de la Query
+        $quality: String
+    ) {
+        searchPaintCatalog( # la Query proprement dite
+            color: $color,
+            quality: $quality
+        ),
+        popularity(
+            color: $color
+        )
+    }
+`;
+
+class PaintExampleClass extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    render() {
+        { paramColor, paramQuality } = this.props.params; //extract and create shorthand for useful variables from params
+
+        return (
+            <Query query={GET_TROMBINO}
+                variables={{
+                    color: paramColor, 
+                    quality: paramQuality,
+                }}
+                fetchPolicy='cache-first' //choose cache behaviour
+            >
+                { ({ loading, error, data }) => {
+                    if (loading) 
+                        return <div>Chargement, patience SVP...</div>;
+                    else if (error) 
+                        return <div>Erreur.</div>;
+
+                    const { searchPaintCatalog, popularity } = data; //extracts the actual data from object 'data'
+                    
+                    return (
+                        <div>
+                            <p>La couleur que vous avez recherche, le {this.props.param.color}, a pour popularité {popularity}</p>
+                            <p>Voici les pots de peinture correspondant à votre requête :</p>
+                            {searchPaintCatalog.map(res => {
+                                //since searchPaintCatalog is of type [ID], we must use
+                                //'map' to produce multiple elements (PaintCard components in this case),
+                                //one for each value returned by searchPaintCatalog
+                                //return <PaintCard key={res} uid={res} />;
+                            })}
+                        </div>
+                    );
+                } }
+            </Query>
+        );
+    }
+}
+
+export default PaintExampleClass;
+```
+
+#### Component avec plusieurs requêtes
+
+Il suffit d'écrire les deux requêtes et d'emboîter deux <Query>. 
+```javascript
+<Query query={QueryOne}>
+    {({ loading: loadingOne, data }) => (
+        const { one } = data;
+        <Query query={QueryTwo}>
+            {
+                ({ loading: loadingTwo, data }) => {
+                const { two } = data;
+                if (loadingOne || loadingTwo)
+                    return <span>loading...</span>
+                return <Blablabla attr1={one}, attr2={two}/>
+                }
+            }
+         </Query>
+    )}
+</Query>
+```
+https://www.apollographql.com/docs/react/react-apollo-migration.html
+
+#### Avant (apollo-graphql v<3.0)
+
+Pour info. Normalement on peut enlever cette sous-section mais elle est déjà écrite alors...
+
 *Principe* : on wrap le Component avec une fonction de apollo-client qui donne une props supplémentaire contenant les données. On peut considérer, en écrivant le Component, que les résultats sont dans `this.props.data`.
 
 Modèle :
