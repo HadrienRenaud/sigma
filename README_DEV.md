@@ -2,7 +2,7 @@
 
 
 :::info
-Pour developper et tester les minimodules, merci de restreindre le caca au dossier src/main/index. Donc par exemple, creer un sous-dossier "monMinimodule" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx
+Pour developper et tester les minimodules, merci de restreindre le caca au dossier src/main/index/ (voire minimodules/). Donc par exemple, creer un sous-dossier "minimodules/monMinimodule/" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx
 :::
 
 :::info
@@ -58,11 +58,12 @@ _On n'utilise pas graphql.js mais une autre implémentation appelée apollo
 
 On utilise les packages suivants :
 - *apollo-client* : une implementation de graphQL "côté client". 
-    - Au 20/03/2018 la doc disponible sur internet était plutôt mal foutue, nous conseillons d'aller regarder surtout ces pages-là :
-        - https://www.howtographql.com/react-apollo/0-introduction/
-        - https://dev-blog.apollodata.com/a-guide-to-authentication-in-graphql-e002a4039d1
-        - [TODO (il y en a d'autres)]
-- [TODO]
+    - ~~Au 20/03/2018 la doc disponible sur internet était plutôt mal foutue, nous conseillons d'aller regarder surtout ces pages-là :~~
+        - ~~https://www.howtographql.com/react-apollo/0-introduction/~~
+        - ~~https://dev-blog.apollodata.com/a-guide-to-authentication-in-graphql-e002a4039d1~~
+    - EDIT: au 10/04/2018 la doc a été mise à jour et franchement c'est devenu pas trop mal. https://www.apollographql.com/docs/react/
+    - ainsi que des packages conseillés/demandés par apollo-client :
+- **TODO** en vrai y en a un peu beaucoup
 
 ### Ecrire une requete graphQL
 
@@ -152,7 +153,8 @@ class PaintExampleClass extends React.Component {
                                 //since searchPaintCatalog is of type [ID], we must use
                                 //'map' to produce multiple elements (PaintCard components in this case),
                                 //one for each value returned by searchPaintCatalog
-                                //return <PaintCard key={res} uid={res} />;
+                                //it is necessary to give a "key" attribute (https://reactjs.org/docs/lists-and-keys.html)
+                                return <PaintCard key={res} uid={res} />;
                             })}
                         </div>
                     );
