@@ -11,7 +11,7 @@ import faker from 'faker';
 import { Search, Grid, Divider } from 'semantic-ui-react';
 import _ from 'lodash';
 
-import {Announcements} from '../../messages/Announcement.jsx';
+import AnnouncementCard from '../../messages/AnnouncementCard.jsx';
 
 const source = _.times(5, () => ({
     title: faker.company.companyName(),
@@ -78,7 +78,6 @@ const GroupAnnouncements = ({match}) => (
     <div>
         <AnnouncementSearch/>
         <Divider/>
-        <Announcements/>
     </div>
 );
 

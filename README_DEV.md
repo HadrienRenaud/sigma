@@ -96,9 +96,9 @@ Le code ci-dessous est un MWE (minimal working example) de Component utilisant u
  * 
  * Dans cet exemple, supposons qu'il y a dans le schema 
  *  - une Query 'searchPaintCatalog' qui renvoie une [ID!] des numeros de produits qui correspondent aux criteres de recherche (color et quality)
- *  - une Query 'popularity' qui renvoie un Int (entre 1 et 10 par ex) qui indique si la couleur est populaire.
+ *  - une Query 'popularity' qui renvoie un type Popularity ayant deux sous-champs scalaires (Int en l'occurrence).
 */
-
+import React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
@@ -107,17 +107,24 @@ import { Query } from 'react-apollo';
  * 
 */
 const GET_PAINT = gql`
-    query getPaintQuery( # ce nom ("getPaintQuery") sert juste a donner un nom mais n'est pas vraiment utile
+    query getPaintQuery(
+         # ce nom ("getPaintQuery") n'est pas vraiment utile.
         $color: String, # arguments de la Query
         $quality: String
     ) {
-        searchPaintCatalog( # la Query proprement dite
+        # la Query proprement dite
+        # une première Query, qui renvoie un [ID]
+        searchPaintCatalog( 
             color: $color,
             quality: $quality
         ),
-        popularity(
+        # une deuxième Query, qui renvoie un objet donc il faut expliciter les sous-champs
+        popularity( 
             color: $color
-        )
+        ){
+            localPop
+            worldPop
+        }
     }
 `;
 
@@ -127,19 +134,20 @@ class PaintExampleClass extends React.Component {
     }
 
     render() {
-        { paramColor, paramQuality } = this.props.params; //extract and create shorthand for useful variables from params
+        const { props_color, props_quality } = this.props; //extract and create shorthand for useful variables from props
 
         return (
-            <Query query={GET_TROMBINO}
+            <Query query={GET_PAINT}
                 variables={{
-                    color: paramColor, 
-                    quality: paramQuality,
+                    color: props_color, 
+                    quality: props_quality
+
                 }}
                 fetchPolicy='cache-first' //choose cache behaviour
             >
                 { ({ loading, error, data }) => {
                     if (loading) 
-                        return <div>Chargement, patience SVP...</div>;
+                        return <div>Chargement, patientez SVP...</div>;
                     else if (error) 
                         return <div>Erreur.</div>;
 
@@ -147,7 +155,7 @@ class PaintExampleClass extends React.Component {
                     
                     return (
                         <div>
-                            <p>La couleur que vous avez recherche, le {this.props.param.color}, a pour popularité {popularity}</p>
+                            <p>La couleur que vous avez recherché, le {this.props.param.color}, a pour popularité {popularity.localPop} dans votre région et {popularity.worldPop} dans le monde.</p>
                             <p>Voici les pots de peinture correspondant à votre requête :</p>
                             {searchPaintCatalog.map(res => {
                                 //since searchPaintCatalog is of type [ID], we must use
@@ -224,6 +232,21 @@ ce callback wrappe le Component avec (_i.e. renvoie un Component identique mais 
 
 c'est dans ce `props` `data` que se trouvent les resultats de la requete graphQL.
 
+### Liste des fichiers utilisant GraphQL
+- `App.jsx` bien sûr
+- `trombino/Trombino.jsx`
+- **TODO**
+
+
+## Point sur les "Card"
+
+Dans plusieurs cas, on retrouve la situation où on a besoin d'afficher une liste d'objets issus d'une recherche. C'est le cas pour les User dans le TOL, pour les annonce/événements/posts attachés à un groupe (que ce soit 'écrits par' ou 'adressés à') dans la page dédiée...
+
+De plus on a aussi envie de pouvoir afficher un objet tout seul, par exemple la fiche d'un User ou la page d'un événement.
+
+Pour faire ça, on va créer des Component xxxCard (UserCard, AnnouncementCard...) prenant en params l'id (ou uid s'il s'agit d'un Group ou User) de l'objet en question, et envoyant une requete graphQL pour récupérer les données relatives à cet objet, et qui render la "carte" (appelons-ça comme ça) de l'objet.
+
+Si ce n'est pas clair, regarder comment sont faits `AnnouncementCard.jsx` et `UserCard.jsx`.
 
 
 ## Note concernant react-router

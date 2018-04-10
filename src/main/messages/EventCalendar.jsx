@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import {Route, Switch, Link} from 'react-router-dom';
 import {Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
-import {AnnouncementCard} from './Announcement.jsx';
+import AnnouncementCard from './AnnouncementCard.jsx';
 
 import BigCalendar from 'react-big-calendar';
 

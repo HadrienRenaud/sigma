@@ -7,7 +7,7 @@ import {Divider} from 'semantic-ui-react';
 
 import EventCalendar from './EventCalendar.jsx';
 
-import {AnnouncementCard} from './Announcement.jsx';
+import AnnouncementCard from './AnnouncementCard.jsx';
 
 class EventFoundUnrouted extends React.Component {
     state = {}
