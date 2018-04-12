@@ -15,11 +15,13 @@ const GET_TROMBINO = gql`
         $givenName: String,
         $lastName: String,
         $nickname: String,
-        $groups: String
+        $groups: String,
+        $promotion: String,
     ) {
         searchTOL(givenName: $givenName, 
             lastName: $lastName,
             nickname: $nickname,
+            promotion: $promotion,
             groups: $groups) #returns [ID] of user uid's
     }
 `;
@@ -49,7 +51,8 @@ class TrombinoResults extends React.Component {
                     givenName: this.props.params.givenName, 
                     lastName: this.props.params.lastName,
                     nickname: this.props.params.nickname,
-                    groups: this.props.params.groups
+                    groups: this.props.params.groups,
+                    promotion: this.props.params.promo,
                 }}
                 fetchPolicy='cache-first' 
             >
