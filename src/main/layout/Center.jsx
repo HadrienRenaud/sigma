@@ -17,8 +17,8 @@ import Services from '../services/Services.jsx';
 const Center = () => (
     <Switch> {/*forces exclusive path matching: routes to the first Route tag that matches*/}
         <Route path="/event" component={Event} />
-        <Route exact path="/group" component={AllGroups} />
-        <Route path="/group/:uid" component={GroupView} />{/*pour les paths de la forme "/group/:uid"*/}
+        <Route exact path="/groups" component={AllGroups} />
+        <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
         <Route path="/login" component={Login} />
         <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
         <Route path="/services" component={Services} />

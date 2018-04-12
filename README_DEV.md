@@ -134,13 +134,12 @@ class PaintExampleClass extends React.Component {
     }
 
     render() {
-        const { props_color, props_quality } = this.props; //extract and create shorthand for useful variables from props
 
         return (
             <Query query={GET_PAINT}
                 variables={{
-                    color: props_color, 
-                    quality: props_quality
+                    color: this.props.color, 
+                    quality: this.props.color
 
                 }}
                 fetchPolicy='cache-first' //choose cache behaviour
@@ -155,7 +154,7 @@ class PaintExampleClass extends React.Component {
                     
                     return (
                         <div>
-                            <p>La couleur que vous avez recherché, le {this.props.param.color}, a pour popularité {popularity.localPop} dans votre région et {popularity.worldPop} dans le monde.</p>
+                            <p>La couleur que vous avez recherché, le {this.props.color}, a pour popularité {popularity.localPop} dans votre région et {popularity.worldPop} dans le monde.</p>
                             <p>Voici les pots de peinture correspondant à votre requête :</p>
                             {searchPaintCatalog.map(res => {
                                 //since searchPaintCatalog is of type [ID], we must use

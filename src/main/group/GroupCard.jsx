@@ -23,13 +23,14 @@ class GroupCard extends React.Component {
             website: this.props.website
         };
 
+        //TODO: ca peut aussi commencer en https !!!
         if (!this.state.website.startsWith("http://")) {
             this.state.website = "http://"+this.state.website;
         }
     }
 
     render() {
-        const grouplinkto = "/group/"+this.props.uid;
+        const grouplinkto = "/groups/"+this.props.uid;
         return (
             <Card>
                 <Card.Content>

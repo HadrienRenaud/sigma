@@ -9,6 +9,7 @@
  * /!\
 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Link } from 'react-router-dom';
 import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 
@@ -57,6 +58,10 @@ class DummyAnnouncementCard extends React.Component {
 class AnnouncementCard extends React.Component {
     constructor(props) {
         super(props);
+    }
+
+    static PropTypes = {
+        id: PropTypes.string.isRequired
     }
 
     render() {

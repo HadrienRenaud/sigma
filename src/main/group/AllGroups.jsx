@@ -1,5 +1,5 @@
 /**
- * @file Page rassemblant tous les groupes visibles par l'utilisateur, à afficher pour path="baseurl/group/"
+ * @file Page rassemblant tous les groupes visibles par l'utilisateur, à afficher pour path="baseurl/groups/"
  * @author kadabra
  */
 
@@ -10,7 +10,7 @@ class AllGroups extends React.Component {
     render() {
         return (
             <div>
-                front page of "/group", displaying all Groups visible by user
+                front page of "/groups", displaying all Groups visible by user
                 TODO
             </div>
         );

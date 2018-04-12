@@ -1,3 +1,9 @@
+/**
+ * @file résultat de la recherche sur le TOL. Ce component ne gère que les uid des Users matchés,
+ * la Query graphql des données à proprement parler sont faites dans UserCard (auquel on passe l'uid en props)
+ * @author manifold
+ */
+
 import React from 'react';
 import {
     Form, Button, Input, Container, Divider,
@@ -17,10 +23,13 @@ const GET_TROMBINO = gql`
         $nickname: String,
         $groups: String
     ) {
+        #returns [User] array of JS objects with only the 'uid' field, representing User uid's
         searchTOL(givenName: $givenName, 
             lastName: $lastName,
             nickname: $nickname,
-            groups: $groups) #returns [ID] of user uid's
+            groups: $groups) {
+                uid
+        } 
     }
 `;
 
@@ -33,12 +42,14 @@ class TrombinoResults extends React.Component {
         super(props);
     }
 
-    componentWillReceiveProps(newProps, prevState) {
+    static getDerivedStateFromProps(newProps, prevState) {
         /*
         getDerivedStateFromProps is invoked after a component is instantiated as well as when it receives new props. 
         It should return an object to update state, or null to indicate that the new props do not require any state updates.
+        https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops
         */
         console.log(newProps);
+        return null;
     }
 
     render() {
@@ -62,11 +73,11 @@ class TrombinoResults extends React.Component {
                     return (
                         <div>
                             {searchTOL.map(res => {
-                                //since searchTOL is of type [String], we must use
+                                //since searchTOL is of type [User], we must use
                                 //'map' to produce multiple UserCards (in this case), 
                                 //one for each value returned by searchTOL
                                 //it is necessary to give a "key" attribute (https://reactjs.org/docs/lists-and-keys.html)
-                                return <UserCard key={res} uid={res} />;
+                                return <UserCard key={res.uid} uid={res.uid} />;
                             })}
                         </div>
                     );

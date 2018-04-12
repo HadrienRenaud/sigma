@@ -1,5 +1,6 @@
 /**
  * @file La page principale d'un groupe ! Regroupera presentation, annonces, administrations...
+ * @file a afficher pour path="baseurl/groups/:uid"
  * @author manifold
  */
 import React from 'react';

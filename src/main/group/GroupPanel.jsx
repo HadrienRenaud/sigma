@@ -39,7 +39,7 @@ class GroupPanel extends React.Component {
         return (
             <div>
                 {allGroups.map(gr => {
-                    const linkto = "/group/"+gr.uid;
+                    const linkto = "/groups/"+gr.uid;
                     return <div key={gr.uid}>
                         <Link to={linkto}><Button>{gr.name}</Button></Link>
                     </div>;
