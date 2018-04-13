@@ -63,12 +63,17 @@ class UserCard extends React.Component {
                                     {user.givenName} {user.lastName}
                                 </Card.Header>
                                 <List>
-                                    <List.Item icon='mail' content={<a href={`mailto:${user.mail}`}>{user.mail}</a>} />    
-                                    {user.address ? 
-                                        <List.Item>
-                                            <List.Icon name='marker' />
-                                            <List.Content>{user.address[0]}</List.Content>
-                                        </List.Item> : ""
+                                    <List.Item 
+                                        icon='mail'
+                                        content={<a href={`mailto:${user.mail}`}>{user.mail}</a>} 
+                                    />    
+                                    {
+                                        user.address ? 
+                                            <List.Item>
+                                                <List.Icon name='marker' />
+                                                <List.Content>{user.address[0]}</List.Content>
+                                            </List.Item> 
+                                            : ""
                                     }
                                     <List.Item>
                                         <List.Icon name="group" />

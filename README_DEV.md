@@ -2,8 +2,10 @@
 
 :::info
 TODO local dans le temps:
-- changer tous les path "/blablabla" en "blablabla/" pour éviter les problèmes de type redirection vers "groups/br//events"
-- écrire dans le readme une explication et un template d'utilisation de withRouter
+- faire GroupAdministrer
+- faire les fichiers pour les MetaGroups
+- faire mon PSC ;/
+- faire le back putain!! le rendre compatible avec la wish_list
 :::
 
 
