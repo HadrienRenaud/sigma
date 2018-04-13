@@ -54,7 +54,13 @@ class GroupAnnouncements extends React.Component {
         this.state = {
             mode: "to"
         };
+        this.handleChangeMode = this.handleChangeMode.bind(this);
     }
+
+    handleChangeMode(e) {
+        const name = e.target.name; //l'attribut "name" du Component qui appelle ce handle
+        this.setState({ mode: name }); //ES6 computed property name syntax
+    }    
 
     renderAnnouncementsFrom() {
         //using the 'output' variable allows React to do lazy component mounting
@@ -133,13 +139,16 @@ class GroupAnnouncements extends React.Component {
                     <Menu.Item position='right'>
                         <Button.Group color='teal' size="mini">
                             <Button content="Annonces adressées au groupe" 
-                                onClick={this.setState({mode: "to"})}/>
+                                name="to"
+                                onClick={(e) => this.handleChangeMode(e)} />
                             <Button.Or text="ou" />
-                            <Button content="Les deux" 
-                                onClick={this.setState({mode: "both"})}/>
+                            <Button content="Les deux"
+                                name="both"
+                                onClick={(e) => this.handleChangeMode(e)} />
                             <Button.Or text="ou" />
                             <Button content="Annonces faites par le groupe"
-                                onClick={this.setState({ mode: "from" })}/>
+                                name="from"
+                                onClick={(e) => this.handleChangeMode(e)} />
                         </Button.Group>
                     </Menu.Item>
                 </Menu>

@@ -1,5 +1,11 @@
 # A l'attention des développeurs de sigma-frontend
 
+:::info
+TODO local dans le temps:
+- changer tous les path "/blablabla" en "blablabla/" pour éviter les problèmes de type redirection vers "groups/br//events"
+- écrire dans le readme une explication et un template d'utilisation de withRouter
+:::
+
 
 :::info
 Pour developper et tester les minimodules, merci de restreindre le caca au dossier src/main/index/ (voire minimodules/). Donc par exemple, creer un sous-dossier "minimodules/monMinimodule/" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx
@@ -148,7 +154,7 @@ class PaintExampleClass extends React.Component {
                     if (loading) 
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error) 
-                        return <div>Erreur.</div>;
+                        return <div>Erreur de chargement graphQL.</div>;
 
                     const { searchPaintCatalog, popularity } = data; //extracts the actual data from object 'data'
                     

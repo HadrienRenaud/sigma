@@ -77,7 +77,7 @@ class AnnouncementCard extends React.Component {
                     if (loading)
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error)
-                        return <div>Erreur.</div>;
+                        return <div>Erreur de chargement graphQL.</div>;
 
                     const { announcement } = data; //extracts the actual data from object 'data'
 

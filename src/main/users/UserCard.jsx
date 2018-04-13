@@ -1,5 +1,6 @@
 /**
  * @file Component carte presentant toutes les informations sur un user
+ * @file Utilisé à la fois pour afficher les resultats de la recherche TOL et au path="baseurl/users/:uid"
  * @author manifold
  */
 
@@ -42,6 +43,7 @@ class UserCard extends React.Component {
     }
 
     render() {
+        console.log("UserCard received uid props: "+this.props.uid);
         return (
             <Query query={GET_USER}
                 variables={{ uid: this.props.uid }}
@@ -50,7 +52,7 @@ class UserCard extends React.Component {
                     if (loading) 
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error) 
-                        return <div>Erreur.</div>;
+                        return <div>Erreur de chargement graphQL de UserCard.</div>;
 
                     const { user } = data;
                         

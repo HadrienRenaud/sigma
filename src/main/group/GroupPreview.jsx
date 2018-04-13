@@ -4,11 +4,26 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 /**
  * @file Composant pour afficher les informations sur un groupe.
- * L'idee est d'avoir un preview du groupe, a inserer en header/en hover de chaque announcement par ex.
+ * L'idee est d'avoir un preview du groupe, a inserer en header de chaque announcement par ex.
+ * Mieux : afficher ce Component au-dessus de la souris en hover.
  * @author manifold
  */
+
+const GET_GROUP = gql`
+    query getGroup($uid: ID!) {
+        group(uid: $uid) {
+            uid
+            name
+            website
+            description
+        }
+    }
+`;
+
 class GroupCard extends React.Component {
 
     static PropTypes = {
@@ -16,6 +31,8 @@ class GroupCard extends React.Component {
         name: PropTypes.string.isRequired,
         website: PropTypes.string.isRequired
     }
+
+
 
     constructor(props) {
         super(props);

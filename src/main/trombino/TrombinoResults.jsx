@@ -11,10 +11,15 @@ import {
 } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import UserCard from '../member/UserCard.jsx';
+import UserCard from '../users/UserCard.jsx';
 
 /** 
  * @constant Requête GraphQL...
+ * [13/04/18] 
+ * actuellement ca marche pas, il faut changer le schema pour que searchTOL renvoie un User au lieu de [ID] ou [String]
+ * ca ne donnera pas lieu a des problemes d'autoristion puisque [ID] + UserCard fait exactement la meme chose,
+ * et que de toute facon on gere les autorisations ds les resolvers.
+ * 
 */
 const GET_TROMBINO = gql`
     query trombinoQuery(
@@ -65,9 +70,15 @@ class TrombinoResults extends React.Component {
                 fetchPolicy='cache-first' 
             >
                 { ({ loading, error, data }) => {
-                    if (loading) return <div>Chargement, patience SVP...</div>;
-                    else if (error) return <div>Erreur.</div>;
-
+                    if (loading) 
+                        return <div>Chargement, patience SVP...</div>;
+                    else if (error) {
+                        console.log(error.name);
+                        console.log(error.message);
+                        //console.log(error.graphQLErrors);
+                        //console.log(error.networkError);
+                        return <div>Erreur de chargement graphQL de TrombinoResults.</div>;
+                    }
                     const { searchTOL } = data; //extracts the actual data from object 'data'
                     
                     return (
