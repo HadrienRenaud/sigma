@@ -17,6 +17,7 @@ import GroupPageInterne from './group_view/GroupPageInterne.jsx';
 import GroupAdministrer from './group_view/GroupAdministrer.jsx';
 import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
+import GroupCard from './GroupCard.jsx';
 
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {
@@ -47,25 +48,16 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
         const { contextRef } = this.state;
         const { match } = this.props;
         
-        // 
-        const { data: { loading, error, group } } = this.props;
-        
         // TODO: modifier le schema graphQL et decommenter cette ligne
         const fakeFrontPage="_this is a markdown string_ Fake group front page. Must modify *graphQL schema* before we can implement this";
 
-        console.log("Match:", match);
-
-        //
-        if (loading) {
-            return <div>Please wait...</div>;
-        } else if (error) {
-            return <div>Error {error}</div>;
-        }
+        //console.log("Match:", match);
 
         return (
             <Query query={GET_GROUP}
                 variables={{
-                    uid: "br" //TODO: wrap with withRouter and get uid from this.props.match.params.uid
+                    //uid: "br" //TODO: wrap with withRouter and get uid from this.props.match.params.uid
+                    uid: match.params.uid
                 }}
                 fetchPolicy='cache-first' //choose cache behaviour
             >
@@ -108,8 +100,10 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                                 {group.name}
                                 <Header.Subheader>
                                     <a href={`http://${group.website}`}>{group.website}</a>
+                                    {/*TODO: il y a aussi des https...*/}
                                 </Header.Subheader>
-
+                                {/*<GroupCard uid={match.params.uid} />*/}
+                                {/*pour plus de flexibilite et pour l'esthetique on n'utilisera pas GroupCard comme header*/}
                             </Header>
 
                             <Segment attached='top'>
@@ -140,11 +134,11 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                                     {/*TODO: modifier le schema graphQL et remplacer :
                                 fakeFrontPage par group.frontPage*/}
                                     {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/}
-                                    <Route exact path={match.url + "/"}
+                                    <Route exact path={`${match.url}`}
                                         render={() => <GroupFrontPage frontPage={fakeFrontPage}/> } 
                                     />
                                     <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
-                                    <Route path={match.url + "/qanda"} component={GroupQanda} />
+                                    <Route path={`${match.url}/qanda`} component={GroupQanda} />
                                     <Route path={match.url + "/events"} component={GroupEvents} />
                                     <Route path={match.url + "/interne"} component={GroupPageInterne} />
                                     <Route path={match.url + "/admin"} component={GroupAdministrer} />
@@ -161,5 +155,5 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
     }
 }
 
-export default GroupView;
+export default withRouter(GroupView);
 //export default GroupViewWithRouter;
