@@ -33,14 +33,10 @@ const GET_TROMBINO = gql`
         searchTOL(givenName: $givenName, 
             lastName: $lastName,
             nickname: $nickname,
-<<<<<<< HEAD
-            groups: $groups) {
+            groups: $groups,
+            promotion: $promotion) {
                 uid
         } 
-=======
-            promotion: $promotion,
-            groups: $groups) #returns [ID] of user uid's
->>>>>>> 1fc0561b6c2e5bdd24b01034d815df3e6cde5f41
     }
 `;
 
