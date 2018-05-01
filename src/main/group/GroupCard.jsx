@@ -48,7 +48,7 @@ class GroupCard extends React.Component {
                     const { group } = data; //extracts the actual data from object 'data'
 
                     return (
-                        <Card>
+                        <Card fluid={true} color={"blue"}>
                             <Card.Content>
                                 <Card.Header>
                                     <Link to={"/groups/" + this.props.uid}>{group.name}</Link>
@@ -56,6 +56,8 @@ class GroupCard extends React.Component {
                                 <Card.Meta>
                                     <a href={group.website}>{group.website}</a>
                                 </Card.Meta>
+                            </Card.Content>
+                            <Card.Content>
                                 <Card.Description>
                                     {group.description}
                                 </Card.Description>
