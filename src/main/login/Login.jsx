@@ -24,14 +24,21 @@ class Login extends React.Component {
         super(props);
         this.state = {
             userInput: "",
-            passwordInput: ""
+            passwordInput: "",
+            mode: "tologin"
         };
 
         // This binding is necessary to make `this` work in the callback
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+        //this.handleChangeMode = this.handleChangeMode.bind(this);
     }
-
+    /*
+    handleChangeMode(e) {
+        const name = e.target.name; //l'attribut "name" du Component qui appelle ce handle
+        this.setState({ mode: name }); //ES6 computed property name syntax
+    }    
+    */
     handleSubmit(event) {
         console.log("submitted userInput: ", this.state.userInput);
         console.log("submitted passwordInput: ", this.state.passwordInput);
@@ -65,58 +72,90 @@ class Login extends React.Component {
         this.setState({ [name]: value }); //ES6 computed property name syntax
     }
 
+    renderLoggedIn() { // to render when user is already logged in
+        //using the 'output' variable allows React to do lazy component mounting
+        //https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
+        let output;
+        if (this.state.mode == 'loggedin') {
+            output =
+                <div>
+                    blablablablabla
+                </div>
+            ;
+        }
+        return output; //returns null if variable was not modified
+    }
+
+    renderToLogin() { // to render when user is not yet logged in
+        let output;
+
+        if (this.state.mode == 'tologin') {
+            output =
+                <div className='login-form'>
+                    <Grid
+                        textAlign='center'
+                        style={{ height: '100%' }}
+                        verticalAlign='middle'
+                    >
+                        <Grid.Column style={{ maxWidth: 450 }}>
+                            <Header as='h2' color='teal' textAlign='center'>
+                                <Image src={logo_sigma} />
+                                Log-in to your account
+                            </Header>
+                            <Segment raised>
+                                <Form size='large' onSubmit={this.handleSubmit}>
+                                    <Form.Input
+                                        fluid
+                                        icon='user'
+                                        iconPosition='left'
+                                        placeholder='Identifiant Frankiz'
+                                        type='text'
+                                        name='userInput'
+                                        value={this.state.userInput}
+                                        onChange={this.handleInputChange}
+                                    />
+                                    <Form.Input
+                                        fluid
+                                        icon='lock'
+                                        iconPosition='left'
+                                        placeholder='Mot de passe'
+                                        type='password'
+                                        name='passwordInput'
+                                        value={this.state.passwordInput}
+                                        onChange={this.handleInputChange}
+                                    />
+
+                                    <Form.Button
+                                        fluid
+                                        color='teal'
+                                        size='large'
+                                        content="Login"
+                                    />
+                                </Form>
+                            </Segment>
+                        </Grid.Column>
+                    </Grid>
+
+                    <strong>onChange:</strong>
+                    <pre>{JSON.stringify(this.state.userInput)}</pre>
+                    <pre>{JSON.stringify(this.state.passwordInput)}</pre>
+
+                </div>
+            ;
+        }
+
+        return output; //returns null if variable was not modified
+    }
+
     render() {
+        const { mode } = this.state;
+
         return (
-            <div className='login-form'>
-                <Grid
-                    textAlign='center'
-                    style={{ height: '100%' }}
-                    verticalAlign='middle'
-                >
-                    <Grid.Column style={{ maxWidth: 450 }}>
-                        <Header as='h2' color='teal' textAlign='center'>
-                            <Image src={logo_sigma} />
-                            Log-in to your account
-                        </Header>
-                        <Segment raised>
-                            <Form size='large' onSubmit={this.handleSubmit}>
-                                <Form.Input
-                                    fluid
-                                    icon='user'
-                                    iconPosition='left'
-                                    placeholder='Identifiant Frankiz'
-                                    type='text'
-                                    name='userInput'
-                                    value={this.state.userInput}
-                                    onChange={this.handleInputChange}
-                                />
-                                <Form.Input
-                                    fluid
-                                    icon='lock'
-                                    iconPosition='left'
-                                    placeholder='Mot de passe'
-                                    type='password'
-                                    name='passwordInput'
-                                    value={this.state.passwordInput}
-                                    onChange={this.handleInputChange}
-                                />
-
-                                <Form.Button
-                                    fluid
-                                    color='teal' 
-                                    size='large'
-                                    content="Login"
-                                />
-                            </Form>
-                        </Segment>
-                    </Grid.Column>
-                </Grid>
-
-                <strong>onChange:</strong>
-                <pre>{JSON.stringify(this.state.userInput)}</pre>
-                <pre>{JSON.stringify(this.state.passwordInput)}</pre>
-                
+            <div>
+                {this.renderTologin()}
+                {this.renderLoggedIn()}
             </div>
+
         );
     }
 }

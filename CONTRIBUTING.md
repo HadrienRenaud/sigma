@@ -255,6 +255,16 @@ Pour faire ça, on va créer des Component xxxCard (UserCard, AnnouncementCard..
 
 Si ce n'est pas clair, regarder comment sont faits `AnnouncementCard.jsx` et `UserCard.jsx`.
 
+## Minification des fichiers de style  du dossier `semantic/` avec `gulp`
+
+gulp sert a minifier les fichiers css (ou less, ce qui revient au meme), et place le resultat dans semantic/dist/ (pour dist_ribution_/).
+gulp est necessaire car semantic-ui-react a ete pense pour l'utiliser.
+
+```bash
+cd semantic/
+npx gulp build
+```
+La deuxieme ligne appelle gulp en cherchant le node_modules le plus proche du dossier courant (que ce soit ds le sous-dossiers ou les sur-dossiers), et fait un `gulp build`
 
 ## Note concernant react-router
 
