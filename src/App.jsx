@@ -26,7 +26,7 @@ const GRAPHQL_API_URL_LOCAL = "http://localhost:3000/graphql";
 const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
 
 const httpLink = new HttpLink({
-    uri: GRAPHQL_API_URL,
+    uri: GRAPHQL_API_URL_LOCAL,
     credentials: 'include'
 });
 

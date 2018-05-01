@@ -38,16 +38,12 @@ class GroupCard extends React.Component {
     render() {
         return (
             <Query query={GET_GROUP}
-                variables={{
-                    uid: this.props.uid
-                }}
+                variables={{uid: this.props.uid}}
                 fetchPolicy='cache-first' //choose cache behaviour
             >
                 {({ loading, error, data }) => {
-                    if (loading)
-                        return <div>Chargement, patientez SVP...</div>;
-                    else if (error)
-                        return <div>Erreur de chargement graphQL.</div>;
+                    if (loading) return <div>Chargement...</div>;
+                    else if (error) return <div>Erreur.</div>;
 
                     const { group } = data; //extracts the actual data from object 'data'
 

@@ -71,8 +71,7 @@ class TrombinoResults extends React.Component {
                 fetchPolicy='cache-first' 
             >
                 {({ loading, error, data }) => {
-                    if (loading) 
-                        return <div>Chargement, patience SVP...</div>;
+                    if (loading) return <div>Chargement...</div>;
                     else if (error) {
                         console.log(error.name);
                         console.log(error.message);
