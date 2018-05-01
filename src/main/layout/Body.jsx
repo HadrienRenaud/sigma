@@ -6,8 +6,15 @@ import React from 'react';
 import {Route, Switch, Link, } from 'react-router-dom';
 import {Grid, Container} from 'semantic-ui-react';
 
+import Event from '../messages/Event.jsx';
+import Index from '../index/Index.jsx';
+import GroupView from '../group/GroupView.jsx';
+import AllGroups from '../group/AllGroups.jsx';
+import NotFound from '../Errors.jsx';
+import Trombino from '../trombino/Trombino.jsx';
+import Services from '../services/Services.jsx';
+
 import SideBar from './SideBar.jsx';
-import Center from './Center.jsx';
 
 import Background from '../../assets/sigma_bg.jpg';
 
@@ -47,7 +54,15 @@ const Body = () => (
             Quentin : À droite, c'est plus ludique. 
             [guillaume edited:] en fait il voulait dire a gauche >.> de toute facon c'est pas difficile de changer*/}
             <Grid.Column>
-                <Center />
+                <Switch> {/*forces exclusive path matching*/}
+                    <Route path="/event" component={Event} />
+                    <Route exact path="/groups" component={AllGroups} />
+                    <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
+                    <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
+                    <Route path="/services" component={Services} />
+                    <Route exact path="/" component={Index} />
+                    <Route component={NotFound} />
+                </Switch>
             </Grid.Column>
 
             <Grid.Column width={3}>

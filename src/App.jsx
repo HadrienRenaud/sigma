@@ -65,7 +65,6 @@ class App extends React.Component {
         return (
             <ApolloProvider client={client}>
                 <BrowserRouter>
-                    {/*<Route path="/" component={Main} />*/}{/*inclusive path matching*/}
                     <Main />
                 </BrowserRouter>
             </ApolloProvider>

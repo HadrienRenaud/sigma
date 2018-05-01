@@ -65,6 +65,8 @@ const config = {
 
 };
 
+console.log(config.mode);
+
 if (environment == "development") {
     config.serve = {
         content: [__dirname],

@@ -5,6 +5,7 @@ import { Grid, Image } from 'semantic-ui-react';
 import Header from './layout/Header.jsx';
 import Footer from './layout/Footer.jsx';
 import Body from './layout/Body.jsx';
+import Login from './login/Login.jsx';
 
 /**
  * @file Le composant React principal, généré quel que soit le path, et dans lequel
@@ -18,7 +19,10 @@ import Body from './layout/Body.jsx';
 const Main = () => (
     <div>
         <Header />
-        <Body />
+        <Switch>
+            <Route path="/login" render={props => <Login {...props}/>}/>
+            <Route exact path="/" render={props => <Body {...props}/>}/>
+        </Switch>
         <Footer />
     </div>
 );

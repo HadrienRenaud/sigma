@@ -125,12 +125,7 @@ class Login extends React.Component {
                                         onChange={this.handleInputChange}
                                     />
 
-                                    <Form.Button
-                                        fluid
-                                        color='teal'
-                                        size='large'
-                                        content="Login"
-                                    />
+                                    <Form.Button fluid color='teal' size='large' content="Login"/>
                                 </Form>
                             </Segment>
                         </Grid.Column>
@@ -152,7 +147,7 @@ class Login extends React.Component {
 
         return (
             <div>
-                {this.renderTologin()}
+                {this.renderToLogin()}
                 {this.renderLoggedIn()}
             </div>
 
