@@ -34,9 +34,7 @@ const GET_TROMBINO = gql`
             lastName: $lastName,
             nickname: $nickname,
             groups: $groups,
-            promotion: $promotion) {
-                uid
-        } 
+            promotion: $promotion)
     }
 `;
 
@@ -91,7 +89,7 @@ class TrombinoResults extends React.Component {
                                 //'map' to produce multiple UserCards (in this case), 
                                 //one for each value returned by searchTOL
                                 //it is necessary to give a "key" attribute (https://reactjs.org/docs/lists-and-keys.html)
-                                return <UserCard key={res.uid} uid={res.uid} />;
+                                return <UserCard key={res} uid={res} />;
                             })}
                         </div>
                     );

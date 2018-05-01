@@ -2,7 +2,6 @@
  * @file Le "milieu" de la page, entre Header et Footer.
  * Il est lui-meme divise (horizontalement cette fois) en Center et SideBar
  */
-
 import React from 'react';
 import {Route, Switch, Link, } from 'react-router-dom';
 import {Grid, Container} from 'semantic-ui-react';

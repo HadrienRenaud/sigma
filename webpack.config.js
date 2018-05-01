@@ -2,6 +2,7 @@
 
 const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 const convert = require('koa-connect');
 const history = require('connect-history-api-fallback');
 const environment = process.env.NODE_ENV;
@@ -9,7 +10,7 @@ const environment = process.env.NODE_ENV;
 const config = {
     entry: './src/App.jsx',
 
-    mode: "production",
+    mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
 
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -23,6 +24,7 @@ const config = {
         rules: [
             {
                 test: /\.jsx?$/,
+                include: path.resolve(__dirname, './src'),
                 exclude: /node_modules/,
                 loader: 'babel-loader',
 
@@ -37,7 +39,10 @@ const config = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             }, {
-                test: /\.(html|png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+                test: /\.(png|jpg|gif|svg|eot|ttf)$/,
+                loader: 'file-loader?name=[name].[ext]?[hash]'
+            }, {
+                test: /\.(html|woff|woff2)$/,
                 loader: 'url-loader',
                 exclude: /(node_modules|doc)/,
                 options: {
