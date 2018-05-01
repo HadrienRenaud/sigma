@@ -42,8 +42,6 @@ class Login extends React.Component {
     }    
     */
     handleSubmit(event) {
-        console.log("submitted userInput: ", this.state.userInput);
-        console.log("submitted passwordInput: ", this.state.passwordInput);
         
         // GESTION DE L'AUTHENTIFICATION
         // fetch: a modern replacement for XMLHttpRequest.
@@ -62,19 +60,17 @@ class Login extends React.Component {
         }).then((res) => {
             console.log("the Promise fetch succeeded");
             //fetch retursn just an HTTP response. we extract the JSON body content
-            console.log(res.json());
+            console.log(res);
+
             return res.json();
+
         }).catch((error) => {
             // The Promise returned from fetch() will only reject on network failure or if anything prevented the request from completing
             console.error('Error:', error);
-        }).then((response) => {
-            console.log(response);
-            // if the login succeeded...
-            // if the login did not succeed, display why...
-
-            //etc.
-        })
-        ;
+        }).then(result => {
+            console.log(result);
+            console.log(result.token);
+        });
 
     }
 
@@ -142,10 +138,6 @@ class Login extends React.Component {
                             </Segment>
                         </Grid.Column>
                     </Grid>
-
-                    <strong>onChange:</strong>
-                    <pre>{JSON.stringify(this.state.userInput)}</pre>
-                    <pre>{JSON.stringify(this.state.passwordInput)}</pre>
 
                 </div>
             ;

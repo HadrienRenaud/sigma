@@ -34,6 +34,10 @@ class Header extends React.Component {
                     Services BR
                 </Menu.Item>
 
+                <Menu.Item as="h4">
+                    {localStorage.getItem('token') || "no token"}
+                </Menu.Item>
+
                 {/*NavLink to path /login, telling Center to render main/login/Login.jsx*/}
                 <Menu.Item position='right' name='loginForm'>
                     <Button as={NavLink} to='/login' color="blue">Se connecter</Button>

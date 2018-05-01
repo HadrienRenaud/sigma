@@ -7,6 +7,8 @@ import Footer from './layout/Footer.jsx';
 import Body from './layout/Body.jsx';
 import Login from './login/Login.jsx';
 
+import decode from 'jwt-decode';
+
 /**
  * @file Le composant React principal, généré quel que soit le path, et dans lequel
  * on "importe" les composants Header, Body et Footer.
@@ -21,7 +23,7 @@ const Main = () => (
         <Header />
         <Switch>
             <Route path="/login" render={props => <Login {...props}/>}/>
-            <Route exact path="/" render={props => <Body {...props}/>}/>
+            <Route path="/" render={props => <Body {...props}/>}/>
         </Switch>
         <Footer />
     </div>
