@@ -13,6 +13,8 @@ import logo_sigma from '../../assets/logo_sigma.png';
  * Copié puis modifié depuis https://react.semantic-ui.com/layouts/login
  * On s'est aussi beaucoup inspire de https://react.semantic-ui.com/collections/form#form-example-capture-values
  */
+const LOGIN_URL_LOCAL = "http://localhost:3000/login";
+const LOGIN_URL = "http://129.104.201.10:3000/login";
 
 class Login extends React.Component {
 
@@ -44,10 +46,6 @@ class Login extends React.Component {
         console.log("submitted passwordInput: ", this.state.passwordInput);
         
         // GESTION DE L'AUTHENTIFICATION
-
-        const LOGIN_URL_LOCAL = "http://localhost:3000/login";
-        const LOGIN_URL = "http://129.104.201.10:3000/login";
-
         // fetch: a modern replacement for XMLHttpRequest.
         fetch(LOGIN_URL_LOCAL, {
             method: 'POST',
@@ -61,7 +59,7 @@ class Login extends React.Component {
                 username: this.state.userInput,
                 password: this.state.passwordInput
             })
-        });
+        }).then((res) => console.log(res));
 
         console.log("Submitting");
     }

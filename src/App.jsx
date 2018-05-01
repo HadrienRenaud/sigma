@@ -57,21 +57,12 @@ const client = new ApolloClient({
     })
 });
 
-
-
-class App extends React.Component {
-
-    render() {
-        return (
-            <ApolloProvider client={client}>
-                <BrowserRouter>
-                    <Main />
-                </BrowserRouter>
-            </ApolloProvider>
-        );
-
-    }
-}
+const App = () =>
+    <ApolloProvider client={client}>
+        <BrowserRouter>
+            <Main />
+        </BrowserRouter>
+    </ApolloProvider>;
 
 // import les css de semantic-ui-react et d'autres css utilises
 import '../semantic/dist/semantic.min.css';
