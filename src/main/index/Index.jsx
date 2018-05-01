@@ -4,9 +4,7 @@ import {Route, Switch, Link } from 'react-router-dom';
 import {Header, Button, Image, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 // import GroupAnnouncements from '../group/GroupAnnouncements.jsx'; 
 // this is not the file you are looking for. ca c'est juste pour group_view, le resume de "mes annonces" est dans [TODO].jsx
-import Formulaire from './Formulaire.jsx';
 import logo_sigma_large from '../../assets/logo_sigma_large.png';
-import AddFormulaire from './AddFormulaire.jsx';
 import ControlledComponentFormDemo from './testComp/ControlledComponentFormDemo.jsx';
 import PostPanel from '../messages/PostPanel.jsx';
 import TOS from './minimodules/TOS/TOS.jsx';
@@ -15,52 +13,6 @@ import TOS from './minimodules/TOS/TOS.jsx';
  */
 
 class Index extends React.Component {
-
-    /*
-
-    constructor() {
-        super();
-        this.state = {
-            projects: []
-        };
-    }
-
-    //Life cycle method, aller voir internet ce que ça veut dire
-    componentWillMount() {
-        this.setState({projects:[
-            {
-                id:uuid.v4(),
-                title: 'Business Website',
-                category:'Web Design'
-            },
-            {
-                id:uuid.v4(),
-                title: 'Social App',
-                category:'Mobile Development'
-            },
-            {
-                id:uuid.v4(),
-                title: 'Ecommerce Shopping Cart',
-                category:'Web Developement'
-            }
-        ]});
-    }
-
-    handleAddProject(project) {
-        const projects = this.state.projects;
-        projects.push(project);
-        this.setState({projects:projects});
-    }
-
-
-    handleDeleteProject(id) {
-        const projects = this.state.projects;
-        const index = projects.findIndex(x => x.id === id);
-        projects.splice(index, 1);
-        this.setState({projects:projects});
-    }
-
-    */
 
     render() {
         return (

@@ -33,9 +33,29 @@ class Login extends React.Component {
     }
 
     handleSubmit(event) {
-        // INSERER GESTION DE L'AUTHENTIFICATION ICI
         console.log("submitted userInput: ", this.state.userInput);
         console.log("submitted passwordInput: ", this.state.passwordInput);
+        
+        // GESTION DE L'AUTHENTIFICATION
+
+        const LOGIN_URL_LOCAL = "http://localhost:3000/login";
+        const LOGIN_URL = "http://129.104.201.10:3000/login";
+
+        // fetch: a modern replacement for XMLHttpRequest.
+        fetch(LOGIN_URL_LOCAL, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                // Passport takes the req.body.username and req.body.password and passes it to our verification function in the local strategy. 
+                // (field names defined dans le back in passport.use(ldapstrategy, ...) )
+                username: this.state.userInput,
+                password: this.state.passwordInput
+            })
+        });
+
         console.log("Submitting");
     }
 
