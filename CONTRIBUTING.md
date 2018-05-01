@@ -1,5 +1,13 @@
 # A l'attention des développeurs de sigma-frontend
 
+:::info
+TODO local dans le temps:
+- faire GroupAdministrer
+- faire les fichiers pour les MetaGroups
+- faire mon PSC ;/
+- faire le back putain!! le rendre compatible avec la wish_list
+:::
+
 
 :::info
 Pour developper et tester les minimodules, merci de restreindre le caca au dossier src/main/index/ (voire minimodules/). Donc par exemple, creer un sous-dossier "minimodules/monMinimodule/" avec dedans "MonMinimodule.jsx" et l'importer dans Index.jsx
@@ -134,13 +142,12 @@ class PaintExampleClass extends React.Component {
     }
 
     render() {
-        const { props_color, props_quality } = this.props; //extract and create shorthand for useful variables from props
 
         return (
             <Query query={GET_PAINT}
                 variables={{
-                    color: props_color, 
-                    quality: props_quality
+                    color: this.props.color, 
+                    quality: this.props.color
 
                 }}
                 fetchPolicy='cache-first' //choose cache behaviour
@@ -149,13 +156,13 @@ class PaintExampleClass extends React.Component {
                     if (loading) 
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error) 
-                        return <div>Erreur.</div>;
+                        return <div>Erreur de chargement graphQL.</div>;
 
                     const { searchPaintCatalog, popularity } = data; //extracts the actual data from object 'data'
                     
                     return (
                         <div>
-                            <p>La couleur que vous avez recherché, le {this.props.param.color}, a pour popularité {popularity.localPop} dans votre région et {popularity.worldPop} dans le monde.</p>
+                            <p>La couleur que vous avez recherché, le {this.props.color}, a pour popularité {popularity.localPop} dans votre région et {popularity.worldPop} dans le monde.</p>
                             <p>Voici les pots de peinture correspondant à votre requête :</p>
                             {searchPaintCatalog.map(res => {
                                 //since searchPaintCatalog is of type [ID], we must use

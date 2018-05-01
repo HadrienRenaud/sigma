@@ -1,7 +1,7 @@
 /**
  * @file Barre d'information et d'acces rapide sur le cote de la page.
  * Pour le mettre a gauche ou a droite, c'est Body.jsx qu'il faut modifier.
- * 
+ * @author manifold
  */
 
 import React from 'react';
@@ -15,7 +15,7 @@ import PostPanel from '../messages/PostPanel.jsx';
 const PinnedEvents = () => (
     <Segment.Group>
         <Segment color="teal" inverted>
-            <p>Évenements</p>
+            <p>Événements</p>
         </Segment>
         <Button.Group basic fluid vertical>
             <PostPanel />
@@ -42,22 +42,6 @@ const PinnedGroups = () => (
 
 const SideBar = () => (
     <Container>
-        {/*}
-        <Grid.Column>
-            <Menu attached tabular widths={3}>
-                <Menu.Item active as='a'>Active Item</Menu.Item>
-                <Menu.Item as='a'>Item</Menu.Item>
-                <Menu.Item as='a'>Item</Menu.Item>
-            </Menu>
-            <Segment attached>Segment</Segment>
-            <Menu attached compact widths={3}>
-                <Menu.Item active as='a'>Active Item</Menu.Item>
-                <Menu.Item as='a'>Item</Menu.Item>
-                <Menu.Item as='a'>Item</Menu.Item>
-            </Menu>
-            <Segment attached='bottom'>Segment</Segment>
-        </Grid.Column>
-        */}
         <PinnedGroups/>
         <PinnedEvents/>
     </Container>

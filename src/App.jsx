@@ -18,7 +18,7 @@ import Favicon from 'react-favicon';
 // les import 'apollo-*' pour utiliser apollo-graphql (une implementation de graphql en javascript)
 import { HttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
-import { InMemoryCache } from 'apollo-cache-inmemory';
+import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { Query, ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 
@@ -44,7 +44,17 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        dataIdFromObject: object => { 
+            // https://www.apollographql.com/docs/react/advanced/caching.html#normalization 
+            // dit a apollo-cache-inmemory que pour Group et User, la cle primaire est "uid" et pas "id" ni "_id" (par defaut)
+            switch (object.__typename) {
+            case 'Group': return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
+            case 'User': return `User:${object.uid}`;
+            default: return defaultDataIdFromObject(object); // fall back to default handling
+            }
+        }
+    })
 });
 
 

@@ -13,6 +13,7 @@ import Body from './layout/Body.jsx';
 
 // pour quick-test le render d'un component, merci de le mettre a la schlag dans Center.jsx, plutot
 // que de le mettre a la schlag dans Main.jsx ! sinon ca fout la merde pour le layout avec LeftBar
+// (enfin si c'est pour quick-test un minimodule, merci de le mettre dans src/main/index/minimodules/)
 
 const Main = () => (
     <div>

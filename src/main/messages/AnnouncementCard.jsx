@@ -9,6 +9,7 @@
  * /!\
 */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Route, Link } from 'react-router-dom';
 import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 
@@ -59,6 +60,10 @@ class AnnouncementCard extends React.Component {
         super(props);
     }
 
+    static PropTypes = {
+        id: PropTypes.string.isRequired
+    }
+
     render() {
 
         return (
@@ -72,7 +77,7 @@ class AnnouncementCard extends React.Component {
                     if (loading)
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error)
-                        return <div>Erreur.</div>;
+                        return <div>Erreur de chargement graphQL.</div>;
 
                     const { announcement } = data; //extracts the actual data from object 'data'
 
