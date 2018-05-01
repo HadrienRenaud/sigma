@@ -70,7 +70,7 @@ class TrombinoResults extends React.Component {
                 }}
                 fetchPolicy='cache-first' 
             >
-                { ({ loading, error, data }) => {
+                {({ loading, error, data }) => {
                     if (loading) 
                         return <div>Chargement, patience SVP...</div>;
                     else if (error) {
@@ -78,17 +78,15 @@ class TrombinoResults extends React.Component {
                         console.log(error.message);
                         //console.log(error.graphQLErrors);
                         //console.log(error.networkError);
-                        return <div>Erreur de chargement graphQL de TrombinoResults.</div>;
+                        return <div>Erreur.</div>;
                     }
                     const { searchTOL } = data; //extracts the actual data from object 'data'
                     
                     return (
                         <div>
                             {searchTOL.map(res => {
-                                //since searchTOL is of type [User], we must use
-                                //'map' to produce multiple UserCards (in this case), 
-                                //one for each value returned by searchTOL
-                                //it is necessary to give a "key" attribute (https://reactjs.org/docs/lists-and-keys.html)
+                                // searchTOL's GraphQL type is [User], so it resolves to a JavaScript array 
+                                // one for each value returned by searchTOL it is necessary to give a "key" attribute (https://reactjs.org/docs/lists-and-keys.html)
                                 return <UserCard key={res} uid={res} />;
                             })}
                         </div>

@@ -65,8 +65,8 @@ class Index extends React.Component {
     render() {
         return (
             <div>
-                <ControlledComponentFormDemo/>
-                <TOS/>
+                {/*<ControlledComponentFormDemo/>*/}
+                {/*<TOS/>*/}
                 {/*
                 <p>Voici juste un form de test, il n'est pas persistant !</p>
                 <p>Please don't test, it works.</p>
