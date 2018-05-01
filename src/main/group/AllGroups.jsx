@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import gql from 'graphql-tag';
 
 class AllGroups extends React.Component {
     
