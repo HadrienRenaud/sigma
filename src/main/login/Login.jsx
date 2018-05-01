@@ -59,9 +59,23 @@ class Login extends React.Component {
                 username: this.state.userInput,
                 password: this.state.passwordInput
             })
-        }).then((res) => console.log(res));
+        }).then((res) => {
+            console.log("the Promise fetch succeeded");
+            //fetch retursn just an HTTP response. we extract the JSON body content
+            console.log(res.json());
+            return res.json();
+        }).catch((error) => {
+            // The Promise returned from fetch() will only reject on network failure or if anything prevented the request from completing
+            console.error('Error:', error);
+        }).then((response) => {
+            console.log(response);
+            // if the login succeeded...
+            // if the login did not succeed, display why...
 
-        console.log("Submitting");
+            //etc.
+        })
+        ;
+
     }
 
     handleInputChange(event) {
