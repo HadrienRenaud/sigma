@@ -12,6 +12,7 @@ import logo_sigma from '../../assets/logo_sigma.png';
 /** 
  * Copié puis modifié depuis https://react.semantic-ui.com/layouts/login
  * On s'est aussi beaucoup inspire de https://react.semantic-ui.com/collections/form#form-example-capture-values
+ * Pour le conditional rendering (mode loggedin/tologin, https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
  */
 const LOGIN_URL_LOCAL = "http://localhost:3000/login";
 const LOGIN_URL = "http://129.104.201.10:3000/login";
@@ -42,31 +43,15 @@ class Login extends React.Component {
     }    
     */
     handleSubmit(event) {
+        // TODO : VERIFICATION DES ENTREES
+        // surtout verifier que les champs ne sont pas vides (ca peut poser des pbs au back apres)
         
+
+
         // GESTION DE L'AUTHENTIFICATION
-
-        //avec XMLHTTpRequest
-        // (c en'est pas 100% sur que fetch soit bugless a lheure actuelle)
-
-        // from https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
-        // and https://stackoverflow.com/questions/3038901/how-to-get-the-response-of-xmlhttprequest#3038972
-        const xhr = new XMLHttpRequest();
-        xhr.open("POST", LOGIN_URL_LOCAL, true);
-        //Send the proper header information along with the request
-        xhr.setRequestHeader("Content-type", "application/json");
-        xhr.onreadystatechange = function () {//Call a function when the state changes.
-            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-                // Request finished. Do processing here.
-            }
-        };
-        const params = JSON.stringify({
-            username: this.state.userInput,
-            password: this.state.passwordInput
-        });
-        xhr.send(params); 
-
-        /*
+        
         // fetch: a modern replacement for XMLHttpRequest.
+        // https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
         fetch(LOGIN_URL_LOCAL, {
             method: 'POST',
             headers: {
@@ -80,20 +65,32 @@ class Login extends React.Component {
                 password: this.state.passwordInput
             })
         }).then((res) => {
-            console.log("the Promise fetch succeeded");
-            //fetch retursn just an HTTP response. we extract the JSON body content
+            console.log("the Promise fetch succeeded (i.e. got a response from the server)");
             console.log(res);
-
+            //fetch retursn just an HTTP response. we extract the JSON body content
             return res.json();
-
         }).catch((error) => {
             // The Promise returned from fetch() will only reject on network failure or if anything prevented the request from completing
             console.error('Error:', error);
+
+            // afficher un message du type : "Erreur de connexion au réseau ou serveur inaccessible"
+            //TODO
+            alert("Erreur de connexion au réseau ou serveur inaccessible. \n" + error);
         }).then(result => {
             console.log(result);
-            console.log(result.token);
+            //console.log(result.token); //this is for JWT token, but not implemented (yet?)
+
+            if (result.authSucceeded == true) {
+                // rediriger vers le path /, eventuellement avec un signal de bienvenue
+                //TODO
+                alert("Authentification réussie. Vous êtes authentifié sur le backend.");
+            } else {
+                // afficher un message du type : "reessayer"
+                //TODO
+                alert("Authentification échouée, veuillez vérifier votre Caps Lock et que vous êtes bien en clavier français :)");
+            }
         });
-        */
+        
     }
 
     handleInputChange(event) {
