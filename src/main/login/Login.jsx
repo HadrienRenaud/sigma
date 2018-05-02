@@ -44,6 +44,28 @@ class Login extends React.Component {
     handleSubmit(event) {
         
         // GESTION DE L'AUTHENTIFICATION
+
+        //avec XMLHTTpRequest
+        // (c en'est pas 100% sur que fetch soit bugless a lheure actuelle)
+
+        // from https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/send
+        // and https://stackoverflow.com/questions/3038901/how-to-get-the-response-of-xmlhttprequest#3038972
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", LOGIN_URL_LOCAL, true);
+        //Send the proper header information along with the request
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () {//Call a function when the state changes.
+            if (xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+                // Request finished. Do processing here.
+            }
+        };
+        const params = JSON.stringify({
+            username: this.state.userInput,
+            password: this.state.passwordInput
+        });
+        xhr.send(params); 
+
+        /*
         // fetch: a modern replacement for XMLHttpRequest.
         fetch(LOGIN_URL_LOCAL, {
             method: 'POST',
@@ -71,7 +93,7 @@ class Login extends React.Component {
             console.log(result);
             console.log(result.token);
         });
-
+        */
     }
 
     handleInputChange(event) {
