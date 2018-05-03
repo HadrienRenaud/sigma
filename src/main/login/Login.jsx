@@ -69,7 +69,6 @@ class Login extends React.Component {
             console.error('Error:', error);
         }).then(result => {
             console.log(result);
-            console.log(result.token);
         });
 
     }
