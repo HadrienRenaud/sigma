@@ -133,21 +133,17 @@ class Login extends React.Component {
                                 <Form size='large' onSubmit={this.handleSubmit}>
                                     <Form.Input
                                         fluid
-                                        icon='user'
-                                        iconPosition='left'
+                                        icon='user' iconPosition='left'
                                         placeholder='Identifiant Frankiz'
-                                        type='text'
-                                        name='userInput'
+                                        type='text' name='userInput'
                                         value={this.state.userInput}
                                         onChange={this.handleInputChange}
                                     />
                                     <Form.Input
                                         fluid
-                                        icon='lock'
-                                        iconPosition='left'
+                                        icon='lock' iconPosition='left'
                                         placeholder='Mot de passe'
-                                        type='password'
-                                        name='passwordInput'
+                                        type='password' name='passwordInput'
                                         value={this.state.passwordInput}
                                         onChange={this.handleInputChange}
                                     />

@@ -80,7 +80,6 @@ if (environment == "development") {
             app.use(convert(history(historyOptions)));
         }
     };
-    config.mode = "development";
 }
 
 module.exports = config;
