@@ -34,8 +34,7 @@ const config = {
                     presets: ['env', 'react'],
                     plugins: ['transform-decorators-legacy',
                         'transform-class-properties',
-                        'transform-object-rest-spread',
-                        'graphql-tag'
+                        'transform-object-rest-spread'
                     ]
                 }
             }, {

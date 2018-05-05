@@ -17,7 +17,7 @@ stages:
 install-dependencies:
   stage: install
   script:
-    - npm install -q
+    - npm ci
   artifacts:
     paths:
       - build/
