@@ -16,6 +16,8 @@ stages:
 # make migrations on and seed the db
 install-dependencies:
   stage: install
+  before_script:
+    - npm i -g npm
   script:
     - npm ci
   artifacts:

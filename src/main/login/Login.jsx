@@ -24,7 +24,7 @@ class Login extends React.Component {
                     verticalAlign='middle'
                 >
                     <Grid.Column style={{ maxWidth: 450 }}>
-                        <Header as='h2' color='teal' textAlign='center'>
+                        <Header as='h2' color='blue' textAlign='center'>
                             <Image src={logo_sigma} />
                             Connexion
                         </Header>

@@ -94,7 +94,7 @@ class LoginForm extends React.Component {
                             onChange={this.handleInputChange}
                         />
 
-                        <Form.Button fluid color='teal' size='large' content="Login" />
+                        <Form.Button fluid color='blue' size='large' content="Login" />
                     </Form>
                 )}
             </Mutation>
