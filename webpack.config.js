@@ -26,22 +26,22 @@ const config = {
         rules: [
             {
                 test: /\.jsx?$/,
-                include: path.resolve(__dirname, './src'),
                 exclude: /node_modules/,
                 loader: 'babel-loader',
 
                 query: {
-                    presets: ['env', 'react'],
-                    plugins: ['transform-decorators-legacy',
-                        'transform-class-properties',
-                        'transform-object-rest-spread'
+                    presets: ['@babel/preset-env', '@babel/preset-react'],
+                    plugins: [
+                        'transform-class-properties'
                     ]
                 }
-            }, {
+            },
+            {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             }, {
                 test: /\.(png|jpg|gif|svg|eot|ttf)$/,
+                exclude: /node_modules/,
                 loader: 'file-loader?name=[name].[ext]?[hash]'
             }, {
                 test: /\.(html|woff|woff2)$/,
@@ -61,14 +61,9 @@ const config = {
                 to: 'index.html'
             }]
         )
-    ]
+    ],
 
-};
-
-console.log(config.mode);
-
-if (environment == "development") {
-    config.serve = {
+    serve: {
         content: [__dirname],
         port: 8888,
         add: (app, middleware, options) => {
@@ -78,7 +73,8 @@ if (environment == "development") {
 
             app.use(convert(history(historyOptions)));
         }
-    };
-}
+    }
 
+
+};
 module.exports = config;
