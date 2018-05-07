@@ -14,7 +14,7 @@ import logo_sigma from '../../assets/logo_sigma.png';
  * On s'est aussi beaucoup inspire de https://react.semantic-ui.com/collections/form#form-example-capture-values
  * Pour le conditional rendering (mode loggedin/tologin, https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
  */
-const LOGIN_URL_LOCAL = "http://localhost:3000/login";
+const LOGIN_URL_LOCAL = "http://localhost:3001/login";
 const LOGIN_URL = "http://129.104.201.10:3000/login";
 
 class Login extends React.Component {
