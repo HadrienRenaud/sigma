@@ -27,7 +27,7 @@ const GET_GROUP = gql`
 
 class GroupCard extends React.Component {
 
-    static PropTypes = {
+    static propTypes = {
         uid: PropTypes.string.isRequired
     }
 

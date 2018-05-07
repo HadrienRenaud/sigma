@@ -25,12 +25,12 @@ class Header extends React.Component {
                 </Menu.Item>
 
                 {/*NavLink to path /tol, telling Center to render main/trombino/Trombino.jsx*/}
-                <Menu.Item as={NavLink} to='/tol' name='tol'>
+                <Menu.Item  as={NavLink} to='/tol' name='tol'>
                     Trombinoscope
                 </Menu.Item>
 
                 {/*NavLink to path /services, telling Center to render main/services/Services.jsx*/}
-                <Menu.Item as={NavLink} to='/services' name='services'>
+                <Menu.Item  as={NavLink} to='/services' name='services'>
                     Services BR
                 </Menu.Item>
 
@@ -39,8 +39,8 @@ class Header extends React.Component {
                 </Menu.Item>
 
                 {/*NavLink to path /login, telling Center to render main/login/Login.jsx*/}
-                <Menu.Item position='right' name='loginForm'>
-                    <Button as={NavLink} to='/login' color="blue">Se connecter</Button>
+                <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
+                    <Button color="blue">Se connecter</Button>
                 </Menu.Item>
 
             </Menu>

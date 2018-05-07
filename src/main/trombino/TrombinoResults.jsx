@@ -45,6 +45,8 @@ class TrombinoResults extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {};
     }
 
     static getDerivedStateFromProps(newProps, prevState) {
