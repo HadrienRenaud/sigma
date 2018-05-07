@@ -12,20 +12,20 @@ stages:
 
 ### Jobs ###
 
-# Install dependencies, compile the bundle.js,
-# make migrations on and seed the db
+# Install dependencies, compile the bundle.js
 install-dependencies:
   stage: install
   script:
     - npm install -q
   artifacts:
     paths:
-      - build/
+      - semantic/
       - node_modules/
 
 build:
   stage: build
   script:
+    - webpack -v
     - npm run build
   artifacts:
     paths:
