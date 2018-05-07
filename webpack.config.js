@@ -12,7 +12,7 @@ const config = {
 
     mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
 
-    devtool: process.env.WEBPACK_SERVE ? 'eval' : null,
+    devtool: 'source-map',
 
     output: {
         path: path.resolve(__dirname, 'build'),
