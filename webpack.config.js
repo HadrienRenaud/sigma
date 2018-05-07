@@ -9,19 +9,42 @@ const history = require('connect-history-api-fallback');
 const environment = process.env.NODE_ENV;
 
 const config = {
-    entry: './src/App.jsx',
+    entry: {
+        app: './src/App.jsx',
+        vendor: ['semantic-ui-react','moment']
+    },
 
-    mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
+    mode: environment,
 
-    devtool: 'source-map',
+    devtool: (environment == 'development') ? 'eval' : 'source-map',
 
     output: {
         path: path.resolve(__dirname, 'build'),
-        publicPath: "/",
-        filename: "bundle.js",
+        filename: "[name].[hash].js",
+        publicPath: "/"
     },
 
     target: 'web',
+
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    chunks: 'initial',
+                    test: 'vendor',
+                    name: 'vendor',
+                    enforce: true
+                }
+            }
+        }
+    },
+
+    resolve: {
+        modules: [
+            path.resolve('./'),
+            path.resolve('./node_modules'),
+        ]
+    },
 
     module: {
         rules: [
@@ -62,7 +85,10 @@ const config = {
                 to: 'index.html'
             }]
         ),
-        new BundleAnalyzerPlugin()
+        new BundleAnalyzerPlugin({
+            analyzerPort: 8882,
+            analyzerMode: 'server'
+        })
     ]
 };
 
@@ -79,7 +105,5 @@ if (environment == 'development') {
         }
     };
 }
-
-module.exports = config;
 
 module.exports = config;
