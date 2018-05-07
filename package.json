@@ -51,14 +51,12 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "semantic-ui-react": "^0.78.3",
     "serve-favicon": "^2.5.0",
     "uuid": "^3.2.1",
     "whatwg-fetch": "^2.0.4"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
-    "babel-plugin-graphql-tag": "^1.5.0",
     "copy-webpack-plugin": "^4.5.1",
     "cross-env": "^5.1.4",
     "eslint": "^4.19.1",
@@ -67,6 +65,7 @@
     "jsdoc-export-default-interop": "^0.3.1",
     "sass-loader": "^7.0.1",
     "semantic-ui": "^2.3.1",
+    "semantic-ui-react": "^0.78.3",
     "style-loader": "^0.18.2",
     "url-loader": "^0.5.9",
     "webpack": "^4.6.0",
