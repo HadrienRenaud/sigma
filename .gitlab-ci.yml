@@ -15,8 +15,10 @@ stages:
 # Install dependencies, compile the bundle.js
 install-dependencies:
   stage: install
+  before_script:
+    - npm i -g npm
   script:
-    - npm install -q
+    - npm ci
   artifacts:
     paths:
       - semantic/

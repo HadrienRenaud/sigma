@@ -12,7 +12,7 @@ const config = {
 
     mode: process.env.WEBPACK_SERVE ? 'development' : 'production',
 
-    devtool: process.env.WEBPACK_SERVE ? 'eval' : false,
+    devtool: 'source-map',
 
     output: {
         path: path.resolve(__dirname, 'build'),
@@ -26,23 +26,22 @@ const config = {
         rules: [
             {
                 test: /\.jsx?$/,
-                include: path.resolve(__dirname, './src'),
                 exclude: /node_modules/,
                 loader: 'babel-loader',
 
                 query: {
-                    presets: ['env', 'react'],
-                    plugins: ['transform-decorators-legacy',
-                        'transform-class-properties',
-                        'transform-object-rest-spread',
-                        'graphql-tag'
+                    presets: ['@babel/preset-env', '@babel/preset-react'],
+                    plugins: [
+                        '@babel/plugin-proposal-class-properties'
                     ]
                 }
-            }, {
+            },
+            {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             }, {
                 test: /\.(png|jpg|gif|svg|eot|ttf)$/,
+                exclude: /node_modules/,
                 loader: 'file-loader?name=[name].[ext]?[hash]'
             }, {
                 test: /\.(html|woff|woff2)$/,
@@ -63,12 +62,9 @@ const config = {
             }]
         )
     ]
-
 };
 
-console.log(config.mode);
-
-if (environment == "development") {
+if (environment == 'development') {
     config.serve = {
         content: [__dirname],
         port: 8888,
@@ -80,7 +76,8 @@ if (environment == "development") {
             app.use(convert(history(historyOptions)));
         }
     };
-    config.mode = "development";
 }
+
+module.exports = config;
 
 module.exports = config;
