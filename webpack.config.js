@@ -4,6 +4,7 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
 const convert = require('koa-connect');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const history = require('connect-history-api-fallback');
 const environment = process.env.NODE_ENV;
 
@@ -60,7 +61,8 @@ const config = {
                 from: 'index.html',
                 to: 'index.html'
             }]
-        )
+        ),
+        new BundleAnalyzerPlugin()
     ]
 };
 
