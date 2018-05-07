@@ -32,7 +32,7 @@ const config = {
                 query: {
                     presets: ['@babel/preset-env', '@babel/preset-react'],
                     plugins: [
-                        'transform-class-properties'
+                        '@babel/plugin-proposal-class-properties'
                     ]
                 }
             },
@@ -61,9 +61,11 @@ const config = {
                 to: 'index.html'
             }]
         )
-    ],
+    ]
+};
 
-    serve: {
+if (environment == 'development') {
+    config.serve = {
         content: [__dirname],
         port: 8888,
         add: (app, middleware, options) => {
@@ -73,8 +75,9 @@ const config = {
 
             app.use(convert(history(historyOptions)));
         }
-    }
+    };
+}
 
+module.exports = config;
 
-};
 module.exports = config;
