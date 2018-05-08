@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Header, Segment, Label, Link, Button } from 'semantic-ui-react';
-import GroupCard from '../group/GroupCard.jsx';
+import GroupCard from '../groups/GroupCard.jsx';
 
 /**
  * @class Définit le composant Post, qui représente une publication effectuée par un ou des groupes.
