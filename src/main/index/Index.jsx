@@ -6,7 +6,7 @@ import {Header, Button, Image, Segment, Icon, Divider, Card } from 'semantic-ui-
 // this is not the file you are looking for. ca c'est juste pour group_view, le resume de "mes annonces" est dans [TODO].jsx
 import logo_sigma_large from '../../assets/logo_sigma_large.png';
 import ControlledComponentFormDemo from './testComp/ControlledComponentFormDemo.jsx';
-import PostPanel from '../messages/PostPanel.jsx';
+import PostsFeed from '../messages/PostsFeed.jsx';
 import TOS from './minimodules/TOS/TOS.jsx';
 /**
  * @file page d'accueil. ce Component wrap tous les minimodules presents sur la page d'accueil
@@ -27,7 +27,8 @@ class Index extends React.Component {
                 */}
                 {/* <GroupAnnouncements/> */}
 
-                <PostPanel/>
+                <h1>Fil d'actualités</h1>
+                <PostsFeed/>
             </div>
         );
     }

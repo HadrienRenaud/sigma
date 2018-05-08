@@ -106,12 +106,12 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                                 {/*pour plus de flexibilite et pour l'esthetique on n'utilisera pas GroupCard comme header*/}
                             </Header>
 
-                            <Segment attached='top'>
+                            <Segment attached>
                                 {group.description}
                             </Segment>
                         
                             {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/}
-                            <Menu attached='top' pointing>
+                            <Menu attached pointing>
                                 <Menu.Item as={NavLink} exact to={match.url}
                                     content="Page d'accueil" />
                                 <Menu.Item as={NavLink} to={match.url + "/annonces"}

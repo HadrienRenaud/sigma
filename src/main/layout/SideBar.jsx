@@ -9,7 +9,7 @@ import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
 import GroupPanel from '../group/GroupPanel.jsx';
-import PostPanel from '../messages/PostPanel.jsx';
+import EventsPanel from '../messages/EventsPanel.jsx';
 
 
 const PinnedEvents = () => (
@@ -18,7 +18,7 @@ const PinnedEvents = () => (
             <p>Événements</p>
         </Segment>
         <Button.Group basic fluid vertical>
-            <PostPanel />
+            <EventsPanel />
         </Button.Group>
         <Segment textAlign="center">
             <Link to="/event/create"><Button>

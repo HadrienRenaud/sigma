@@ -19,6 +19,10 @@ class Header extends React.Component {
                     <Image alt='Logo' src={logo_sigma} size='mini' />
                 </Menu.Item>
 
+                <Menu.Item as={NavLink} to="/groups">
+                    Associations
+                </Menu.Item>
+
                 {/*NavLink to path /calendar, telling Center to render [TODO]*/}
                 <Menu.Item as={NavLink} to='/event'>
                     Calendrier
@@ -32,10 +36,6 @@ class Header extends React.Component {
                 {/*NavLink to path /services, telling Center to render main/services/Services.jsx*/}
                 <Menu.Item  as={NavLink} to='/services' name='services'>
                     Services BR
-                </Menu.Item>
-
-                <Menu.Item as="h4">
-                    {localStorage.getItem('token') || "no token"}
                 </Menu.Item>
 
                 {/*NavLink to path /login, telling Center to render main/login/Login.jsx*/}

@@ -14,8 +14,15 @@ class Post extends React.Component {
         data: PropTypes.shape({
             title: PropTypes.string.isRequired,
             content: PropTypes.string.isRequired,
+            location: PropTypes.string,
             authors: PropTypes.arrayOf(PropTypes.object).isRequired
         }).isRequired
+    }
+
+    eventLocation() {
+        if (this.props.data.hasOwnProperty("location")) {
+            return <p>{this.props.data.location}</p>;
+        }
     }
 
     render() {
@@ -25,12 +32,10 @@ class Post extends React.Component {
                 <Header>
                     {this.props.data.title}
                 </Header>
+                {this.eventLocation()}
                 <p>
                     {this.props.data.content}
                 </p>
-                {this.props.data.authors.map(gr => 
-                    <GroupCard key={gr.uid} uid={gr.uid} name={gr.name} website={gr.website}/>
-                )}
             </Segment>
         );
     }
