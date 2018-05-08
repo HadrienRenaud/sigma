@@ -14,6 +14,7 @@ const ALL_POSTS = gql`
             title
             content
             authors {
+                uid
                 name
             }
             ...on Event {
@@ -45,7 +46,7 @@ class PostsFeed extends React.Component {
                     return (
                         <Feed>
                             {allMessages.map(post => (
-                                <Post key={post.id} data={post}/>
+                                <Post key={post.id} {...post}/>
                             ))}
                         </Feed>
                     );

@@ -14,6 +14,7 @@ const ALL_EVENTS = gql`
             title
             content
             authors {
+                uid
                 name
             }
         }
@@ -42,7 +43,7 @@ class EventsPanel extends React.Component {
                     return (
                         <div>
                             {allEvents.map(post => (
-                                <Post key={post.id} data={post}/>
+                                <Post key={post.id} {...post}/>
                             ))}
                         </div>
                     );

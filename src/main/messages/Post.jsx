@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Segment, Label, Link, Button } from 'semantic-ui-react';
+import { Header, Icon, Segment, Label, Link, Button } from 'semantic-ui-react';
 import GroupCard from '../groups/GroupCard.jsx';
 
 /**
@@ -11,17 +11,18 @@ import GroupCard from '../groups/GroupCard.jsx';
 class Post extends React.Component {
 
     static propTypes = {
-        data: PropTypes.shape({
-            title: PropTypes.string.isRequired,
-            content: PropTypes.string.isRequired,
-            location: PropTypes.string,
-            authors: PropTypes.arrayOf(PropTypes.object).isRequired
-        }).isRequired
+        title: PropTypes.string.isRequired,
+        content: PropTypes.string.isRequired,
+        location: PropTypes.string,
+        authors: PropTypes.arrayOf(PropTypes.object).isRequired
     }
 
     eventLocation() {
-        if (this.props.data.hasOwnProperty("location")) {
-            return <p>{this.props.data.location}</p>;
+        if (this.props.hasOwnProperty("location") && this.props.location !=null) {
+            return <div>
+                <Icon name='map' color="blue" />
+                {this.props.location}
+            </div>;
         }
     }
 
@@ -29,12 +30,13 @@ class Post extends React.Component {
 
         return (
             <Segment>
-                <Header>
-                    {this.props.data.title}
+                <Header as="h2">
+                    {this.props.title}
                 </Header>
+                {this.props.authors.map(auth => <span key={auth.uid}>{auth.name} </span>)}
                 {this.eventLocation()}
                 <p>
-                    {this.props.data.content}
+                    {this.props.content}
                 </p>
             </Segment>
         );
