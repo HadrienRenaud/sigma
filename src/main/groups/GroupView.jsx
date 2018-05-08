@@ -70,7 +70,7 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                     const { group } = data; //extracts the actual data from object 'data'
 
                     return (
-                        <Container ref={this.setContextRef}>
+                        <Container>
 
                             <Popup
                                 trigger={<Button color='yellow' icon='star' />}

@@ -1,7 +1,7 @@
 /*eslint-env node*/
 
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const convert = require('koa-connect');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
@@ -9,10 +9,8 @@ const history = require('connect-history-api-fallback');
 const environment = process.env.NODE_ENV;
 
 const config = {
-    entry: {
-        app: './src/App.jsx',
-        vendor: ['semantic-ui-react','moment']
-    },
+    
+    entry: './src/App.jsx',
 
     mode: environment,
 
@@ -20,7 +18,7 @@ const config = {
 
     output: {
         path: path.resolve(__dirname, 'build'),
-        filename: "[name].[hash].js",
+        filename: "bundle.js",
         publicPath: "/"
     },
 
@@ -64,33 +62,26 @@ const config = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
             }, {
-                test: /\.(png|jpg|gif|svg|eot|ttf)$/,
-                exclude: /node_modules/,
-                loader: 'file-loader?name=[name].[ext]?[hash]'
-            }, {
-                test: /\.(html|woff|woff2)$/,
-                loader: 'url-loader',
-                exclude: /(node_modules|doc)/,
-                options: {
-                    limit: 10000
-                }
+                test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
+                loader: 'url-loader?limit=100000'
             }
         ]
     },
 
     plugins: [
-        new CopyWebpackPlugin(
-            [{
-                from: 'index.html',
-                to: 'index.html'
-            }]
-        ),
+        new HtmlWebpackPlugin({
+            inject: false,
+            hash: true,
+            template: './src/index.html',
+            filename: 'index.html'
+        }),
         new BundleAnalyzerPlugin({
             analyzerPort: 8882,
-            analyzerMode: 'server'
+            analyzerMode: (environment == 'development') ? 'disabled' : 'server'
         })
     ]
 };
+
 
 if (environment == 'development') {
     config.serve = {

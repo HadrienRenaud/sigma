@@ -22,7 +22,7 @@ import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { Query, ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
 
-const GRAPHQL_API_URL_LOCAL = "http://localhost:3001/graphql";
+const GRAPHQL_API_URL_LOCAL = "http://localhost:3000/graphql";
 const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
 
 /**
