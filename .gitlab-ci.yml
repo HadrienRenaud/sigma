@@ -29,7 +29,7 @@ build:
   before_script:
     - npm i -g npm webpack-cli
   script:
-    - webpack -v
+    - webpack-cli -v
     - npm run build
   artifacts:
     paths:
