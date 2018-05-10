@@ -26,6 +26,8 @@ install-dependencies:
 
 build:
   stage: build
+  before_script:
+    - npm i -g npm webpack
   script:
     - webpack -v
     - npm run build
