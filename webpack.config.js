@@ -77,7 +77,7 @@ const config = {
         }),
         new BundleAnalyzerPlugin({
             analyzerPort: 8882,
-            analyzerMode: (environment == 'development') ? 'disabled' : 'server'
+            analyzerMode: (environment == 'development') ? 'disabled' : 'statix'
         })
     ]
 };
