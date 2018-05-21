@@ -1,16 +1,20 @@
 {
   "name": "sigma-frontend",
   "version": "0.0.1",
-  "private": true,
   "description": "Frontend of sigma, the new Frankiz",
-  "main": "main.js",
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack --mode production",
-    "dev": "cross-env NODE_ENV=development webpack-serve ./webpack.config.js",
+    "serve": "echo 'Error: App is not ready for production... use npm run start instead. Abort'",
+    "dev": "cross-env NODE_ENV=development webpack --mode development",
+    "watch": "cross-env NODE_ENV=development webpack --watch --mode development",
+    "start": "cross-env NODE_ENV=development webpack-serve ./webpack.config.js",
     "doc": "jsdoc -c configfile_doc.json",
     "lint": "eslint src/"
   },
-  "proxy": "http://localhost:3000",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.binets.fr:br/sigma-frontend"
+  },
   "author": "Binet Réseau",
   "license": "ISC",
   "dependencies": {

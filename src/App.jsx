@@ -83,11 +83,16 @@ const client = new ApolloClient({
     })
 });
 
-const App = () =>
-    <ApolloProvider client={client}>
-        <BrowserRouter>
-            <Main />
-        </BrowserRouter>
-    </ApolloProvider>;
+class App extends React.Component {
+    render() {
+        return (
+            <ApolloProvider client={client}>
+                <BrowserRouter>
+                    <Main />
+                </BrowserRouter>
+            </ApolloProvider>
+        );
+    }
+}
 
 ReactDOM.render(<App />, document.getElementById('app'));

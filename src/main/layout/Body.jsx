@@ -45,32 +45,32 @@ const divStyle = {
  * https://react.semantic-ui.com/collections/grid#grid-example-column-count
  */
 
-const Body = () => (
-    <Container>
-        <Grid columns='equal'>
-            {/*garder une barre d'information a gauche de la page*/}
-            {/*TODO: 
-            est-ce mieux de garder une barre a gauche (comme fait FB) ou a droite (comme fait frankiz)
-            Quentin : À droite, c'est plus ludique. 
-            [guillaume edited:] en fait il voulait dire a gauche >.> de toute facon c'est pas difficile de changer*/}
-            <Grid.Column>
-                <Switch> {/*forces exclusive path matching*/}
-                    <Route path="/event" component={Event} />
-                    <Route exact path="/groups" component={AllGroups} />
-                    <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
-                    <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
-                    <Route path="/services" component={Services} />
-                    <Route exact path="/" component={Index} />
-                    <Route component={NotFound} />
-                </Switch>
-            </Grid.Column>
+class Body extends React.Component {
+    render () {
+        return (
+            <Container>
+                <Grid columns='equal'>
+                    {/*garder une barre d'information a gauche de la page*/}
+                    <Grid.Column>
+                        <Switch> {/*forces exclusive path matching*/}
+                            <Route path="/event" component={Event} />
+                            <Route exact path="/groups" component={AllGroups} />
+                            <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
+                            <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
+                            <Route path="/services" component={Services} />
+                            <Route exact path="/" component={Index} />
+                            <Route component={NotFound} />
+                        </Switch>
+                    </Grid.Column>
 
-            <Grid.Column width={3}>
-                <SideBar />
-            </Grid.Column>
+                    <Grid.Column width={3}>
+                        <SideBar />
+                    </Grid.Column>
 
-        </Grid>
-    </Container>
-);
+                </Grid>
+            </Container>
+        );
+    }
+}
 
 export default Body;
