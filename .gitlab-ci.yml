@@ -22,9 +22,8 @@ install-dependencies:
   artifacts:
     paths:
       - semantic/
-      - node_modules/
 
-build:
+build:bundle:
   stage: build
   before_script:
     - npm i -g npm webpack-cli
