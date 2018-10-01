@@ -32,8 +32,13 @@ class Post extends React.Component {
             <Segment>
                 <Header as="h2">
                     {this.props.title}
+                    <Header.Subheader>
+                        {this.props.authors.map((auth,i) => {
+                            if (i == 0) return <span key={auth.uid}>par: {auth.name} </span>;
+                            else return <span key={auth.uid}>et {auth.name} </span>;
+                        })}
+                    </Header.Subheader>
                 </Header>
-                {this.props.authors.map(auth => <span key={auth.uid}>{auth.name} </span>)}
                 {this.eventLocation()}
                 <p>
                     {this.props.content}
