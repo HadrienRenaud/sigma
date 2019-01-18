@@ -3,13 +3,15 @@
         "browser": true,
         "es6": true
     },
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
     "parserOptions": {
         "ecmaVersion": 6,
         "sourceType": "module",
         "ecmaFeatures": {
-            "jsx": true,
-            "experimentalObjectRestSpread": true
+            "jsx": true
         }
     },
     "plugins": [
@@ -19,6 +21,30 @@
         "indent": ["error", 4],
         "linebreak-style": ["error", "unix"],
         "semi": ["error","always"],
-        "no-unused-vars": "off"
+        "no-unused-vars": "off",
+        
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error"
+        
+    },
+
+
+    "settings": {
+        "react": {
+            "createClass": "createReactClass",
+            "pragma": "React",
+            "version": "detect",
+            "flowVersion": "0.53"
+        },
+        "propWrapperFunctions": [
+            "forbidExtraProps",
+            {
+                "property": "freeze",
+                "object": "Object"
+            },
+            {
+                "property": "myFavoriteWrapper"
+            }
+        ]
     }
 }
