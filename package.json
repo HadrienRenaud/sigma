@@ -1,24 +1,22 @@
 {
-  "name": "shitpost",
+  "name": "sigma-frontend",
   "version": "0.0.1",
-  "description": "Une application pour aspirer tout le shitpost des forums",
-  "main": "index.js",
+  "description": "Frontend of sigma, the new Frankiz",
   "scripts": {
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development"
+    "build": "cross-env NODE_ENV=production webpack --mode production",
+    "dev": "cross-env NODE_ENV=development webpack --mode development",
+    "watch": "cross-env NODE_ENV=development webpack --watch --mode development",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --mode development",
+    "doc": "jsdoc --configure jsdoc_config.json",
+    "lint": "eslint --ext .js --ext .ts src/",
+    "serve": "echo 'Error: App is not ready for production... use npm run start instead. Abort'"
   },
-  "keywords": [
-    "shitpost",
-    "forum",
-    "sigma"
-  ],
-  "author": "kadabra",
-  "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@gitlab.binets.fr:guillaume.wang/shitpost.git"
+    "url": "git@gitlab.binets.fr:br/sigma-frontend"
   },
+  "author": "Binet Réseau",
+  "license": "ISC",
   "dependencies": {
     "apollo-cache-inmemory": "^1.3.5",
     "apollo-client": "^2.4.2",

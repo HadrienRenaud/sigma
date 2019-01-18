@@ -1,10 +1,9 @@
 Contribuer au projet
 ===
 
-
 ## TODO
 
-Quand j'aurais fini tout le reste, penser à :
+Quand tout le reste sera fait, penser à :
 - Rassifier la répartition `dependencies`/`dev-dependencies` du package.json
 - Configurer le système de local data caching (customizer `(new ApolloClient).cache` dans `index.js`). Apollo-Client se vante d'avoir une bonne gestion du caching, autant l'utiliser. https://www.apollographql.com/docs/react/api/apollo-client.html
 - Code splitting: don’t make our visitors download the entire app before they can use it. https://reacttraining.com/react-router/web/guides/code-splitting
@@ -12,33 +11,42 @@ Quand j'aurais fini tout le reste, penser à :
 
 
 
-## Structure du dossier
+## Structure du code
 
-- `assets/`: on y met les fichiers statiques, comme les images.
-- `dist/`: les fichiers compilés par webpack. Ignoré par git (.gitignore)
-- `examples/`: des fichiers exemples qu'on pourra utiliser comme templates pour écrire d'autres Component.
-- `node_modules/`: les dépendances du dossier, téléchargées automatiquement par npm. Ignoré par git (.gitignore)
-- `src/`: le code source du projet.
+La structure générale du dossier est indiquée dans le README. Ici on indique la structure du code source, i.e. de `src/`.
 
-Divers fichiers de config à la racine du projet.
-- `.babelrc`: config pour babel, le transpileur... transpilateur... bref le truc qui fait la traduction de ES6 vers des versions d'ECMAScript compréhensibles par les machines. Ici, [babel](https://www.npmjs.com/package/babel-loader) est utilisé comme un [*loader*](https://webpack.js.org/concepts/loaders/) par webpack.
-- `.eslintignore`: dit à eslint de ne pas linter ces fichiers.
-- `.eslintrc.json`: config pour eslint. Le plus susceptible d'être modifié est le champ rules. env spécifie l'environnement, et donc quelle syntaxe est utilisée.
-- `.gitignore`: dit à git de ne pas track ces fichiers.
-- package-lock.json: spécifie à npm les dépendances du projet avec leur version précise. équivalent de pip freeze pour flask/django.
-- `package.json`: spécifie à npm les dépendances du projet, mais aussi l'auteur, la license, le repo git... bref tout ce qui peut être intéressant pour [npm](https://www.npmjs.com/package/shitpost). Spécifie aussi les scripts à utiliser quand on utilise la commande `npm run (blablabla)`.
-- `webpack.config.js`: config de webpack. C'est le seul fichier à utiliser une syntaxe non-ES6, car il est chargé par webpack avant toute transpilation de babel.
-
+TODO: le faire
 
 ## Webpack et serveur
 
 On utilise [`webpack-dev-server`](https://github.com/webpack/webpack-dev-server) pour servir l'application.
 
-Il faut considérer que les fichiers de `/dist/` sont overwritten à chaque build de webpack. Donc ne jamais les modifier directement, ça ne sert à rien.
+Il faut considérer que les fichiers de `/build/` sont overwritten à chaque build de webpack. Donc ne jamais les modifier directement, ça ne sert à rien.
 
-## Semantic UI
+## Dépendances
 
-On utilise [semantic-ui-react](https://www.npmjs.com/package/semantic-ui-react) comme UI framework de React (i.e. est à css ce que React est à html). La documentation se trouve [ici](https://react.semantic-ui.com/). 
+(Les dépendances liées à l'utilisation de GraphQL sont détaillées dans une section dédiée.)
+
+### ReactJS
+
+*TODO: maybe give some insights on using React?*
+
+React c'est cool :)
+https://reactjs.org/docs/hello-world.html
+
+### React-Router
+
+On utilise [react-router-dom](https://www.npmjs.com/package/react-router-dom) pour le routage (i.e. savoir quoi afficher pour quel path demandé). "-dom" signifie que c'est pour du développement web et pas mobile/tablette.
+
+-[Présentation du principe de react-router](https://reacttraining.com/react-router/core/guides/philosophy/dynamic-routing)
+-[La documentation](https://reacttraining.com/react-router/web/api/)
+
+### Semantic UI (et `semantic-ui-react`)
+
+Pour info (ne lisez pas la doc de Semantic UI "pur", ça ne sert à rien dans ce projet ; éventuellement jeter un coup d'oeil aux elements) : https://semantic-ui.com/ . 
+Il existe plusieurs implémentations différentes de Semantic UI avec React, semantic-ui-react est la seule qui semble sérieuse...
+
+On utilise, donc, [semantic-ui-react](https://www.npmjs.com/package/semantic-ui-react) comme UI framework de React (i.e. est à css ce que React est à html). La documentation se trouve [ici](https://react.semantic-ui.com/). 
 
 On a choisi d'importer les stylesheet par CDN au lieu de les télécharger dans le projet. Inconvénient : il faut avoir internet pour avoir accès aux stylesheet.
 
@@ -54,27 +62,16 @@ This is the quickest way to get started with Semantic UI React. You won't be abl
 
 ---
 
-## ESLint
 
-J'utilise l'extension ESLint de VS Code. La config est dans `.eslintrc.json`.
-
-## React-Router
-
-On utilise [react-router-dom](https://www.npmjs.com/package/react-router-dom) pour le routage (i.e. savoir quoi afficher pour quel path demandé). "-dom" signifie que c'est pour du développement web et pas mobile/tablette.
-
--[Présentation du principe de react-router](https://reacttraining.com/react-router/core/guides/philosophy/dynamic-routing)
--[La documentation](https://reacttraining.com/react-router/web/api/)
-
-## Utilisation de graphQL
+## Utilisation de GraphQL
 
 ### On utilise quoi ?
 
-GraphQL est une couche d'abstraction entre le front et le back permettant d'écrire des requêtes de données (du front vers le back) lisibles. 
-http://graphql.org/learn/
+[GraphQL](http://graphql.org/learn/) est une couche d'abstraction entre le front et le back permettant d'écrire des requêtes de données (du front vers le back) lisibles. 
 
 On n'utilise pas graphql.js mais une autre implémentation appelée *apollo-client* : une implementation de graphQL "côté client". Rq: on utilise aussi [graphql-tag](https://www.npmjs.com/package/graphql-tag).
 
-[La doc est ici](https://www.apollographql.com/docs/react/). (attention, le domaine apollographql.com contient la doc pour tous les modules d'*apollographql*, y compris des modules pour graphQL "côté serveur" ou pour d'autres frameworks que React... [mai 2018])
+[La doc est ici](https://www.apollographql.com/docs/react/). (attention, le domaine apollographql.com contient la doc pour tous les modules d'*apollographql*, y compris des modules pour graphQL "côté serveur" ou pour d'autres frameworks que React... [janvier 2019])
 
 La [page npm de react-apollo](https://www.npmjs.com/package/react-apollo) conseille en fait d'installer tout un tas de packages liés :
 
@@ -141,3 +138,31 @@ Il suffit d'écrire les deux requêtes et d'emboîter deux <Query>.
 https://www.apollographql.com/docs/react/react-apollo-migration.html
 
 
+
+## Dépendances - outils de développement
+
+### ESLint
+
+On utilise ESLint pour standardiser le style du code. 
+Il est ~~préférable~~ nécessaire de l'installer **globalement** avec `npm install -g eslint`.
+
+Lors d'une validation ESLint, un ensemble de règles de style sont appliquées, elles sont configurables dans le fichier `.eslintrc.json`. Par exemple, actuellement, la config ESLint impose d'utiliser quatre espaces pour les indentations et d'utiliser des points-virgule en fin de ligne. 
+Les options de configuration sont bien expliquées dans la [doc dédiée](https://eslint.org/docs/rules/).
+
+Pour faire valider les fichiers source par ESLint, utiliser `npm run lint` (raccourci pour `eslint --ext .js --ext .ts src/ `). L'option `--fix` permet de corriger les fichiers : `npm run lint -- --fix`.
+Les différentes façon d'exécuter une validation sont bien expliquées dans la [doc dédiée](https://eslint.org/docs/user-guide/command-line-interface).
+
+Sinon, si vous utilisez Atom ou Visual Studio Code pour éditer votre code, il existe des plugins qui font tourner ESLint _en live_ sur le code et vous préviennent quand il y a une faute de style.
+
+### Outils de test in-browser
+
+Installer le plugin _React dev tools_ dans son navigateur (Chrome, Firefox, Safari) peut être une bonne idée pour inspecter les éléments React au sein d'une page.
+
+## Contact
+
+Le BR 2016, plus particulièrement Wilson Jallet, Guillaume Wang, Quentin Chevalier et Anatole Romon
+
+Le BR 2017, plus particulièrement Olivér Facklam, Grégoire Grzeckowicz et Hadrien Renaud
+
+## Conclusion
+chauffez-vous, mythe ALC etc.

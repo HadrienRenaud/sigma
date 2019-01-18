@@ -1,0 +1,35 @@
+image: node:latest
+
+cache:
+  paths:
+  - node_modules/
+
+# Build stages
+
+stages:
+  - install
+  - build
+
+### Jobs ###
+
+# Install dependencies, compile the bundle.js
+install-dependencies:
+  stage: install
+  before_script:
+    - npm i -g npm
+  script:
+    - npm ci
+  artifacts:
+    paths:
+      - semantic/
+
+build:bundle:
+  stage: build
+  before_script:
+    - npm i -g npm webpack-cli
+  script:
+    - webpack-cli -v
+    - npm run build
+  artifacts:
+    paths:
+      - build/

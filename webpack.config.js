@@ -5,9 +5,8 @@ const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const config = {
-    // no need to specify the entry nor the output point (unless you want to customize them)
-    //default entry: './src/index.js'
-    //default output: './dist/main.js'
+    entry: './src/App.jsx',
+    output: './build/bundle.js',
 
     module: {    
         // an array of JSONs, one for each rule
@@ -52,9 +51,9 @@ const config = {
     
     //options for webpack-dev-server
     devServer: {
-        contentBase: path.join(__dirname, "dist"),
+        contentBase: path.join(__dirname, "build"),
         compress: false,
-        port: 9000,
+        port: 8888,
         historyApiFallback: true, //redirects all GETs to / so that routing is made by react (not the server)
         //inline: true //default. Inline mode = a script will be inserted in your bundle to take care of live reloading, and build messages will appear in the browser console.
     }
