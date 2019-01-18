@@ -6,7 +6,11 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 const config = {
     entry: './src/App.jsx',
-    output: './build/bundle.js',
+    output: {
+        path: path.resolve(__dirname, 'build'),
+        filename: "bundle.js",
+        //publicPath: "/"
+    },
 
     module: {    
         // an array of JSONs, one for each rule
