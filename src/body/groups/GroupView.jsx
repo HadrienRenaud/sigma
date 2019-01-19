@@ -17,7 +17,6 @@ import GroupPageInterne from './group_view/GroupPageInterne.jsx';
 import GroupAdministrer from './group_view/GroupAdministrer.jsx';
 import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
-import GroupCard from '../../widgets/GroupCard.jsx';
 
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {

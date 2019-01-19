@@ -12,7 +12,7 @@ import logo from '../../assets/dev-logo.png';
 
 //TODO: update the (Nav)Links...
 
-class Header extends React.Component {
+class TopMenu extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -27,11 +27,6 @@ class Header extends React.Component {
                             style={{ marginRight: "1.5em" }}
                         />
                         Sigma (WIP)
-                    </Menu.Item>
-
-                    {/*NavLink to path /, telling Center to render main/index/Index.jsx*/}
-                    <Menu.Item as={NavLink} to='/#'>
-                        <Image alt='Logo' src={logo} size='mini' />
                     </Menu.Item>
 
                     <Menu.Item as={NavLink} to="/groups">
@@ -65,4 +60,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default TopMenu;
