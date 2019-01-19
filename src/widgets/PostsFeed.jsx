@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Feed, Header } from 'semantic-ui-react';
 import Post from '../body/messages/Post.jsx';
+import GraphQLError from '../errors/GraphQLError.jsx';
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -41,16 +42,29 @@ class PostsFeed extends React.Component {
                     if (loading) return <Feed>Chargement...</Feed>;
                     else if (error) {
                         console.log(JSON.stringify(error));
+                        return (
+                            <GraphQLError>
+                                {error}
+                            </GraphQLError>
+                        );
                     }
-                    const {allMessages} = data;
-                    return (
-                        <Feed>
-                            {allMessages.map(post => (
-                                <Post key={post.id} {...post}/>
-                            ))}
-                        </Feed>
-                    );
-
+                    else if (data) {
+                        const {allMessages} = data;
+                        return (
+                            <Feed>
+                                {allMessages.map(post => (
+                                    <Post key={post.id} {...post}/>
+                                ))}
+                            </Feed>
+                        );
+                    } else {
+                        console.log("Nor Error nor data nor loading defined.")
+                        return (
+                            <GraphQLError>
+                                Problème dans PostFeed Function.
+                            </GraphQLError>
+                        )
+                    }
                 }}
             </Query>
         );

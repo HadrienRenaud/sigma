@@ -12,7 +12,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 //import { setContext } from 'apollo-link-context';
 
-import {ErrorBoundary} from "./Errors.jsx";
+import ErrorBoundary from "./errors/BoundaryError.jsx";
 import httpLinkToGraphQL from './graphql/http-link.js'
 
 // const GRAPHQL_API_URL = "http://localhost:3000/graphql";

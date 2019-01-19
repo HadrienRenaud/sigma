@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, NavLink, Link, withRouter, Redirect } from 'react-router-dom';
-import { Error404 } from '../../Errors.jsx';
+import Error404 from '../../errors/Error404.jsx';
 import { Menu, Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';

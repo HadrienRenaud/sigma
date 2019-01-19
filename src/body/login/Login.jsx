@@ -6,9 +6,9 @@ import React from 'react';
 import {Mutation} from 'react-apollo';
 import PropTypes from 'prop-types';
 import { Route, Switch, Link } from 'react-router-dom';
-import Error404 from '../Errors.jsx';
+import Error404 from '../../errors/Error404.jsx';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
-import logo_sigma from '../../assets/logo_sigma.png';
+import logo_sigma from '../../../assets/logo_sigma.png';
 import gql from 'graphql-tag';
 
 import LoginForm from './LoginForm.jsx';

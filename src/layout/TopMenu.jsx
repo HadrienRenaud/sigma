@@ -26,31 +26,9 @@ class Header extends React.Component {
                         <Image alt="logo" src={logo} size='mini' 
                             style={{ marginRight: "1.5em" }}
                         />
-                        <s>sH*tPost</s> Sigma (WIP)
+                        Sigma (WIP)
                     </Menu.Item>
 
-                    <Menu.Item as={NavLink} to='/test'>
-                        page de test
-                    </Menu.Item>
-
-                    <Dropdown item simple text='Dropdown'>
-                        <Dropdown.Menu>
-                            <Dropdown.Item>List Item</Dropdown.Item>
-                            <Dropdown.Item>List Item</Dropdown.Item>
-                            <Dropdown.Divider />
-                            <Dropdown.Header>Header Item</Dropdown.Header>
-                            <Dropdown.Item>
-                                <i className='dropdown icon' />
-                                <span className='text'>Submenu</span>
-                                <Dropdown.Menu>
-                                    <Dropdown.Item>List Item</Dropdown.Item>
-                                    <Dropdown.Item>List Item</Dropdown.Item>
-                                </Dropdown.Menu>
-                            </Dropdown.Item>
-                            <Dropdown.Item>List Item</Dropdown.Item>
-                        </Dropdown.Menu>
-                    </Dropdown>
-                    
                     {/*NavLink to path /, telling Center to render main/index/Index.jsx*/}
                     <Menu.Item as={NavLink} to='/#'>
                         <Image alt='Logo' src={logo} size='mini' />
