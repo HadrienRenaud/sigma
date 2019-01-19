@@ -13,12 +13,26 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 //import { setContext } from 'apollo-link-context';
 
-const GRAPHQL_API_URL = "http://localhost:3000/graphql";
-//const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
+const GRAPHQL_API_URL_LOCAL = "http://localhost:3000/graphql";
+const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
 
 import Layout from "./Layout.jsx";
 
 
+
+/**
+ * Fetch info on interfaces and unions in our backend API
+ * or else Apollo client will complain about fragments
+ */
+import apiSchemaGetter from './getSchemaInfo.jsx';
+apiSchemaGetter(GRAPHQL_API_URL_LOCAL);
+
+import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+const introspectionQueryResultData = JSON.parse(localStorage.getItem('fragmentTypes'));
+
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+    introspectionQueryResultData
+});
 
 const client = new ApolloClient({
     // to customize, follow: https://www.apollographql.com/docs/link/links/http.html
@@ -26,7 +40,18 @@ const client = new ApolloClient({
     link: createHttpLink({
         uri: GRAPHQL_API_URL
     }),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache({
+        dataIdFromObject: object => { 
+            // https://www.apollographql.com/docs/react/advanced/caching.html#normalization 
+            // dit a apollo-cache-inmemory que pour Group et User, la cle primaire est "uid" et pas "id" ni "_id" (par defaut)
+            switch (object.__typename) {
+                case 'Group': return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
+                case 'User': return `User:${object.uid}`;
+                default: return defaultDataIdFromObject(object); // fall back to default handling
+            }
+        },
+        fragmentMatcher
+    })
 });
 
 const App = () => {
