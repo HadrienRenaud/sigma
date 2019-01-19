@@ -6,7 +6,7 @@
 import React from 'react';
 import { Container, Divider, Dropdown, Grid, Image, List, Menu, Segment, Button } from "semantic-ui-react";
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../../assets/dev-logo.png';
+import logo from '../../assets/logo_sigma.png';
 
 
 
