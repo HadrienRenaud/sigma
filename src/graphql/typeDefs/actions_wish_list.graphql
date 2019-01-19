@@ -1,0 +1,266 @@
+"""
+@file Définit les types spéciaux Query et Mutation, points d'entrée du schéma GraphQL. 
+    Ce fichier est la wish-list de kadabra (qui veut avoir un schéma clair pour travailler sereinement sur le front).
+@author akka vodol, kadabra
+"""
+
+type Query {
+    # User queries de base
+    user(uid:ID!): User
+
+    # Group queries de base
+    group(gid:ID!): Group
+    simpleGroup(gid:ID!): SimpleGroup
+    metaGroup(gid:ID!): MetaGroup
+
+    # Message queries de base
+    message(mid:ID!): Message
+    announcement(mid:ID!): Announcement
+    event(mid:ID!): Event
+    privatePost(mid:ID!): PrivatePost
+    question(mid:ID!): Question
+    answer(mid:ID!): Answer
+
+    # Request queries de base
+    request(rid:ID!): Request
+    userJoinGroupRequest(rid:ID!): UserJoinGroup
+    groupCoauthorEventRequest(rid:ID!): GroupCoauthorEvent
+
+
+
+    # Tous les Messages visibles par un utilisateur (dont le uid, et donc les autorisations, est passé par context)
+    allMessages: [Message]
+    allAnnouncements: [Announcement]
+    allEvents: [Event]
+    # Tous les Groupes visibles par un utilisateur. 
+    # Correspondrait au sous-champ "viewerOf" de User, volontairement non-défini comme tel. Tous les autres cas de figure sont couverts par les sous-champs "<permission>Of" de User
+    allGroups: [Group]
+
+
+
+    # Toutes les Requests auxquelles un groupe doit répondre
+    requestsToGroup(gid:ID!): [Request]
+    userJoinGroupRequestsToGroup(gid:ID!): UserJoinGroup
+    groupCoauthorEventRequestsToGroup(gid:ID!): GroupCoauthorEvent
+
+
+
+    # TOL
+    searchTOL(
+        givenName: String,
+        lastName: String,
+        nickname: String,
+        nationality: String,
+        school: String,
+        promotion: String,
+        groups: String,
+        studies: String,
+        sport: String,
+        phone: String,
+        mail: String,
+        address: String,
+        ip: String
+    ): [User!]
+
+}
+
+type Mutation {
+    """
+    Par rapport à un groupe donné, un user peut avoir différents niveaux de droits :
+    - none : sait que le groupe existe, mais aucun autre droit (typiquement, une connection où l'utilisateur ne s'est pas authentifié)
+    - viewer : le user a aussi accès à l'activité publique du groupe : frontpage, Q&A, liste des membres, speakers et admins
+    - member : le user a aussi acces à l'activité interne du groupe : les PrivatePost, ainsi que les Message dont le groupe est auteur ou destinataire
+    - speaker : le user peut aussi parler au nom du groupe. Il a le droit de publier des annonces et d'organiser des évènements
+    - admin : le user a tous les droits sur le groupe
+
+    Un des rôles du *graphe organique des groupes* est de définir le niveau de droit des users pour chaque groupe.
+        D'abord, petit détail de terminologie : les cinq niveaux de droits sont inclus les uns dans les autres (un speaker est aussi un viewer, par ex.)
+    - Les conditions pour qu'un user soit membre, speaker ou admin sont claires, puisque cette information est stockée directement en BDD.
+    - Un user non-membre est viewer du groupe G :
+        - s'il est membre d'un groupe immédiatement parent de G (one-edge-down visibility), ou
+        - s'il est membre d'un groupe faisant partie du champ "visibilityEdge" de G
+        - s'il est membre d'un métagroupe dont G est membre (implicit visibility-edges).
+    - Dans tous les autres cas, le user a le niveau de droits "none".
+
+    L'autre rôle du *graphe organique des groupes* est de permettre l'administration "en cascade" des groupes enfants.
+    Si un groupe est le parent d'un autre, alors les admins du groupe parent peuvent se déclarer admins du groupe enfant. Exemples :
+        - BR est parent de Chocapix. L'admin de Chocapix est parti en vacances. L'admin de BR peut se déclarer admin de Chocapix et faire ce qu'il a à faire, sans attendre le retour du respo Chocapix.
+        - Cotisants-Kès est parent de Troll'X. Troll'X fait n'importe quoi (en floodant de Messages par ex). Les admins de Cotisants-Kès (les kessiers) peuvent se déclarer admin de Troll'X et stopper les dégâts.
+    
+    Remarque sur speaker :
+    Il s'agit d'un nouveau niveau de droit par rapport à Frankiz 3.0 ; il n'est pas implémenté dans le LDAP frankiz.
+    Par conséquent, il est probable que, au début du moins, on impose que speaker=admin, pour pouvoir continuer à utiliser ce LDAP.
+
+    Les mutations ci-dessous sont divisées en quatre, selon le niveau de droit requis pour pouvoir les appeler.
+    Les Mutations concernant les *Requests* suivent à peu près toutes le schéma suivant :
+        - <typeAuteur>Request<NatureDeLaRequest>(auteur, destinataire, comment): Request
+        - accept<NatureDeLaRequest>Request(request: ID!, comment: String): Boolean
+        - refuse<NatureDeLaRequest>Request(request: ID!, comment: String): Boolean
+            - le paramètre est le rid de la Request à accepter ou refuser
+            - seul les admins du groupe destinataire peuvent accepter ou refuser une Request
+    Les Mutations concernant les *Messages* suivent à peu près toutes le schéma suivant :
+        - create<TypeDeMessage>(auteur, destinataire, title, content, etc.): <TypeDeMessage>
+        - edit<TypeDeMessage>(<typeDeMessage>ToEdit: ID!): <TypeDeMessage>
+        - remove<TypeDeMessage>(<typeDeMessage>ToRemove: ID!): Boolean
+            - = l'auteur supprime le message
+            - pour les Messages où l'auteur est un utilisateur, seul l'auteur a le droit de remove son Message
+            - pour les Messages où l'auteur est un groupe, n'importe quel admin du groupe (ou speaker selon le cas) a le droit de remove le Message
+        - censor<TypeDeMessage>(<typeDeMessage>ToCensor: ID!): Boolean
+            - = le groupe destinataire supprime le message
+            - n'importe quel admin du groupe a le droit de censurer un Message qui lui est adressé
+            - (le destinataire est un Group pour tous les Messages)
+    """
+
+    # Groups-independent mutations
+    editProfile(
+        nickname: String,
+        mail: String,
+        phone: String
+    ): User
+
+    # Viewer mutations
+    likeGroup(groupId: ID!): Boolean # devenir sympathisant
+    userParticipate(
+        forEvent: ID!
+    ): Boolean
+    userUnparticipate(
+        forEvent: ID!
+    ): Boolean
+
+    userRequestJoinGroup(toGroup: ID!, comment: String): Request
+
+    createQuestion(
+        toGroup: ID!,
+        title: String,
+        content: String,
+    ): Question
+    editQuestion(
+        questionToEdit: ID!,
+        title: String,
+        content: String,
+    ): Question
+    removeQuestion(
+        questionToRemove: ID!
+    ): Question
+
+    # Member mutations
+    userLeaveGroup(groupId: ID!): Boolean
+
+    createPrivatePost(
+        toGroup: ID!, 
+        title: String, 
+        content: String
+    ): PrivatePost
+    editPrivatePost(
+        privatePostToEdit: ID!, 
+        title: String, 
+        content: String
+    ): PrivatePost
+    removePrivatePost(
+        privatePostToRemove: ID!
+    ): PrivatePost
+
+    # Speaker mutations
+    writePostsSummary(forGroup: ID!, content: String): Boolean
+
+    groupRequestCoauthorEvent(
+        fromGroup: ID!, 
+        toGroup: ID!, 
+        forEvent: ID!, 
+        comment: String
+    ): Request
+
+    createAnnouncement(
+        fromGroup: ID!,
+        toGroups: [ID!],
+        title: String,
+        content: String,
+        forEvent: ID
+    ): Announcement
+    editAnnouncement(
+        announcementToEdit: ID!,
+        title: String,
+        content: String,
+        forEvent: ID
+    ): Announcement
+    removeAnnouncement( 
+        announcementToRemove: ID!
+    ): Boolean
+
+    createEvent(
+        fromGroup: ID!,
+        toGroups: [ID!],
+        title: String,
+        content: String,
+        location: String,
+        startTime: String,
+        endTime: String,
+        forAnnouncement: ID
+    ): Event
+    editEvent(
+        eventToEdit: ID!,
+        title: String,
+        content:String,
+        location: String,
+        startTime: String,
+        endTime: String,
+        forAnnouncement: ID
+    ): Event
+    removeEvent(
+        eventToRemove: ID!
+    ): Boolean
+
+    createAnswer(
+        forQuestion: ID!,
+        title: String,
+        content: String
+    )
+    editAnswer(
+        answerToEdit: ID!,
+        title: String,
+        content: String
+    )
+    removeAnswer(
+        answerToRemove: ID!
+    ): Boolean
+
+    # Admin mutations
+    createSubgroup(
+        fromGroup: ID!,
+        subGid: ID,
+        subName: String!,
+        subDescription: String,
+        subMail: String,
+        subWebsite: String,
+        subSchool: String
+    ): Group
+    becomeAdmin(forGroup: ID!): Boolean # requiert que l'utilisateur soit admin du groupe parent de forGroup
+
+    makeAdmin(forGroup: ID!, userId: ID!): User
+    unmakeAdmin(forGroup: ID!, userId: ID!): User
+    makeSpeaker(forGroup: ID!, userId: ID!): User
+    unmakeSpeaker(forGroup: ID!, userId: ID!): User
+
+    editGroup(
+        forGroup: ID!,
+        name: String,
+        description: String,
+        mail: String,
+        website: String,
+        school: String
+    ): Group
+
+    groupRequestJoinMetagroup(fromGroup: ID!, toMetagroup: ID!, comment: String): Request
+
+    acceptUserJoinRequest(request: ID!, comment: String): Boolean
+    acceptGroupJoinRequest(request: ID!, comment: String): Boolean
+    refuseUserJoinRequest(request: ID!, comment: String): Boolean
+    refuseGroupJoinRequest(request: ID!, comment: String): Boolean
+
+    censorQuestion(questionToCensor: ID!): Boolean
+    censorPrivatePost(privatePostToCensor: ID!): Boolean
+    censorAnnouncement(announcementToCensor: ID!): Boolean
+    censorEvent(eventToCensor: ID!): Boolean
+    censorAnswer(answerToCensor: ID!): Boolean
+
+}

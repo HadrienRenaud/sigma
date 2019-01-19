@@ -1,0 +1,241 @@
+# hawkspar->all ; doc ?
+
+# Utilisateurs
+type User {
+    # Prénom de l'utilisateur
+    givenName: String!
+    # Nom de famille
+    lastName: String!
+    # Surnom
+    nickname: String
+    nationality: String
+    uid: ID!
+    birthdate: String!
+    mail: String
+    phone: String
+    # Groupes dont l'utilisateur est membre.
+    groups: [SimpleGroup]
+    # Groupes que l'utilisateur aime.
+    likes: [Group]
+    # Adresse(s) de l'utilisateur.
+    address: [String]
+    # Promotion
+    promotion: String
+}
+
+# Groupes associatifs
+
+"""
+L'interface Group représente les deux types de groupes implémentés dans Sigma : les groupes
+simples, dont les membres sont des utilisateurs, et les métagroupes, dont les membres sont
+des groupes simples (tel que Federez, dont les membres incluent le BR et DaTA). 
+"""
+interface Group {
+    uid: ID
+    name: String
+    # Site Web.
+    website: String
+    description: String
+    
+    # Jour et heure de création du groupe.
+    createdAt: String!
+    # Dernière mise à jour du groupe.
+    updatedAt: String!
+
+    # member requests
+
+    # Les posts prives dans ce groupe
+    privatePosts: [PrivatePost]
+    # Les questions addressees à ce groupe
+    questions: [Question]
+    # Les reponses donnees par ce groupe
+    answers: [Answer]
+
+
+}
+
+# Le groupe de base, dont les membres sont des utilisateurs : binets, Kès...
+type SimpleGroup implements Group {
+    uid: ID
+    name: String
+    website: String
+    createdAt: String!
+    updatedAt: String!
+
+    # Admin, membres, sympathisants du groupe
+    admins: [User]
+    members: [User]
+    likers: [User]
+
+    description: String
+    # École d'origine du groupe
+    school: String
+    # Groupe parent
+    parent: Group
+
+    privatePosts: [PrivatePost]
+    questions: [Question]
+    answers: [Answer]
+}
+
+# Un groupe dont les membre sont d'autres groupes
+type MetaGroup implements Group {
+    uid: ID
+    name: String
+    website: String
+    createdAt: String!
+    updatedAt: String!
+    description: String
+
+    # Les groupes constitutifs du méta-groupe.
+    members: [Group]!
+
+    privatePosts: [PrivatePost]
+    questions: [Question]
+    answers: [Answer]
+}
+
+
+# Tout type de message adressé à un ou plusieurs groupes.
+
+# Auteur possible d'un Message
+# union AuthorUnion = Group | [Group] | User
+# union RecipientUnion = Group | [Group]
+
+# Les unions sont assez faibles dans GraphQL, 
+# elles n'acceptent pas les listes ni les interfaces
+
+# L'interface Message représente toute information que veut communiquer un groupe ou un user.
+# Par choix de paradigme, tout Message est adressé à un (ou des) groupe(s).
+# Les types implémentés sont divisés en deux :
+# - les Message émanant d'un groupe : Announcement et Event, ainsi que Answer
+# - les Message émanant d'un user : PrivatePost, ainsi que Question
+
+interface Message {
+    id: ID!
+    # Titre du message
+    title: String!
+    content: String
+    createdAt: String!
+    updatedAt: String!
+}
+
+# Annonce publique effectuée par un ou plusieurs groupes.
+type Announcement implements Message {
+    id: ID!
+    title: String!
+    createdAt: String!
+    updatedAt: String!
+    content: String!
+    importance: Int
+    views: Int
+    forEvent: Event
+
+    authors: [Group]
+    recipients: [Group]
+}
+
+# Événements organisés par un ou plusieurs groupes.
+type Event implements Message {
+    id: ID!
+    # Intitulé de l'événement
+    title: String!
+    # Lieu de l'événement
+    location: String
+    createdAt: String!
+    updatedAt: String!
+    startTime: String!
+    endTime: String!
+    # Organisateurs
+    # Personnes qui participent à l'événement.
+    participatingGroups: [Group]
+    participatingUsers: [User]
+    content: String
+    asAnnouncement: Announcement
+
+    authors: [Group]
+    recipients: [Group]
+}
+
+# Post interne d'un membre sur la page interne de son groupe
+type PrivatePost implements Message {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: User
+    recipients: Group
+}
+
+# Question posée par un user à un groupe
+type Question implements Message {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: User
+    recipients: Group
+
+    # Une annonce éventuellement concernée par cette question. 
+    # Null si la question ne concerne pas une annonce particulière
+
+    forAnnouncement: Announcement
+
+    # Référence la réponse donnée par le groupe à cette Question. Si pas encore répondu, null.
+    forAnswer: Answer
+}
+
+# Réponse à une Question 
+type Answer implements Message {
+    id: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: Group
+    recipients: Group
+
+    # La question à laquelle cette Answer répond. Non-nullable bien sûr
+    forQuestion: Question!
+}
+
+interface Request {
+    # ID de la demande
+    id: ID!
+    # message accompagnant la demande
+    message: String
+}
+
+# Demande d'un utilisateur désirant rejoindre le groupe.
+type UserJoinGroup implements Request{
+    id: ID!
+    message: String
+    # Émetteur de la demande
+    user: User
+}
+
+
+# Demande d'un groupe voulant rejoindre un événement
+type GroupJoinEvent implements Request{
+    id: ID!
+    message: String
+    # Événement concerné
+    event: Event
+    # Groupe voulant rejoindre l'événement
+    groupWantingToJoin: Group
+}
+
+# Demande au récipiendaire de rejoindre l'organisation d'un événement.
+type YourGroupHostEvent implements Request{
+    id: ID!
+    message: String
+    # Événement concerné
+    event: Event
+    # Groupe ayant publié l'évènement et lancé l'invitation
+    sender: Group
+}
