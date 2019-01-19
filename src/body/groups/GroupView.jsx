@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, NavLink, Link, withRouter, Redirect } from 'react-router-dom';
-import Error404 from '../Errors.jsx';
+import { Error404 } from '../../Errors.jsx';
 import { Menu, Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
@@ -17,7 +17,7 @@ import GroupPageInterne from './group_view/GroupPageInterne.jsx';
 import GroupAdministrer from './group_view/GroupAdministrer.jsx';
 import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
-import GroupCard from './GroupCard.jsx';
+import GroupCard from '../../widgets/GroupCard.jsx';
 
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {

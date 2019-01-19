@@ -2,7 +2,7 @@ import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Feed, Header } from 'semantic-ui-react';
-import Post from './Post.jsx';
+import Post from '../body/messages/Post.jsx';
 
 /**
  * @constant Requête pour obtenir tous les posts.

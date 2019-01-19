@@ -5,8 +5,8 @@
 import React from 'react';
 import { Container, Divider, Dropdown, Grid, Image, List, Menu, Segment, Header } from "semantic-ui-react";
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../assets/dev-logo.png';
-import footerBg from '../assets/decharge BW lowdef2.jpg'; //TODO: change the bg image...
+import logo from '../../assets/dev-logo.png';
+import footerBg from '../../assets/decharge BW lowdef2.jpg'; //TODO: change the bg image...
 
 
 
