@@ -12,7 +12,7 @@ import logo from '../assets/dev-logo.png';
 
 //TODO: update the (Nav)Links...
 
-class Header extends React.Component {
+class TopMenu extends React.Component {
     constructor(props) {
         super(props);
     }
@@ -87,4 +87,4 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+export default TopMenu;
