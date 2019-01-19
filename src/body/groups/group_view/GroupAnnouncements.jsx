@@ -10,7 +10,7 @@ import { Menu, Header, Button, Search, Grid, Divider } from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import AnnouncementCard from '../../messages/AnnouncementCard.jsx';
+import AnnouncementCard from '../../../widgets/AnnouncementCard.jsx';
 
 /*
 const source = _.times(5, () => ({

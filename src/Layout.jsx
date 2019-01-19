@@ -14,8 +14,13 @@ import SideBar from './layout/SideBar.jsx';
 //import xxxxx from './body/xxxxx.jsx';
 import DummyBody from './body/DummyBody.jsx';
 import { Error404 } from './Errors.jsx';
+import Index from './body/index/Index.jsx';
 
 import mainBg from '../assets/dechets.jpg';
+import Trombino from "./body/trombino/Trombino.jsx";
+import AllGroups from "./body/AllGroups.jsx";
+import GroupView from "./body/groups/GroupView.jsx";
+import Services from "./body/services/Services.jsx";
 
 
 
@@ -55,16 +60,16 @@ class Layout extends React.Component {
 
                                     <Route exact path="/groups" component={AllGroups} />
                                     <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
-                                    <Route exact path="/events" component={AllEvents} />
-                                    <Route path="/events/:mid" component={EventView} />
-                                    <Route exact path="/news" component={AllAnnouncements} />
-                                    <Route path="/news/:mid" component={AnnouncementView} />
+                                    {/* <Route exact path="/events" component={AllEvents} />*/}
+                                    {/* <Route path="/events/:mid" component={EventView} />*/}
+                                    {/* <Route exact path="/news" component={AllAnnouncements} />*/}
+                                    {/* <Route path="/news/:mid" component={AnnouncementView} />*/}
 
                                     <Route path="/services" component={Services} />
                                     
                                     <Route exact path="/" component={Index} />
                                     <Route path="/test" component={DummyBody} />
-                                    <Route component={NotFound} />
+                                    <Route component={Error404} />
                                 </Switch>
                                 </div>
 

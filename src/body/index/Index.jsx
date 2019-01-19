@@ -12,7 +12,7 @@ import { Query } from 'react-apollo';
 import { Container, Image, Menu, Segment, Header } from "semantic-ui-react";
 import { Link, NavLink } from 'react-router-dom';
 
-import PostsFeed from '../messages/PostsFeed.jsx';
+import PostsFeed from '../../widgets/PostsFeed.jsx';
 
 
 

@@ -11,7 +11,7 @@ import {
 } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import UserCard from '../users/UserCard.jsx';
+import UserCard from '../../widgets/UserCard.jsx';
 
 /** 
  * @constant Requête GraphQL...

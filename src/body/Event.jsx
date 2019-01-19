@@ -5,9 +5,9 @@ import {Route, Switch, Link } from 'react-router-dom';
 import Error404 from '../Errors.jsx';
 import {Divider} from 'semantic-ui-react';
 
-import EventCalendar from './EventCalendar.jsx';
+import EventCalendar from '../widgets/EventCalendar.jsx';
 
-import AnnouncementCard from './AnnouncementCard.jsx';
+import AnnouncementCard from '../widgets/AnnouncementCard.jsx';
 
 class EventFoundUnrouted extends React.Component {
     state = {}

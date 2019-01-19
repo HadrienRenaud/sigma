@@ -8,8 +8,8 @@ import React from 'react';
 import _ from 'lodash';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
-import GroupPanel from '../groups/GroupPanel.jsx';
-import EventsPanel from '../messages/EventsPanel.jsx';
+import GroupPanel from '../widgets/GroupPanel.jsx';
+import EventsPanel from '../widgets/EventsPanel.jsx';
 
 
 const PinnedEvents = () => (

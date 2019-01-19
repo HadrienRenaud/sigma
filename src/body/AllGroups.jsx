@@ -6,7 +6,7 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
-import GroupCard from './GroupCard.jsx';
+import GroupCard from '../widgets/GroupCard.jsx';
 
 const groupReq = gql`
     query {
