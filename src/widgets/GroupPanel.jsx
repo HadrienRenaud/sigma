@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
+import { Button, Component} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';

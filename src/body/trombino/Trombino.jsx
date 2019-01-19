@@ -3,10 +3,7 @@
  */
 
 import React from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
-import { Form, Button, Input, Container, Divider, 
-    Grid, Header, Menu, Message, Segment, Table } from 'semantic-ui-react';
+import { Form, Grid, Header, Segment} from 'semantic-ui-react';
 import TrombinoResults from './TrombinoResults.jsx';
 
 class Trombino extends React.Component {

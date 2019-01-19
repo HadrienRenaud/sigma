@@ -2,15 +2,13 @@
  * @file Short-list de tous les messages de tous les channels (les plus récents, disons). + fonction recherche de messages.
  *      TODO: Comme on l'aura remarqué, ce n'est pas ce que fait le fichier, pour l'instant (2018-10-20)... il faut le modifier/mettre à jour !
  * @author kadabra
-*/
+ */
 import React from 'react';
 
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
 
-import { Container, Image, Menu, Segment, Header } from "semantic-ui-react";
-import { Link, NavLink } from 'react-router-dom';
-
+import {Message} from "semantic-ui-react";
 
 
 /**

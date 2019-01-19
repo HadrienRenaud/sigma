@@ -5,10 +5,6 @@
  */
 
 import React from 'react';
-import {
-    Form, Button, Input, Container, Divider,
-    Grid, Header, Menu, Message, Segment, Table
-} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import UserCard from '../../widgets/UserCard.jsx';

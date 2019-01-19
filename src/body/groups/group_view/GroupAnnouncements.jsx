@@ -4,9 +4,8 @@
  */
 
 import React from 'react';
-import {Route, Link} from 'react-router-dom';
 
-import { Menu, Header, Button, Search, Grid, Divider } from 'semantic-ui-react';
+import { Menu, Button} from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
@@ -67,7 +66,7 @@ class GroupAnnouncements extends React.Component {
         //https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
         let output;
 
-        if (this.state.mode=='from' || this.state.mode=='both') {
+        if (this.state.mode==='from' || this.state.mode==='both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_FROM}
                     variables={{ uid: "br" }}
@@ -97,7 +96,7 @@ class GroupAnnouncements extends React.Component {
     renderAnnouncementsTo() {
         let output;
 
-        if (this.state.mode=='to' || this.state.mode=='both') {
+        if (this.state.mode==='to' || this.state.mode==='both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_TO}
                     variables={{ uid: "br" }}

@@ -5,11 +5,7 @@
 */
 import React from 'react';
 
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-
-import { Header, Container, Image, Menu, Segment } from "semantic-ui-react";
-import { Link, NavLink } from 'react-router-dom';
+import { Header, Container, Image} from "semantic-ui-react";
 import paragraph from '../../assets/paragraph.jpg';
 
 

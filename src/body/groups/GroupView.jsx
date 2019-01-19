@@ -5,7 +5,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Switch, NavLink, Link, withRouter, Redirect } from 'react-router-dom';
+import { Route, Switch, NavLink, withRouter} from 'react-router-dom';
 import Error404 from '../../errors/Error404.jsx';
 import { Menu, Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
 import gql from 'graphql-tag';
@@ -34,13 +34,13 @@ const GET_GROUP = gql`
 
 
 class GroupView extends React.Component { //TODO change into semantic-ui-react
-    state = {}
+    state = {};
 
     static propTypes = {
         match: PropTypes.object.isRequired,
-    }
+    };
 
-    setContextRef = contextRef => this.setState({ contextRef })
+    setContextRef = contextRef => this.setState({ contextRef });
 
     render() {
         

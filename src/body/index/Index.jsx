@@ -4,13 +4,8 @@
  * @author kadabra
 */
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-
-import { Container, Image, Menu, Segment, Header } from "semantic-ui-react";
-import { Link, NavLink } from 'react-router-dom';
+import { Container, Header } from "semantic-ui-react";
 
 import PostsFeed from '../../widgets/PostsFeed.jsx';
 

@@ -6,12 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-
-import { Container, Image, Menu, Segment, Header } from "semantic-ui-react";
-import { Link, NavLink } from 'react-router-dom';
-
+import { Segment, Header } from "semantic-ui-react";
 
 
 class Admin extends React.Component {
@@ -21,7 +16,7 @@ class Admin extends React.Component {
     }
 
     render() {
-        if (this.props.password == "bulbizarre") {
+        if (this.props.password === "bulbizarre") {
             return (
                 <Segment>
                     <Header>Admin view frontend de Shitpost</Header>

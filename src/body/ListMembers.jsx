@@ -1,8 +1,7 @@
 import React from 'react';
-import {Route, Link} from 'react-router-dom';
 
 import faker from 'faker';
-import {Accordion, Button, Segment, Checkbox, Icon, Divider, Grid, Search, Card, Image } from 'semantic-ui-react';
+import {Accordion, Checkbox, Divider, Grid, Search, Card, Image } from 'semantic-ui-react';
 
 const MemberCard = () => (
     <Card>
@@ -56,9 +55,9 @@ class MemberSearchBar extends React.Component {
         this.resetComponent();
     }
 
-    resetComponent = () => this.setState({ isLoading: false, results: [], value: '' })
+    resetComponent = () => this.setState({ isLoading: false, results: [], value: '' });
 
-    handleResultSelect = (e, { result }) => this.setState({ value: result.title })
+    handleResultSelect = (e, { result }) => this.setState({ value: result.title });
 
     handleSearchChange = (e, { value }) => {
         this.setState({ isLoading: true, value });
@@ -71,11 +70,11 @@ class MemberSearchBar extends React.Component {
             const isMatch = (result) => re.test(result.title)*/
 
             this.setState({
-                isLoading: value!="",
+                isLoading: value!=="",
                 /*results: _.filter(source, isMatch),*/
             });
         }, 500);
-    }
+    };
 
     render() {
         const { isLoading, value, results } = this.state;

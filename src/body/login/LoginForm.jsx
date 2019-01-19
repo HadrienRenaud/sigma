@@ -57,7 +57,7 @@ class LoginForm extends React.Component {
         //using the 'output' variable allows React to do lazy component mounting
         //https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
         let output;
-        if (this.state.mode == 'loggedin') {
+        if (this.state.mode === 'loggedin') {
             output =
                 <div>
                     blablablablabla

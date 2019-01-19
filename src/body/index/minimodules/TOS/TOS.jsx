@@ -1,7 +1,6 @@
 /** Module TOS, pour que les TOS ne soient pas perdu
 */
-import React, {Component} from 'react';
-import {Route, Switch, Link } from 'react-router-dom';
+import React from 'react';
 
 class TOS extends React.Component{
     render() {

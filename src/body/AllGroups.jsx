@@ -33,7 +33,7 @@ class AllGroups extends React.Component {
         return <div>
             {allGroups.map((group) => <GroupCard key={group.uid} uid={group.uid} />)}
         </div>;
-    }
+    };
 
     render() {
         return (

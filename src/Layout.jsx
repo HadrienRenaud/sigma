@@ -4,12 +4,11 @@
  */
 
 import React from 'react';
-import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment } from "semantic-ui-react";
-import { Link, NavLink, Switch, Route } from 'react-router-dom';
+import { Container, Grid, Segment } from "semantic-ui-react";
+import { Switch, Route } from 'react-router-dom';
 
 import TopMenu from './layout/TopMenu.jsx';
 import Footer from './layout/Footer.jsx';
-import SideBar from './layout/SideBar.jsx';
 
 //import xxxxx from './body/xxxxx.jsx';
 import DummyBody from './body/DummyBody.jsx';

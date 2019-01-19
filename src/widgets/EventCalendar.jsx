@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
-import {Route, Switch, Link} from 'react-router-dom';
-import {Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
+import {Route} from 'react-router-dom';
+import {Divider} from 'semantic-ui-react';
 import AnnouncementCard from './AnnouncementCard.jsx';
 
 import BigCalendar from 'react-big-calendar';
@@ -119,13 +119,13 @@ class EventCalendarUnrouted extends React.Component {
         match: PropTypes.object.isRequired,
         location: PropTypes.object.isRequired,
         history: PropTypes.object.isRequired
-    }
+    };
 
-    setContextRef = contextRef => this.setState({contextRef})
+    setContextRef = contextRef => this.setState({contextRef});
 
-    state={}
+    state={};
 
-    resetComponent = () => this.setState({})
+    resetComponent = () => this.setState({});
 
     getEvents() {
         const _events = EventsList;
@@ -133,7 +133,7 @@ class EventCalendarUnrouted extends React.Component {
         return _events;
     }
 
-    selectedEvent = -1
+    selectedEvent = -1;
 
     eventSelected(event) {
         console.log("why..."+event.id);

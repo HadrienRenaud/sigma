@@ -3,11 +3,9 @@
  */
 
 import React from 'react';
-import { Container, Divider, Dropdown, Grid, Image, List, Menu, Segment, Header } from "semantic-ui-react";
-import { Link, NavLink } from 'react-router-dom';
+import {Container, Image, List, Segment} from "semantic-ui-react";
 import logo from '../../assets/logo_sigma.png';
 import footerBg from '../../assets/decharge BW lowdef2.jpg'; //TODO: change the bg image...
-
 
 
 class Footer extends React.Component {

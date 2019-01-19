@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Icon, Segment, Label, Link, Button } from 'semantic-ui-react';
+import { Header, Icon, Segment, Link} from 'semantic-ui-react';
 // import GroupCard from '../body/groups/GroupCard.jsx';
 
 
@@ -23,7 +23,7 @@ class Post extends React.Component {
         content: PropTypes.string.isRequired,
         location: PropTypes.string,
         authors: PropTypes.arrayOf(PropTypes.object).isRequired
-    }
+    };
 
     eventLocation() {
         if (this.props.hasOwnProperty("location") && this.props.location !=null) {
@@ -42,7 +42,7 @@ class Post extends React.Component {
                     {this.props.title}
                     <Header.Subheader>
                         {this.props.authors.map((auth,i) => {
-                            if (i == 0) return <span key={auth.uid}>par: {auth.name} </span>;
+                            if (i === 0) return <span key={auth.uid}>par: {auth.name} </span>;
                             else return <span key={auth.uid}>et {auth.name} </span>;
                         })}
                     </Header.Subheader>

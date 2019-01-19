@@ -4,10 +4,9 @@
  */
 
 import React from 'react';
-import { Container, Divider, Dropdown, Grid, Image, List, Menu, Segment, Button } from "semantic-ui-react";
-import { Link, NavLink } from 'react-router-dom';
+import {Button, Container, Image, Menu} from "semantic-ui-react";
+import {Link, NavLink} from 'react-router-dom';
 import logo from '../../assets/logo_sigma.png';
-
 
 
 //TODO: update the (Nav)Links...

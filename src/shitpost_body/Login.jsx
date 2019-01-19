@@ -5,13 +5,6 @@
 */
 import React from 'react';
 
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
-
-import { Container, Image, Menu, Segment } from "semantic-ui-react";
-import { Link, NavLink } from 'react-router-dom';
-
-
 
 class Login extends React.Component {
 

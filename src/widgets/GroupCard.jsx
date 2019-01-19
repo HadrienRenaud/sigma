@@ -2,7 +2,6 @@ import React from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
@@ -29,7 +28,7 @@ class GroupCard extends React.Component {
 
     static propTypes = {
         uid: PropTypes.string.isRequired
-    }
+    };
 
     constructor(props) {
         super(props);

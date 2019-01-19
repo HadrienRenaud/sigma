@@ -10,8 +10,7 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
-import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
@@ -62,7 +61,7 @@ class AnnouncementCard extends React.Component {
 
     static PropTypes = {
         id: PropTypes.string.isRequired
-    }
+    };
 
     render() {
 

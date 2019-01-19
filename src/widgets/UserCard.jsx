@@ -6,7 +6,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Header, List } from 'semantic-ui-react';
+import { Card, List } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -32,7 +32,7 @@ class UserCard extends React.Component {
     //NB: React recommande desormais (v>15.5) d'utiliser plutot prop-types...
     static propTypes = {
         uid: PropTypes.string.isRequired
-    }
+    };
 
     constructor(props) {
         super(props);

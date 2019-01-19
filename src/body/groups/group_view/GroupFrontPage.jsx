@@ -8,9 +8,6 @@
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Route, Link } from 'react-router-dom';
-
-import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
 
 class GroupFrontPage extends React.Component {
 

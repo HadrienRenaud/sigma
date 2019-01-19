@@ -1,7 +1,7 @@
 import React from 'react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
-import { Feed, Header } from 'semantic-ui-react';
+import { Feed} from 'semantic-ui-react';
 import Post from '../body/messages/Post.jsx';
 import GraphQLError from '../errors/GraphQLError.jsx';
 
@@ -58,7 +58,7 @@ class PostsFeed extends React.Component {
                             </Feed>
                         );
                     } else {
-                        console.log("Nor Error nor data nor loading defined.")
+                        console.log("Nor Error nor data nor loading defined.");
                         return (
                             <GraphQLError>
                                 Problème dans PostFeed Function.

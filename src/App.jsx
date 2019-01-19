@@ -5,20 +5,18 @@
 
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter } from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from 'react-apollo';
-//import { setContext } from 'apollo-link-context';
-
+import {ApolloClient} from 'apollo-client';
+import {InMemoryCache} from 'apollo-cache-inmemory';
+import {ApolloProvider} from 'react-apollo';
 import ErrorBoundary from "./errors/BoundaryError.jsx";
-import httpLinkToGraphQL from './graphql/http-link.js'
+import httpLinkToGraphQL from './graphql/http-link.js';
+import Layout from "./Layout.jsx";
+//import { setContext } from 'apollo-link-context';
 
 // const GRAPHQL_API_URL = "http://localhost:3000/graphql";
 // const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
-
-import Layout from "./Layout.jsx";
 
 /*
  * Seulement si on active es fragment matcher
