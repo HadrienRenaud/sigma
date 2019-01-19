@@ -8,6 +8,9 @@ import { Image, Container, Header } from 'semantic-ui-react';
 import poopSad from '../assets/poop-sad.png';
 
 class Error404 extends React.Component {
+    // Cette error devrait être rendered au sein du body, pour quand même laisser
+    // l'utilisateur accéder aux autres parties du layout (notamment les liens du topmenu)
+
     render() {
         return (
             <Container text textAlign="justified">

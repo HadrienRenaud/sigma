@@ -15,7 +15,26 @@ Quand tout le reste sera fait, penser à :
 
 La structure générale du dossier est indiquée dans le README. Ici on indique la structure du code source, i.e. de `src/`.
 
-TODO: le faire
+TODO: garder ceci à jour.
+
+```bash
+src
+├── body                    # components to be rendered in the 'body' section of the layout
+│   ├── groups              # body for paths '/groups'
+│   ├── index               # body for paths '/' and '/home'
+│   │   ├── minimodules     # components for the minimodules
+│   │   │   └── TOS         # one folder per minimodule
+│   │   └── testComp        
+│   ├── login               # body for path '/login'
+│   ├── messages            # body for paths '/messages'
+│   ├── services            # body for paths '/services'
+│   └── trombino            # body for path '/tol'
+├── layout                  # components of the layout other than the body (topmenu, footer, sidebar)
+├── Layout.jsx              # component that define the layout of the webpage (body, topmenu, footer, sidebar)
+├── shitpost_body           # components from shitpost that may be useful to recycle
+├── shitpost_cards
+└── widgets                 # components that are intended to be used in multiple pages, as widgets (typically, UserCard used in /user/uid and in /tol)
+```
 
 ## Webpack et serveur
 
