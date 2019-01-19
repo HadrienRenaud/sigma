@@ -1,0 +1,18 @@
+{
+    "comment": "Fichier servant à la configuration des fichiers typescript, ou javascript typé",
+	"compilerOptions": {
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "target": "es6",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "build",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "lib": ["es7"]
+    },
+    "include": [
+        "src/**/*",
+        "db/**/*"
+    ]
+}

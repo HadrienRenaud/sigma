@@ -1,0 +1,244 @@
+# Requêtes
+type Query {
+
+    # group queries
+
+    allGroups: [Group]
+    allSimpleGroups: [SimpleGroup]
+
+    group(uid: ID!) : Group
+    simpleGroup(uid : ID!) : SimpleGroup
+    metaGroup(uid : ID!) : MetaGroup
+
+    # message queries
+
+    allMessages: [Message]
+    message(id: ID!): Message
+    allEvents: [Event]
+    allAnnouncements: [Announcement]
+
+    # user queries
+
+    user(uid: ID) : User
+
+    searchTOL(
+        givenName: String,
+        lastName: String,
+        nickname: String,
+        nationality: String,
+        school: String,
+        promotion: String,
+        groups: String,
+        studies: String,
+        sport: String,
+        phone: String,
+        mail: String,
+        adress: String,
+        ip: String
+    ): [String]
+
+    # Admin queries
+
+    allRequests(from : String!) : [Request]
+
+    # Speaker queries 
+
+    # allRequests(from : String!) : [Request]
+
+    # Member Queries
+
+    allMembers(from : String!) : [Group]
+
+    # Viewer Queries
+
+    test : String
+}
+
+type Mutation {
+
+    # Superviser mutations
+
+    takeAdminRights(from : String!) : Boolean
+    releaseAdminRights(from : String!) : Boolean
+
+    # Admin mutations
+
+    createSubgroup(
+        from : String!,
+        uid: ID = null,
+        name: String!,
+        website: String,
+        description: String,
+        school: String
+    ): Group
+
+    addUser(from : String!, userid : String!): User
+    removeUser(from : String!, userid : String!): User
+    addAdmin(from : String!, userid : String!): User
+    removeAdmin(from : String!, userid : String!): User
+
+    editGroup(
+        from : String!,
+        name: String,
+        website: String,
+        description: String,
+        school: String
+    ): Group
+
+    # Creates a new event.
+    postEvent(
+        # ID of the organizing group.
+        from: ID!,
+        # Title of the event.
+        title: String,
+        # Date of event.
+        date: String
+    ): Event
+
+    answerEventRequest(from : String, request: ID, accept : Boolean): Request
+
+    # Log user into the API
+    login(username: String!, password: String!): String!
+    # Log user out of the API
+    logout(username: String!): Boolean
+    leave(from : String!) : Boolean
+
+    # Viewer mutations
+
+    requestJoin(from : String!) : Boolean
+
+}
+
+
+
+#        asSuperviser(groupUID: String): SuperviserMutation
+#        asAdmin(groupUID: String): AdminMutation
+#        asSpeaker(groupUID: String): SpeakerMutation
+#        asMember(groupUID: String): MemberMutation
+#        asViewer(groupUID: String): ViewerMutation
+
+
+
+#        accessGroups : GroupQuery
+#        accessPosts : MessageQuery
+#        accessUsers : UserQuery
+
+#        asAdmin(groupUID: ID): AdminQuery
+#        asSpeaker(groupUID: ID): AdminQuery
+#        asMember(groupUID: ID): MemberQuery
+#        asViewer(groupUID: ID): AdminQuery
+
+
+type SuperviserMutation {
+    runAdminOperation : AdminMutation
+    takeAdminRights : Boolean
+    releaseAdminRights : Boolean
+}
+
+type AdminMutation {
+
+    isAdmin: Boolean
+
+    createSubgroup(
+        uid: ID = null,
+        name: String,
+        website: String,
+        description: String,
+        school: String
+    ): Group
+
+    addUser(userid : String): User
+    removeUser(userid : String): User
+    addAdmin(userid : String): User
+    removeAdmin(userid : String): User
+
+    editGroup(
+        name: String,
+        website: String,
+        description: String,
+        school: String
+    ): Group
+
+}
+
+type SpeakerMutation{
+    postEvent(name: String, date: String): Event
+    answerEventRequest(request: ID, accept : Boolean): Request
+}
+
+type MemberMutation {
+    leave: Group
+}
+
+type ViewerMutation {
+    requestJoin: Group
+}
+
+
+# """
+# Requête pour obtenir un groupe.
+# """
+type GroupQuery{
+    allGroups: [Group]
+    allSimpleGroups: [SimpleGroup]
+
+    group(uid: ID) : Group
+    simpleGroup(uid : ID) : SimpleGroup
+    metaGroup(uid : ID) : MetaGroup
+
+}
+
+# """
+# Requête pour obtenir un message.
+# """
+type MessageQuery{
+    allMessages: [Message]
+    allEvents: [Event]
+    message(id: ID): Message
+    allAnnouncements: [Announcement]
+}
+
+
+# """
+# Requête pour obtenir un utilisateur.
+# """
+type UserQuery{
+
+    user(uid: ID) : User
+
+    searchTOL(
+        givenName: String,
+        lastName: String,
+        nickname: String,
+        nationality: String,
+        school: String,
+        promotion: String,
+        groups: String,
+        studies: String,
+        sport: String,
+        phone: String,
+        mail: String,
+        adress: String,
+        ip: String
+    ): [String]
+}
+
+# Requête à la base de donnée nécessitant d'être administrateur.
+type AdminQuery{
+    isAdmin: Boolean
+    allRequests : [Request]
+}
+
+type SpeakerQuery{
+    isSpeaker: Boolean
+    allRequests : [Request]
+}
+
+type MemberQuery{
+    isMember: Boolean
+    allMembers : [Group]
+}
+
+type ViewerQuery{
+    isViewer: Boolean
+}

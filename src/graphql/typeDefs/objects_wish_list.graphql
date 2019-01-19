@@ -1,0 +1,279 @@
+"""
+@file Définit les types du schéma GraphQL. Il y en a quatre catégories : User, Group, Message, Request.
+    Ce fichier est la wish-list de kadabra (qui veut avoir un schéma clair pour travailler sereinement sur le front).
+    
+Conseils généraux pour toute tentative d'amélioration du schéma : 
+    - mettre un -s aux champs array [SomeType].
+        - ... et même aux champs union *pouvant être* des array.
+    - ne pas rajouter un champ si on peut prévoir qu'il ne sera jamais utilisé.
+    - ne pas rajouter un champ si cela complexifie trop la gestion des autorisations.
+        - (par exemple pour User, tous les champs doivent pouvoir être vus par toute personne ayant accès au TOL.)
+        - dans ce cas créer un nouveau query, tout simplement.
+    - respecter la convention :
+        - uid = user id
+        - gid = group id
+        - mid = message id
+        - rid = request id
+    - choisir des noms clairs, précis, concis.
+    - commenter lorsque c'est pertinent, également en étant clair, précis, concis.
+
+@author akka vodol, kadabra
+"""
+
+"""
+Un utilisateur
+"""
+type User {
+    uid: ID!
+
+    # Pour l'identifier
+    givenName: String! # Prénom
+    lastName: String! # Nom de famille
+    nickname: String # Surnom
+    nationality: String
+    birthdate: String!
+    promotion: String
+    #photo: TODO (difficile car nécessite de gérer des données non-texte)
+
+    # Pour le contacter
+    mail: String
+    phone: String
+    address: [String] # Adresse(s) de l'utilisateur (numero de casert par exemple)
+
+    # Ses interactions avec des groupes
+    memberOf: [SimpleGroup] # Groupes dont l'utilisateur est membre
+    speakerOf: [SimpleGroup]
+    adminOf: [Group]
+    likes: [Group] # Groupes dont l'utilisateur est sympathisant (purement indicatif, pas d'influence sur les niveaux de droit)
+
+    # Les Message dont il est l'auteur
+    questionsFromUser: [Question] # Les seuls Messages publics où `authors` est de type User
+}
+
+"""
+L'interface Group représente les deux types de groupes implémentés dans Sigma : 
+- les groupes simples, dont les membres sont des utilisateurs, et
+- les métagroupes, dont les membres sont des groupes simples (tel que Federez, dont les membres incluent le BR et DaTA). 
+"""
+interface Group {
+    gid: ID!
+    createdAt: String! # Date et heure de création du groupe.
+    updatedAt: String! # Date et heure de mise a jour des informations du groupe.
+
+    # Pour l'identifier
+    name: String!
+    description: String # Une description tres rapide du groupe
+    
+    # Pour le contacter
+    mail: String
+    website: String
+
+    # Administrateurs, à contacter directement en cas de problème
+    admins: [User]
+}
+
+# Le groupe de base, dont les membres sont des utilisateurs : binets, Kès...
+type SimpleGroup implements Group {
+    gid: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String!
+    description: String
+    mail: String
+    website: String
+
+    # Admins, speakers (respos com), membres, sympathisants du groupe
+    members: [User]
+    speakers: [User]
+    admins: [User]
+    likers: [User]
+    
+    # Graphe organique des groupes
+    parent: SimpleGroup # Groupe parent
+    children: [SimpleGroup] # Groupes enfants
+    memberOfMeta: [MetaGroup]
+    visibilityEdges: [Group] # se rendre visible par des groupes en plus du graphe organique
+
+    school: String # École d'origine du groupe (pour information)
+
+    # Activité publique du groupe
+    frontPage: String # page d'accueil du groupe, en markdown
+    questions: [Question]
+    answers: [Answer] # permet d'obtenir les questions qui ont eu une réponse
+    
+    # Activité interne
+    announcementsFromGroup: [Announcement] # annonces écrites par le groupe
+    announcementsToGroup: [Announcement] # annonces adressées au groupe
+    eventsFromGroup: [Event]
+    eventsToGroup: [Event]
+    posts: [Post]
+    postsSummary: String # récapitulatif de l'activité interne du groupe, en markdown
+}
+
+# Un groupe dont les membre sont d'autres groupes
+type MetaGroup implements Group {
+    gid: ID!
+    createdAt: String!
+    updatedAt: String!
+    name: String!
+    description: String
+    mail: String
+    website: String
+
+    # Admins et Groupes membres
+    admins: [User]
+    members: [SimpleGroup] # Par choix de paradigme, on veut éviter d'avoir des méta-méta-groupes.
+
+    visibilityEdges: [Group] # se rendre visible par des groupes en plus du graphe organique
+}
+
+union AuthorUnion = Group | [Group] | User
+
+"""
+L'interface Message représente toute information que veut communiquer un groupe ou un user.
+Par choix de paradigme, tout Message est adressé à un groupe (et un seul). 
+Les types implémentés sont divisés en deux :
+- les Message émanant d'un groupe : Announcement et Event, ainsi que Answer
+- les Message émanant d'un user : PrivatePost, ainsi que Question
+"""
+interface Message {
+    mid: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: AuthorUnion
+    recipient: Group
+}
+
+# Annonce effectuée par un ou plusieurs groupes.
+type Announcement implements Message {
+    mid: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: [Group]
+    recipient: Group
+
+    importance: Int # importance de cette Announcement, sur une échelle de [??] à [??] (TODO)
+    views: Int # nombre de vues
+
+    # Si cette Announcement annonce un événement, référence le Event. Sinon null.
+    forEvent: Event
+}
+
+# Événements organisés par un ou plusieurs groupes.
+type Event implements Message {
+    mid: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: [Group] # Organisateurs de l'événement
+    recipient: Group
+
+    location: String!
+    startTime: String!
+    endTime: String!
+
+    # Personnes et groupes qui participent à l'événement.
+    participatingGroups: [Group] # contributeurs mais pas organisateurs (par ex, Fanfare à une proj' JTX)
+    participatingUsers: [User]
+
+    # Si cet Event a été annoncé par un Announcement, le référence. Sinon null.
+    forAnnouncement: Announcement 
+}
+
+# Post interne d'un membre sur la page interne de son groupe
+type PrivatePost implements Message {
+    mid: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: User
+    recipient: Group
+}
+
+# Question posée par un user à un groupe
+type Question implements Message {
+    mid: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: User
+    recipient: Group
+
+    # Référence la réponse donnée par le groupe à cette Question. Si pas encore répondu, null.
+    forAnswer: Answer
+}
+
+# Réponse à une Question 
+type Answer implements Message {
+    mid: ID!
+    createdAt: String!
+    updatedAt: String!
+    title: String!
+    content: String!
+
+    authors: Group
+    recipient: Group # doit être le même que authors
+
+    # La question à laquelle cette Answer répond. Non-nullable bien sûr
+    forQuestion: Question!
+}
+
+"""
+Différents types de requêtes peuvent être adressées à un groupe. Elles sont stockées en BDD en attente d'être traitées.
+Par exemple (le plus évident) demander à devenir membre, mais il existe aussi d'autres cas de figure.
+On peut les voir comme des Mutations potentielles : en cas de validation de la requête, des entrées de la BDD seront modifiées.
+Seuls les admins d'un Group (qu'il soit Simple ou Meta) ont le droit de valider ou refuser une requête.
+Les différents types implémentant Request représentent des types de requête : 
+- UserJoinGroup: un User demande à devenir membre d'un SimpleGroup
+- GroupCoauthorEvent: un groupe demande à devenir (co-)organisateur d'un événement *déjà existant*
+"""
+# Emetteur possible d'une Request
+union RequesterUnion = Group | User
+
+interface Request {
+    rid: ID!
+    comment: String # court message accompagnant la demande
+    
+    from: RequesterUnion! # Émet la demande
+    to: Group! # Reçoit la demande
+}
+
+# Un utilisateur demande à devenir membre d'un groupe (simple bien sûr).
+type UserJoinGroup implements Request{
+    rid: ID!
+    comment: String
+    
+    from: User!
+    to: SimpleGroup!
+}
+
+# Un groupe simple demande à devenir membre d'un méta-groupe
+type GroupJoinMetagroup implements Request{
+    rid: ID!
+    comment: String
+
+    from: SimpleGroup!
+    to: MetaGroup!
+}
+
+# Un Group demande à devenir (co-)author d'un Event *déjà existant*.
+type GroupCoauthorEvent implements Request{
+    rid: ID!
+    comment: String
+    
+    from: Group! # Groupe souhaitant l'évènement et lançant l'invitation
+    to: Group! # un des Groupes organisant l'événement (erreur sinon)
+    forEvent: Event!
+}
