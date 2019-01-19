@@ -2,9 +2,12 @@
 //tell eslint that this file is used in a nodejs environment,
 // contrary to src files which are transpiled by babel-loader before run.
 
+require('babel-polyfill');
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const nodeExternals = require('webpack-node-externals');
+const regeneratorRuntime = require("regenerator-runtime");
 
 const config = {
     entry: './src/App.jsx',
@@ -14,7 +17,22 @@ const config = {
         //publicPath: "/"
     },
 
-    module: {
+    target: 'web',
+    // allows using __dirname with the correct semantic (otherwise __dirname will return '/' regardless of file)
+    node: { __dirname: true },
+
+    /*
+    // do not bundle node_modules, nor secret config files
+    externals: [
+        nodeExternals(),
+        //nodeExternals({ whitelist: ['modules-to-bundle'] }),
+        //{
+        //      customSecretFile: './custom_secret_file.json',
+        //}
+    ],
+    */
+
+    module: {    
         // an array of JSONs, one for each rule
         rules: [
             /*{
@@ -35,6 +53,9 @@ const config = {
                     loader: "babel-loader"
                     // options for babel-loader are provided in a separate file: .babelrc
                 },
+            }, {
+                test: /\.ts$/,
+                use: ['ts-loader'],
             }, {
                 test: /\.graphql?$/,
                 use: [{

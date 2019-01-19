@@ -33,7 +33,7 @@ const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
  * Fetch info on interfaces and unions in our backend API
  * or else Apollo client will complain about fragments
  */
-import apiSchemaGetter from './getSchemaInfo';
+import apiSchemaGetter from './graphql/getSchemaInfo';
 apiSchemaGetter(GRAPHQL_API_URL_LOCAL);
 
 import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
