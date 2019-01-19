@@ -49,23 +49,51 @@ class Layout extends React.Component {
             <div style={inlineStyleBg}>
                 <TopMenu />
 
-                <Container> {/*center the segment*/}
-                    <Segment style={inlineStyleBodySegment}> {/*colorize over the background*/}
-                        <Switch> {/*forces exclusive path matching (render only first match)*/}
-                            <Route exact path="/home" component={Home} />
-                            <Route exact path="/channels" component={ListChannels} />
-                            <Route path="/channels" component={Channel} />
-                            <Route exact path="/messages" component={ListMessages} />
-                            <Route path="/messages" component={Message} />
-                            <Route exact path="/writepost" component={WritePost} />
-                            <Route path="/admin" component={Admin} />
-                            <Route exact path="/test" component={DummyBody} />
-                            <Route exact path="/" component={Home} />
-                            <Route component={Error404} />
-                        </Switch>
-                    </Segment>
-                </Container>
+                <Container> {/*center the whole thing*/}
+                    <Grid columns='equal'>
 
+                        {/*garder une barre d'information a gauche de la page*/}
+                        
+                        <Grid.Column>
+                            <Segment style={inlineStyleBodySegment}> {/*colorize over the background, sinon on voit rien*/}
+                        
+                                
+                                <Switch> {/*forces exclusive path matching (render only first match)*/}
+                                    <Route exact path="/home" component={Home} />
+                                    <Route exact path="/channels" component={ListChannels} />
+                                    <Route path="/channels" component={Channel} />
+                                    <Route exact path="/messages" component={ListMessages} />
+                                    <Route path="/messages" component={Message} />
+                                    <Route exact path="/writepost" component={WritePost} />
+                                    <Route path="/admin" component={Admin} />
+                                    <Route exact path="/test" component={DummyBody} />
+                                    <Route exact path="/" component={Home} />
+                                    <Route component={Error404} />
+                                </Switch>
+                                
+
+                                {/*
+                                <Switch> {/*forces exclusive path matching}
+                                    <Route path="/event" component={Event} />
+                                    <Route exact path="/groups" component={AllGroups} />
+                                    <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"* /}
+                                    <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.* /}
+                                    <Route path="/services" component={Services} />
+                                    <Route exact path="/" component={Index} />
+                                    <Route component={NotFound} />
+                                </Switch>
+
+                                */}
+                            </Segment>
+                        </Grid.Column>
+
+                        <Grid.Column width={3}>
+                            <p>Coucou !</p>
+                            {/*<SideBar />*/}
+                        </Grid.Column>
+
+                    </Grid>
+                </Container>
 
                 <Footer />
             </div>

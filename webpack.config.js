@@ -3,6 +3,7 @@
 
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const nodeExternals = require('webpack-node-externals');
 
 const config = {
     entry: './src/App.jsx',
@@ -12,17 +13,20 @@ const config = {
         //publicPath: "/"
     },
 
-    target: 'node',
+    target: 'web',
     // allows using __dirname with the correct semantic (otherwise __dirname will return '/' regardless of file)
     node: { __dirname: true },
 
+    /*
     // do not bundle node_modules, nor secret config files
     externals: [
         nodeExternals(),
+        //nodeExternals({ whitelist: ['modules-to-bundle'] }),
         //{
         //      customSecretFile: './custom_secret_file.json',
         //}
     ],
+    */
 
     module: {    
         // an array of JSONs, one for each rule

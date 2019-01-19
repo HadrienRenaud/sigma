@@ -13,7 +13,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
 //import { setContext } from 'apollo-link-context';
 
-const GRAPHQL_API_URL_LOCAL = "http://localhost:3000/graphql";
+//const GRAPHQL_API_URL = "http://localhost:3000/graphql";
 const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
 
 import Layout from "./Layout.jsx";
@@ -24,8 +24,8 @@ import Layout from "./Layout.jsx";
  * Fetch info on interfaces and unions in our backend API
  * or else Apollo client will complain about fragments
  */
-import apiSchemaGetter from './getSchemaInfo.jsx';
-apiSchemaGetter(GRAPHQL_API_URL_LOCAL);
+import apiSchemaGetter from './getSchemaInfo.js';
+apiSchemaGetter(GRAPHQL_API_URL);
 
 import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 const introspectionQueryResultData = JSON.parse(localStorage.getItem('fragmentTypes'));
