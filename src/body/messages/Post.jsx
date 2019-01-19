@@ -3,6 +3,14 @@ import PropTypes from 'prop-types';
 import { Header, Icon, Segment, Label, Link, Button } from 'semantic-ui-react';
 // import GroupCard from '../body/groups/GroupCard.jsx';
 
+
+// note: ce component est vieux, il date d'avant la stabilisation du schema graphql.
+// le nom "Post" prete particulierement a confusion. Post ne correspond a rien, sinon peut-etre
+// comme petit nom de "PrivatePost". Le bon terme ici serait plutot `class Message`.
+// quoique ce n'est pas sur que l'on veuille avoir un Component Message, puisque
+// on veut de toute facon avoir des Component pour chacune des sous-classes
+// (pour Event et pour Announcements etc)
+
 /**
  * @class Définit le composant Post, qui représente une publication effectuée par un ou des groupes.
  * @author manifold
