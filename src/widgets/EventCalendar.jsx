@@ -9,7 +9,7 @@ import BigCalendar from 'react-big-calendar';
 
 import moment from 'moment';
 
-BigCalendar.momentLocalizer(moment);
+const localizer = BigCalendar.momentLocalizer(moment);
 
 const EventsList = [ //TODO
     {
@@ -159,6 +159,7 @@ class EventCalendarUnrouted extends React.Component {
                         max={new Date(0,0,0,23,30,0)}
                         scrollToTime={new Date(0,0,0,4,0,0)}
                         eventPropGetter={CustomStyle}
+                        localizer={localizer}
                     />
                 </div>
                 {this.selectedEvent>=0 ? <Divider/> : ""}

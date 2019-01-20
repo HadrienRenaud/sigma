@@ -8,6 +8,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import UserCard from '../../widgets/UserCard.jsx';
+import GraphQLError from "../../errors/GraphQLError.jsx";
 
 /** 
  * @constant Requête GraphQL...
@@ -70,13 +71,8 @@ class TrombinoResults extends React.Component {
             >
                 {({ loading, error, data }) => {
                     if (loading) return <div>Chargement...</div>;
-                    else if (error) {
-                        console.log(error.name);
-                        console.log(error.message);
-                        //console.log(error.graphQLErrors);
-                        //console.log(error.networkError);
-                        return <div>Erreur.</div>;
-                    }
+                    else if (error)
+                        return <GraphQLError error={error}/>;
                     const { searchTOL } = data; //extracts the actual data from object 'data'
                     
                     return (

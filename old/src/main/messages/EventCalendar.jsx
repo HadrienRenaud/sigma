@@ -9,7 +9,6 @@ import BigCalendar from 'react-big-calendar';
 
 import moment from 'moment';
 
-BigCalendar.momentLocalizer(moment);
 
 const EventsList = [ //TODO
     {

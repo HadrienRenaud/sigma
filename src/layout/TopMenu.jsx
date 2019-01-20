@@ -33,7 +33,7 @@ class TopMenu extends React.Component {
                     </Menu.Item>
 
                     {/*NavLink to path /calendar, telling Center to render [TODO]*/}
-                    <Menu.Item as={NavLink} to='/event'>
+                    <Menu.Item as={NavLink} to='/events'>
                         Calendrier
                     </Menu.Item>
 
