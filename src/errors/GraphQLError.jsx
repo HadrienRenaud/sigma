@@ -6,8 +6,8 @@ class GraphQLError extends React.Component {
     render() {
         return (
             <Container text textAlign="justified">
-                <Header as='h1'>Erreur 404</Header>
-                <p>{this.children}</p>
+                <Header as='h1'>Erreur de requete GraphQL</Header>
+                <p>{this.props.error.message}</p>
 
                 <Image size='small' src={poopSad} style={{ marginTop: "2em" }} />
             </Container>

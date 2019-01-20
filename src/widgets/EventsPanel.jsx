@@ -40,9 +40,7 @@ class EventsPanel extends React.Component {
                     else if (error) {
                         console.log(JSON.stringify(error));
                         return (
-                            <GraphQLError>
-                                {error}
-                            </GraphQLError>
+                            <GraphQLError error={error}/>
                         );
                     } else if (data) {
                         const {allEvents} = data;
@@ -56,9 +54,7 @@ class EventsPanel extends React.Component {
                     } else {
                         console.log("Nor Error nor data nor loading defined.");
                         return (
-                            <GraphQLError>
-                                Problème dans EventsPanel Function.
-                            </GraphQLError>
+                            <GraphQLError error={{message: "Problème dans EventsPanel Function."}}/>
                         )
                     }
 

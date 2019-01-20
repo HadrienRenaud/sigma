@@ -43,9 +43,7 @@ class PostsFeed extends React.Component {
                     else if (error) {
                         console.log(JSON.stringify(error));
                         return (
-                            <GraphQLError>
-                                {error}
-                            </GraphQLError>
+                            <GraphQLError error={error}/>
                         );
                     }
                     else if (data) {
@@ -60,9 +58,7 @@ class PostsFeed extends React.Component {
                     } else {
                         console.log("Nor Error nor data nor loading defined.");
                         return (
-                            <GraphQLError>
-                                Problème dans PostFeed Function.
-                            </GraphQLError>
+                            <GraphQLError error={{message: "Problème dans PostFeed Function."}}/>
                         )
                     }
                 }}
