@@ -1,8 +1,9 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import { Link} from 'semantic-ui-react';
+import {Link} from 'semantic-ui-react';
 import Post from '../body/messages/Post.jsx';
+import GraphQLError from "../errors/GraphQLError.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -32,21 +33,34 @@ class EventsPanel extends React.Component {
 
         return (
             <Query query={ALL_EVENTS}
-                fetchPolicy='cache-first'
+                   fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <div>Chargement...</div>;
                     else if (error) {
                         console.log(JSON.stringify(error));
+                        return (
+                            <GraphQLError>
+                                {error}
+                            </GraphQLError>
+                        );
+                    } else if (data) {
+                        const {allEvents} = data;
+                        return (
+                            <div>
+                                {allEvents.map(post => (
+                                    <Post key={post.id} {...post}/>
+                                ))}
+                            </div>
+                        );
+                    } else {
+                        console.log("Nor Error nor data nor loading defined.");
+                        return (
+                            <GraphQLError>
+                                Problème dans EventsPanel Function.
+                            </GraphQLError>
+                        )
                     }
-                    const {allEvents} = data;
-                    return (
-                        <div>
-                            {allEvents.map(post => (
-                                <Post key={post.id} {...post}/>
-                            ))}
-                        </div>
-                    );
 
                 }}
             </Query>

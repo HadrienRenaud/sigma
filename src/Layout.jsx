@@ -21,7 +21,7 @@ import AllGroups from "./body/AllGroups.jsx";
 import GroupView from "./body/groups/GroupView.jsx";
 import Services from "./body/services/Services.jsx";
 import Login from "./body/login/Login.jsx";
-
+import SideBar from "./layout/SideBar.jsx";
 
 class Layout extends React.Component {
     constructor(props) {
@@ -49,6 +49,9 @@ class Layout extends React.Component {
                 <Container> {/*center the whole thing*/}
                     <Grid columns='equal'>
 
+                        <Grid.Column width={3}>
+                            <SideBar/>
+                        </Grid.Column>
                         <Grid.Column>
                             <Segment style={inlineStyleBodySegment}> {/*colorize over the background, sinon on voit rien*/}
 
