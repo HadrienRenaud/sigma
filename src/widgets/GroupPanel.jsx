@@ -8,6 +8,7 @@ import { Button, Component} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import GraphQLError from "../errors/GraphQLError.jsx";
 
 /** 
  * @constant Requête GraphQL pour récupérer tous les groupes.
@@ -17,7 +18,6 @@ const GET_ALLGROUPS = gql`
         allGroups {
             uid
             name
-            website
         }
     }
 `;
@@ -33,7 +33,7 @@ class GroupPanel extends React.Component {
         if (loading) {
             return <li>Loading...</li>;
         } else if (error) {
-            return <li>Error</li>;
+            return <li><GraphQLError error={error}/></li>;
         }
 
         console.log(JSON.stringify(allGroups));

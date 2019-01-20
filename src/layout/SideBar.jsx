@@ -13,15 +13,17 @@ import EventsPanel from '../widgets/EventsPanel.jsx';
 
 const PinnedEvents = () => (
     <Segment.Group>
-        <Segment color="teal" inverted>
-            <p>Événements</p>
-        </Segment>
+        <Link to={"/events"}>
+            <Segment color="teal" inverted>
+                <p>Événements</p>
+            </Segment>
+        </Link>
         <Button.Group basic fluid vertical>
-            <EventsPanel />
+            <EventsPanel/>
         </Button.Group>
         <Segment textAlign="center">
             <Link to="/event/create"><Button>
-            Créer
+                Créer
             </Button></Link>
         </Segment>
     </Segment.Group>
@@ -30,9 +32,11 @@ const PinnedEvents = () => (
 
 const PinnedGroups = () => (
     <Segment.Group>
-        <Segment color="teal" inverted>
-            <p>Groupes</p>
-        </Segment>
+        <Link to={"/groups"}>
+            <Segment color="teal" inverted>
+                <p>Groupes</p>
+            </Segment>
+        </Link>
         <Button.Group basic fluid vertical>
             <GroupPanel/>
         </Button.Group>

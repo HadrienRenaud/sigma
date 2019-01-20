@@ -7,6 +7,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import GroupCard from '../widgets/GroupCard.jsx';
+import GraphQLError from "../errors/GraphQLError.jsx";
 
 const groupReq = gql`
     query {
@@ -22,11 +23,8 @@ class AllGroups extends React.Component {
     
     loadGroups = ({ loading, error, data }) => {
         if (loading) return <div>Chargement...</div>;
-        else if (error) {
-            console.log(error.name);
-            console.log(error.message);
-            return <div>Erreur.</div>;
-        }
+        else if (error)
+            return <GraphQLError error={error}/>;
 
         const { allGroups } = data;
 
