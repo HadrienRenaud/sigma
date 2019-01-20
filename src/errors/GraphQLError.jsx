@@ -4,6 +4,9 @@ import poopSad from '../../assets/poop-sad.png';
 
 class GraphQLError extends React.Component {
     render() {
+        if (this.props.error)
+            console.error(this.props.error);
+
         return (
             <Container text textAlign="justified">
                 <Header as='h1'>Erreur de requete GraphQL</Header>

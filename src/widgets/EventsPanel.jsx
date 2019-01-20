@@ -38,7 +38,6 @@ class EventsPanel extends React.Component {
                 {({loading, error, data}) => {
                     if (loading) return <div>Chargement...</div>;
                     else if (error) {
-                        console.log(JSON.stringify(error));
                         return (
                             <GraphQLError error={error}/>
                         );
@@ -52,7 +51,6 @@ class EventsPanel extends React.Component {
                             </div>
                         );
                     } else {
-                        console.log("Nor Error nor data nor loading defined.");
                         return (
                             <GraphQLError error={{message: "Problème dans EventsPanel Function."}}/>
                         )

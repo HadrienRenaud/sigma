@@ -14,6 +14,7 @@ import { Card } from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import GraphQLError from "../errors/GraphQLError.jsx";
 
 /**
  * @constant Requête GraphQL
@@ -76,7 +77,7 @@ class AnnouncementCard extends React.Component {
                     if (loading)
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error)
-                        return <div>Erreur de chargement graphQL.</div>;
+                        return <GraphQLError error={error}/>;
 
                     const { announcement } = data; //extracts the actual data from object 'data'
 

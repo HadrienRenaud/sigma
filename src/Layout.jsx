@@ -23,6 +23,7 @@ import Services from "./body/services/Services.jsx";
 import Login from "./body/login/Login.jsx";
 import SideBar from "./layout/SideBar.jsx";
 import Event from "./body/Event.jsx";
+import PostFeed from "./widgets/PostsFeed.jsx"
 
 class Layout extends React.Component {
     constructor(props) {
@@ -64,9 +65,9 @@ class Layout extends React.Component {
                                     <Route exact path="/groups" component={AllGroups} />
                                     <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
                                     <Route exact path="/events" component={Event} />
-                                    {/* <Route path="/events/:mid" component={EventView} />*/}
-                                    {/* <Route exact path="/news" component={AllAnnouncements} />*/}
-                                    {/* <Route path="/news/:mid" component={AnnouncementView} />*/}
+                                    <Route path="/events/:mid" component={Event} />
+                                    <Route exact path="/news" component={PostFeed} />
+                                    <Route path="/news/:mid" component={PostFeed} />
 
                                     <Route path="/services" component={Services} />
                                     <Route exact path="/login" component={Login} />

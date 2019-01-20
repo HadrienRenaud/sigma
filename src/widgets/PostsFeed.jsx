@@ -40,12 +40,7 @@ class PostsFeed extends React.Component {
             >
                 {({loading, error, data}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
-                    else if (error) {
-                        console.log(JSON.stringify(error));
-                        return (
-                            <GraphQLError error={error}/>
-                        );
-                    }
+                    else if (error) return <GraphQLError error={error}/>;
                     else if (data) {
                         const {allMessages} = data;
                         return (
@@ -55,12 +50,8 @@ class PostsFeed extends React.Component {
                                 ))}
                             </Feed>
                         );
-                    } else {
-                        console.log("Nor Error nor data nor loading defined.");
-                        return (
-                            <GraphQLError error={{message: "Problème dans PostFeed Function."}}/>
-                        )
-                    }
+                    } else
+                        return <GraphQLError error={{message: "Problème dans PostFeed Function."}}/>;
                 }}
             </Query>
         );
