@@ -8,7 +8,7 @@ import ReactDOM from "react-dom";
 import {BrowserRouter} from 'react-router-dom';
 
 import {ApolloClient} from 'apollo-client';
-import {InMemoryCache} from 'apollo-cache-inmemory';
+import {defaultDataIdFromObject, InMemoryCache} from 'apollo-cache-inmemory';
 import {ApolloProvider} from 'react-apollo';
 import ErrorBoundary from "./errors/BoundaryError.jsx";
 import httpLinkToGraphQL from './graphql/http-link.js';
