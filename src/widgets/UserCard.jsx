@@ -80,4 +80,8 @@ class UserCard extends React.Component {
     }
 }
 
+UserCard.propTypes = {
+    uid: PropTypes.string.isRequired,
+};
+
 export default UserCard;

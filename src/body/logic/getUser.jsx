@@ -30,7 +30,7 @@ class UserQuery extends React.Component {
     render() {
         return (
             <Query query={GET_USER}
-                   variables={{uid: this.props.uid}}
+                variables={{uid: this.props.uid}}
             >
                 {({loading, error, data}) => {
                     if (loading)

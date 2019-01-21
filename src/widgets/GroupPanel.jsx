@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
 import GraphQLError from "../errors/GraphQLError.jsx";
+import PropTypes from 'prop-types';
 
 /** 
  * @constant Requête GraphQL pour récupérer tous les groupes.
@@ -50,5 +51,18 @@ class GroupPanel extends React.Component {
             </div>
         );}
 }
+
+GroupPanel.propTypes = {
+    groupQuery: PropTypes.shape({ 
+        loading: PropTypes.any.isRequired,
+        error: PropTypes.any.isRequired,
+        allGroups: PropTypes.arrayOf(
+            PropTypes.shape({
+                uid: PropTypes.string.isRequired,
+                name: PropTypes.string.isRequired
+            })
+        ).isRequired
+    }).isRequired
+};
 
 export default graphql(GET_ALLGROUPS,{name:"groupQuery"})(GroupPanel);

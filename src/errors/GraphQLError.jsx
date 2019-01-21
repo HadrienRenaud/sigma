@@ -1,5 +1,7 @@
 import React from "react";
-import {Container, Header, Image} from "semantic-ui-react";
+import { Container, Header, Image } from "semantic-ui-react";
+import PropTypes from 'prop-types';
+
 import poopSad from '../../assets/poop-sad.png';
 
 class GraphQLError extends React.Component {
@@ -17,5 +19,11 @@ class GraphQLError extends React.Component {
         );
     }
 }
+
+GraphQLError.propTypes = {
+    error: PropTypes.shape({
+        message: PropTypes.string
+    }).isRequired
+};
 
 export default GraphQLError;

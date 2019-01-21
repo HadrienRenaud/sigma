@@ -60,10 +60,6 @@ class AnnouncementCard extends React.Component {
         super(props);
     }
 
-    static PropTypes = {
-        id: PropTypes.string.isRequired
-    };
-
     render() {
 
         return (
@@ -108,5 +104,9 @@ class AnnouncementCard extends React.Component {
         );
     }
 }
+
+AnnouncementCard.propTypes = {
+    id: PropTypes.string.isRequired
+};
 
 export default DummyAnnouncementCard;

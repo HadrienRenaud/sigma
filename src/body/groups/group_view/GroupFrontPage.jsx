@@ -8,6 +8,7 @@
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
+import PropTypes from 'prop-types';
 
 class GroupFrontPage extends React.Component {
 
@@ -27,5 +28,9 @@ class GroupFrontPage extends React.Component {
     }
 
 }
+
+GroupFrontPage.propTypes = {
+    frontPage: PropTypes.string.isRequired
+};
 
 export default GroupFrontPage;

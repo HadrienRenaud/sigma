@@ -46,15 +46,17 @@ class TrombinoResults extends React.Component {
         this.state = {};
     }
 
+    /* props change automatically triggers component reload, so the below is not useful actually
     static getDerivedStateFromProps(newProps, prevState) {
         /*
         getDerivedStateFromProps is invoked after a component is instantiated as well as when it receives new props. 
         It should return an object to update state, or null to indicate that the new props do not require any state updates.
         https://reactjs.org/docs/react-component.html#static-getderivedstatefromprops
-        */
+        *-/
         console.log(newProps);
         return null;
     }
+    */
 
     render() {
 
@@ -89,5 +91,15 @@ class TrombinoResults extends React.Component {
         );
     }
 }
+
+TrombinoResults.propTypes = {
+    params: PropTypes.shape({
+        givenName: PropTypes.string.isRequired,
+        lastName: PropTypes.string.isRequired,
+        nickname: PropTypes.string.isRequired,
+        groups: PropTypes.any.isRequired,
+        promo: PropTypes.any.isRequired
+    }).isRequired
+};
 
 export default TrombinoResults;
