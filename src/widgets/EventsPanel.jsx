@@ -33,7 +33,7 @@ class EventsPanel extends React.Component {
 
         return (
             <Query query={ALL_EVENTS}
-                   fetchPolicy='cache-first'
+                fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <div>Chargement...</div>;

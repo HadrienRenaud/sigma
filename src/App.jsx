@@ -38,9 +38,9 @@ const client = new ApolloClient({
             // https://www.apollographql.com/docs/react/advanced/caching.html#normalization 
             // dit a apollo-cache-inmemory que pour Group et User, la cle primaire est "uid" et pas "id" ni "_id" (par defaut)
             switch (object.__typename) {
-                case 'Group': return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
-                case 'User': return `User:${object.uid}`;
-                default: return defaultDataIdFromObject(object); // fall back to default handling
+            case 'Group': return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
+            case 'User': return `User:${object.uid}`;
+            default: return defaultDataIdFromObject(object); // fall back to default handling
             }
         },
         // fragmentMatcher
@@ -52,7 +52,7 @@ const App = () => {
         <ApolloProvider client={client}>{/*pour dire où envoyer les requêtes GraphQL utilisées dedans*/}
             <BrowserRouter>{/*pour définir "l'environnement" des Component de react-router-dom utilisés dedans*/}
                 <ErrorBoundary>
-                <Layout />
+                    <Layout />
                 </ErrorBoundary>
             </BrowserRouter>
         </ApolloProvider>

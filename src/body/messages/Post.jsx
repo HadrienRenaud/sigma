@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Header, Icon, Segment} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
-import {GroupName} from "../../widgets/SmallWidgets.jsx"
+import {GroupName} from "../../widgets/SmallWidgets.jsx";
 // import GroupCard from '../body/groups/GroupCard.jsx';
 
 

@@ -1,5 +1,5 @@
 import Mocker from "./mocker";
-import {Group, g3} from "./group"
+import {Group, g3} from "./group";
 import {e1} from "./event";
 
 class Announcement extends Mocker {

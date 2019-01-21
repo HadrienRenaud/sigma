@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import PropTypes from "prop-types"
+import PropTypes from "prop-types";
 import {Menu, Button, Header, Label} from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
@@ -79,8 +79,8 @@ class GroupAnnouncements extends React.Component {
                     </Header>
 
                     <Query query={GET_ANNOUNCEMENTS_FROM}
-                           variables={{groupid: this.props.uid}}
-                           fetchPolicy='cache-first'
+                        variables={{groupid: this.props.uid}}
+                        fetchPolicy='cache-first'
                     >
                         {({loading, error, data}) => {
                             if (loading) return <div>Chargement, patience SVP...</div>;
@@ -93,9 +93,12 @@ class GroupAnnouncements extends React.Component {
                                         {announcementsFromGroup.map(res => {
                                             return <AnnouncementCard key={res.id} uid={res.id}/>;
                                         })}
-                                    </div>);
+                                    </div>
+                                );
                             } else {
-                                return <Label>It's empty !</Label>
+                                return (
+                                    <Label>It's empty !</Label>
+                                );
                             }
                         }}
                     </Query>
@@ -117,8 +120,8 @@ class GroupAnnouncements extends React.Component {
                     </Header>
 
                     <Query query={GET_ANNOUNCEMENTS_TO}
-                           variables={{groupid: this.props.uid}}
-                           fetchPolicy='cache-first'
+                        variables={{groupid: this.props.uid}}
+                        fetchPolicy='cache-first'
                     >
                         {({loading, error, data}) => {
                             if (loading) return <div>Chargement, patience SVP...</div>;
@@ -133,7 +136,9 @@ class GroupAnnouncements extends React.Component {
                                     </div>
                                 );
                             } else {
-                                return <Label>It's empty !</Label>
+                                return (
+                                    <Label>It's empty !</Label>
+                                );
                             }
                         }}
                     </Query>
@@ -154,16 +159,16 @@ class GroupAnnouncements extends React.Component {
                     <Menu.Item position='right'>
                         <Button.Group color='teal' size="mini">
                             <Button content="Annonces adressées au groupe"
-                                    name="to"
-                                    onClick={(e) => this.handleChangeMode(e)}/>
+                                name="to"
+                                onClick={(e) => this.handleChangeMode(e)}/>
                             <Button.Or text="ou"/>
                             <Button content="Les deux"
-                                    name="both"
-                                    onClick={(e) => this.handleChangeMode(e)}/>
+                                name="both"
+                                onClick={(e) => this.handleChangeMode(e)}/>
                             <Button.Or text="ou"/>
                             <Button content="Annonces faites par le groupe"
-                                    name="from"
-                                    onClick={(e) => this.handleChangeMode(e)}/>
+                                name="from"
+                                onClick={(e) => this.handleChangeMode(e)}/>
                         </Button.Group>
                     </Menu.Item>
                 </Menu>

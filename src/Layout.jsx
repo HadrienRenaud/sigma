@@ -22,7 +22,7 @@ import Services from "./body/services/Services.jsx";
 import Login from "./body/login/Login.jsx";
 import SideBar from "./layout/SideBar.jsx";
 import Event from "./body/Event.jsx";
-import PostFeed from "./widgets/PostsFeed.jsx"
+import PostFeed from "./widgets/PostsFeed.jsx";
 import UserPage from "./body/trombino/UserPage.jsx";
 
 class Layout extends React.Component {
@@ -45,29 +45,29 @@ class Layout extends React.Component {
                     <Grid columns='equal'>
 
                         <Grid.Column width={3}>
-                            <SideBar/>
+                            <SideBar />
                         </Grid.Column>
                         <Grid.Column>
                             <Segment style={inlineStyleBodySegment}> {/*colorize over the background, sinon on voit rien*/}
 
                                 <div id='body'>
-                                <Switch> {/*forces exclusive path matching (render only first match)*/}
-                                    <Route exact path="/home" component={Index} />
-                                    <Route path="/tol" component={Trombino} /> {/*l'appellation TOL est tradi.*/}
+                                    <Switch> {/*forces exclusive path matching (render only first match)*/}
+                                        <Route exact path="/home" component={Index} />
+                                        <Route path="/tol" component={Trombino} /> {/*l'appellation TOL est tradi.*/}
 
-                                    <Route exact path="/groups" component={AllGroups} />
-                                    <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
-                                    <Route exact path="/events" component={Event} />
-                                    <Route path="/events/:mid" component={Event} />
-                                    <Route exact path="/news" component={PostFeed} />
-                                    <Route path="/news/:mid" component={PostFeed} />
-                                    <Route path="/user/:uid" component={UserPage} />
-                                    <Route path="/services" component={Services} />
-                                    <Route exact path="/login" component={Login} />
-                                    <Route exact path="/" component={Index} />
-                                    <Route path="/test" component={DummyBody} />
-                                    <Route component={Error404} />
-                                </Switch>
+                                        <Route exact path="/groups" component={AllGroups} />
+                                        <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
+                                        <Route exact path="/events" component={Event} />
+                                        <Route path="/events/:mid" component={Event} />
+                                        <Route exact path="/news" component={PostFeed} />
+                                        <Route path="/news/:mid" component={PostFeed} />
+                                        <Route path="/user/:uid" component={UserPage} />
+                                        <Route path="/services" component={Services} />
+                                        <Route exact path="/login" component={Login} />
+                                        <Route exact path="/" component={Index} />
+                                        <Route path="/test" component={DummyBody} />
+                                        <Route component={Error404} />
+                                    </Switch>
                                 </div>
 
                             </Segment>

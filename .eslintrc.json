@@ -23,7 +23,8 @@
         "linebreak-style": ["error", "unix"],
         "semi": ["error","always"],
         "no-unused-vars": "off",
-        
+        "no-console": "warn",
+
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error"
     },

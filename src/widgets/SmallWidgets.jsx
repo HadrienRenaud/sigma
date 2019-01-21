@@ -9,7 +9,9 @@ export class GroupName extends React.Component {
     };
 
     render() {
-        return <Link to={"/groups/" + this.props.group.uid}>{this.props.group.name}</Link>
+        return (
+            <Link to={"/groups/" + this.props.group.uid}>{this.props.group.name}</Link>
+        );
     }
 }
 
@@ -19,8 +21,10 @@ export class UserName extends React.Component {
     };
 
     render() {
-        return <Link to={"/user/" + this.props.user.uid}>
-            {this.props.user.givenName} {this.props.user.lastName}
-        </Link>
+        return (
+            <Link to={"/user/" + this.props.user.uid}>
+                {this.props.user.givenName} {this.props.user.lastName}
+            </Link>
+        );
     }
 }
