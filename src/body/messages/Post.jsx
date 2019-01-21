@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Header, Icon, Segment} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
+import {GroupName} from "../../widgets/SmallWidgets.jsx"
 // import GroupCard from '../body/groups/GroupCard.jsx';
 
 
@@ -47,8 +48,8 @@ class Post extends React.Component {
                     </Link>
                     <Header.Subheader>
                         {this.props.authors.map((auth,i) => {
-                            if (i === 0) return <span key={auth.uid}>par: {auth.name} </span>;
-                            else return <span key={auth.uid}>et {auth.name} </span>;
+                            if (i === 0) return <span key={auth.uid}>par: <GroupName group={auth}/> </span>;
+                            else return <span key={auth.uid}>et <GroupName group={auth}/> </span>;
                         })}
                     </Header.Subheader>
                 </Header>

@@ -5,6 +5,7 @@ import {Link} from "react-router-dom";
 import {Query} from "react-apollo";
 import gql from "graphql-tag";
 import UserQuery from "../logic/getUser.jsx";
+import {GroupName, UserName} from "../../widgets/SmallWidgets.jsx";
 
 
 // TODO factoriser depuis UserCard
@@ -27,17 +28,17 @@ const GET_USER = gql`
 
 class UserPageContent extends React.Component {
     static propTypes = {
-        user: PropTypes.object.isRequired
+        user: PropTypes.object.isRequired,
+        uid: PropTypes.string.isRequired,
     };
 
     render() {
         let user = this.props.user;
+        user.uid = this.props.uid;
         return (
             <Container>
                 <Header as='h1' attached='top'>
-                    <Link to={"/user/" + this.props.uid}>
-                        {user.givenName} {user.lastName}
-                    </Link>
+                    <UserName user={user}/>
                 </Header>
                 <List>
                     <List.Item
@@ -59,9 +60,7 @@ class UserPageContent extends React.Component {
                             <List>
                                 {user.groups.map(gr =>
                                     <List.Item key={gr.uid}>
-                                        <Link to={"/groups/" + gr.uid}>
-                                            {gr.name}
-                                        </Link>
+                                        <GroupName group={gr}/>
                                     </List.Item>
                                 )}
                             </List>
@@ -82,16 +81,12 @@ class UserPageContent extends React.Component {
 
 class UserPage extends React.Component {
 
-    static propTypes = {
-        uid: PropTypes.string.isRequired
-    };
-
     render() {
         const {match} = this.props;
 
         return (
             <UserQuery uid={String(match.params.uid)}>
-                <UserPageContent/>
+                <UserPageContent uid={String(match.params.uid)} user={{loading: true}}/>
             </UserQuery>
         );
     }

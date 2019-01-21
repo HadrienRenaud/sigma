@@ -28,7 +28,6 @@ class UserQuery extends React.Component {
     };
 
     render() {
-        console.log("getUser("+this.props.uid+")");
         return (
             <Query query={GET_USER}
                    variables={{uid: this.props.uid}}
@@ -42,11 +41,8 @@ class UserQuery extends React.Component {
                         return <Error404/>;
                     const {user} = data;
                     return React.Children.map(this.props.children, (child, oldProps) => {
-                        return React.cloneElement(child, {
-                            ...oldProps,
-                            user: user,
-                        }, {user: user});
-                    });
+                        return React.cloneElement(child, {...oldProps, user: user});
+                    }, {user: user,});
 
                 }}
             </Query>

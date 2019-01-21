@@ -1,6 +1,6 @@
 export default {
     __typename: "SimpleGroup",
-    uid: 1,
+    uid: "g1",
     name: "Comics",
     website: "comic",
     description: "Club BDBG",

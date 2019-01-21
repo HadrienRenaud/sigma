@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import {GroupName} from "./SmallWidgets.jsx";
 /**
  * @file Composant pour afficher les informations sur un groupe.
  * L'idee est d'avoir un preview du groupe, a inserer en header de chaque announcement par ex.
@@ -45,12 +45,13 @@ class GroupCard extends React.Component {
                     else if (error) return <div>Erreur.</div>;
 
                     const { group } = data; //extracts the actual data from object 'data'
+                    group.uid = this.props.uid;
 
                     return (
                         <Card fluid={true} color={"blue"}>
                             <Card.Content>
                                 <Card.Header>
-                                    <Link to={"/groups/" + this.props.uid}>{group.name}</Link>
+                                    <GroupName group={group}/>
                                 </Card.Header>
                                 <Card.Meta>
                                     <a href={group.website}>{group.website}</a>

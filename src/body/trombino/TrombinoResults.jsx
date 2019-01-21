@@ -74,7 +74,7 @@ class TrombinoResults extends React.Component {
                     else if (error)
                         return <GraphQLError error={error}/>;
                     let { searchTOL } = data; //extracts the actual data from object 'data'
-                    searchTOL = [1];
+                    searchTOL = ["u1"]; // TODO remove this line
                     return (
                         <div>
                             {searchTOL.map(res => {

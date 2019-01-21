@@ -5,7 +5,7 @@ export default {
     lastName: "Vaneau",
     nickname: "loulou",
     nationality: "Franchouillard",
-    uid: 1,
+    uid: "u1",
     birthdate: "1997-04-11",
     mail: "louis.vaneau@polytechnique.edu",
     phone: "0000-00-00",

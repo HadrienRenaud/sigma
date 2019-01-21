@@ -75,7 +75,7 @@ class UserCard extends React.Component {
 
     render() {
         return <UserQuery uid={String(this.props.uid)}>
-            <UserCardContent/>
+            <UserCardContent uid={String(this.props.uid)} user={{loading: true}}/>
         </UserQuery>;
     }
 }
