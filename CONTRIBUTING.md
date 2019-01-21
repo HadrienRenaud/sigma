@@ -31,10 +31,21 @@ src
 │   └── trombino            # body for path '/tol'
 ├── layout                  # components of the layout other than the body (topmenu, footer, sidebar)
 ├── Layout.jsx              # component that define the layout of the webpage (body, topmenu, footer, sidebar)
-├── shitpost_body           # components from shitpost that may be useful to recycle
-├── shitpost_cards
 └── widgets                 # components that are intended to be used in multiple pages, as widgets (typically, UserCard used in /user/uid and in /tol)
 ```
+
+Remarque:
+```bash
+examples
+├── ReactComponent.jsx
+├── Router.jsx
+├── UseQueryGraphQL.jsx
+├── shitpost_body # components from shitpost that may be useful to recycle
+│   └── ...
+└── shitpost_cards # idem (for src/widgets/)
+    └── ...
+```
+
 
 ## Webpack et serveur
 
