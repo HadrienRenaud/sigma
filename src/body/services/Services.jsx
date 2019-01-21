@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Header, Image } from 'semantic-ui-react';
-import logo_gitlab from '../../../assets/poop-logo.png';
+import logo_gitlab from '../../../assets/logo_gitlab_br.png';
 
 class Services extends React.Component {
     constructor(props) {

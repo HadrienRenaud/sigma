@@ -90,7 +90,7 @@ class UserPage extends React.Component {
         const {match} = this.props;
 
         return (
-            <UserQuery uid={match.params.uid}>
+            <UserQuery uid={String(match.params.uid)}>
                 <UserPageContent/>
             </UserQuery>
         );

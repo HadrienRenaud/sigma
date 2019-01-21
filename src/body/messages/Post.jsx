@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Header, Icon, Segment, Link} from 'semantic-ui-react';
+import { Header, Icon, Segment} from 'semantic-ui-react';
+import {Link} from "react-router-dom";
 // import GroupCard from '../body/groups/GroupCard.jsx';
 
 
@@ -19,6 +20,7 @@ import { Header, Icon, Segment, Link} from 'semantic-ui-react';
 class Post extends React.Component {
 
     static propTypes = {
+        id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         content: PropTypes.string.isRequired,
         location: PropTypes.string,
@@ -38,8 +40,11 @@ class Post extends React.Component {
 
         return (
             <Segment>
+
                 <Header as="h2">
-                    {this.props.title}
+                    <Link to={"/events/" + this.props.id}>
+                        {this.props.title}
+                    </Link>
                     <Header.Subheader>
                         {this.props.authors.map((auth,i) => {
                             if (i === 0) return <span key={auth.uid}>par: {auth.name} </span>;
