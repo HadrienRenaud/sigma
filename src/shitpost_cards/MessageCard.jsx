@@ -1,12 +1,17 @@
 /**
  * @file description TODO
- *
+ * 
  * @author kadabra
- */
+*/
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {Header, List, Segment} from "semantic-ui-react";
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+
+import { Container, Image, Menu, Segment, Header } from "semantic-ui-react";
+import { Link, NavLink } from 'react-router-dom';
+
 
 
 class MessageCard extends React.Component {
@@ -21,6 +26,7 @@ class MessageCard extends React.Component {
                 <Segment compact>
                     <Header as='h2'>Message Card.</Header>
                     <List>
+                        {/* would also be nice to have the date of latest comment */}
                         <List.item>
                             Message id: {this.props.message.id}
                         </List.item>
@@ -44,7 +50,13 @@ class MessageCard extends React.Component {
 }
 
 MessageCard.propTypes = {
-    message: PropTypes.any.isRequired //requires that this Component be rendered with "myProp" as prop
+    message: PropTypes.shape({ //requires that this Component be rendered with "myProp" as prop
+        id: PropTypes.any.isRequired,
+        origin: PropTypes.string.isRequired,
+        date: PropTypes.any.isRequired,
+        title: PropTypes.any.isRequired,
+        nbComments: PropTypes.any.isRequired
+    })
     //https://www.npmjs.com/package/prop-types#usage
 };
 
