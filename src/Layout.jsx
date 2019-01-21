@@ -15,7 +15,6 @@ import DummyBody from './body/DummyBody.jsx';
 import Error404 from './errors/Error404.jsx';
 import Index from './body/index/Index.jsx';
 
-import mainBg from '../assets/dechets.jpg';
 import Trombino from "./body/trombino/Trombino.jsx";
 import AllGroups from "./body/AllGroups.jsx";
 import GroupView from "./body/groups/GroupView.jsx";
@@ -32,13 +31,6 @@ class Layout extends React.Component {
     }
 
     render() {
-        //TODO: this inline css styling may be (probably, I don't know much css) bad practice...
-        let inlineStyleBg = {
-            backgroundImage: "url(" + mainBg + ")",
-            backgroundRepeat: "repeat-y",
-            backgroundSize: "cover"
-        };
-
         let inlineStyleBodySegment = {
             marginTop: "2em",
             marginBottom: "2em",
@@ -46,7 +38,7 @@ class Layout extends React.Component {
         };
 
         return (
-            <div style={inlineStyleBg}>
+            <div>
                 <TopMenu />
 
                 <Container> {/*center the whole thing*/}

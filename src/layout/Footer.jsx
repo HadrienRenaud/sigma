@@ -5,8 +5,6 @@
 import React from 'react';
 import {Container, Image, List, Segment} from "semantic-ui-react";
 import logo from '../../assets/logo_sigma.png';
-import footerBg from '../../assets/decharge BW lowdef2.jpg'; //TODO: change the bg image...
-
 
 class Footer extends React.Component {
     constructor(props) {
@@ -14,14 +12,8 @@ class Footer extends React.Component {
     }
 
     render() {
-        //TODO: this inline css styling may be (probably, I don't know much css) bad practice...
-        let inlineStyleBg = {
-            backgroundImage: "url(" + footerBg + ")",
-            backgroundSize: "cover"
-        };
-
         return (
-            <Segment style={inlineStyleBg} inverted vertical>
+            <Segment inverted vertical>
                 <Container textAlign='center'>
                     <Image centered size='mini' src={logo} />
                     <p>Binet Réseau 2019 (BR17)</p>
