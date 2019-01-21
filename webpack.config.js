@@ -19,7 +19,10 @@ const config = {
 
     target: 'web',
     // allows using __dirname with the correct semantic (otherwise __dirname will return '/' regardless of file)
-    node: { __dirname: true },
+    node: {
+        __dirname: true,
+        fs: 'empty', // Fixes import from node_module --> SEHR SEHR STRANGE --> see https://github.com/webpack-contrib/css-loader/issues/447
+    },
 
     /*
     // do not bundle node_modules, nor secret config files
@@ -95,7 +98,7 @@ const config = {
         // inline: true
         // default. Inline mode = a script will be inserted in your bundle to take care of live reloading,
         // and build messages will appear in the browser console.
-    }
+    },
 };
 
 module.exports = env => {

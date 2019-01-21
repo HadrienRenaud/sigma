@@ -41,7 +41,7 @@ class PostsFeed extends React.Component {
                 {({loading, error, data}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
                     else if (error) return <GraphQLError error={error}/>;
-                    else if (data) {
+                    else if (Object.keys(data).length > 0) {
                         const {allMessages} = data;
                         return (
                             <Feed>
