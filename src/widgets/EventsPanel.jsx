@@ -53,12 +53,11 @@ class EventsPanel extends React.Component {
                     } else {
                         return (
                             <GraphQLError error={{message: "Problème dans EventsPanel Function."}}/>
-                        )
+                        );
                     }
 
                 }}
-            </Query>
-        );
+            </Query>);
     }
 }
 

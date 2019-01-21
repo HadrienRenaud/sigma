@@ -44,7 +44,9 @@ const PinnedGroups = () => (
 );
 
 const SideBar = () => (
-    <Container>
+    <Container style={{
+        paddingBottom: "1rem",
+    }}>
         <PinnedGroups/>
         <PinnedEvents/>
     </Container>
