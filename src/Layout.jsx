@@ -32,8 +32,8 @@ class Layout extends React.Component {
 
     render() {
         let inlineStyleBodySegment = {
-            marginTop: "2em",
-            marginBottom: "2em",
+            // marginTop: "2em",
+            marginBottom: "1rem",
             backgroundColor: "lightgrey"
         };
 

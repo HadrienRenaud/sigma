@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { Form, Grid, Header, Segment} from 'semantic-ui-react';
+import {Form, Grid, Header, Segment} from 'semantic-ui-react';
 import TrombinoResults from './TrombinoResults.jsx';
 
 class Trombino extends React.Component {
@@ -24,19 +24,21 @@ class Trombino extends React.Component {
         // This binding is necessary to make `this` work in the callback
         this.handleInputChange = this.handleInputChange.bind(this);
     }
-    
+
     handleInputChange(event) {
         const value = event.target.value;
         const name = event.target.name; //l'attribut "name" du Component qui appelle ce handle (par un onChange)
-        this.setState({ [name]: value }); //ES6 computed property name syntax
+        this.setState({[name]: value}); //ES6 computed property name syntax
     }
 
-    
 
     render() {
 
         return (
             <div>
+                <Header as='h1'>
+                    Trombinoscope
+                </Header>
                 <Grid columns='equal'>
                     <Grid.Column width={3}>
 
@@ -144,11 +146,9 @@ class Trombino extends React.Component {
                     </Grid.Column>
 
                     <Grid.Column>
-                        <Header as='h1'>
-                            Trombinoscope
-                        </Header>
                         <h3>
-                            Résultats pour {this.state.givenName}{this.state.nickname ? ` « ${this.state.nickname} » ` : " "}{this.state.lastName}
+                            Résultats
+                            pour {this.state.givenName}{this.state.nickname ? ` « ${this.state.nickname} » ` : " "}{this.state.lastName}
                         </h3>
                         <TrombinoResults params={this.state}/>
                     </Grid.Column>
