@@ -136,7 +136,7 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                                     <Route exact path={`${match.url}`}
                                         render={() => <GroupFrontPage frontPage={fakeFrontPage}/> } 
                                     />
-                                    <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
+                                    <Route path={match.url + "/annonces"} render={(props) => <GroupAnnouncements {...props} uid={match.params.uid}/>} />
                                     <Route path={`${match.url}/qanda`} component={GroupQanda} />
                                     <Route path={match.url + "/events"} component={GroupEvents} />
                                     <Route path={match.url + "/interne"} component={GroupPageInterne} />
