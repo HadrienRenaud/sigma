@@ -6,7 +6,7 @@ import Group from "./mock-data/group"
 
 const mocks = {
     User: () => User,
-    Group: () => Group
+    Group: () => Group,
 };
 
 addMockFunctionsToSchema({ mocks, schema });
