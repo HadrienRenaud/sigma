@@ -17,6 +17,8 @@ const config = {
         //publicPath: "/"
     },
 
+    devtool: 'inline-source-map',
+    
     target: 'web',
     // allows using __dirname with the correct semantic (otherwise __dirname will return '/' regardless of file)
     node: {
