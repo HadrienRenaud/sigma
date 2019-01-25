@@ -18,8 +18,8 @@ import { Query } from 'react-apollo';
  * @constant Requête GraphQL
 */
 const GET_PAINT = gql`
-    query getPaintQuery(
-         # ce nom ("getPaintQuery") n'est pas indispensable, mais peut servir pour le debuggage par exemple
+    query GETPAINTQUERY(
+         # ce nom ("GETPAINTQUERY") n'est pas indispensable, mais peut servir pour le debuggage par exemple
         $color: String, # arguments de la Query
         $quality: String
     ) {
