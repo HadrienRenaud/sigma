@@ -36,10 +36,22 @@ const client = new ApolloClient({
     cache: new InMemoryCache({
         dataIdFromObject: object => { 
             // https://www.apollographql.com/docs/react/advanced/caching.html#normalization 
-            // dit a apollo-cache-inmemory que pour Group et User, la cle primaire est "uid" et pas "id" ni "_id" (par defaut)
+            // dit a apollo-cache-inmemory que pour Group, la cle primaire est "gid" et pas "id" ni "_id" (par defaut) (idem pour User et Message)
             switch (object.__typename) {
-            case 'Group': return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
+            case 'Group': return `Group:${object.gid}`; // use `Group` prefix  and `gid` as the primary key
+            case 'MetaGroup': return `MetaGroup:${object.gid}`;
+            case 'SimpleGroup': return `SimpleGroup:${object.gid}`;
             case 'User': return `User:${object.uid}`;
+            case 'Message': return `Message:${object.mid}`;
+            case 'Announcement': return `Announcement:${object.mid}`;
+            case 'Event': return `Event:${object.mid}`;
+            case 'Question': return `Question:${object.mid}`;
+            case 'Answer': return `Answer:${object.mid}`;
+            case 'PrivatePost': return `PrivatePost:${object.mid}`;
+            case 'Request': return `Request:${object.rid}`;
+            case 'UserJoinGroup': return `UserJoinGroup:${object.rid}`;
+            case 'GroupJoinMetagroup': return `GroupJoinMetagroup:${object.rid}`;
+            case 'GroupCoauthorEvent': return `GroupCoauthorEvent:${object.rid}`;
             default: return defaultDataIdFromObject(object); // fall back to default handling
             }
         },

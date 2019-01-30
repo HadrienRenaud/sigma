@@ -13,7 +13,7 @@ const GET_USER = gql`
             phone
             address
             promotion
-            groups {
+            memberOf {
                 uid
                 name
             }

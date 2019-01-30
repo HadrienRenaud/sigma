@@ -19,9 +19,9 @@ import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
 
 const GET_GROUP = gql`
-    query getGroup($uid: ID!) {
-        group(uid: $uid) {
-            uid
+    query getGroup($gid: ID!) {
+        group(gid: $gid) {
+            gid
             name
             website
             description
@@ -55,8 +55,8 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
         return (
             <Query query={GET_GROUP}
                 variables={{
-                    //uid: "br" //TODO: wrap with withRouter and get uid from this.props.match.params.uid
-                    uid: match.params.uid
+                    //gid: "br" //TODO: wrap with withRouter and get gid from this.props.match.params.uid
+                    gid: match.params.gid
                 }}
                 fetchPolicy='cache-first' //choose cache behaviour
             >

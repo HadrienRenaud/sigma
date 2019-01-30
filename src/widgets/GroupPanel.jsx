@@ -17,7 +17,7 @@ import PropTypes from 'prop-types';
 const GET_ALLGROUPS = gql`
     query GroupQuery {
         allGroups {
-            uid
+            gid
             name
         }
     }

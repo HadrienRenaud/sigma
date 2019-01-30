@@ -9,6 +9,7 @@ import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import UserCard from '../../widgets/UserCard.jsx';
 import GraphQLError from "../../errors/GraphQLError.jsx";
+import PropTypes from 'prop-types';
 
 /** 
  * @constant Requête GraphQL...
@@ -23,15 +24,39 @@ const GET_TROMBINO = gql`
         $givenName: String,
         $lastName: String,
         $nickname: String,
-        $groups: String,
+        $groups: [String],
         $promotion: String,
     ) {
         #returns [User] array of JS objects with only the 'uid' field, representing User uid's
-        searchTOL(givenName: $givenName, 
+        searchTOL(
+            givenName: $givenName,
             lastName: $lastName,
             nickname: $nickname,
             groups: $groups,
-            promotion: $promotion)
+            promotion: $promotion
+        ) {
+            uid
+            givenName
+            lastName
+            nickname
+            nationality
+            birthdate
+            promotion
+            
+            mail
+            phone
+            addresses
+
+            memberOf {
+                gid
+            }
+            speakerOf {
+                gid
+            }
+            adminOf {
+                gid
+            }
+        }
     }
 `;
 
@@ -76,13 +101,12 @@ class TrombinoResults extends React.Component {
                     else if (error)
                         return <GraphQLError error={error}/>;
                     let { searchTOL } = data; //extracts the actual data from object 'data'
-                    searchTOL = ["u1"]; // TODO remove this line
                     return (
                         <div>
                             {searchTOL.map(res => {
                                 // searchTOL's GraphQL type is [User], so it resolves to a JavaScript array 
                                 // one for each value returned by searchTOL it is necessary to give a "key" attribute (https://reactjs.org/docs/lists-and-keys.html)
-                                return <UserCard key={res} uid={res} />;
+                                return <UserCard key={res} user={res} />;
                             })}
                         </div>
                     );

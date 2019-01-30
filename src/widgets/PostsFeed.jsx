@@ -9,17 +9,17 @@ import GraphQLError from '../errors/GraphQLError.jsx';
  * @constant Requête pour obtenir tous les posts.
  */
 const ALL_POSTS = gql`
-    query eventsQuery {
+    query POSTS_FEED {
         allMessages {
-            id
+            mid
             title
             content
-            authors {
-                uid
-                name
-            }
             ...on Event {
                 location
+                authors {
+                    gid
+                    name
+                }
             }
         }
     }
@@ -44,11 +44,16 @@ class PostsFeed extends React.Component {
                     else if (Object.keys(data).length > 0) {
                         const {allMessages} = data;
                         return (
+                            <p>TODO</p>
+                            /*
+                            ne pas faire ca, le component Post date d'il y a 11 mois...
+                            pas du tout compatible avec changements du schema etc...
                             <Feed>
                                 {allMessages.map(post => (
                                     <Post key={post.id} {...post}/>
                                 ))}
                             </Feed>
+                            */
                         );
                     } else
                         return <GraphQLError error={{message: "Problème dans PostFeed Function."}}/>;

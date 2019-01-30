@@ -11,11 +11,11 @@ import GraphQLError from "../errors/GraphQLError.jsx";
 const ALL_EVENTS = gql`
     query eventsQuery {
         allEvents {
-            id
+            mid
             title
             content
             authors {
-                uid
+                gid
                 name
             }
         }

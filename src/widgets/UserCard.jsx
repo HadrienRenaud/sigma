@@ -8,12 +8,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Card, List} from 'semantic-ui-react';
 import {Link} from "react-router-dom";
-import UserQuery from "../body/logic/getUser.jsx";
+//import UserQuery from "../body/logic/getUser.jsx";
 
-class UserCardContent extends React.Component {
-    static propTypes = {
-        user: PropTypes.object.isRequired
-    };
+class UserCard extends React.Component {
 
     render() {
         const user = this.props.user;
@@ -32,6 +29,7 @@ class UserCardContent extends React.Component {
                         />
                         {
                             user.address ?
+                            //TODO: use user.addresses instead
                                 <List.Item>
                                     <List.Icon name='marker'/>
                                     <List.Content>{user.address[0]}</List.Content>
@@ -43,7 +41,7 @@ class UserCardContent extends React.Component {
                             <List.Content>
                                 Groupes :
                                 <List>
-                                    {user.groups.map(gr =>
+                                    {user.memberOf.map(gr =>
                                         <List.Item key={gr.uid}>
                                             <Link to={"/groups/" + gr.uid}>
                                                 {gr.name}
@@ -66,7 +64,11 @@ class UserCardContent extends React.Component {
         );
     }
 }
+UserCard.propTypes = {
+    user: PropTypes.any.isRequired,
+};
 
+/*
 class UserCard extends React.Component {
 
     static propTypes = {
@@ -83,5 +85,6 @@ class UserCard extends React.Component {
 UserCard.propTypes = {
     uid: PropTypes.string.isRequired,
 };
+*/
 
 export default UserCard;
