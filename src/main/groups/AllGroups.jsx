@@ -11,7 +11,7 @@ import GroupCard from './GroupCard.jsx';
 const groupReq = gql`
     query {
         allGroups {
-            uid
+            gid
             name
             description
         }

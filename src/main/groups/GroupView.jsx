@@ -22,7 +22,7 @@ import GroupCard from './GroupCard.jsx';
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {
         group(uid: $uid) {
-            uid
+            gid
             name
             website
             description

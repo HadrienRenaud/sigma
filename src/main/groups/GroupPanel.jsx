@@ -15,7 +15,7 @@ import { graphql } from 'react-apollo';
 const GET_ALLGROUPS = gql`
     query GroupQuery {
         allGroups {
-            uid
+            gid
             name
             website
         }

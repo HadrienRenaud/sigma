@@ -17,7 +17,7 @@ import { Query } from 'react-apollo';
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {
         group(uid: $uid) {
-            uid
+            gid
             name
             website
             description

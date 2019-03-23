@@ -31,7 +31,7 @@ const GET_ANNOUNCEMENTS_FROM = gql`
     ) {
         #returns [Announcement] array of JS objects with only the 'id' field, representing announcement id's
         announcementsFromGroup(uid: $groupid) {
-            uid
+            mid
         }
     }
 `;
@@ -42,7 +42,7 @@ const GET_ANNOUNCEMENTS_TO = gql`
     ) {
         #returns [Announcement] array of JS objects with only the 'id' field, representing announcement id's
         announcementsToGroup(uid: $groupid) {
-            uid
+            mid
         }
     }
 `;
