@@ -26,7 +26,7 @@ install-dependencies:
 build:bundle:
   stage: build
   before_script:
-    - npm i webpack webpack-cli
+    - npm i -g webpack webpack-cli
     - npm i
   script:
     - webpack-cli -v

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Mutation} from 'react-apollo';
-import {Form} from 'semantic-ui-react';
+import {Form, Message} from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
 import {Redirect} from "react-router-dom";
@@ -8,7 +8,8 @@ import {apiUrl} from "../../config.jsx";
 
 const STATES = {
     loggedIn: 0,
-    notLoggedIn: 1
+    notLoggedIn: 1,
+    error: 2,
 };
 
 /**
@@ -27,7 +28,9 @@ class LoginForm extends React.Component {
         this.state = {
             userInput: "",
             passwordInput: "",
-            mode: "tologin"
+            mode: STATES.notLoggedIn,
+            error: "",
+            loading: false,
         };
 
         // This binding is necessary to make `this` work in the callback
@@ -44,6 +47,7 @@ class LoginForm extends React.Component {
     handleSubmit(event) {
         event.preventDefault();
         console.log("Sending login request to ", apiUrl + '/login');
+        this.setState({loading: true});
         const loginRequest = fetch(apiUrl + '/login', {
             method: 'POST',
             headers: {
@@ -58,21 +62,33 @@ class LoginForm extends React.Component {
         loginRequest
             .then(data => data.json())
             .then((data) => {
-                console.log("Answer :", data.message);
+                this.setState({loading: false})
+                console.log("Answer :", data);
                 if (data.authSucceeded) {
-                    this.setState({mode: 'loggedin'});
+                    this.setState({mode: STATES.loggedIn});
                     if (data.token)
                         localStorage.setItem("token", data.token);
+                } else {
+                    console.log("Changing state");
+                    this.setState({
+                        mode: STATES.error,
+                        error: data.message,
+                    });
                 }
             });
     }
 
     render() {
-        if (this.state.mode === 'loggedin')
+        if (this.state.mode === STATES.loggedIn)
             return <Redirect to='/'/>;
 
         return (
-            <Form size='large' onSubmit={e => this.handleSubmit(e)}>
+            <Form size='large' onSubmit={e => this.handleSubmit(e)} error={this.state.mode === STATES.error}>
+                <Message
+                    error
+                    header="Error"
+                    content={this.state.error}
+                />
                 <Form.Input
                     fluid
                     icon='user' iconPosition='left'
@@ -89,8 +105,7 @@ class LoginForm extends React.Component {
                     value={this.state.passwordInput}
                     onChange={this.handleInputChange}
                 />
-
-                <Form.Button fluid color='blue' size='large' content="Login"/>
+                <Form.Button fluid color='blue' size='large' content="Login" loading={this.state.loading}/>
             </Form>
         );
     }
