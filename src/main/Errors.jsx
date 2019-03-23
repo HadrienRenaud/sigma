@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Link } from 'react-router-dom';
+import {Message} from "semantic-ui-react";
 
 class Error404 extends React.Component {
     render() {
@@ -12,4 +12,25 @@ class Error404 extends React.Component {
     }
 }
 
-export default Error404;
+class GQLError extends React.Component {
+    render() {
+        if (this.props.error)
+            console.error(this.props.error);
+        return (
+            <div>
+                <Message negative>
+                    <Message.Header>Erreur de chargement GraphQL</Message.Header>
+                    {this.props.error ?
+                        <p>{this.props.error.toString()}</p>
+                        :
+                        <p>Erreur de communication entre le backend et le frontend.</p>
+                    }
+                </Message>
+            </div>
+        );
+    }
+}
+
+
+
+export {Error404, GQLError};

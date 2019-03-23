@@ -7,6 +7,7 @@ import React from 'react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import GroupCard from './GroupCard.jsx';
+import {GQLError} from "../Errors.jsx";
 
 const groupReq = gql`
     query {
@@ -25,7 +26,7 @@ class AllGroups extends React.Component {
         else if (error) {
             console.log(error.name);
             console.log(error.message);
-            return <div>Erreur.</div>;
+            return <GQLError error={error}/>;
         }
 
         const { allGroups } = data;

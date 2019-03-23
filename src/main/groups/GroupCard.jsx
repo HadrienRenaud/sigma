@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import {GQLError} from "../Errors.jsx";
 /**
  * @file Composant pour afficher les informations sur un groupe.
  * L'idee est d'avoir un preview du groupe, a inserer en header de chaque announcement par ex.
@@ -43,7 +44,7 @@ class GroupCard extends React.Component {
             >
                 {({ loading, error, data }) => {
                     if (loading) return <div>Chargement...</div>;
-                    else if (error) return <div>Erreur.</div>;
+                    else if (error) return <GQLError error={error}/>;
 
                     const { group } = data; //extracts the actual data from object 'data'
 

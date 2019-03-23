@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Label, Header, Link, Button, Segment } from 'semantic-ui-react';
 import Post from './Post.jsx';
+import {GQLError} from "../Errors.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -38,6 +39,7 @@ class EventsPanel extends React.Component {
                     if (loading) return <div>Chargement...</div>;
                     else if (error) {
                         console.log(JSON.stringify(error));
+                        return <GQLError error={error}/>
                     }
                     const {allEvents} = data;
                     return (

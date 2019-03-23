@@ -18,6 +18,7 @@ import GroupAdministrer from './group_view/GroupAdministrer.jsx';
 import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
 import GroupCard from './GroupCard.jsx';
+import {GQLError} from "../Errors.jsx";
 
 const GET_GROUP = gql`
     query getGroup($uid: ID!) {
@@ -65,7 +66,7 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                     if (loading)
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error)
-                        return <div>Erreur de chargement graphQL.</div>;
+                        return <GQLError error={error}/>;
 
                     const { group } = data; //extracts the actual data from object 'data'
 

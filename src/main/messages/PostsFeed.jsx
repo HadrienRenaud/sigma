@@ -3,6 +3,7 @@ import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
 import { Feed, Header } from 'semantic-ui-react';
 import Post from './Post.jsx';
+import {GQLError} from "../Errors.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -49,6 +50,7 @@ class PostsFeed extends React.Component {
                     if (loading) return <Feed>Chargement...</Feed>;
                     else if (error) {
                         console.log(JSON.stringify(error));
+                        return <GQLError error={error}/>;
                     }
                     const {allMessages} = data;
                     return (

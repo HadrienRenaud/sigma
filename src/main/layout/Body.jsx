@@ -10,7 +10,7 @@ import Event from '../messages/Event.jsx';
 import Index from '../index/Index.jsx';
 import GroupView from '../groups/GroupView.jsx';
 import AllGroups from '../groups/AllGroups.jsx';
-import NotFound from '../Errors.jsx';
+import {Error404} from '../Errors.jsx';
 import Trombino from '../trombino/Trombino.jsx';
 import Services from '../services/Services.jsx';
 
@@ -59,7 +59,7 @@ class Body extends React.Component {
                             <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
                             <Route path="/services" component={Services} />
                             <Route exact path="/" component={Index} />
-                            <Route component={NotFound} />
+                            <Route component={Error404} />
                         </Switch>
                     </Grid.Column>
 

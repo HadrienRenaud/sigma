@@ -8,6 +8,7 @@ import { Accordion, Button, Segment, Icon, Component, Sticky, Container } from '
 import { Link } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { graphql } from 'react-apollo';
+import {GQLError} from "../Errors.jsx";
 
 /** 
  * @constant Requête GraphQL pour récupérer tous les groupes.
@@ -33,7 +34,7 @@ class GroupPanel extends React.Component {
         if (loading) {
             return <li>Loading...</li>;
         } else if (error) {
-            return <li>Error</li>;
+            return <GQLError error={error}/>;
         }
 
         console.log(JSON.stringify(allGroups));

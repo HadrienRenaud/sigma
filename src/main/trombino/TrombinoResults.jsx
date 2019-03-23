@@ -12,6 +12,7 @@ import {
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 import UserCard from '../users/UserCard.jsx';
+import {GQLError} from "../Errors.jsx";
 
 /** 
  * @constant Requête GraphQL...
@@ -79,7 +80,7 @@ class TrombinoResults extends React.Component {
                         console.log(error.message);
                         //console.log(error.graphQLErrors);
                         //console.log(error.networkError);
-                        return <div>Erreur.</div>;
+                        return <GQLError error={error}/>;
                     }
                     const { searchTOL } = data; //extracts the actual data from object 'data'
                     

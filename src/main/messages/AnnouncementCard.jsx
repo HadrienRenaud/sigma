@@ -10,11 +10,11 @@
 */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route, Link } from 'react-router-dom';
-import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
+import {Card } from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
+import {GQLError} from "../Errors.jsx";
 
 /**
  * @constant Requête GraphQL
@@ -77,7 +77,7 @@ class AnnouncementCard extends React.Component {
                     if (loading)
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error)
-                        return <div>Erreur de chargement graphQL.</div>;
+                        return <GQLError error={error}/>;
 
                     const { announcement } = data; //extracts the actual data from object 'data'
 
