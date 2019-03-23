@@ -18,7 +18,7 @@ install-dependencies:
   before_script:
     - npm i -g npm
   script:
-    - npm ci
+    - npm i
   artifacts:
     paths:
       - semantic/
@@ -26,7 +26,7 @@ install-dependencies:
 build:bundle:
   stage: build
   before_script:
-    - npm i -g npm webpack webpack-cli
+    - npm i
   script:
     - webpack-cli -v
     - npm run build
