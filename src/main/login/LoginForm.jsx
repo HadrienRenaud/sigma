@@ -9,7 +9,7 @@ import {apiUrl} from "../../config.jsx";
 const STATES = {
     loggedIn: 0,
     notLoggedIn: 1
-}
+};
 
 /**
  * Copié puis modifié depuis https://react.semantic-ui.com/layouts/login
@@ -59,8 +59,11 @@ class LoginForm extends React.Component {
             .then(data => data.json())
             .then((data) => {
                 console.log("Answer :", data.message);
-                if (data.authSucceeded)
+                if (data.authSucceeded) {
                     this.setState({mode: 'loggedin'});
+                    if (data.token)
+                        localStorage.setItem("token", data.token);
+                }
             });
     }
 
