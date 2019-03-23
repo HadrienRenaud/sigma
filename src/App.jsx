@@ -34,7 +34,7 @@ const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
  * or else Apollo client will complain about fragments
  */
 import apiSchemaGetter from './getSchemaInfo';
-apiSchemaGetter(GRAPHQL_API_URL_LOCAL);
+apiSchemaGetter(GRAPHQL_API_URL);
 
 import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 const introspectionQueryResultData = JSON.parse(localStorage.getItem('fragmentTypes'));
@@ -64,7 +64,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = createHttpLink({
-    uri: GRAPHQL_API_URL_LOCAL
+    uri: GRAPHQL_API_URL
 });
 
 const client = new ApolloClient({
