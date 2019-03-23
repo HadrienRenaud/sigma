@@ -34,7 +34,7 @@ const GET_ANNOUNCEMENT = gql`
             views # TODO mettre un commentaire pour expliquer
     
             forEvent {
-                id,
+                mid,
                 title,
                 startTime
             }

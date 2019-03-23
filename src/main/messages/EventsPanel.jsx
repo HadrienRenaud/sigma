@@ -10,11 +10,11 @@ import Post from './Post.jsx';
 const ALL_EVENTS = gql`
     query eventsQuery {
         allEvents {
-            id
+            mid
             title
             content
             authors {
-                uid
+                gid
                 name
             }
         }

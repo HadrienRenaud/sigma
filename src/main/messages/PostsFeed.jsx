@@ -13,12 +13,20 @@ const ALL_POSTS = gql`
             mid
             title
             content
-            authors {
-                uid
-                name
+            
+            ...on Announcement {
+                authors {
+                    gid,
+                    name
+                }
             }
+            
             ...on Event {
-                location
+                location,
+                authors {
+                    gid,
+                    name
+                }
             }
         }
     }

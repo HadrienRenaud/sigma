@@ -28,12 +28,14 @@ class Post extends React.Component {
 
     render() {
 
+        let authors = this.props.authors || [];
+
         return (
             <Segment>
                 <Header as="h2">
                     {this.props.title}
                     <Header.Subheader>
-                        {this.props.authors.map((auth,i) => {
+                        {authors.map((auth,i) => {
                             if (i == 0) return <span key={auth.uid}>par: {auth.name} </span>;
                             else return <span key={auth.uid}>et {auth.name} </span>;
                         })}
