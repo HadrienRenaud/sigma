@@ -56,7 +56,7 @@ class PostsFeed extends React.Component {
                     return (
                         <Feed>
                             {allMessages.map(post => (
-                                <Post key={post.id} {...post}/>
+                                <Post key={post.mid} {...post}/>
                             ))}
                         </Feed>
                     );

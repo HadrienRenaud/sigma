@@ -45,7 +45,7 @@ class EventsPanel extends React.Component {
                     return (
                         <div>
                             {allEvents.map(post => (
-                                <Post key={post.id} {...post}/>
+                                <Post key={post.mid} {...post}/>
                             ))}
                         </div>
                     );
