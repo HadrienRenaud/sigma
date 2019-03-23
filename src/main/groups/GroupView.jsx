@@ -1,12 +1,13 @@
 /**
  * @file La page principale d'un groupe ! Regroupera presentation, annonces, administrations...
- * @file a afficher pour path="baseurl/groups/:uid"
+ * @file a afficher pour path="baseurl/groups/:g
+ * id"
  * @author manifold
  */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Route, Switch, NavLink, Link, withRouter, Redirect } from 'react-router-dom';
-import Error404 from '../Errors.jsx';
+import {Error404} from '../Errors.jsx';
 import { Menu, Header, Button, Container, Icon, Popup, Label, Segment } from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
@@ -21,8 +22,8 @@ import GroupCard from './GroupCard.jsx';
 import {GQLError} from "../Errors.jsx";
 
 const GET_GROUP = gql`
-    query getGroup($uid: ID!) {
-        group(uid: $uid) {
+    query getGroup($gid: ID!) {
+        group(gid: $gid) {
             gid
             name
             website
@@ -57,8 +58,8 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
         return (
             <Query query={GET_GROUP}
                 variables={{
-                    //uid: "br" //TODO: wrap with withRouter and get uid from this.props.match.params.uid
-                    uid: match.params.uid
+                    //gid: "br" //TODO: wrap with withRouter and get gid from this.props.match.params.gid
+                    gid: match.params.gid
                 }}
                 fetchPolicy='cache-first' //choose cache behaviour
             >
@@ -103,7 +104,7 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                                     <a href={`http://${group.website}`}>{group.website}</a>
                                     {/*TODO: il y a aussi des https...*/}
                                 </Header.Subheader>
-                                {/*<GroupCard uid={match.params.uid} />*/}
+                                {/*<GroupCard gid={match.params.gid} />*/}
                                 {/*pour plus de flexibilite et pour l'esthetique on n'utilisera pas GroupCard comme header*/}
                             </Header>
 

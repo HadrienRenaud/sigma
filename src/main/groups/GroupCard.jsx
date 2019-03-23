@@ -16,8 +16,8 @@ import {GQLError} from "../Errors.jsx";
  */
 
 const GET_GROUP = gql`
-    query getGroup($uid: ID!) {
-        group(uid: $uid) {
+    query getGroup($gid: ID!) {
+        group(gid: $gid) {
             gid
             name
             website
@@ -29,7 +29,7 @@ const GET_GROUP = gql`
 class GroupCard extends React.Component {
 
     static propTypes = {
-        uid: PropTypes.string.isRequired
+        gid: PropTypes.string.isRequired
     }
 
     constructor(props) {
@@ -39,7 +39,7 @@ class GroupCard extends React.Component {
     render() {
         return (
             <Query query={GET_GROUP}
-                variables={{uid: this.props.uid}}
+                variables={{gid: this.props.gid}}
                 fetchPolicy='cache-first' //choose cache behaviour
             >
                 {({ loading, error, data }) => {
@@ -52,7 +52,7 @@ class GroupCard extends React.Component {
                         <Card fluid={true} color={"blue"}>
                             <Card.Content>
                                 <Card.Header>
-                                    <Link to={"/groups/" + this.props.uid}>{group.name}</Link>
+                                    <Link to={"/groups/" + this.props.gid}>{group.name}</Link>
                                 </Card.Header>
                                 <Card.Meta>
                                     <a href={group.website}>{group.website}</a>

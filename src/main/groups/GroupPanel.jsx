@@ -37,13 +37,11 @@ class GroupPanel extends React.Component {
             return <GQLError error={error}/>;
         }
 
-        console.log(JSON.stringify(allGroups));
-
         return (
             <div>
                 {allGroups.map(gr => {
-                    const linkto = "/groups/"+gr.uid;
-                    return <div key={gr.uid}>
+                    const linkto = "/groups/"+gr.gid;
+                    return <div key={gr.gid}>
                         <Link to={linkto}><Button>{gr.name}</Button></Link>
                     </div>;
                 }

@@ -55,7 +55,7 @@ class Body extends React.Component {
                         <Switch> {/*forces exclusive path matching*/}
                             <Route path="/event" component={Event} />
                             <Route exact path="/groups" component={AllGroups} />
-                            <Route path="/groups/:uid" component={GroupView} />{/*pour les paths de la forme "/groups/:uid"*/}
+                            <Route path="/groups/:gid" component={GroupView} />{/*pour les paths de la forme "/groups/:gid"*/}
                             <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
                             <Route path="/services" component={Services} />
                             <Route exact path="/" component={Index} />
