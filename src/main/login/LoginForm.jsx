@@ -1,16 +1,17 @@
 import React from 'react';
 import {Mutation} from 'react-apollo';
-import { Form } from 'semantic-ui-react';
+import {Form} from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
+import {Redirect} from "react-router-dom";
+import {apiUrl} from "../../config.jsx";
 
-const LOGIN_REQUEST = gql`
-    mutation loginMutation($username: String!, $password: String!) {
-        login(username: $username, password: $password)
-    }
-`;
+const STATES = {
+    loggedIn: 0,
+    notLoggedIn: 1
+}
 
-/** 
+/**
  * Copié puis modifié depuis https://react.semantic-ui.com/layouts/login
  * On s'est aussi beaucoup inspire de https://react.semantic-ui.com/collections/form#form-example-capture-values
  * Pour le conditional rendering (mode loggedin/tologin, https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
@@ -32,73 +33,62 @@ class LoginForm extends React.Component {
         // This binding is necessary to make `this` work in the callback
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
-        //this.handleChangeMode = this.handleChangeMode.bind(this);
     }
 
     handleInputChange(event) {
         const name = event.target.name; //l'attribut "name" du Component qui appelle ce handle (par un onChange)
         const value = event.target.value;
-        this.setState({ [name]: value }); //ES6 computed property name syntax
+        this.setState({[name]: value}); //ES6 computed property name syntax
     }
 
-    handleSubmit(event, login) {
+    handleSubmit(event) {
         event.preventDefault();
-        const loginResult = login({ variables: { username: this.state.userInput, password: this.state.passwordInput } });
-
-        loginResult.then(({data}) => {
-            console.log(data);
-            console.log(typeof(data.login));
-            console.log(data.login);
-            localStorage.setItem('token', data.login);
+        console.log("Sending login request to ", apiUrl + '/login');
+        const loginRequest = fetch(apiUrl + '/login', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: this.state.userInput,
+                password: this.state.passwordInput
+            })
         });
-    }
-
-    renderLoggedIn() { // to render when user is already logged in
-        //using the 'output' variable allows React to do lazy component mounting
-        //https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
-        let output;
-        if (this.state.mode == 'loggedin') {
-            output =
-                <div>
-                    blablablablabla
-                </div>;
-        }
-        return output; //returns null if variable was not modified
+        loginRequest
+            .then(data => data.json())
+            .then((data) => {
+                console.log("Answer :", data.message);
+                if (data.authSucceeded)
+                    this.setState({mode: 'loggedin'});
+            });
     }
 
     render() {
+        if (this.state.mode === 'loggedin')
+            return <Redirect to='/'/>;
+
         return (
-            <Mutation
-                mutation={LOGIN_REQUEST}
-                variables={{
-                    username: this.state.userInput,
-                    password: this.state.passwordInput
-                }}
-            >
-                {(loginMutation, { data }) => (
-                    <Form size='large' onSubmit={e => this.handleSubmit(e, loginMutation)}>
-                        <Form.Input
-                            fluid
-                            icon='user' iconPosition='left'
-                            placeholder='Identifiant Frankiz'
-                            type='text' name='userInput'
-                            value={this.state.userInput}
-                            onChange={this.handleInputChange}
-                        />
-                        <Form.Input
-                            fluid
-                            icon='lock' iconPosition='left'
-                            placeholder='Mot de passe'
-                            type='password' name='passwordInput'
-                            value={this.state.passwordInput}
-                            onChange={this.handleInputChange}
-                        />
+            <Form size='large' onSubmit={e => this.handleSubmit(e)}>
+                <Form.Input
+                    fluid
+                    icon='user' iconPosition='left'
+                    placeholder='Identifiant Frankiz'
+                    type='text' name='userInput'
+                    value={this.state.userInput}
+                    onChange={this.handleInputChange}
+                />
+                <Form.Input
+                    fluid
+                    icon='lock' iconPosition='left'
+                    placeholder='Mot de passe'
+                    type='password' name='passwordInput'
+                    value={this.state.passwordInput}
+                    onChange={this.handleInputChange}
+                />
 
-                        <Form.Button fluid color='blue' size='large' content="Login" />
-                    </Form>
-                )}
-            </Mutation>
-
+                <Form.Button fluid color='blue' size='large' content="Login"/>
+            </Form>
         );
     }
 }

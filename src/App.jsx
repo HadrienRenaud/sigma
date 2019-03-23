@@ -25,16 +25,13 @@ import { setContext } from 'apollo-link-context';
 import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
 import { Query, ApolloProvider } from 'react-apollo';
 import { ApolloClient } from 'apollo-client';
-
-const GRAPHQL_API_URL_LOCAL = "http://localhost:3000/graphql";
-const GRAPHQL_API_URL = "http://129.104.201.10:3000/graphql";
-
+import {graphqlApiUrl} from './config.jsx';
 /**
  * Fetch info on interfaces and unions in our backend API
  * or else Apollo client will complain about fragments
  */
 import apiSchemaGetter from './getSchemaInfo';
-apiSchemaGetter(GRAPHQL_API_URL);
+apiSchemaGetter(graphqlApiUrl);
 
 import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
 const introspectionQueryResultData = JSON.parse(localStorage.getItem('fragmentTypes'));
@@ -64,7 +61,7 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const httpLink = createHttpLink({
-    uri: GRAPHQL_API_URL
+    uri: graphqlApiUrl
 });
 
 const client = new ApolloClient({
