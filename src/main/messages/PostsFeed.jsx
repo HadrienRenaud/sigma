@@ -10,7 +10,7 @@ import Post from './Post.jsx';
 const ALL_POSTS = gql`
     query eventsQuery {
         allMessages {
-            id
+            mid
             title
             content
             authors {
