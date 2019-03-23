@@ -28,7 +28,7 @@ class Login extends React.Component {
                             Connexion
                         </Header>
                         <Segment raised>
-                            <LoginForm />
+                            <LoginForm {...this.props}/>
                         </Segment>
                     </Grid.Column>
                 </Grid>

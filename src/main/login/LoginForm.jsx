@@ -62,19 +62,33 @@ class LoginForm extends React.Component {
         loginRequest
             .then(data => data.json())
             .then((data) => {
-                this.setState({loading: false})
-                console.log("Answer :", data);
+                console.log("Answer :", data.message);
                 if (data.authSucceeded) {
                     this.setState({mode: STATES.loggedIn});
-                    if (data.token)
+                    if (data.token) {
                         localStorage.setItem("token", data.token);
+                        if (data.tokenValidity)
+                            localStorage.setItem("tokenValidity", data.tokenValidity);
+                        else {
+                            let expirationDate = new Date();
+                            expirationDate.setMinutes(expirationDate.getMinutes() + 15);
+                            localStorage.setItem("tokenValidity", expirationDate.toUTCString())
+                        }
+                    }
+                    else {
+                        localStorage.setItem("token", "Ceci est un token");
+                        console.warn("Saving a false token -> problems with identification after.");
+                        localStorage.setItem("tokenValidity", "Mon, 23 Mar 2020 22:03:25 GMT");
+                    }
+                    if (this.props.onLogIn)
+                        this.props.onLogin();
                 } else {
-                    console.log("Changing state");
                     this.setState({
                         mode: STATES.error,
                         error: data.message,
                     });
                 }
+                this.setState({loading: false});
             });
     }
 
