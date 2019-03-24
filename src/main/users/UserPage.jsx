@@ -31,7 +31,7 @@ const GET_USER = gql`
 class UserPage extends React.Component {
 
     render() {
-        let uid = this.props.match.params.uid;
+        let uid = this.props.match.params.uid || this.props.uid;
 
         return (
             <Query query={GET_USER}

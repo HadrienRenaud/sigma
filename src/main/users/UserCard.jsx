@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import { Card, Header, List } from 'semantic-ui-react';
 import { Query } from 'react-apollo';
 import gql from 'graphql-tag';
+import {Link} from "react-router-dom";
 
 const GET_USER = gql`
     query getUser($uid: ID) {
@@ -60,7 +61,7 @@ class UserCard extends React.Component {
                         <Card>
                             <Card.Content>
                                 <Card.Header as='h2'>
-                                    {user.givenName} {user.lastName}
+                                    <Link to={'/users/' + this.props.uid}>{user.givenName} {user.lastName}</Link>
                                 </Card.Header>
                                 <List>
                                     <List.Item 
