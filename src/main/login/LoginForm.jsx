@@ -65,6 +65,7 @@ class LoginForm extends React.Component {
                 console.log("Answer :", data.message);
                 if (data.authSucceeded) {
                     this.setState({mode: STATES.loggedIn});
+                    localStorage.setItem('uid', this.state.userInput);
                     if (data.token) {
                         localStorage.setItem("token", data.token);
                         if (data.tokenValidity)

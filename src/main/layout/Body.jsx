@@ -60,6 +60,7 @@ class Body extends React.Component {
                             <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
                             <Route path="/services" component={Services} />
                             <Route path="/users/:uid" component={UserPage} />
+                            <Route path="/me" component={() => <UserPage uid={localStorage.getItem("uid")}/>}/>
                             <Route exact path="/" component={Index} />
                             <Route component={Error404} />
                         </Switch>

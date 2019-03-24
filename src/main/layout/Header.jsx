@@ -44,6 +44,11 @@ class Header extends React.Component {
                     Services BR
                 </Menu.Item>
 
+                {/*NavLink to path /me, telling Center to render UserPage with my uid*/}
+                <Menu.Item as={NavLink} to='/me' name="me" position='right'>
+                    My Account
+                </Menu.Item>
+
                 {/*
                 If connected :
                    Logout function
