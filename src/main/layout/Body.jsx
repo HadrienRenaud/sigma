@@ -17,6 +17,7 @@ import Services from '../services/Services.jsx';
 import SideBar from './SideBar.jsx';
 
 import Background from '../../assets/sigma_bg.jpg';
+import UserPage from "../users/UserPage.jsx";
 
 // inline styling to render a background image.
 // apparently it is better to use CSS classes but it would imply manipulating webpack
@@ -58,6 +59,7 @@ class Body extends React.Component {
                             <Route path="/groups/:gid" component={GroupView} />{/*pour les paths de la forme "/groups/:gid"*/}
                             <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
                             <Route path="/services" component={Services} />
+                            <Route path="/users/:uid" component={UserPage} />
                             <Route exact path="/" component={Index} />
                             <Route component={Error404} />
                         </Switch>

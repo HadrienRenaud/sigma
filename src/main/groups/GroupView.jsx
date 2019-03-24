@@ -18,8 +18,8 @@ import GroupPageInterne from './group_view/GroupPageInterne.jsx';
 import GroupAdministrer from './group_view/GroupAdministrer.jsx';
 import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
-import GroupCard from './GroupCard.jsx';
 import {GQLError} from "../Errors.jsx";
+import GroupMembers from "./group_view/GroupMembers.jsx";
 
 const GET_GROUP = gql`
     query getGroup($gid: ID!) {
@@ -30,13 +30,21 @@ const GET_GROUP = gql`
             description
             createdAt
             updatedAt
-            # frontPage # TODO: modifier le schema graphQL et decommenter cette ligne
+            
+            ...on SimpleGroup {
+                members {
+                    uid
+                    lastName
+                    givenName
+                    promotion
+                }
+            }
         }
     }
 `;
 
 
-class GroupView extends React.Component { //TODO change into semantic-ui-react
+class GroupView extends React.Component {
     state = {}
 
     static propTypes = {
@@ -122,7 +130,8 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                                     content="Questions-Réponses" />
                                 <Menu.Item as={NavLink} to={match.url + "/events"}
                                     content="Événements" />
-
+                                <Menu.Item as={NavLink} to={match.url + "/members"}
+                                           content="Membres" />
                                 <Menu.Item as={NavLink} to={match.url + "/interne"}
                                     position='right'
                                     content="Page interne" /> {/*réservé aux membres du groupe*/}
@@ -142,6 +151,7 @@ class GroupView extends React.Component { //TODO change into semantic-ui-react
                                     <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
                                     <Route path={`${match.url}/qanda`} component={GroupQanda} />
                                     <Route path={match.url + "/events"} component={GroupEvents} />
+                                    <Route path={match.url + "/members"} component={() => <GroupMembers members={group.members}/>} />
                                     <Route path={match.url + "/interne"} component={GroupPageInterne} />
                                     <Route path={match.url + "/admin"} component={GroupAdministrer} />
                                     <Route component={Error404} />
