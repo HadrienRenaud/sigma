@@ -30,6 +30,7 @@ const GET_GROUP = gql`
             description
             createdAt
             updatedAt
+            frontPage
             
             ...on SimpleGroup {
                 members {
@@ -146,7 +147,7 @@ class GroupView extends React.Component {
                                 fakeFrontPage par group.frontPage*/}
                                     {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/}
                                     <Route exact path={`${match.url}`}
-                                        render={() => <GroupFrontPage frontPage={fakeFrontPage}/> } 
+                                        render={() => <GroupFrontPage frontPage={group.frontPage}/> }
                                     />
                                     <Route path={match.url + "/annonces"} component={GroupAnnouncements} />
                                     <Route path={`${match.url}/qanda`} component={GroupQanda} />

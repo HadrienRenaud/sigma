@@ -2,15 +2,15 @@
  * @file la page d'accueil d'un groupe, accessible par path='/group/:uid_du_group/'.
  * Contient un markdown de publicité stylée/de troll si c'est un binet pipo
  * (tandis que 'description' est un string court de description du groupe)
- * 
+ *
  * Ainsi que les annonces et événements adressées à ce groupe.
  */
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Route, Link } from 'react-router-dom';
+import {Route, Link} from 'react-router-dom';
 
-import { Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
+import {Button, Segment, Icon, Divider, Card} from 'semantic-ui-react';
 
 class GroupFrontPage extends React.Component {
 
@@ -19,13 +19,10 @@ class GroupFrontPage extends React.Component {
     }
 
     render() {
-        const { frontPage } = this.props;
-        
+        const {frontPage} = this.props;
+
         return (
-            <div>
-                <p>Group Front Page</p>
-                <ReactMarkdown source={frontPage} />
-            </div>
+            <ReactMarkdown source={frontPage}/>
         );
     }
 
