@@ -27,15 +27,15 @@ const GET_TROMBINO = gql`
         $givenName: String,
         $lastName: String,
         $nickname: String,
-        $groups: String,
-        $promotion: String,
+        $groups: [String],
     ) {
         #returns [User] array of JS objects with only the 'uid' field, representing User uid's
         searchTOL(givenName: $givenName, 
             lastName: $lastName,
             nickname: $nickname,
-            groups: $groups,
-            promotion: $promotion)
+            groups: $groups) {
+            uid
+        }
     }
 `;
 
@@ -61,6 +61,7 @@ class TrombinoResults extends React.Component {
     }
 
     render() {
+        console.log(this.props.params.groups + [this.props.params.formation])
 
         return (
             <Query query={GET_TROMBINO}
@@ -68,8 +69,7 @@ class TrombinoResults extends React.Component {
                     givenName: this.props.params.givenName, 
                     lastName: this.props.params.lastName,
                     nickname: this.props.params.nickname,
-                    groups: this.props.params.groups,
-                    promotion: this.props.params.promo,
+                    groups: this.props.params.groups + [this.props.params.formation],
                 }}
                 fetchPolicy='cache-first' 
             >
