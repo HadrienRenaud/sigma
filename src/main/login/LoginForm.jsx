@@ -82,7 +82,7 @@ class LoginForm extends React.Component {
                         localStorage.setItem("tokenValidity", "Mon, 23 Mar 2020 22:03:25 GMT");
                     }
                     if (this.props.onLogIn)
-                        this.props.onLogin();
+                        this.props.onLogIn();
                 } else {
                     this.setState({
                         mode: STATES.error,
