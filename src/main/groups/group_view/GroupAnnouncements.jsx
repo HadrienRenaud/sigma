@@ -86,7 +86,7 @@ class GroupAnnouncements extends React.Component {
                         return (
                             <div>
                                 {announcementsFromGroup.map(res => {
-                                    return <AnnouncementCard key={res.id} uid={res.id} />;
+                                    return <AnnouncementCard key={res.mid} mid={res.mid} />;
                                 })}
                             </div>
                         );
@@ -108,7 +108,6 @@ class GroupAnnouncements extends React.Component {
                     fetchPolicy='cache-first'
                 >
                     {({ loading, error, data }) => {
-                        console.log(data);
                         if (loading) return <div>Chargement, patience SVP...</div>;
                         else if (error) return <GQLError error={error}/>;
                         const { group } = data; //extracts the actual data from object 'data'
@@ -117,7 +116,7 @@ class GroupAnnouncements extends React.Component {
                         return (
                             <div>
                                 {announcementsToGroup.map(res => {
-                                    return <AnnouncementCard key={res.id} uid={res.id} />;
+                                    return <AnnouncementCard key={res.mid} mid={res.mid} />;
                                 })}
                             </div>
                         );

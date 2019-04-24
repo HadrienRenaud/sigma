@@ -20,19 +20,19 @@ import {GQLError} from "../Errors.jsx";
  * @constant Requête GraphQL
 */
 const GET_ANNOUNCEMENT = gql`
-    query getAnnouncement($id: ID!) {
-        announcement {
+    query getAnnouncement($mid: ID!) {
+        announcement(mid: $mid) {
             createdAt
             updatedAt
             title
             content
 
-            authors
-            recipients
+            authors {gid}
+            recipients {gid}
 
             importance # TODO: mettre un commentaire pour expliquer
             views # TODO mettre un commentaire pour expliquer
-    
+
             forEvent {
                 mid,
                 title,
@@ -60,8 +60,8 @@ class AnnouncementCard extends React.Component {
         super(props);
     }
 
-    static PropTypes = {
-        id: PropTypes.string.isRequired
+    static propTypes = {
+        mid: PropTypes.string.isRequired
     }
 
     render() {
@@ -69,7 +69,7 @@ class AnnouncementCard extends React.Component {
         return (
             <Query query={GET_ANNOUNCEMENT}
                 variables={{
-                    id: this.props.id
+                    mid: this.props.mid
                 }}
                 fetchPolicy='cache-first' //choose cache behaviour
             >
@@ -109,4 +109,4 @@ class AnnouncementCard extends React.Component {
     }
 }
 
-export default DummyAnnouncementCard;
+export default AnnouncementCard;
