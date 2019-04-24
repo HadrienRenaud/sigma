@@ -28,22 +28,26 @@ const source = _.times(5, () => ({
 */
 const GET_ANNOUNCEMENTS_FROM = gql`
     query announcements_from(
-        $groupid: ID!
+    $groupid: ID!
     ) {
         #returns [Announcement] array of JS objects with only the 'id' field, representing announcement id's
-        announcementsFromGroup(uid: $groupid) {
-            mid
+        group(gid: $groupid) {
+            announcementsFromGroup {
+                mid
+            }
         }
     }
 `;
 
 const GET_ANNOUNCEMENTS_TO = gql`
     query announcements_to(
-        $groupid: ID!
+    $groupid: ID!
     ) {
         #returns [Announcement] array of JS objects with only the 'id' field, representing announcement id's
-        announcementsToGroup(uid: $groupid) {
-            mid
+        group(gid: $groupid) {
+            announcementsToGroup {
+                mid
+            }
         }
     }
 `;
@@ -106,7 +110,7 @@ class GroupAnnouncements extends React.Component {
                 >
                     {({ loading, error, data }) => {
                         if (loading) return <div>Chargement, patience SVP...</div>;
-                        else if (error) return <div>Erreur.</div>;
+                        else if (error) return <GQLError error={error}/>;
 
                         const { announcementsToGroup } = data; //extracts the actual data from object 'data'
 
@@ -131,11 +135,12 @@ class GroupAnnouncements extends React.Component {
 
         return (
             <div>
-                <Menu attached='top'>
-                    <Menu.Item>
+                <Menu secondary>
+                    {/* <Menu.Item>
                         Désolé, la recherche d'annonces (client-side, parmi celles déjà Query-ées) n'est pas encore implémentée.
-                        {/*<Search />*/}
+                        *<Search />
                     </Menu.Item>
+                    */}
 
                     <Menu.Item position='right'>
                         <Button.Group color='teal' size="mini">

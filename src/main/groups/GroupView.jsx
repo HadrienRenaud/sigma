@@ -11,6 +11,7 @@ import {Error404} from '../Errors.jsx';
 import {Menu, Header, Button, Container, Icon, Popup, Label, Segment} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
+import ReactMarkdown from 'react-markdown';
 
 import GroupAnnouncements from './group_view/GroupAnnouncements.jsx';
 import GroupQanda from './group_view/GroupQanda.jsx';
@@ -83,40 +84,46 @@ class GroupView extends React.Component {
                     return (
                         <Container>
 
-                            <Header as="h1">
-                                {group.name}
-                                <Header.Subheader>
-                                    <a href={`${group.website}`}>{group.website}</a>
-                                </Header.Subheader>
-                            </Header>
+                            <Menu secondary>
+                                <Menu.Item>
+                                    <Header as="h1">
+                                        {group.name}
+                                        <Header.Subheader>
+                                            <a href={`${group.website}`}>{group.website}</a>
+                                        </Header.Subheader>
+                                    </Header>
+                                </Menu.Item>
 
-                            <p>{group.description}</p>
-                            <Label attached="top right">
-                                <Popup
-                                    trigger={<Button color='yellow' icon='star'/>}
-                                    content='Devenir administrateur'
-                                    position='top left'
-                                    inverted
-                                />
-                                <Popup
-                                    trigger={<Button color='blue' icon='user'/>}
-                                    content='Devenir membre'
-                                    position='top left'
-                                    inverted
-                                />
-                                <Popup
-                                    trigger={<Button as='div' labelPosition='right'>
-                                        <Button color='pink'>
-                                            <Icon name='heart'/>
-                                        </Button>
-                                        <Label as='a' basic color='pink' pointing='left'>2,048</Label>
-                                    </Button>}
-                                    content='Devenir sympathisant'
-                                    position='top left'
-                                    inverted
-                                />
-                            </Label>
+                                <Menu.Item position="right">
+                                    <Popup
+                                        trigger={<Button color='yellow' icon='star'/>}
+                                        content='Devenir administrateur'
+                                        position='top left'
+                                        inverted
+                                    />
+                                    <Popup
+                                        trigger={<Button color='blue' icon='user'/>}
+                                        content='Devenir membre'
+                                        position='top left'
+                                        inverted
+                                    />
+                                    <Popup
+                                        trigger={<Button as='div' labelPosition='right'>
+                                            <Button color='pink'>
+                                                <Icon name='heart'/>
+                                            </Button>
+                                            <Label as='a' basic color='pink' pointing='left'>2,048</Label>
+                                        </Button>}
+                                        content='Devenir sympathisant'
+                                        position='top left'
+                                        inverted
+                                    />
+                                </Menu.Item>
+                            </Menu>
 
+                            <Segment basic>
+                            <ReactMarkdown source={group.description}/>
+                            </Segment>
 
                             {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/
                             }
