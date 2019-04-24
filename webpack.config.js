@@ -6,7 +6,7 @@ const webpack = require('webpack');
 const convert = require('koa-connect');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const history = require('connect-history-api-fallback');
-const environment = process.env.NODE_ENV;
+const environment = process.env.NODE_ENV || 'development';
 
 const config = {
     
@@ -86,7 +86,7 @@ const config = {
 if (environment == 'development') {
     config.serve = {
         content: [__dirname],
-        port: 8888,
+        port: 8080,
         add: (app, middleware, options) => {
             const historyOptions = {
                 // ... see: https://github.com/bripkens/connect-history-api-fallback#options
