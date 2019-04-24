@@ -75,15 +75,14 @@ class GroupAnnouncements extends React.Component {
         if (this.state.mode=='from' || this.state.mode=='both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_FROM}
-                    variables={{ uid: "br" }}
+                    variables={{ groupid: "br" }}
                     fetchPolicy='cache-first'
                 >
                     {({ loading, error, data }) => {
                         if (loading) return <div>Chargement, patience SVP...</div>;
                         else if (error) return <GQLError error={error}/>;
-
-                        const { announcementsFromGroup } = data; //extracts the actual data from object 'data'
-
+                        const { group } = data; //extracts the actual data from object 'data'
+                        const { announcementsFromGroup } = group;
                         return (
                             <div>
                                 {announcementsFromGroup.map(res => {
@@ -105,14 +104,15 @@ class GroupAnnouncements extends React.Component {
         if (this.state.mode=='to' || this.state.mode=='both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_TO}
-                    variables={{ uid: "br" }}
+                    variables={{ groupid: "br" }}
                     fetchPolicy='cache-first'
                 >
                     {({ loading, error, data }) => {
+                        console.log(data);
                         if (loading) return <div>Chargement, patience SVP...</div>;
                         else if (error) return <GQLError error={error}/>;
-
-                        const { announcementsToGroup } = data; //extracts the actual data from object 'data'
+                        const { group } = data; //extracts the actual data from object 'data'
+                        const { announcementsToGroup } = group; //extracts the actual data from object 'data'
 
                         return (
                             <div>
