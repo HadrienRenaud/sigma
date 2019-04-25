@@ -75,7 +75,7 @@ class GroupAnnouncements extends React.Component {
         if (this.state.mode=='from' || this.state.mode=='both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_FROM}
-                    variables={{ groupid: "br" }}
+                    variables={{ groupid: this.props.gid }}
                     fetchPolicy='cache-first'
                 >
                     {({ loading, error, data }) => {
@@ -104,7 +104,7 @@ class GroupAnnouncements extends React.Component {
         if (this.state.mode=='to' || this.state.mode=='both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_TO}
-                    variables={{ groupid: "br" }}
+                    variables={{ groupid: this.props.gid }}
                     fetchPolicy='cache-first'
                 >
                     {({ loading, error, data }) => {
