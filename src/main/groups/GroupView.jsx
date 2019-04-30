@@ -127,7 +127,7 @@ class GroupView extends React.Component {
 
                             {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/
                             }
-                            <Menu>
+                            <Menu pointing>
                                 <Menu.Item as={NavLink} exact to={match.url}
                                            content="Page d'accueil"/>
                                 <Menu.Item as={NavLink} to={match.url + "/annonces"}
