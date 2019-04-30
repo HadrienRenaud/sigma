@@ -32,15 +32,7 @@ const GET_GROUP = gql`
             createdAt
             updatedAt
             frontPage
-
-            ...on SimpleGroup {
-                members {
-                    uid
-                    lastName
-                    givenName
-                    promotion
-                }
-            }
+            __typename
         }
     }
 `;
@@ -83,7 +75,6 @@ class GroupView extends React.Component {
 
                     return (
                         <Container>
-
                             <Menu secondary>
                                 <Menu.Item>
                                     <Header as="h1">
@@ -165,7 +156,7 @@ class GroupView extends React.Component {
                                         component={GroupEvents}
                                 />
                                 <Route path={match.url + "/members"}
-                                       component={() => <GroupMembers members={group.members}/>}
+                                       component={() => <GroupMembers gid={group.gid} typename={group.__typename}/>}
                                 />;
                                 < Route path={match.url + "/interne"} component={GroupPageInterne}/>
                                 <Route path={match.url + "/admin"} component={GroupAdministrer}/>;
