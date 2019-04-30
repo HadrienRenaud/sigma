@@ -139,10 +139,6 @@ class GroupView extends React.Component {
 
 
                             < Switch>
-                                {/*la premiere chose qu'on voit en arrivant sur la page*/};
-                                {/*TODO: modifier le schema graphQL et remplacer :
-                            fakeFrontPage par group.frontPage*/
-                                }
                                 {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/
                                 }
                                 <Route exact path={`${match.url}`}

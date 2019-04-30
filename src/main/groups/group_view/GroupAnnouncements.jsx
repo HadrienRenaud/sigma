@@ -6,26 +6,18 @@
 import React from 'react';
 import {Route, Link} from 'react-router-dom';
 
-import { Menu, Header, Button, Search, Grid, Divider } from 'semantic-ui-react';
+import {Menu, Header, Button, Search, Grid, Divider, Dropdown, Feed} from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
 import AnnouncementCard from '../../messages/AnnouncementCard.jsx';
 import {GQLError} from "../../Errors.jsx";
 
-/*
-const source = _.times(5, () => ({
-    title: faker.company.companyName(),
-    description: faker.company.catchPhrase(),
-    image: faker.internet.avatar(),
-}));
-*/
-
-/** 
+/**
  * @constant Requête GraphQL...
- * Rq: si on en a besoin (notamment pour search parmi les resultats de la Query), on pourra aussi 
+ * Rq: si on en a besoin (notamment pour search parmi les resultats de la Query), on pourra aussi
  * recuperer d'autres fields (date et titre notamment).
-*/
+ */
 const GET_ANNOUNCEMENTS_FROM = gql`
     query announcements_from(
     $groupid: ID!
@@ -62,33 +54,38 @@ class GroupAnnouncements extends React.Component {
         this.handleChangeMode = this.handleChangeMode.bind(this);
     }
 
-    handleChangeMode(e) {
-        const name = e.target.name; //l'attribut "name" du Component qui appelle ce handle
-        this.setState({ mode: name }); //ES6 computed property name syntax
-    }    
+    modes = [
+        {key: 0, text: "Annonces adressées au groupe", value: "to"},
+        {key: 1, text: "Les deux", value: "both"},
+        {key: 2, text: "Annonces faites par le groupe", value: "from"},
+    ];
+
+    handleChangeMode(e, {value}) {
+        this.setState({mode: value});
+    }
 
     renderAnnouncementsFrom() {
         //using the 'output' variable allows React to do lazy component mounting
         //https://blog.logrocket.com/conditional-rendering-in-react-c6b0e5af381e
         let output;
 
-        if (this.state.mode=='from' || this.state.mode=='both') {
+        if (this.state.mode == 'from' || this.state.mode == 'both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_FROM}
-                    variables={{ groupid: this.props.gid }}
-                    fetchPolicy='cache-first'
+                       variables={{groupid: this.props.gid}}
+                       fetchPolicy='cache-first'
                 >
-                    {({ loading, error, data }) => {
+                    {({loading, error, data}) => {
                         if (loading) return <div>Chargement, patience SVP...</div>;
                         else if (error) return <GQLError error={error}/>;
-                        const { group } = data; //extracts the actual data from object 'data'
-                        const { announcementsFromGroup } = group;
+                        const {group} = data; //extracts the actual data from object 'data'
+                        const {announcementsFromGroup} = group;
                         return (
-                            <div>
+                            <Feed>
                                 {announcementsFromGroup.map(res => {
-                                    return <AnnouncementCard key={res.mid} mid={res.mid} />;
+                                    return <AnnouncementCard key={res.mid} mid={res.mid}/>;
                                 })}
-                            </div>
+                            </Feed>
                         );
                     }}
                 </Query>
@@ -101,24 +98,24 @@ class GroupAnnouncements extends React.Component {
     renderAnnouncementsTo() {
         let output;
 
-        if (this.state.mode=='to' || this.state.mode=='both') {
+        if (this.state.mode == 'to' || this.state.mode == 'both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_TO}
-                    variables={{ groupid: this.props.gid }}
-                    fetchPolicy='cache-first'
+                       variables={{groupid: this.props.gid}}
+                       fetchPolicy='cache-first'
                 >
-                    {({ loading, error, data }) => {
+                    {({loading, error, data}) => {
                         if (loading) return <div>Chargement, patience SVP...</div>;
                         else if (error) return <GQLError error={error}/>;
-                        const { group } = data; //extracts the actual data from object 'data'
-                        const { announcementsToGroup } = group; //extracts the actual data from object 'data'
+                        const {group} = data; //extracts the actual data from object 'data'
+                        const {announcementsToGroup} = group; //extracts the actual data from object 'data'
 
                         return (
-                            <div>
+                            <Feed>
                                 {announcementsToGroup.map(res => {
-                                    return <AnnouncementCard key={res.mid} mid={res.mid} />;
+                                    return <AnnouncementCard key={res.mid} mid={res.mid}/>;
                                 })}
-                            </div>
+                            </Feed>
                         );
                     }}
                 </Query>
@@ -130,37 +127,26 @@ class GroupAnnouncements extends React.Component {
 
 
     render() {
-        const { mode } = this.state;
+        const {mode} = this.state;
 
         return (
             <div>
                 <Menu secondary>
-                    {/* <Menu.Item>
-                        Désolé, la recherche d'annonces (client-side, parmi celles déjà Query-ées) n'est pas encore implémentée.
-                        *<Search />
+                    <Menu.Item>
+                        <Dropdown options={this.modes} onChange={this.handleChangeMode.bind(this)}
+                                  defaultValue={this.modes[0].value}
+                                  selection
+                        />
                     </Menu.Item>
-                    */}
 
                     <Menu.Item position='right'>
-                        <Button.Group color='teal' size="mini">
-                            <Button content="Annonces adressées au groupe" 
-                                name="to"
-                                onClick={(e) => this.handleChangeMode(e)} />
-                            <Button.Or text="ou" />
-                            <Button content="Les deux"
-                                name="both"
-                                onClick={(e) => this.handleChangeMode(e)} />
-                            <Button.Or text="ou" />
-                            <Button content="Annonces faites par le groupe"
-                                name="from"
-                                onClick={(e) => this.handleChangeMode(e)} />
-                        </Button.Group>
+                        <Search/>
                     </Menu.Item>
                 </Menu>
 
                 {this.renderAnnouncementsTo()}
                 {this.renderAnnouncementsFrom()}
-                
+
             </div>
 
         );

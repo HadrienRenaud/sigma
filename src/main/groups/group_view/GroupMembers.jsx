@@ -102,10 +102,15 @@ class GroupMembers extends Component {
             <List>
                 <Query query={GET_MEMBERS} variables={{gid: this.props.gid}} fetchPolicy="cache-first">
                     {({loading, error, data}) => {
+                        console.log(data);
                         if (loading)
                             return <Message info content="Chargement en cours ..."/>;
                         else if (error)
                             return <GQLError error={error}/>;
+                        if (data.group.__typename !== this.props.typename)
+                            return <Message error>
+                                Le type du groupe requis est différent du groupe reçu...
+                            </Message>;
                         let users = [];
                         if (this.state.filter === 'members')
                             users = data.group.members;
