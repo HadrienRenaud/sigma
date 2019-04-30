@@ -158,19 +158,16 @@ class GroupView extends React.Component {
                                        render={() => <GroupFrontPage frontPage={group.frontPage}/>}
                                 />
                                 <Route path={match.url + "/annonces"}
-                                       component={() => <GroupAnnouncements gid={group.gid}/>}
+                                       render={() => <GroupAnnouncements gid={group.gid}/>}
                                 />;
-                                <Route path={`${match.url}/qanda`} component={GroupQanda}/>
+                                <Route path={`${match.url}/qanda`} render={() => <GroupQanda gid={group.gid}/>}/>
                                 < Route path={match.url + "/events"}
                                         component={GroupEvents}
                                 />
                                 <Route path={match.url + "/members"}
                                        component={() => <GroupMembers members={group.members}/>}
                                 />;
-                                < Route
-                                    path={match.url + "/interne"}
-                                    component={GroupPageInterne}
-                                />
+                                < Route path={match.url + "/interne"} component={GroupPageInterne}/>
                                 <Route path={match.url + "/admin"} component={GroupAdministrer}/>;
                                 < Route
                                     component={Error404}
