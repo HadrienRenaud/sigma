@@ -6,6 +6,7 @@ import {Button, Dropdown, Image, List, Menu, Message, Search} from 'semantic-ui-
 import gql from "graphql-tag";
 import {Query} from "react-apollo";
 import {GQLError} from "../../Errors.jsx";
+import {Link} from "react-router-dom";
 
 const GET_MEMBERS = gql`
     query getMembers($gid: ID!) {
@@ -129,7 +130,7 @@ class GroupMembers extends Component {
                             );
                         else
                             return users.map(user =>
-                                <List.Item key={user.uid} as="a" href={'/users/' + user.uid}>
+                                <List.Item key={user.uid} as={Link} to={'/users/' + user.uid}>
                                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
                                     <List.Content>
                                         {user.givenName} {user.lastName} ({user.promotion})

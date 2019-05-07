@@ -7,12 +7,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Card, Container, Header, List} from 'semantic-ui-react';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {GQLError} from "../Errors.jsx";
 
 const GET_USER = gql`
-    query getUser($uid: ID) {
+    # Write your query or mutation here
+    query getUser($uid: ID!) {
         user(uid: $uid) {
             lastName
             givenName
@@ -29,7 +30,6 @@ const GET_USER = gql`
 `;
 
 class UserPage extends React.Component {
-
     render() {
 
         let uid = this.props.uid;
@@ -38,15 +38,15 @@ class UserPage extends React.Component {
 
         return (
             <Query query={GET_USER}
-                   variables={{ uid: uid }}
+                   variables={{uid: uid}}
             >
-                {({ loading, error, data }) => {
+                {({loading, error, data}) => {
                     if (loading)
                         return <div>Chargement, patientez SVP...</div>;
                     else if (error)
                         return <GQLError error={error}/>;
 
-                    const { user } = data;
+                    const {user} = data;
 
                     return (
                         <div>
@@ -58,27 +58,26 @@ class UserPage extends React.Component {
                                     icon='mail'
                                     content={<a href={`mailto:${user.mail}`}>{user.mail}</a>}
                                 />
-                                {
-                                    user.address ?
-                                        <List.Item>
-                                            <List.Icon name='marker' />
-                                            <List.Content>{user.address[0]}</List.Content>
-                                        </List.Item>
-                                        : ""
+                                {user.address ?
+                                    <List.Item>
+                                        <List.Icon name='marker'/>
+                                        <List.Content>{user.address[0]}</List.Content>
+                                    </List.Item>
+                                    : ""
                                 }
                                 <List.Item>
-                                    <List.Icon name="group" />
+                                    <List.Icon name="group"/>
                                     <List.Content>
                                         Groupes :
                                         <List>
-                                            {user.groups.map(gr =>
+                                            {user.memberOf.map(gr =>
                                                 <List.Item key={gr.uid}>{gr.name}</List.Item>
                                             )}
                                         </List>
                                     </List.Content>
                                 </List.Item>
                                 <List.Item>
-                                    <List.Icon name="group" />
+                                    <List.Icon name="group"/>
                                     <List.Content>
                                         Promotion : {user.promotion}
                                     </List.Content>

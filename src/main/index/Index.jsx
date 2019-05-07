@@ -8,6 +8,7 @@ import logo_sigma_large from '../../assets/logo_sigma_large.png';
 import ControlledComponentFormDemo from './testComp/ControlledComponentFormDemo.jsx';
 import PostsFeed from '../messages/PostsFeed.jsx';
 import TOS from './minimodules/TOS/TOS.jsx';
+import EventsPanel from "../messages/EventsPanel.jsx";
 /**
  * @file page d'accueil. ce Component wrap tous les minimodules presents sur la page d'accueil
  */

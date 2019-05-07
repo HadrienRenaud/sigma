@@ -45,8 +45,6 @@ class GroupView extends React.Component {
         match: PropTypes.object.isRequired,
     };
 
-    setContextRef = contextRef => this.setState({contextRef});
-
     render() {
 
         const {contextRef} = this.state;
@@ -113,7 +111,7 @@ class GroupView extends React.Component {
                             </Menu>
 
                             <Segment basic>
-                            <ReactMarkdown source={group.description}/>
+                                <ReactMarkdown source={group.description}/>
                             </Segment>
 
                             {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/
@@ -146,22 +144,16 @@ class GroupView extends React.Component {
                                 />
                                 <Route path={match.url + "/annonces"}
                                        render={() => <GroupAnnouncements gid={group.gid}/>}
-                                />;
-                                <Route path={`${match.url}/qanda`} render={() => <GroupQanda gid={group.gid}/>}/>
-                                < Route path={match.url + "/events"}
-                                        component={GroupEvents}
                                 />
+                                <Route path={`${match.url}/qanda`} render={() => <GroupQanda gid={group.gid}/>}/>
+                                <Route path={match.url + "/events"} component={GroupEvents}/>
                                 <Route path={match.url + "/members"}
                                        component={() => <GroupMembers gid={group.gid} typename={group.__typename}/>}
-                                />;
-                                < Route path={match.url + "/interne"} component={GroupPageInterne}/>
-                                <Route path={match.url + "/admin"} component={GroupAdministrer}/>;
-                                < Route
-                                    component={Error404}
                                 />
+                                <Route path={match.url + "/interne"} component={GroupPageInterne}/>
+                                <Route path={match.url + "/admin"} component={GroupAdministrer}/>
+                                <Route component={Error404}/>
                             </Switch>
-
-
                         </Container>);
                 }}
             </Query>

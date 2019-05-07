@@ -6,7 +6,7 @@ import React from 'react';
 import {Route, Switch, Link, } from 'react-router-dom';
 import {Grid, Container} from 'semantic-ui-react';
 
-import Event from '../messages/Event.jsx';
+import Events from '../messages/Events.jsx';
 import Index from '../index/Index.jsx';
 import GroupView from '../groups/GroupView.jsx';
 import AllGroups from '../groups/AllGroups.jsx';
@@ -19,6 +19,7 @@ import SideBar from './SideBar.jsx';
 import Background from '../../assets/sigma_bg.jpg';
 import UserPage from "../users/UserPage.jsx";
 import QuestionPage from "../messages/QuestionPage.jsx";
+import EventPage from "../messages/EventPage.jsx";
 
 // inline styling to render a background image.
 // apparently it is better to use CSS classes but it would imply manipulating webpack
@@ -55,7 +56,8 @@ class Body extends React.Component {
                     {/*garder une barre d'information a gauche de la page*/}
                     <Grid.Column>
                         <Switch> {/*forces exclusive path matching*/}
-                            <Route path="/event" component={Event} />
+                            <Route path="/events" component={Events} />
+                            <Route path="/event/:mid" component={EventPage}/>
                             <Route exact path="/groups" component={AllGroups} />
                             <Route path="/groups/:gid" component={GroupView} />{/*pour les paths de la forme "/groups/:gid"*/}
                             <Route path="/tol" component={Trombino} /> {/*l'appelation TOL est tradi.*/}
