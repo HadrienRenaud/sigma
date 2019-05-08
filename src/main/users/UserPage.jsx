@@ -71,7 +71,7 @@ class UserPage extends React.Component {
                                         Groupes :
                                         <List>
                                             {user.memberOf.map(gr =>
-                                                <List.Item key={gr.uid}>{gr.name}</List.Item>
+                                                <List.Item key={gr.gid}>{gr.name}</List.Item>
                                             )}
                                         </List>
                                     </List.Content>

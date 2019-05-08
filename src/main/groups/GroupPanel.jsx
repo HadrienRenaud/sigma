@@ -1,5 +1,5 @@
 /**
- * @file resume des groupes de l'utilisateur a inserer dans le SideBar
+ * @file resume des groupes de l'utilisateur a inserer dans le MySideBar
  *
  */
 
@@ -44,7 +44,7 @@ class GroupPanel extends React.Component {
                         Mes groupes
                     </Card.Header>
                 </Card.Content>
-                    <Button.Group basic vertical fluid>
+                    <Button.Group basic vertical>
                         {allGroups.map(gr =>
                             <Button as={Link} to={"/groups/" + gr.gid} content={gr.name} key={gr.gid}/>
                         )}

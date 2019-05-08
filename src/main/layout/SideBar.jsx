@@ -5,18 +5,32 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
+import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sidebar, Sticky, Container } from 'semantic-ui-react';
 import GroupPanel from '../groups/GroupPanel.jsx';
 import EventsPanel from '../messages/EventsPanel.jsx';
 
 
-const SideBar = () => (
-    <Container>
-        <GroupPanel/>
-        <EventsPanel/>
-    </Container>
+const MySideBar = () => (
+    <div>
+        <Segment vertical>
+            CC
+        </Segment>
+        <Segment vertical>
+            CC 2
+        </Segment>
+        <Segment vertical>
+            CC 2
+        </Segment>
+        <Segment vertical>
+            CC 3
+        </Segment>
+        <Segment vertical>
+            CC 4
+        </Segment>
+        <Segment vertical>
+            CC 5
+        </Segment>
+    </div>
 );
 
-export default SideBar;
+export default MySideBar;
