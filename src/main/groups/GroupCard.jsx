@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import gql from 'graphql-tag';
@@ -32,11 +32,18 @@ class GroupCard extends React.Component {
         gid: PropTypes.string.isRequired
     }
 
+    state = {
+        redirectTo: false,
+    }
+
     constructor(props) {
         super(props);
     }
 
     render() {
+        if (this.state.redirectTo)
+            return <Redirect to={this.state.redirectTo}/>
+
         return (
             <Query query={GET_GROUP}
                 variables={{gid: this.props.gid}}
@@ -49,7 +56,8 @@ class GroupCard extends React.Component {
                     const { group } = data; //extracts the actual data from object 'data'
 
                     return (
-                        <Card fluid={true} color={"blue"}>
+                        <Card color={"blue"} as="div" link onClick={() => this.setState({redirectTo: "/groups/" + group.gid})}>
+                            <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped ui={false}/>
                             <Card.Content>
                                 <Card.Header>
                                     <Link to={"/groups/" + this.props.gid}>{group.name}</Link>
