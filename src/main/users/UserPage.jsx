@@ -36,10 +36,12 @@ const GET_USER = gql`
         user(uid: $uid) {
             lastName
             givenName
+            nationality
+            nickname
             mail
             phone
             address
-            promotion
+            birthdate
             memberOf {
                 gid
                 name
@@ -139,7 +141,6 @@ class UserPage extends React.Component {
 
                     const {user} = data;
                     this.gidToGroup = constructGraph(user.inheritedMemberOf);
-                    console.log(this.gidToGroup);
 
                     let stateToGroup = {
                         admin: user.adminOf,
@@ -156,29 +157,25 @@ class UserPage extends React.Component {
                         <div>
                             <Segment vertical>
                                 <Image src="https://react.semantic-ui.com/images/wireframe/square-image.png"
-                                       floated='right' size='small'/>
+                                       floated="right" size='small'/>
                                 <Header>
                                     {user.givenName} {user.lastName}
+                                    <Header.Subheader>{user.nickname}</Header.Subheader>
                                 </Header>
-                                <p>
-                                    <Icon name="mail"/>
-                                    <a href={`mailto:${user.mail}`}>{user.mail}</a>
-                                </p>
-                                {user.address ? <p>
-                                        <Icon name='marker'/>
-                                        {user.address[0]}
-                                    </p>
-                                    : ""
-                                }
-                                <p>
-                                    <Icon name="group"/>
-                                    Promotion : {user.promotion}
-                                </p>
+                                <List>
+                                    <List.Item icon="birthday" content={user.birthdate}/>
+                                    <List.Item icon="flag outline" content={user.nationality}/>
+                                    <List.Item icon="phone" content={<a href={"tel:" + user.phone}>{user.phone}</a>}/>
+                                    {user.address && <List.Item icon="marker" content={user.address}/>}
+                                    <List.Item icon="mail"
+                                               content={<a href={`mailto:${user.mail}`}>{user.mail}</a>}/>
+                                </List>
                             </Segment>
                             <Segment vertical>
                                 <Menu secondary pointing>
                                     <Menu.Item>
                                         <Header>
+                                            <Icon name="group"/>
                                             Groupes
                                         </Header>
                                     </Menu.Item>
@@ -252,6 +249,7 @@ class UserPage extends React.Component {
                                 <Menu secondary pointing>
                                     <Menu.Item>
                                         <Header>
+                                            <Icon name="question"/>
                                             Questions à des groupes
                                         </Header>
                                     </Menu.Item>
@@ -265,7 +263,8 @@ class UserPage extends React.Component {
                                     {user.questionsFromUser.map(q =>
                                         <List.Item key={q.mid}
                                                    onClick={() => this.setState({redirect: "/question/" + q.mid})}>
-                                            <List.Icon name="question"/>
+                                            <Image avatar
+                                                   src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
                                             <List.Content>
                                                 <List.Header>
                                                     To <Link to={'/groups/' + q.recipient.gid + '/qanda'}>
