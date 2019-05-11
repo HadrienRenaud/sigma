@@ -1,74 +1,95 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactMarkdown from 'react-markdown';
-import {Header, Icon, Feed, Image, Message, Accordion, List, Divider} from 'semantic-ui-react';
-import {Link} from "react-router-dom";
+import {Header, Icon, Feed, Image, Message, Accordion, List, Divider, Label} from 'semantic-ui-react';
+import {Link, Redirect} from "react-router-dom";
+import Moment from "react-moment";
 
-class DisplayList extends React.Component {
+class Author extends React.Component {
+    state = {
+        redirectTo: false
+    };
+
+    render() {
+        if (this.state.redirectTo)
+            return <Redirect to={this.state.redirectTo}/>;
+
+        let link = "/", content = "";
+
+        if (this.props.gid) {
+            link = "/groups/" + this.props.gid;
+            content = this.props.name;
+        } else if (this.props.uid) {
+            link = "/user/" + this.props.uid;
+            content = <span>{this.props.givenName} {this.props.lastName}</span>;
+        }
+
+        return <Link to={link}>
+            {content}
+        </Link>;
+    }
+}
+
+class AuthorList extends React.Component {
     render() {
         let elts = this.props.elements;
         if (elts.length === 0)
             return "";
         else if (elts.length === 1)
-            return elts[0];
+            return <Author {... elts[0]}/>;
         else
             return <span>
-                {
-                    elts.slice(0, -1).map((g, i) => <span key={i}>{g}</span>)
-                } et {elts[elts.length - 1]}
+                {elts.slice(0, -1).map((g, i) =>
+                    <span key={i}><Author {...g}/>, </span>
+                )} et <Author {...elts[elts.length - 1]}/>
             </span>;
-    }
-}
-
-/**
- * @class Définit le composant Author, qui représente un lien vers un auteur d'un post
- * @author hadi
- * @extends React.Component
- */
-class Author extends React.Component {
-    static propTypes = {
-        auth: PropTypes.object.isRequired,
-    };
-
-    render() {
-        let link = "/";
-
-        if (this.props.auth.uid)
-            link = '/users/' + this.props.auth.uid;
-        else if (this.props.auth.gid)
-            link = '/groups/' + this.props.auth.gid;
-
-        return <Link to={link}> {this.props.auth.name}</Link>;
     }
 }
 
 class PostTemplate extends React.Component {
     state = {
-        expanded: false
+        expanded: false,
+        redirectTo: false,
     };
 
     render() {
-        return <Feed.Event as={List.Item}>
+        if (this.state.redirectTo)
+            return <Redirect to={this.state.redirectTo}/>;
+
+        return <Feed.Event as={List.Item} onClick={() => {
+            if (this.cliqued)
+                this.cliqued = false;
+            else {
+                console.log("Clicked! Redirecting to " + this.props.to);
+                this.props.to && this.setState({redirectTo: this.props.to});
+            }
+        }}>
             <Feed.Label>
                 <Image src="https://react.semantic-ui.com/images/avatar/small/elliot.jpg"/>
             </Feed.Label>
             <Feed.Content>
                 <Feed.Date>
-                    Created at: {this.props.raw.createdAt}
                     {this.props.raw.updatedAt ?
-                        <span>- Edited at: {this.props.raw.updatedAt}</span> : ""}
+                        <span>Edited <Moment fromNow date={this.props.raw.updatedAt}/></span>
+                        :
+                        <span>Created <Moment fromNow date={this.props.raw.createdAt}/></span>
+                    }
                 </Feed.Date>
                 <Feed.Summary>
-                    {this.props.title}
+                    <AuthorList elements={this.props.in}/> {this.props.action} <AuthorList elements={this.props.out}/>
                 </Feed.Summary>
                 <Feed.Extra text>
-
                     <Accordion>
                         <Accordion.Title
                             icon="dropdown"
                             content={<strong>{this.props.raw.title}</strong>}
                             active={this.state.expanded}
-                            onClick={() => this.setState({expanded: !this.state.expanded})}
+                            onClick={(e) => {
+                                e.preventDefault();
+                                this.cliqued = true;
+                                console.log("This is eventlistener of the accordion.");
+                                this.setState({expanded: !this.state.expanded});
+                            }}
                         />
                         <Accordion.Content active={this.state.expanded} style={{
                             marginTop: '-12px'
@@ -85,72 +106,14 @@ class PostTemplate extends React.Component {
     }
 }
 
-/**
- * @class Définit le composant Post, qui représente une publication effectuée par un ou des groupes.
- * @author manifold
- * @extends React.Component
- */
-class DefaultPost extends React.Component {
-
-    static propTypes = {
-        title: PropTypes.string.isRequired,
-        content: PropTypes.string.isRequired,
-        location: PropTypes.string,
-        authors: PropTypes.arrayOf(PropTypes.object)
-    };
-
-    eventLocation() {
-        if (this.props.hasOwnProperty("location") && this.props.location != null) {
-            return <div>
-                <Icon name='map' color="blue"/>
-                {this.props.location}
-            </div>;
-        }
-    }
-
-    render() {
-        let authors = this.props.authors || [];
-
-        console.log(authors);
-
-        return <Feed.Event>
-            <Feed.Label>
-                <Image src="https://react.semantic-ui.com/images/avatar/small/elliot.jpg"/>
-            </Feed.Label>
-            <Feed.Content>
-                <Feed.Summary>
-                    <Feed.User>
-                        {authors.map((auth, i) => {
-                            if (i === authors.length - 1)
-                                return <span key={auth.uid || auth.gid}>auth.name</span>;
-                            else
-                                return <span key={auth.uid || auth.gid}>auth.name, </span>;
-                        })}
-                    </Feed.User>
-                    ont publié sur {this.props.location}
-                </Feed.Summary>
-            </Feed.Content>
-
-        </Feed.Event>;
-    }
-}
-
 class AnnouncementPost extends Component {
     render() {
         return <PostTemplate
-            title={<div>
-                <DisplayList
-                    elements={this.props.authors.map(g =>
-                        <Feed.User as={Link} to={'/groups/' + g.gid} content={g.name}/>
-                    )}
-                /> ont publié pour&nbsp;
-                <DisplayList
-                    elements={this.props.recipients.map(g =>
-                        <Feed.User as={Link} to={'/groups/' + g.gid} content={g.name}/>
-                    )}
-                />
-            </div>}
+            in={this.props.authors}
+            out={this.props.recipients}
+            action="ont publié pour"
             raw={this.props}
+            to={"/post/" + this.props.mid}
         />;
     }
 }
@@ -158,13 +121,11 @@ class AnnouncementPost extends Component {
 class EventPost extends Component {
     render() {
         return <PostTemplate
-            title={<div>
-                <DisplayList elements={this.props.authors.map(g =>
-                    <Feed.User as={Link} to={'/groups/' + g.gid} content={g.name}/>)
-                }/> ont créé un évènement pour <DisplayList elements={this.props.authors.map(g =>
-                <Feed.User as={Link} to={'/groups/' + g.gid} content={g.name}/>)}/>
-            </div>}
+            in={this.props.authors}
+            out={this.props.recipients}
+            action="ont créé un évènement pour"
             raw={this.props}
+            to={'/event/' + this.props.mid}
         />;
     }
 }
@@ -172,15 +133,11 @@ class EventPost extends Component {
 class QuestionPost extends Component {
     render() {
         return <PostTemplate
-            title={<div>
-                <Feed.User as={Link} to={'/users/' + this.props.author.uid}>
-                    {this.props.author.givenName} {this.props.author.lastName}
-                </Feed.User> a posé une question à&nbsp;
-                <Feed.User as={Link} to={'/groups/' + this.props.recipient.gid}>
-                    {this.props.recipient.name}
-                </Feed.User>
-            </div>}
+            in={[this.props.author]}
+            out={[this.props.recipient]}
+            action="a posé une question à"
             raw={this.props}
+            to={'/groups/' + this.props.recipient.gid + '/qanda'}
         />;
     }
 }
@@ -189,17 +146,9 @@ class QuestionPost extends Component {
 class AnswerPost extends Component {
     render() {
         return <PostTemplate
-            title={<div>
-                <Feed.User as={Link} to={'/groups/' + this.props.forQuestion.recipient.gid}>
-                    {this.props.forQuestion.recipient.name}
-                </Feed.User>
-                &nbsp;a répondu à la question de&nbsp;
-                <Feed.User as={Link} to={'/users/' + this.props.forQuestion.author.uid}>
-                    {this.props.forQuestion.author.givenName}
-                    &nbsp;
-                    {this.props.forQuestion.author.lastName}
-                </Feed.User>
-            </div>}
+            in={[this.props.forQuestion.recipient]}
+            out={[this.props.forQuestion.author]}
+            action="a répondu à la question de"
             raw={{
                 ...this.props,
                 title: this.props.forQuestion.title,
@@ -215,6 +164,7 @@ class AnswerPost extends Component {
                     {this.props.content}
                 </div>
             }}
+            to="/groups"
         />;
     }
 }
@@ -222,15 +172,11 @@ class AnswerPost extends Component {
 class PrivatePost extends Component {
     render() {
         return <PostTemplate
-            title={<div>
-                <Feed.User as={Link} to={'/users/' + this.props.author.uid}>
-                    {this.props.author.givenName} {this.props.author.lastName}
-                </Feed.User> a envoyé un message privé à&nbsp;
-                <Feed.User as={Link} to={'/groups/' + this.props.recipient.gid}>
-                    {this.props.recipient.name}
-                </Feed.User>
-            </div>}
+            in={[this.props.author]}
+            out={[this.props.recipient]}
+            action="a envoyé un message privé à"
             raw={this.props}
+            to="/groups"
         />;
     }
 }
@@ -261,3 +207,4 @@ class Post extends Component {
 }
 
 export default Post;
+;

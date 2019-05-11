@@ -129,7 +129,7 @@ class PostsFeed extends React.Component {
                     }
                     const {allMessages} = data;
                     return (
-                        <Feed as={List} relaxed divided>
+                        <Feed as={List} relaxed divided animated>
                             {allMessages.map(post => (
                                 <Post key={post.mid} {...post}/>
                             ))}
