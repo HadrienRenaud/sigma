@@ -127,7 +127,9 @@ class Trombino extends Component {
                                 <Segment>
                                     <Form.Checkbox
                                         label='Compacter les résultats'
-                                        onChange={(event) => {this.setState({compact: !this.state.compact})}}
+                                        onChange={(event) => {
+                                            this.setState({compact: !this.state.compact});
+                                        }}
                                     />
                                 </Segment>
                             </Segment.Group>

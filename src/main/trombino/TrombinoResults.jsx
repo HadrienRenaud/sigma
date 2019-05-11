@@ -8,9 +8,7 @@ import React, {Component} from 'react';
 import {Card, List, Image, Label} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
-import UserCard from '../users/UserCard.jsx';
 import {GQLError} from "../Errors.jsx";
-// import UserListItem from "../users/UserListItem.jsx";
 import {Link, Redirect} from "react-router-dom";
 
 class UserCardItem extends Component {
@@ -40,7 +38,8 @@ class UserCardItem extends Component {
                                 <List.Content>
                                     <List>
                                         {user.memberOf.map(gr =>
-                                            <List.Item key={gr.gid} as={Link} to={"/groups/" + gr.gid}>{gr.name}</List.Item>
+                                            <List.Item key={gr.gid} as={Link}
+                                                       to={"/groups/" + gr.gid}>{gr.name}</List.Item>
                                         )}
                                     </List>
                                 </List.Content>
@@ -64,7 +63,7 @@ class UserListItem extends Component {
         redirectTo: false
     };
 
-    render () {
+    render() {
         if (this.state.redirectTo)
             return <Redirect to={this.state.redirectTo}/>;
 
@@ -184,7 +183,6 @@ class TrombinoResults extends Component {
                         return <List divided relaxed link>
                             {searchTOL.map(res => <UserListItem key={res.uid} uid={res.uid} user={res}/>)}
                         </List>;
-
 
                     return (
                         <Card.Group>
