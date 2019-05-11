@@ -4,47 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import {Header, Icon, Feed, Image, Message, Accordion, List, Divider, Label} from 'semantic-ui-react';
 import {Link, Redirect} from "react-router-dom";
 import Moment from "react-moment";
-
-class Author extends React.Component {
-    state = {
-        redirectTo: false
-    };
-
-    render() {
-        if (this.state.redirectTo)
-            return <Redirect to={this.state.redirectTo}/>;
-
-        let link = "/", content = "";
-
-        if (this.props.gid) {
-            link = "/groups/" + this.props.gid;
-            content = this.props.name;
-        } else if (this.props.uid) {
-            link = "/user/" + this.props.uid;
-            content = <span>{this.props.givenName} {this.props.lastName}</span>;
-        }
-
-        return <Link to={link}>
-            {content}
-        </Link>;
-    }
-}
-
-class AuthorList extends React.Component {
-    render() {
-        let elts = this.props.elements;
-        if (elts.length === 0)
-            return "";
-        else if (elts.length === 1)
-            return <Author {... elts[0]}/>;
-        else
-            return <span>
-                {elts.slice(0, -1).map((g, i) =>
-                    <span key={i}><Author {...g}/>, </span>
-                )} et <Author {...elts[elts.length - 1]}/>
-            </span>;
-    }
-}
+import {AuthorList} from "../utils/author.jsx";
 
 class PostTemplate extends React.Component {
     state = {
@@ -70,9 +30,9 @@ class PostTemplate extends React.Component {
             <Feed.Content>
                 <Feed.Date>
                     {this.props.raw.updatedAt ?
-                        <span>Edited <Moment fromNow date={this.props.raw.updatedAt}/></span>
+                        <span>Edited <Moment fromNow withTitle date={this.props.raw.updatedAt}/></span>
                         :
-                        <span>Created <Moment fromNow date={this.props.raw.createdAt}/></span>
+                        <span>Created <Moment fromNow withTitle date={this.props.raw.createdAt}/></span>
                     }
                 </Feed.Date>
                 <Feed.Summary>
