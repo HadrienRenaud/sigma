@@ -57,10 +57,10 @@ class Body extends React.Component {
                     <Route path="/events" component={Events}/>
                     <Route path="/event/:mid" component={EventPage}/>
                     <Route exact path="/groups" component={AllGroups}/>
-                    <Route path="/groups/:gid" component={GroupView}/>{/*pour les paths de la forme "/groups/:gid"*/}
+                    <Route path="/group/:gid" component={GroupView}/>{/*pour les paths de la forme "/groups/:gid"*/}
                     <Route path="/tol" component={Trombino}/> {/*l'appelation TOL est tradi.*/}
                     <Route path="/services" component={Services}/>
-                    <Route path="/users/:uid" component={UserPage}/>
+                    <Route path="/user/:uid" component={UserPage}/>
                     <Route path="/question/:mid" component={QuestionPage}/>
                     <Route path="/post/:mid" component={PostPage}/>
                     <Route path="/me" component={() => <UserPage uid={localStorage.getItem("uid")}/>}/>x

@@ -13,7 +13,7 @@ class Author extends React.Component {
         let link = "/", content = "";
 
         if (this.props.gid) {
-            link = "/groups/" + this.props.gid;
+            link = "/group/" + this.props.gid;
             content = this.props.name;
         } else if (this.props.uid) {
             link = "/user/" + this.props.uid;
