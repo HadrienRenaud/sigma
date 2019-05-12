@@ -97,7 +97,7 @@ class QuestionPost extends Component {
             out={[this.props.recipient]}
             action="a posé une question à"
             raw={this.props}
-            to={'/groups/' + this.props.recipient.gid + '/qanda'}
+            to={'/question/' + this.props.mid}
         />;
     }
 }
@@ -124,7 +124,7 @@ class AnswerPost extends Component {
                     {this.props.content}
                 </div>
             }}
-            to="/groups"
+            to={"/question/" + this.props.forQuestion.mid}
         />;
     }
 }
