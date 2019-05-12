@@ -1,7 +1,7 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Button, Feed, Grid, Header, Icon, Image, Item, List, Menu, Segment} from 'semantic-ui-react';
+import {Button, Feed, Grid, Header, Icon, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
 import Post from './Post.jsx';
 import {GQLError} from "../Errors.jsx";
 import Moment from "react-moment";
@@ -153,6 +153,9 @@ class EventPage extends React.Component {
                                         </Item>
                                         }
                                     </Item.Group>
+                                    <Message warning>
+                                        Commentaires et Réponses pas encore implémentées
+                                    </Message>
                                 </Segment>
                                 :
                                 <Segment vertical>

@@ -171,6 +171,7 @@ class Question extends React.Component {
         deleted: false,
         title: "",
         content: "",
+        redirectTo: false,
     };
 
     handleChangeTitle(e, {title}) {
@@ -211,6 +212,8 @@ class Question extends React.Component {
         let q = this.props.q;
         // let hasAnswer = !!q.forAnswer
         let hasAnswer = false;
+        if (this.state.redirectTo)
+            return <Redirect to={this.state.redirectTo}/>
         if (this.state.deleted)
             return "";
         if (this.state.isEditing)
@@ -252,8 +255,8 @@ class Question extends React.Component {
                 }
             </Mutation>;
         return <Comment>
-            <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg" as="a"
-                            href={"/users/" + q.author.uid}/>
+            <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg" as={Link}
+                            to={"/users/" + q.author.uid}/>
             <Comment.Content>
                 <Comment.Author>
                     {q.title}
@@ -269,7 +272,7 @@ class Question extends React.Component {
                         <Button content="Answer" labelPosition="left" icon="reply" basic size="mini"
                                 onClick={this.handleAnswerButton.bind(this)}/>
                         <Button content="See More" labelPosition="left" icon="external alternate" basic size="mini"
-                                href={"/questions/" + q.mid}/>
+                                onClick={() => this.setState({redirectTo: "/question/" + q.mid})}/>
                         {cetUtilisateurEstAuteur ?
                             <Button content="Edit Question" labelPosition="left" icon="edit" size="mini"
                                     onClick={this.handleEditButton.bind(this)}

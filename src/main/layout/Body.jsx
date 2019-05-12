@@ -20,6 +20,7 @@ import Background from '../../assets/sigma_bg.jpg';
 import UserPage from "../users/UserPage.jsx";
 import QuestionPage from "../messages/QuestionPage.jsx";
 import EventPage from "../messages/EventPage.jsx";
+import PostPage from "../messages/PostPage.jsx";
 
 // inline styling to render a background image.
 // apparently it is better to use CSS classes but it would imply manipulating webpack
@@ -61,6 +62,7 @@ class Body extends React.Component {
                     <Route path="/services" component={Services}/>
                     <Route path="/users/:uid" component={UserPage}/>
                     <Route path="/question/:mid" component={QuestionPage}/>
+                    <Route path="/post/:mid" component={PostPage}/>
                     <Route path="/me" component={() => <UserPage uid={localStorage.getItem("uid")}/>}/>x
                     <Route exact path="/" component={Index}/>
                     <Route component={Error404}/>
