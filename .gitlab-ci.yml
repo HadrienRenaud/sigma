@@ -1,4 +1,4 @@
-image: node:12-stretch
+image: node:10-stretch
 
 cache:
   paths:
