@@ -2,6 +2,9 @@
   "name": "sigma-frontend",
   "version": "0.0.1",
   "description": "Frontend of sigma, the new Frankiz",
+  "engines": {
+    "node": ">=0.12"
+  },
   "scripts": {
     "build": "NODE_ENV=production webpack --mode production",
     "serve": "echo 'Error: App is not ready for production... use npm run start instead. Abort'",
@@ -69,8 +72,8 @@
     "eslint-plugin-react": "^7.13.0",
     "jsdoc": "^3.6.2",
     "jsdoc-export-default-interop": "^0.3.1",
+    "replace-ext": "^1.0.0",
     "sass-loader": "^7.1.0",
-    "semantic-ui": "^2.4.2",
     "style-loader": "^0.23.1",
     "url-loader": "^1.1.2",
     "webpack-cli": "^3.3.2",
