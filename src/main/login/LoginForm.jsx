@@ -65,6 +65,7 @@ class LoginForm extends React.Component {
                 console.log("Answer :", data.message);
                 if (data.authSucceeded) {
                     this.setState({mode: STATES.loggedIn});
+                    localStorage.setItem('uid', this.state.userInput);
                     if (data.token) {
                         localStorage.setItem("token", data.token);
                         if (data.tokenValidity)
@@ -81,7 +82,7 @@ class LoginForm extends React.Component {
                         localStorage.setItem("tokenValidity", "Mon, 23 Mar 2020 22:03:25 GMT");
                     }
                     if (this.props.onLogIn)
-                        this.props.onLogin();
+                        this.props.onLogIn();
                 } else {
                     this.setState({
                         mode: STATES.error,

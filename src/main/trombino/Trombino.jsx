@@ -2,52 +2,59 @@
  * @file Trombinoscope On Line
  */
 
-import React from 'react';
-import { graphql } from 'react-apollo';
+import React, {Component, createRef} from 'react';
+import {graphql} from 'react-apollo';
 import gql from 'graphql-tag';
-import { Form, Button, Input, Container, Divider, 
-    Grid, Header, Menu, Message, Segment, Table } from 'semantic-ui-react';
+import {
+    Form, Button, Input, Container, Divider,
+    Grid, Header, Menu, Message, Segment, Table, Sticky, Rail, Ref, Image
+} from 'semantic-ui-react';
 import TrombinoResults from './TrombinoResults.jsx';
 
-class Trombino extends React.Component {
+class Trombino extends Component {
+
+    contextRef = createRef();
+
+    state = {
+        givenName: "Louis",
+        lastName: "Vaneau",
+        nickname: "",
+        formation: "",
+        promo: "",
+        sport: "",
+        groups: "",
+        compact: false,
+    };
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            givenName: "Louis",
-            lastName: "Vaneau",
-            nickname: "",
-            formation: "",
-            promo: "",
-            sport: "",
-            groups: ""
-        };
-
         // This binding is necessary to make `this` work in the callback
         this.handleInputChange = this.handleInputChange.bind(this);
     }
-    
+
     handleInputChange(event) {
         const value = event.target.value;
         const name = event.target.name; //l'attribut "name" du Component qui appelle ce handle (par un onChange)
-        this.setState({ [name]: value }); //ES6 computed property name syntax
+        this.setState({[name]: value}); //ES6 computed property name syntax
     }
 
-    
+    calcHeight(node) {
+        if (node && !this.state.height) {
+            this.setState({
+                height: node.offsetHeight
+            });
+        }
+    }
 
     render() {
-
         return (
             <div>
-                <Grid columns='equal'>
+                <Grid centered columns={15}>
                     <Grid.Column width={3}>
-
                         <Form size='large'>
-
-                            <Segment.Group piled>
+                            <Segment.Group>
                                 <Segment>
-                                    Prénom
                                     <Form.Input
                                         fluid
                                         placeholder='Louis'
@@ -55,10 +62,8 @@ class Trombino extends React.Component {
                                         name='givenName'
                                         value={this.state.givenName}
                                         onChange={this.handleInputChange}
+                                        label="Prénom"
                                     />
-                                </Segment>
-                                <Segment>
-                                    Nom
                                     <Form.Input
                                         fluid
                                         placeholder='Vaneau'
@@ -66,10 +71,8 @@ class Trombino extends React.Component {
                                         name='lastName'
                                         value={this.state.lastName}
                                         onChange={this.handleInputChange}
+                                        label="Nom"
                                     />
-                                </Segment>
-                                <Segment>
-                                    Surnom
                                     <Form.Input
                                         fluid
                                         placeholder='mythe'
@@ -77,13 +80,10 @@ class Trombino extends React.Component {
                                         name='nickname'
                                         value={this.state.nickname}
                                         onChange={this.handleInputChange}
+                                        label="Surnom"
                                     />
                                 </Segment>
-                            </Segment.Group>
-
-                            <Segment.Group piled>
                                 <Segment>
-                                    Formation
                                     <Form.Input
                                         fluid
                                         placeholder='Cycle Ingénieur Polytechnicien'
@@ -91,10 +91,8 @@ class Trombino extends React.Component {
                                         name='formation'
                                         value={this.state.formation}
                                         onChange={this.handleInputChange}
+                                        label="Formation"
                                     />
-                                </Segment>
-                                <Segment>
-                                    Promo
                                     <Form.Input
                                         fluid
                                         placeholder='1829'
@@ -102,10 +100,8 @@ class Trombino extends React.Component {
                                         name='promo'
                                         value={this.state.promo}
                                         onChange={this.handleInputChange}
+                                        label="Promo"
                                     />
-                                </Segment>
-                                <Segment>
-                                    Sport
                                     <Form.Input
                                         fluid
                                         color='teal'
@@ -114,13 +110,10 @@ class Trombino extends React.Component {
                                         name='sport'
                                         value={this.state.sport}
                                         onChange={this.handleInputChange}
+                                        label="Sport"
                                     />
                                 </Segment>
-                            </Segment.Group>
-
-                            <Segment.Group piled>
                                 <Segment>
-                                    Binet
                                     <Form.Input
                                         fluid
                                         placeholder='Subaïsse'
@@ -128,36 +121,34 @@ class Trombino extends React.Component {
                                         name='groups'
                                         value={this.state.groups}
                                         onChange={this.handleInputChange}
+                                        label="Binet"
                                     />
                                 </Segment>
                                 <Segment>
-                                    Groupe
-                                    <Form.Input
-                                        fluid
-                                        placeholder='1829'
-                                        type='text'
-                                        name='promo'
-                                        value={this.state.promo}
-                                        onChange={this.handleInputChange}
+                                    <Form.Checkbox
+                                        label='Compacter les résultats'
+                                        onChange={(event) => {
+                                            this.setState({compact: !this.state.compact});
+                                        }}
                                     />
                                 </Segment>
                             </Segment.Group>
-
                         </Form>
                     </Grid.Column>
+                    <Grid.Column width={12}>
 
-                    <Grid.Column>
                         <Header as='h1'>
                             Trombinoscope
                         </Header>
                         <h3>
-                            Résultats pour {this.state.givenName}{this.state.nickname ? ` « ${this.state.nickname} » ` : " "}{this.state.lastName}
+                            Résultats
+                            pour {this.state.givenName}{this.state.nickname ? ` « ${this.state.nickname} » ` : " "}{this.state.lastName}
                         </h3>
                         <TrombinoResults params={this.state}/>
                     </Grid.Column>
                 </Grid>
-            </div>
-        );
+
+            </div>);
     }
 }
 

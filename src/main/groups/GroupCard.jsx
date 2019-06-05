@@ -1,7 +1,7 @@
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import gql from 'graphql-tag';
@@ -16,8 +16,8 @@ import {GQLError} from "../Errors.jsx";
  */
 
 const GET_GROUP = gql`
-    query getGroup($uid: ID!) {
-        group(uid: $uid) {
+    query getGroup($gid: ID!) {
+        group(gid: $gid) {
             gid
             name
             website
@@ -29,7 +29,11 @@ const GET_GROUP = gql`
 class GroupCard extends React.Component {
 
     static propTypes = {
-        uid: PropTypes.string.isRequired
+        gid: PropTypes.string.isRequired
+    }
+
+    state = {
+        redirectTo: false,
     }
 
     constructor(props) {
@@ -37,9 +41,12 @@ class GroupCard extends React.Component {
     }
 
     render() {
+        if (this.state.redirectTo)
+            return <Redirect to={this.state.redirectTo}/>
+
         return (
             <Query query={GET_GROUP}
-                variables={{uid: this.props.uid}}
+                variables={{gid: this.props.gid}}
                 fetchPolicy='cache-first' //choose cache behaviour
             >
                 {({ loading, error, data }) => {
@@ -49,10 +56,11 @@ class GroupCard extends React.Component {
                     const { group } = data; //extracts the actual data from object 'data'
 
                     return (
-                        <Card fluid={true} color={"blue"}>
+                        <Card color={"blue"} as="div" link onClick={() => this.setState({redirectTo: "/groups/" + group.gid})}>
+                            <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped ui={false}/>
                             <Card.Content>
                                 <Card.Header>
-                                    <Link to={"/groups/" + this.props.uid}>{group.name}</Link>
+                                    <Link to={"/groups/" + this.props.gid}>{group.name}</Link>
                                 </Card.Header>
                                 <Card.Meta>
                                     <a href={group.website}>{group.website}</a>

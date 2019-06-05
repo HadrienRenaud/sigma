@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Route, Switch, Link, Redirect,} from 'react-router-dom';
-import {Grid, Image} from 'semantic-ui-react';
+import {Container, Grid, Image, Segment, Sidebar} from 'semantic-ui-react';
 
 import Header from './layout/Header.jsx';
 import Footer from './layout/Footer.jsx';
@@ -8,6 +8,7 @@ import Body from './layout/Body.jsx';
 import Login from './login/Login.jsx';
 
 import decode from 'jwt-decode';
+import SideBar from "./layout/SideBar.jsx";
 
 /**
  * @file Le composant React principal, généré quel que soit le path, et dans lequel
@@ -48,23 +49,38 @@ class Main extends Component {
 
     render() {
         return (
-            <div>
-                <Header
-                    onLogOut={this.onLogOut.bind(this)}
-                />
-                <Switch>
-                    {this.state.loggedIn ?
-                        <Route path="/login" render={() => <Redirect to='/'/>}/>
-                        :
-                        <Route path="/login" render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
-                    }
-                    {!this.state.loggedIn && this.state.toLogIn ?
-                        <Route path='/' redner={() => <Redirect to='/login'/>}/>
-                        :
-                        <Route path="/" render={props => <Body {...props} loggedIn={this.state.loggedIn} />}/>
-                    }
-                </Switch>
-                <Footer/>
+            <div style={{
+                minHeight: '100%',
+                display: 'grid',
+                gridTemplateRows: '1fr auto',
+            }}>
+                <div>
+                    <Header
+                        onLogOut={this.onLogOut.bind(this)}
+                    />
+                    <Container>
+                        <Switch>
+                            {this.state.loggedIn ?
+                                <Route path="/login" render={() => <Redirect to='/'/>}/>
+                                :
+                                <Route path="/login"
+                                       render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
+                            }
+                            {!this.state.loggedIn && this.state.toLogIn ?
+                                <Route path='/' redner={() => <Redirect to='/login'/>}/>
+                                :
+                                <Route path="/"
+                                       render={props => <Body {...props} loggedIn={this.state.loggedIn}/>}/>
+                            }
+                        </Switch>
+                    </Container>
+                </div>
+                <footer style={{
+                    gridRowStart: 3,
+                    gridRowEnd: 4,
+                }}>
+                    <Footer/>
+                </footer>
             </div>
         );
     }

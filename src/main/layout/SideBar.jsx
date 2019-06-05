@@ -5,46 +5,32 @@
  */
 
 import React from 'react';
-import _ from 'lodash';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sticky, Container } from 'semantic-ui-react';
+import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sidebar, Sticky, Container } from 'semantic-ui-react';
 import GroupPanel from '../groups/GroupPanel.jsx';
 import EventsPanel from '../messages/EventsPanel.jsx';
 
 
-const PinnedEvents = () => (
-    <Segment.Group>
-        <Segment color="teal" inverted>
-            <p>Événements</p>
+const MySideBar = () => (
+    <div>
+        <Segment vertical>
+            CC
         </Segment>
-        <Button.Group basic fluid vertical>
-            <EventsPanel />
-        </Button.Group>
-        <Segment textAlign="center">
-            <Link to="/event/create"><Button>
-            Créer
-            </Button></Link>
+        <Segment vertical>
+            CC 2
         </Segment>
-    </Segment.Group>
-
+        <Segment vertical>
+            CC 2
+        </Segment>
+        <Segment vertical>
+            CC 3
+        </Segment>
+        <Segment vertical>
+            CC 4
+        </Segment>
+        <Segment vertical>
+            CC 5
+        </Segment>
+    </div>
 );
 
-const PinnedGroups = () => (
-    <Segment.Group>
-        <Segment color="teal" inverted>
-            <p>Groupes</p>
-        </Segment>
-        <Button.Group basic fluid vertical>
-            <GroupPanel/>
-        </Button.Group>
-    </Segment.Group>
-);
-
-const SideBar = () => (
-    <Container>
-        <PinnedGroups/>
-        <PinnedEvents/>
-    </Container>
-);
-
-export default SideBar;
+export default MySideBar;

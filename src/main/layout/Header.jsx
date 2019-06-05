@@ -30,7 +30,7 @@ class Header extends React.Component {
                 </Menu.Item>
 
                 {/*NavLink to path /calendar, telling Center to render [TODO]*/}
-                <Menu.Item as={NavLink} to='/event'>
+                <Menu.Item as={NavLink} to='/events'>
                     Calendrier
                 </Menu.Item>
 
@@ -44,21 +44,29 @@ class Header extends React.Component {
                     Services BR
                 </Menu.Item>
 
-                {/*
-                If connected :
-                   Logout function
-                If not
-                    NavLink to path /login, telling Center to render main/login/Login.jsx
-                */}
-                {localStorage.getItem('token') ?
-                    <Menu.Item position='right' as={NavLink} to='/login' name='loginForm'>
-                        <Button color='grey' onClick={this.onLogOut.bind(this)}>Se Déconnecter</Button>
+                <Menu.Menu position='right'>
+
+                    {/*NavLink to path /me, telling Center to render UserPage with my uid*/}
+                    <Menu.Item as={NavLink} to='/me' name="me" position='right'>
+                        My Account
                     </Menu.Item>
-                    :
-                    <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
-                        <Button color="blue">Se connecter</Button>
-                    </Menu.Item>
-                }
+
+                    {/*
+                    If connected :
+                       Logout function
+                    If not
+                        NavLink to path /login, telling Center to render main/login/Login.jsx
+                    */}
+                    {localStorage.getItem('token') ?
+                        <Menu.Item as={NavLink} to='/login' name='loginForm'>
+                            <Button color='grey' onClick={this.onLogOut.bind(this)}>Se Déconnecter</Button>
+                        </Menu.Item>
+                        :
+                        <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
+                            <Button color="blue">Se connecter</Button>
+                        </Menu.Item>
+                    }
+                </Menu.Menu>
 
             </Menu>
 

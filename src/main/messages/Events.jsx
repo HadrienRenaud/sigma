@@ -9,7 +9,7 @@ import EventCalendar from './EventCalendar.jsx';
 
 import AnnouncementCard from './AnnouncementCard.jsx';
 
-class EventFoundUnrouted extends React.Component {
+class EventsFoundUnrouted extends React.Component {
     state = {}
 
     static propTypes = {
@@ -33,15 +33,15 @@ class EventFoundUnrouted extends React.Component {
     }
 }
 
-const EventFound = withRouter(EventFoundUnrouted);
+const EventsFound = withRouter(EventsFoundUnrouted);
 
-const Event = ({match}) => (
+const Events = ({match}) => (
     <div>
         <Switch>
-            <Route path={match.url+"/create"} component={EventFound}/>
-            <Route component={EventFound}/>
+            <Route path={match.url+"/create"} component={EventsFound}/>
+            <Route component={EventsFound}/>
         </Switch>
     </div>
 );
 
-export default Event;
+export default Events;

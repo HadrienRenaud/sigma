@@ -5,7 +5,8 @@
 
 import React from 'react';
 import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
+import {Card, Divider, Header, Icon, Input, Menu, Search, Segment} from "semantic-ui-react";
 import GroupCard from './GroupCard.jsx';
 import {GQLError} from "../Errors.jsx";
 
@@ -20,8 +21,8 @@ const groupReq = gql`
 `;
 
 class AllGroups extends React.Component {
-    
-    loadGroups = ({ loading, error, data }) => {
+
+    loadGroups = ({loading, error, data}) => {
         if (loading) return <div>Chargement...</div>;
         else if (error) {
             console.log(error.name);
@@ -29,18 +30,52 @@ class AllGroups extends React.Component {
             return <GQLError error={error}/>;
         }
 
-        const { allGroups } = data;
+        const {allGroups} = data;
 
-        return <div>
-            {allGroups.map((group) => <GroupCard key={group.uid} uid={group.uid} />)}
-        </div>;
-    }
+        return <Card.Group>
+            {allGroups.map((group) => <GroupCard key={group.gid} gid={group.gid}/>)}
+        </Card.Group>;
+    };
 
     render() {
         return (
-            <Query query={groupReq} fetchPolicy='cache-first'>
-                {this.loadGroups}
-            </Query>
+            <div>
+                <Divider hidden/>
+                <Header>
+                    <Icon name="group"/>
+                    Groupes et Binets
+                </Header>
+                <Divider hidden/>
+                <Menu secondary pointing>
+                    <Menu.Item>
+                        Binets
+                    </Menu.Item>
+                    <Menu.Item>
+                        Sports
+                    </Menu.Item>
+                    <Menu.Item>
+                        Cours
+                    </Menu.Item>
+                    <Menu.Item>
+                        Formation
+                    </Menu.Item>
+                    <Menu.Item>
+                        Promo
+                    </Menu.Item>
+
+                    <Menu.Menu position="right">
+                        <Input
+                            transparent
+                            icon={{name: 'search', link: true}}
+                            placeholder='Search groups...'
+                        />
+                    </Menu.Menu>
+                </Menu>
+                <Divider hidden/>
+                <Query query={groupReq} fetchPolicy='cache-first'>
+                    {this.loadGroups}
+                </Query>
+            </div>
         );
     }
 }

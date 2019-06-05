@@ -1,7 +1,7 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import { Feed, Header } from 'semantic-ui-react';
+import {Feed, Header, List} from 'semantic-ui-react';
 import Post from './Post.jsx';
 import {GQLError} from "../Errors.jsx";
 
@@ -14,19 +14,94 @@ const ALL_POSTS = gql`
             mid
             title
             content
-            
-            ...on Announcement {
+            createdAt
+            updatedAt
+
+            ... on Announcement {
                 authors {
-                    gid,
+                    gid
+                    name
+                }
+                recipients {
+                    gid
+                    name
+                }
+                views
+                forEvent {
+                    mid
+                    title
+                    authors {
+                        gid
+                        name
+                    }
+                }
+            }
+
+            ... on Event {
+                authors {
+                    gid
+                    name
+                }
+                recipients {
+                    gid
+                    name
+                }
+                participatingGroups {
+                    gid
+                    name
+                }
+                participatingUsers {
+                    uid
+                    givenName
+                    lastName
+                }
+                startTime
+                endTime
+                location
+            }
+
+            ... on Question {
+                author {
+                    uid
+                    lastName
+                    givenName
+                }
+                recipient {
+                    gid
                     name
                 }
             }
-            
-            ...on Event {
-                location,
-                authors {
-                    gid,
+
+            ... on PrivatePost {
+                author {
+                    uid
+                    givenName
+                    lastName
+                }
+                recipient {
+                    gid
                     name
+                }
+            }
+
+            ... on Answer {
+                author {
+                    gid
+                    name
+                }
+                forQuestion {
+                    mid
+                    title
+                    content
+                    author {
+                        uid
+                        givenName
+                        lastName
+                    }
+                    recipient {
+                        gid
+                        name
+                    }
                 }
             }
         }
@@ -44,7 +119,7 @@ class PostsFeed extends React.Component {
 
         return (
             <Query query={ALL_POSTS}
-                fetchPolicy='cache-first'
+                   fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
@@ -54,9 +129,9 @@ class PostsFeed extends React.Component {
                     }
                     const {allMessages} = data;
                     return (
-                        <Feed>
+                        <Feed as={List} relaxed divided animated>
                             {allMessages.map(post => (
-                                <Post key={post.id} {...post}/>
+                                <Post key={post.mid} {...post}/>
                             ))}
                         </Feed>
                     );
