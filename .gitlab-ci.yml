@@ -17,6 +17,7 @@ install-dependencies:
   stage: install
   before_script:
     - npm i -g npm
+    - npm i gulp@4
   script:
     - npm i
   artifacts:
