@@ -10,32 +10,27 @@ import {Link} from "react-router-dom";
 
 const GET_MEMBERS = gql`
     query getMembers($gid: ID!) {
-        __typename
         group(gid: $gid) {
             ... on SimpleGroup {
                 admins {
                     uid
                     lastName
                     givenName
-                    promotion
                 }
                 members {
                     uid
                     lastName
                     givenName
-                    promotion
                 }
                 speakers {
                     uid
                     lastName
                     givenName
-                    promotion
                 }
                 likers {
                     uid
                     lastName
                     givenName
-                    promotion
                 }
             }
             ...on MetaGroup {
@@ -43,7 +38,6 @@ const GET_MEMBERS = gql`
                     uid
                     lastName
                     givenName
-                    promotion
                 }
                 members {
                     gid
@@ -65,17 +59,17 @@ class GroupMembers extends Component {
     componentWillMount() {
         if (this.props.typename === "MetaGroup")
             this.filters = [
-                {key: 0, value: "admins", text: "Admins", disabled: false},
-                {key: 1, value: "speaker", text: "Speakers", disabled: true},
-                {key: 2, value: "members", text: "Members", disabled: false},
-                {key: 3, value: "likers", text: "Likers", disabled: true},
+                {key: 0, value: "admins", text: "Admins", disabled: false, icon: "chess queen"},
+                {key: 1, value: "speaker", text: "Speakers", disabled: true, icon: "bullhorn"},
+                {key: 2, value: "members", text: "Members", disabled: false, icon: "heart"},
+                {key: 3, value: "likers", text: "Likers", disabled: true, icon: "eye"},
             ];
         else
             this.filters = [
-                {key: 0, value: "admins", text: "Admins", disabled: false},
-                {key: 1, value: "speaker", text: "Speakers", disabled: false},
-                {key: 2, value: "members", text: "Members", disabled: false},
-                {key: 3, value: "likers", text: "Likers", disabled: false},
+                {key: 0, value: "admins", text: "Admins", disabled: false, icon: "chess queen"},
+                {key: 1, value: "speaker", text: "Speakers", disabled: false, icon: "bullhorn"},
+                {key: 2, value: "members", text: "Members", disabled: false, icon: "heart"},
+                {key: 3, value: "likers", text: "Likers", disabled: false, icon: "eye"},
             ];
     }
 
@@ -96,7 +90,7 @@ class GroupMembers extends Component {
                 </Menu.Item>
                 <Menu.Menu position="right">
                     <Menu.Item>
-                        <Search/>
+                        <Search placeholders={"Search in " + this.state.filter + " ... "}/>
                     </Menu.Item>
                 </Menu.Menu>
             </Menu>
@@ -133,7 +127,12 @@ class GroupMembers extends Component {
                                 <List.Item key={user.uid} as={Link} to={'/user/' + user.uid}>
                                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
                                     <List.Content>
-                                        {user.givenName} {user.lastName} ({user.promotion})
+                                        <List.Header>
+                                            {user.givenName} {user.lastName}
+                                        </List.Header>
+                                        <List.Description>
+                                            @{user.uid}
+                                        </List.Description>
                                     </List.Content>
                                 </List.Item>);
                     }}
