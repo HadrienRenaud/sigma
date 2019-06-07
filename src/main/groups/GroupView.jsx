@@ -51,7 +51,7 @@ class GroupView extends React.Component {
         const {match} = this.props;
 
         let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [], ...this.context};
-        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid)) || true;
+        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid));
         let isSpeaker = isAdmin || (this.props.gid in user.speakerOf.map((g) => g.gid));
         let isMember = isSpeaker || (this.props.gid in user.memberOf.map((g) => g.gid));
         let isLiking = isMember || (this.props.gid in user.likes.map((g) => g.gid));
@@ -157,7 +157,8 @@ class GroupView extends React.Component {
                                 <Route path={match.url + "/annonces"}
                                        render={() => <GroupAnnouncements gid={group.gid}/>}
                                 />
-                                <Route path={`${match.url}/qanda`} render={() => <GroupQanda gid={group.gid}/>}/>
+                                <Route path={`${match.url}/qanda`}
+                                       render={() => <GroupQanda gid={group.gid} isSpeaker={isSpeaker}/>}/>
                                 <Route path={match.url + "/events"} component={GroupEvents}/>
                                 <Route path={match.url + "/members"}
                                        component={() => <GroupMembers gid={group.gid} typename={group.__typename}/>}

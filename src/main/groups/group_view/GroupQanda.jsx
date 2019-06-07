@@ -5,6 +5,7 @@ import {Button, Comment, Dropdown, Form, Menu, Message, Search} from 'semantic-u
 import gql from 'graphql-tag';
 import {graphql, Mutation, Query} from 'react-apollo';
 import {GQLError} from "../../Errors.jsx";
+import {UserContext} from "../../utils/contexts.jsx";
 
 const GET_QUESTIONS = gql`
     query getQuestions($gid: ID!) {
@@ -131,9 +132,8 @@ class Answer extends React.Component {
         return <Mutation mutation={ANSWER}>
             {(mutate, {data, error, loading, called}) => {
                 if (!called)
-                    return <Form onSubmit={(e) => this.handleSubmit(e, mutate)}>
-                        <Form.Input fluid
-                                    label='Title'
+                    return <Form>
+                        <Form.Input fluid label='Title'
                                     placeholder='The title of your answer here'
                                     onChange={this.handleChangeTitle.bind(this)}
                         />
@@ -141,9 +141,11 @@ class Answer extends React.Component {
                                        placeholder="Type your answer here"
                                        onChange={this.handleChangeContent.bind(this)}
                         />
-                        <Button content="Reply" labelPosition="left" icon="send"/>
-                        <Button content="Cancel" labelPosition="left" icon="cancel"
-                                onClick={this.props.handleCancelQuestion}
+                        <Button content="Reply" labelPosition="left" icon="send" name="submit"
+                                onClick={(e) => this.handleSubmit(e, mutate)}
+                        />
+                        <Button content="Cancel" labelPosition="left" icon="cancel" name="cancel"
+                                onClick={this.props.handleCancelAnswer}
                         />
                     </Form>;
                 else if (error)
@@ -212,10 +214,13 @@ class Question extends React.Component {
         let q = this.props.q;
         // let hasAnswer = !!q.forAnswer
         let hasAnswer = false;
+
         if (this.state.redirectTo)
-            return <Redirect to={this.state.redirectTo}/>
+            return <Redirect to={this.state.redirectTo}/>;
+
         if (this.state.deleted)
             return "";
+
         if (this.state.isEditing)
             return <Mutation mutation={EDIT_QUESTION} onCompleted={() => this.props.actualise()}>
                 {(mutate, {data, error, loading, called}) => {
@@ -248,12 +253,12 @@ class Question extends React.Component {
                     else if (data) {
                         this.setState({isEditing: false});
                         return null;
-                    }
-                    else
+                    } else
                         return null;
-                }
-                }
+                }}
             </Mutation>;
+
+
         return <Comment>
             <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg" as={Link}
                             to={"/user/" + q.author.uid}/>
@@ -267,65 +272,61 @@ class Question extends React.Component {
                 <Comment.Text>
                     {q.content}
                 </Comment.Text>
-                {hasAnswer || this.state.isAnswering || this.state.isEditing ? "" :
-                    <Comment.Actions>
-                        <Button content="Answer" labelPosition="left" icon="reply" basic size="mini"
-                                onClick={this.handleAnswerButton.bind(this)}/>
-                        <Button content="See More" labelPosition="left" icon="external alternate" basic size="mini"
-                                onClick={() => this.setState({redirectTo: "/question/" + q.mid})}/>
-                        {cetUtilisateurEstAuteur ?
-                            <Button content="Edit Question" labelPosition="left" icon="edit" size="mini"
-                                    onClick={this.handleEditButton.bind(this)}
-                            />
-                            : ""}
-                        {cetUtilisateurEstSpeakerDuGroupe ?
-                            <Mutation mutation={DELETE_QUESTION} variables={{mid: q.mid}}
-                                      onCompleted={() => this.props.actualise()}>
-                                {(mutate, {data, error, loading, called}) => {
-                                    if (!called)
-                                        return <Button content="Delete" labelPosition="left" icon="delete"
-                                                       size="mini" color="red" onClick={() => mutate()}/>;
-                                    else if (loading)
-                                        return <Button content="Delete" labelPosition="left" icon="delete"
-                                                       size="mini" color="red" disabled={true}/>;
-                                    else if (error)
-                                        return <GQLError error={error}/>;
-                                    else if (data)
-                                        return <Message info content="Question successfully deleted."/>;
-                                    else
-                                        return <Message error content="Cannot delete this question."/>;
-                                }}
-                            </Mutation>
-                            : ""
-                        }
-                    </Comment.Actions>
+                {!hasAnswer && !this.state.isAnswering && !this.state.isEditing &&
+                <Comment.Actions>
+                    {this.props.isSpeaker &&
+                    <Button content="Answer" labelPosition="left" icon="reply" basic size="mini"
+                            onClick={this.handleAnswerButton.bind(this)}/>}
+                    <Button content="See More" labelPosition="left" icon="external alternate" basic size="mini"
+                            onClick={() => this.setState({redirectTo: "/question/" + q.mid})}/>
+                    {this.context.uid === q.author.uid &&
+                    <Button content="Edit Question" labelPosition="left" icon="edit" size="mini"
+                            onClick={this.handleEditButton.bind(this)} color="olive"
+                    />}
+                    {this.props.isSpeaker &&
+                    <Mutation mutation={DELETE_QUESTION} variables={{mid: q.mid}}
+                              onCompleted={() => this.props.actualise()}>
+                        {(mutate, {data, error, loading, called}) => {
+                            if (!called)
+                                return <Button content="Delete" labelPosition="left" icon="delete"
+                                               size="mini" color="red" onClick={() => mutate()}/>;
+                            else if (loading)
+                                return <Button content="Delete" labelPosition="left" icon="delete"
+                                               size="mini" color="red" disabled={true}/>;
+                            else if (error)
+                                return <GQLError error={error}/>;
+                            else if (data)
+                                return <Message info content="Question successfully deleted."/>;
+                            else
+                                return <Message error content="Cannot delete this question."/>;
+                        }}
+                    </Mutation>}
+                </Comment.Actions>}
+                {this.props.isSpeaker && this.state.isAnswering &&
+                <Answer qid={q.mid} handleCancelAnswer={this.handleCancelQuestion.bind(this)}/>
                 }
             </Comment.Content>
-            {hasAnswer ?
-                <Comment.Group>
-                    <Link to={'/questions/' + q.mid}>
-                        <Comment>
-                            <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg"/>
-                            <Comment.Content>
-                                <Comment.Author>
-                                    {q.forAnswer.title}
-                                </Comment.Author>
-                                <Comment.Text>
-                                    {q.forAnswer.content}
-                                </Comment.Text>
-                            </Comment.Content>
-                        </Comment>
-                    </Link>
-                </Comment.Group>
-                : cetUtilisateurEstSpeakerDuGroupe && this.state.isAnswering ?
-                    <Comment.Group>
-                        <Answer qid={q.mid}/>
-                    </Comment.Group>
-                    : ""}
+            {hasAnswer &&
+            <Comment.Group>
+                <Link to={'/questions/' + q.mid}>
+                    <Comment>
+                        <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg"/>
+                        <Comment.Content>
+                            <Comment.Author>
+                                {q.forAnswer.title}
+                            </Comment.Author>
+                            <Comment.Text>
+                                {q.forAnswer.content}
+                            </Comment.Text>
+                        </Comment.Content>
+                    </Comment>
+                </Link>
+            </Comment.Group>}
         </Comment>;
     }
 }
 
+Question.contextType = UserContext;
 
 class AskQuestion extends React.Component {
     // states: not-sent, sending, sent, redirecting, error, gql-error
@@ -470,7 +471,8 @@ class GroupQuanda extends React.Component {
 
                 return (
                     <Comment.Group>
-                        {questions.map(q => <Question q={q} key={q.mid} actualise={refetch}/>)}
+                        {questions.map(q => <Question q={q} key={q.mid} actualise={refetch}
+                                                      isSpeaker={this.props.isSpeaker}/>)}
                     </Comment.Group>
                 );
             }}

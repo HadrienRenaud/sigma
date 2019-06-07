@@ -99,12 +99,11 @@ class QuestionPage extends React.Component {
                             </Segment>
                             <Segment vertical>
                                 <Message warning>
-                                    Commentaires pas encore implémentées
+                                    Commentaires pas encore implémentés
                                 </Message>
                             </Segment>
                         </div>
                     );
-
                 }}
             </Query>
         )
