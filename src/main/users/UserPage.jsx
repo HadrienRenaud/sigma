@@ -219,7 +219,7 @@ class UserPage extends React.Component {
                                             <Image avatar
                                                    src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
                                             <List.Content>
-                                                <List.Header as={Link} to={'/groups/' + gr.gid}>
+                                                <List.Header as={Link} to={'/group/' + gr.gid}>
                                                     {gr.name}
                                                 </List.Header>
                                                 <List.Description>
@@ -275,7 +275,7 @@ class UserPage extends React.Component {
                                                    src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
                                             <List.Content>
                                                 <List.Header>
-                                                    To <Link to={'/groups/' + q.recipient.gid + '/qanda'}>
+                                                    To <Link to={'/group/' + q.recipient.gid + '/qanda'}>
                                                     {q.recipient.name}
                                                 </Link> : {q.title}
                                                 </List.Header>

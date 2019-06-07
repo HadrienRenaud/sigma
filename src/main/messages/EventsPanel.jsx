@@ -40,9 +40,9 @@ class Author extends React.Component {
         let link = "/";
 
         if (this.props.auth.uid)
-            link = '/users/' + this.props.auth.uid;
+            link = '/user/' + this.props.auth.uid;
         else if (this.props.auth.gid)
-            link = '/groups/' + this.props.auth.gid;
+            link = '/group/' + this.props.auth.gid;
 
         return <Link to={link}> {this.props.auth.name}</Link>;
     }

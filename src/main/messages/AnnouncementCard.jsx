@@ -97,14 +97,14 @@ class AnnouncementCard extends React.Component {
                                 <Feed.Date>
                                     {"Par "}
                                     {announcement.authors.map(group => <span key={group.gid}>
-                                                <Link to={'/groups/' + group.gid}>
+                                                <Link to={'/group/' + group.gid}>
                                                     {group.name}
                                                     </Link>
                                         {", "}
                                             </span>)}
                                     {"à "}
                                     {announcement.recipients.map(group => <span key={group.gid}>
-                                                <Link to={'/groups/' + group.gid}>
+                                                <Link to={'/group/' + group.gid}>
                                                     {group.name}
                                                     </Link>
                                         {", "}

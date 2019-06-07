@@ -48,7 +48,6 @@ class GroupCard extends React.Component {
 
 
         let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [] , ...this.context } ;
-        console.log("User context : ", user);
         let extraContent = "";
         if (this.props.gid in user.adminOf.map((g) => g.gid))
             extraContent = <Card.Content extra content={<Label color='red' corner="right" icon={"chess queen"}/>}/>;
@@ -74,12 +73,12 @@ class GroupCard extends React.Component {
 
                     return (
                         <Card color={"blue"} as="div" link
-                              onClick={() => this.setState({redirectTo: "/groups/" + group.gid})}>
+                              onClick={() => this.setState({redirectTo: "/group/" + group.gid})}>
                             <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped
                                    ui={false}/>
                             <Card.Content>
                                 <Card.Header>
-                                    <Link to={"/groups/" + this.props.gid}>{group.name}</Link>
+                                    <Link to={"/group/" + this.props.gid}>{group.name}</Link>
                                 </Card.Header>
                                 <Card.Meta>
                                     <a href={group.website}>{group.website}</a>
