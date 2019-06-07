@@ -51,7 +51,7 @@ class GroupView extends React.Component {
         const {match} = this.props;
 
         let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [], ...this.context};
-        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid));
+        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid)) || true;
         let isSpeaker = isAdmin || (this.props.gid in user.speakerOf.map((g) => g.gid));
         let isMember = isSpeaker || (this.props.gid in user.memberOf.map((g) => g.gid));
         let isLiking = isMember || (this.props.gid in user.likes.map((g) => g.gid));
@@ -138,12 +138,13 @@ class GroupView extends React.Component {
                                            content="Événements"/>
                                 <Menu.Item as={NavLink} to={match.url + "/members"}
                                            content="Membres"/>
+                                {isMember &&
                                 <Menu.Item as={NavLink} to={match.url + "/interne"}
                                            position='right'
-                                           content="Page interne"/> {/*réservé aux membres du groupe*/}
+                                           content="Page interne"/>} {/* Réservé aux membres du groupe */}
+                                {isAdmin &&
                                 <Menu.Item as={NavLink} to={match.url + "/admin"}
-                                           content="Administrer"/> {/*réservé aux administrateurs du groupe*/}
-
+                                           content="Administrer"/>} {/*réservé aux administrateurs du groupe*/}
                             </Menu>
 
 
@@ -151,7 +152,7 @@ class GroupView extends React.Component {
                                 {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/
                                 }
                                 <Route exact path={`${match.url}`}
-                                       render={() => <GroupFrontPage frontPage={group.frontPage}/>}
+                                       render={() => <GroupFrontPage frontPage={group.frontPage} isSpeaker={isSpeaker}/>}
                                 />
                                 <Route path={match.url + "/annonces"}
                                        render={() => <GroupAnnouncements gid={group.gid}/>}
@@ -161,8 +162,12 @@ class GroupView extends React.Component {
                                 <Route path={match.url + "/members"}
                                        component={() => <GroupMembers gid={group.gid} typename={group.__typename}/>}
                                 />
-                                <Route path={match.url + "/interne"} component={GroupPageInterne}/>
-                                <Route path={match.url + "/admin"} component={GroupAdministrer}/>
+                                <Route path={match.url + "/interne"}
+                                       component={isMember ? GroupPageInterne :
+                                           () => <Message error header="Droits insuffisants" content="Il faut être membre du groupe pour accéder à la page interne."/>}/>
+                                <Route path={match.url + "/admin"}
+                                       component={isAdmin ? GroupAdministrer :
+                                           () => <Message error header="Droits insuffisants" content="Il faut être admin du groupe pour accéder à la page d'administration."/>}/>
                                 <Route component={Error404}/>
                             </Switch>
                         </Container>);
