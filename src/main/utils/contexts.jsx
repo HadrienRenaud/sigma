@@ -59,7 +59,6 @@ export class UserContextProvider extends React.Component {
             {({loading, error, data}) => {
                 if (error)
                     console.error(error);
-                console.log("Receiving user data :", data.user);
                 return <UserContext.Provider value={{uid: this.props.uid, ...data.user}}>
                     {this.props.children}
                 </UserContext.Provider>

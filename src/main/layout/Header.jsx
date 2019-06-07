@@ -54,7 +54,6 @@ class Header extends React.Component {
                     */}
                     <UserContext.Consumer>
                         {(user) => {
-                            console.log("Consumer user : ", user);
                             return user !== "anonymous" ?
                                 <Dropdown item trigger={
                                     <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png'

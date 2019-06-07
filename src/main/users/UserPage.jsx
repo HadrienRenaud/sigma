@@ -11,6 +11,7 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {GQLError} from "../Errors.jsx";
 import {Link, Redirect} from "react-router-dom";
+import {UserContext} from "../utils/contexts.jsx";
 
 function iterateGroup(group, groupList) {
     return group;
@@ -122,10 +123,11 @@ class UserPage extends React.Component {
     }
 
     render() {
-
-        let uid = this.props.uid;
-        if (this.props.match)
+        let uid = "";
+        if (this.props.match && this.props.match.params.uid) // route = /user/:uid
             uid = this.props.match.params.uid;
+        else
+            uid = this.context.uid;
 
         return (
             <Query query={GET_USER}
@@ -288,4 +290,5 @@ class UserPage extends React.Component {
 
 }
 
+UserPage.contextType = UserContext;
 export default UserPage;
