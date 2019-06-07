@@ -1,5 +1,6 @@
 import React from "react";
 import {Link, Redirect} from "react-router-dom";
+import {UserContext} from "./contexts.jsx";
 
 class Author extends React.Component {
     state = {
@@ -16,8 +17,13 @@ class Author extends React.Component {
             link = "/group/" + this.props.gid;
             content = this.props.name;
         } else if (this.props.uid) {
-            link = "/user/" + this.props.uid;
-            content = <span>{this.props.givenName} {this.props.lastName}</span>;
+            if (this.props.uid === this.context.uid) {// ie it's you
+                link = "/me";
+                content = <span title={this.props.givenName + " " + this.props.lastName}>You</span>;
+            } else {
+                link = "/user/" + this.props.uid;
+                content = <span>{this.props.givenName} {this.props.lastName}</span>;
+            }
         }
 
         return <Link to={link}>
@@ -25,6 +31,7 @@ class Author extends React.Component {
         </Link>;
     }
 }
+Author.contextType = UserContext;
 
 class AuthorList extends React.Component {
     render() {
