@@ -1,9 +1,6 @@
 import React from "react";
 import gql from "graphql-tag";
-import {Query} from "react-apollo"
-import {Feed, List} from "semantic-ui-react";
-import {GQLError} from "../Errors.jsx";
-import Post from "../messages/Post.jsx";
+import {Query} from "react-apollo";
 
 const USER_QUERY = gql`
     query getUser($uid: ID!) {
@@ -48,7 +45,7 @@ const USER_QUERY = gql`
             }
         }
     }
-`
+`;
 
 
 export const UserContext = React.createContext("anonymous");
@@ -61,9 +58,9 @@ export class UserContextProvider extends React.Component {
                     console.error(error);
                 return <UserContext.Provider value={{uid: this.props.uid, ...data.user}}>
                     {this.props.children}
-                </UserContext.Provider>
+                </UserContext.Provider>;
             }}
-        </Query>
+        </Query>;
     }
 }
 

@@ -130,7 +130,7 @@ class GroupMembers extends Component {
                             );
                         else
                             return users.map(user =>
-                                <List.Item key={user.uid} as={Link} to={'/users/' + user.uid}>
+                                <List.Item key={user.uid} as={Link} to={'/user/' + user.uid}>
                                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
                                     <List.Content>
                                         {user.givenName} {user.lastName} ({user.promotion})

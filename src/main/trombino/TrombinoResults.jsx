@@ -70,7 +70,7 @@ class UserListItem extends Component {
         const {user} = this.props;
 
         return (
-            <List.Item onClick={() => this.setState({redirectTo: "/users/" + user.uid})}>
+            <List.Item onClick={() => this.setState({redirectTo: "/user/" + user.uid})}>
                 <Image avatar src="https://react.semantic-ui.com/images/avatar/large/justen.jpg"/>
                 <List.Content>
                     <List.Header>

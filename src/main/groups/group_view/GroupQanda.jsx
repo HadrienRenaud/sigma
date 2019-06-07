@@ -256,13 +256,13 @@ class Question extends React.Component {
             </Mutation>;
         return <Comment>
             <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg" as={Link}
-                            to={"/users/" + q.author.uid}/>
+                            to={"/user/" + q.author.uid}/>
             <Comment.Content>
                 <Comment.Author>
                     {q.title}
                 </Comment.Author>
                 <Comment.Metadata>
-                    Par <Link to={"/users/" + q.author.uid}>{q.author.givenName}</Link> le {q.createdAt}
+                    Par <Link to={"/user/" + q.author.uid}>{q.author.givenName}</Link> le {q.createdAt}
                 </Comment.Metadata>
                 <Comment.Text>
                     {q.content}
