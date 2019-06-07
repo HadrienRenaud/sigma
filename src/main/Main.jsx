@@ -7,8 +7,7 @@ import Footer from './layout/Footer.jsx';
 import Body from './layout/Body.jsx';
 import Login from './login/Login.jsx';
 
-import decode from 'jwt-decode';
-import SideBar from "./layout/SideBar.jsx";
+import {UserContextProvider} from "./utils/contexts.jsx";
 
 /**
  * @file Le composant React principal, généré quel que soit le path, et dans lequel
@@ -21,9 +20,10 @@ import SideBar from "./layout/SideBar.jsx";
 
 function isLoggedIn() {
     return !!(
-        localStorage.getItem('token')
-        && localStorage.getItem('tokenValidity')
-        && (new Date(localStorage.getItem('tokenValidity'))).getTime() > Date.now());
+        localStorage.getItem('uid')
+        && ((localStorage.getItem('loginValidity')
+            && (new Date(localStorage.getItem('loginValidity'))).getTime() > Date.now()))
+    );
 }
 
 
@@ -34,9 +34,10 @@ class Main extends Component {
         toLogIn: false,
     };
 
-    onLogin() {
+    onLogin(user) {
         this.setState({
-            loggedIn: true
+            loggedIn: true,
+            user: user
         });
     }
 
@@ -59,20 +60,25 @@ class Main extends Component {
                         onLogOut={this.onLogOut.bind(this)}
                     />
                     <Container>
-                        <Switch>
-                            {this.state.loggedIn ?
-                                <Route path="/login" render={() => <Redirect to='/'/>}/>
-                                :
+                        {this.state.loggedIn ?
+                            <UserContextProvider uid={this.state.user || localStorage.getItem('uid')}>
+                                <Switch>
+                                    <Route path="/login" render={() => <Redirect to='/'/>}/>
+                                    <Route path="/" render={props => <Body {...props} {...this.state}/>}/>
+                                </Switch>
+                            </UserContextProvider>
+                            :
+                            <Switch>
                                 <Route path="/login"
                                        render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
-                            }
-                            {!this.state.loggedIn && this.state.toLogIn ?
-                                <Route path='/' redner={() => <Redirect to='/login'/>}/>
-                                :
-                                <Route path="/"
-                                       render={props => <Body {...props} loggedIn={this.state.loggedIn}/>}/>
-                            }
-                        </Switch>
+                                {this.state.toLogIn ?
+                                    <Route path='/' render={() => <Redirect to='/login'/>}/>
+                                    :
+                                    <Route path="/"
+                                           render={props => <Body {...props} {...this.state}/>}/>
+                                }
+                            </Switch>
+                        }
                     </Container>
                 </div>
                 <footer style={{

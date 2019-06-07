@@ -6,6 +6,7 @@ import React from 'react';
 import {Menu, Button, Image, Container} from 'semantic-ui-react';
 import {Link, NavLink} from 'react-router-dom';
 import logo_sigma from '../../assets/logo_sigma.png';
+import {UserContext} from "../utils/contexts.jsx";
 
 class Header extends React.Component {
 
@@ -57,15 +58,17 @@ class Header extends React.Component {
                     If not
                         NavLink to path /login, telling Center to render main/login/Login.jsx
                     */}
-                    {localStorage.getItem('token') ?
-                        <Menu.Item as={NavLink} to='/login' name='loginForm'>
-                            <Button color='grey' onClick={this.onLogOut.bind(this)}>Se Déconnecter</Button>
-                        </Menu.Item>
-                        :
-                        <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
-                            <Button color="blue">Se connecter</Button>
-                        </Menu.Item>
-                    }
+                    <UserContext.Consumer>
+                        {(user) => user !== "anonymous" ?
+                            <Menu.Item as={NavLink} to='/login' name='loginForm'>
+                                <Button color='grey' onClick={this.onLogOut.bind(this)}>Se Déconnecter</Button>
+                            </Menu.Item>
+                            :
+                            <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
+                                <Button color="blue">Se connecter</Button>
+                            </Menu.Item>
+                        }
+                    </UserContext.Consumer>
                 </Menu.Menu>
 
             </Menu>
