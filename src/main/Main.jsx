@@ -56,30 +56,30 @@ class Main extends Component {
                 gridTemplateRows: '1fr auto',
             }}>
                 <div>
-                    <Header
-                        onLogOut={this.onLogOut.bind(this)}
-                    />
-                    <Container>
-                        {this.state.loggedIn ?
-                            <UserContextProvider uid={this.state.user || localStorage.getItem('uid')}>
+                    <UserContextProvider uid={this.state.user || localStorage.getItem('uid')}>
+                        <Header
+                            onLogOut={this.onLogOut.bind(this)}
+                        />
+                        <Container>
+                            {this.state.loggedIn ?
                                 <Switch>
                                     <Route path="/login" render={() => <Redirect to='/'/>}/>
                                     <Route path="/" render={props => <Body {...props} {...this.state}/>}/>
                                 </Switch>
-                            </UserContextProvider>
-                            :
-                            <Switch>
-                                <Route path="/login"
-                                       render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
-                                {this.state.toLogIn ?
-                                    <Route path='/' render={() => <Redirect to='/login'/>}/>
-                                    :
-                                    <Route path="/"
-                                           render={props => <Body {...props} {...this.state}/>}/>
-                                }
-                            </Switch>
-                        }
-                    </Container>
+                                :
+                                <Switch>
+                                    <Route path="/login"
+                                           render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
+                                    {this.state.toLogIn ?
+                                        <Route path='/' render={() => <Redirect to='/login'/>}/>
+                                        :
+                                        <Route path="/"
+                                               render={props => <Body {...props} {...this.state}/>}/>
+                                    }
+                                </Switch>
+                            }
+                        </Container>
+                    </UserContextProvider>
                 </div>
                 <footer style={{
                     gridRowStart: 3,

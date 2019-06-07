@@ -51,9 +51,7 @@ const USER_QUERY = gql`
 `
 
 
-export const UserContext = React.createContext({
-    uid: "anonymous"
-});
+export const UserContext = React.createContext("anonymous");
 
 export class UserContextProvider extends React.Component {
     render() {
@@ -61,7 +59,8 @@ export class UserContextProvider extends React.Component {
             {({loading, error, data}) => {
                 if (error)
                     console.error(error);
-                return <UserContext.Provider value={{uid: this.props.uid, ...data}}>
+                console.log("Receiving user data :", data.user);
+                return <UserContext.Provider value={{uid: this.props.uid, ...data.user}}>
                     {this.props.children}
                 </UserContext.Provider>
             }}
