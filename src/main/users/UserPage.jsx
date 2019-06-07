@@ -161,8 +161,8 @@ class UserPage extends React.Component {
                                 <Image src="https://react.semantic-ui.com/images/wireframe/square-image.png"
                                        floated="right" size='small'/>
                                 <Header>
-                                    {user.givenName} {user.lastName}
-                                    <Header.Subheader>{user.nickname}</Header.Subheader>
+                                    {user.givenName} {user.lastName} ({user.nickname})
+                                    <Header.Subheader>@{this.props.uid || this.context.uid}</Header.Subheader>
                                 </Header>
                                 <List>
                                     <List.Item icon="birthday" content={user.birthdate}/>
@@ -181,26 +181,32 @@ class UserPage extends React.Component {
                                             Groupes
                                         </Header>
                                     </Menu.Item>
+                                    {this.props.uid === this.context.uid &&
                                     <Menu.Item active={this.state.groupView === 'dislikes'}
-                                               onClick={() => this.setState({groupView: 'dislikes'})}>
-                                        Dislikes
-                                    </Menu.Item>
+                                               onClick={() => this.setState({groupView: 'dislikes'})}
+                                               icon="eye slash"
+                                               name="Dislikes"
+                                    />}
                                     <Menu.Item active={this.state.groupView === 'likes'}
-                                               onClick={() => this.setState({groupView: 'likes'})}>
-                                        Likes
-                                    </Menu.Item>
+                                               onClick={() => this.setState({groupView: 'likes'})}
+                                               icon="eye"
+                                               name="Likes"
+                                    />
                                     <Menu.Item active={this.state.groupView === 'member'}
-                                               onClick={() => this.setState({groupView: 'member'})}>
-                                        Membre
-                                    </Menu.Item>
+                                               onClick={() => this.setState({groupView: 'member'})}
+                                               icon="heart"
+                                               name="Member"
+                                    />
                                     <Menu.Item active={this.state.groupView === 'speaker'}
-                                               onClick={() => this.setState({groupView: 'speaker'})}>
-                                        Speaker
-                                    </Menu.Item>
+                                               onClick={() => this.setState({groupView: 'speaker'})}
+                                               icon="bullhorn"
+                                               name="Speaker"
+                                    />
                                     <Menu.Item active={this.state.groupView === 'admin'}
-                                               onClick={() => this.setState({groupView: 'admin'})}>
-                                        Admin
-                                    </Menu.Item>
+                                               onClick={() => this.setState({groupView: 'admin'})}
+                                               icon="chess queen"
+                                               name="Admin"
+                                    />
                                     <Menu.Menu position="right">
                                         <Menu.Item>
                                             <Search disabled/>
