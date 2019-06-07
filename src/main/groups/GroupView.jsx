@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, NavLink, Link, withRouter, Redirect} from 'react-router-dom';
 import {Error404} from '../Errors.jsx';
-import {Menu, Header, Button, Container, Icon, Popup, Label, Segment} from 'semantic-ui-react';
+import {Menu, Header, Button, Container, Icon, Popup, Label, Segment, Card} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import ReactMarkdown from 'react-markdown';
@@ -50,10 +50,12 @@ class GroupView extends React.Component {
         const {contextRef} = this.state;
         const {match} = this.props;
 
-        // TODO: modifier le schema graphQL et decommenter cette ligne
-        const fakeFrontPage = "_this is a markdown string_ Fake group front page. Must modify *graphQL schema* before we can implement this";
-
-        //console.log("Match:", match);
+        let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [], ...this.context};
+        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid));
+        let isSpeaker = isAdmin || (this.props.gid in user.speakerOf.map((g) => g.gid));
+        let isMember = isSpeaker || (this.props.gid in user.memberOf.map((g) => g.gid));
+        let isLiking = isMember || (this.props.gid in user.likes.map((g) => g.gid));
+        let isDisliking = (this.props.gid in user.dislikes.map((g) => g.gid));
 
         return (
             <Query query={GET_GROUP}
@@ -84,29 +86,38 @@ class GroupView extends React.Component {
                                 </Menu.Item>
 
                                 <Menu.Item position="right">
-                                    <Popup
-                                        trigger={<Button color='yellow' icon='star'/>}
-                                        content='Devenir administrateur'
-                                        position='top left'
-                                        inverted
-                                    />
-                                    <Popup
-                                        trigger={<Button color='blue' icon='user'/>}
-                                        content='Devenir membre'
-                                        position='top left'
-                                        inverted
-                                    />
-                                    <Popup
-                                        trigger={<Button as='div' labelPosition='right'>
-                                            <Button color='pink'>
-                                                <Icon name='heart'/>
-                                            </Button>
-                                            <Label as='a' basic color='pink' pointing='left'>2,048</Label>
-                                        </Button>}
-                                        content='Devenir sympathisant'
-                                        position='top left'
-                                        inverted
-                                    />
+                                    <Button.Group>
+                                        <Popup
+                                            trigger={<Button color='purple' icon='chess queen'/>}
+                                            content={isAdmin ? "Ne plus être administrateur" : 'Devenir administrateur'}
+                                            position='top left'
+                                            inverted={!isAdmin}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='violet' icon='bullhorn'/>}
+                                            content={isSpeaker ? "Devenir Speaker" : 'Devenir speaker'}
+                                            position='top left'
+                                            inverted={!isSpeaker}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='blue' icon='heart'/>}
+                                            content={isMember ? "Ne plus être membre" : 'Devenir membre'}
+                                            position='top left'
+                                            inverted={!isMember}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='green' icon='eye'/>}
+                                            content={isLiking ? "Ne plus être sympathisant" : 'Devenir Sympathisant'}
+                                            position='top left'
+                                            inverted={!isLiking}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='yellow' icon='eye slash'/>}
+                                            content={isDisliking ? "Suivre" : 'Ne pas suivre'}
+                                            position='top left'
+                                            inverted={!isDisliking}
+                                        />
+                                    </Button.Group>
                                 </Menu.Item>
                             </Menu>
 
