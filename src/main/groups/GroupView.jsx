@@ -28,11 +28,16 @@ const GET_GROUP = gql`
             gid
             name
             website
+            mail
             description
             createdAt
             updatedAt
             frontPage
             __typename
+            visibilityEdges {
+                name
+                gid
+            }
         }
     }
 `;
@@ -126,7 +131,7 @@ class GroupView extends React.Component {
 
                             {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/
                             }
-                            <Menu pointing>
+                            <Menu pointing secondary color="purple">
                                 <Menu.Item as={NavLink} exact to={match.url}
                                            content="Page d'accueil"/>
                                 <Menu.Item as={NavLink} to={match.url + "/annonces"}
@@ -170,7 +175,7 @@ class GroupView extends React.Component {
                                 <Route path={match.url + "/admin"}
                                        render={() => {
                                            if (isAdmin)
-                                               return <GroupAdministrer isAdmin={isAdmin}/>;
+                                               return <GroupAdministrer isAdmin={isAdmin} g={group}/>;
                                            else
                                                return <Message error header="Droits insuffisants">
                                                    Il faut être admin du groupe pour accéder à la page d'administration.
