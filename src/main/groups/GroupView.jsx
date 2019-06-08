@@ -51,7 +51,7 @@ class GroupView extends React.Component {
         const {match} = this.props;
 
         let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [], ...this.context};
-        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid));
+        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid)) || true;
         let isSpeaker = isAdmin || (this.props.gid in user.speakerOf.map((g) => g.gid));
         let isMember = isSpeaker || (this.props.gid in user.memberOf.map((g) => g.gid));
         let isLiking = isMember || (this.props.gid in user.likes.map((g) => g.gid));
@@ -60,7 +60,6 @@ class GroupView extends React.Component {
         return (
             <Query query={GET_GROUP}
                    variables={{
-                       //gid: "br" //TODO: wrap with withRouter and get gid from this.props.match.params.gid
                        gid: match.params.gid
                    }}
                    fetchPolicy='cache-first' //choose cache behaviour
@@ -152,7 +151,8 @@ class GroupView extends React.Component {
                                 {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/
                                 }
                                 <Route exact path={`${match.url}`}
-                                       render={() => <GroupFrontPage frontPage={group.frontPage} isSpeaker={isSpeaker}/>}
+                                       render={() => <GroupFrontPage frontPage={group.frontPage}
+                                                                     isSpeaker={isSpeaker}/>}
                                 />
                                 <Route path={match.url + "/annonces"}
                                        render={() => <GroupAnnouncements gid={group.gid}/>}
@@ -165,10 +165,17 @@ class GroupView extends React.Component {
                                 />
                                 <Route path={match.url + "/interne"}
                                        component={isMember ? GroupPageInterne :
-                                           () => <Message error header="Droits insuffisants" content="Il faut être membre du groupe pour accéder à la page interne."/>}/>
+                                           () => <Message error header="Droits insuffisants"
+                                                          content="Il faut être membre du groupe pour accéder à la page interne."/>}/>
                                 <Route path={match.url + "/admin"}
-                                       component={isAdmin ? GroupAdministrer :
-                                           () => <Message error header="Droits insuffisants" content="Il faut être admin du groupe pour accéder à la page d'administration."/>}/>
+                                       render={() => {
+                                           if (isAdmin)
+                                               return <GroupAdministrer isAdmin={isAdmin}/>;
+                                           else
+                                               return <Message error header="Droits insuffisants">
+                                                   Il faut être admin du groupe pour accéder à la page d'administration.
+                                               </Message>;
+                                       }}/>
                                 <Route component={Error404}/>
                             </Switch>
                         </Container>);
