@@ -8,21 +8,50 @@
 
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import {Route, Link} from 'react-router-dom';
 
-import {Button, Segment, Icon, Divider, Card} from 'semantic-ui-react';
+import {Segment, Label, Button, Divider, Header, Form, Message} from 'semantic-ui-react';
 
 class GroupFrontPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-    }
+    state = {
+        edition: false,
+        frontPage: ""
+    };
 
     render() {
-        const {frontPage} = this.props;
+        let {frontPage, isSpeaker} = this.props;
+        if (this.state.edition)
+            frontPage = this.state.frontPage;
 
         return (
-            <ReactMarkdown source={frontPage}/>
+            <Segment basic>
+                {isSpeaker && !this.state.edition &&
+                <Label
+                    as={Button} icon={"edit"} content={"Edit"} attached={"bottom"}
+                    onClick={() => this.setState({edition: true, frontPage: this.props.frontPage})}/>}
+                {this.state.edition && <div>
+                    <Form>
+                        <Form.TextArea
+                            placeholder='Write here what the user will see on your frontPage. You can use Markdown !'
+                            value={this.state.frontPage}
+                            onChange={(e, {value}) => this.setState({frontPage: value})}
+                        />
+                        <Form.Group>
+                            <Form.Button disabled color="green" content="Submit" icon="check"/>
+                            <Form.Button inverted color="orange" content="Cancel" icon="cancel"
+                                         onClick={(e) => this.setState({edition: false})}
+                            />
+                            <Message warning>L'Édition n'est pas encore implémentée.</Message>
+                        </Form.Group>
+                    </Form>
+                    <Divider/>
+                    <Header as="h3">
+                        Preview
+                    </Header>
+                    <Divider hidden/>
+                </div>}
+                <ReactMarkdown source={frontPage}/>
+            </Segment>
         );
     }
 

@@ -8,7 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, NavLink, Link, withRouter, Redirect} from 'react-router-dom';
 import {Error404} from '../Errors.jsx';
-import {Menu, Header, Button, Container, Icon, Popup, Label, Segment} from 'semantic-ui-react';
+import {Menu, Header, Button, Container, Icon, Popup, Label, Segment, Card} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import ReactMarkdown from 'react-markdown';
@@ -28,11 +28,16 @@ const GET_GROUP = gql`
             gid
             name
             website
+            mail
             description
             createdAt
             updatedAt
             frontPage
             __typename
+            visibilityEdges {
+                name
+                gid
+            }
         }
     }
 `;
@@ -50,15 +55,16 @@ class GroupView extends React.Component {
         const {contextRef} = this.state;
         const {match} = this.props;
 
-        // TODO: modifier le schema graphQL et decommenter cette ligne
-        const fakeFrontPage = "_this is a markdown string_ Fake group front page. Must modify *graphQL schema* before we can implement this";
-
-        //console.log("Match:", match);
+        let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [], ...this.context};
+        let isAdmin = (this.props.gid in user.adminOf.map((g) => g.gid)) || true;
+        let isSpeaker = isAdmin || (this.props.gid in user.speakerOf.map((g) => g.gid));
+        let isMember = isSpeaker || (this.props.gid in user.memberOf.map((g) => g.gid));
+        let isLiking = isMember || (this.props.gid in user.likes.map((g) => g.gid));
+        let isDisliking = (this.props.gid in user.dislikes.map((g) => g.gid));
 
         return (
             <Query query={GET_GROUP}
                    variables={{
-                       //gid: "br" //TODO: wrap with withRouter and get gid from this.props.match.params.gid
                        gid: match.params.gid
                    }}
                    fetchPolicy='cache-first' //choose cache behaviour
@@ -84,29 +90,38 @@ class GroupView extends React.Component {
                                 </Menu.Item>
 
                                 <Menu.Item position="right">
-                                    <Popup
-                                        trigger={<Button color='yellow' icon='star'/>}
-                                        content='Devenir administrateur'
-                                        position='top left'
-                                        inverted
-                                    />
-                                    <Popup
-                                        trigger={<Button color='blue' icon='user'/>}
-                                        content='Devenir membre'
-                                        position='top left'
-                                        inverted
-                                    />
-                                    <Popup
-                                        trigger={<Button as='div' labelPosition='right'>
-                                            <Button color='pink'>
-                                                <Icon name='heart'/>
-                                            </Button>
-                                            <Label as='a' basic color='pink' pointing='left'>2,048</Label>
-                                        </Button>}
-                                        content='Devenir sympathisant'
-                                        position='top left'
-                                        inverted
-                                    />
+                                    <Button.Group>
+                                        <Popup
+                                            trigger={<Button color='purple' icon='chess queen'/>}
+                                            content={isAdmin ? "Ne plus être administrateur" : 'Devenir administrateur'}
+                                            position='top left'
+                                            inverted={!isAdmin}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='violet' icon='bullhorn'/>}
+                                            content={isSpeaker ? "Devenir Speaker" : 'Devenir speaker'}
+                                            position='top left'
+                                            inverted={!isSpeaker}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='blue' icon='heart'/>}
+                                            content={isMember ? "Ne plus être membre" : 'Devenir membre'}
+                                            position='top left'
+                                            inverted={!isMember}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='green' icon='eye'/>}
+                                            content={isLiking ? "Ne plus être sympathisant" : 'Devenir Sympathisant'}
+                                            position='top left'
+                                            inverted={!isLiking}
+                                        />
+                                        <Popup
+                                            trigger={<Button color='yellow' icon='eye slash'/>}
+                                            content={isDisliking ? "Suivre" : 'Ne pas suivre'}
+                                            position='top left'
+                                            inverted={!isDisliking}
+                                        />
+                                    </Button.Group>
                                 </Menu.Item>
                             </Menu>
 
@@ -116,7 +131,7 @@ class GroupView extends React.Component {
 
                             {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/
                             }
-                            <Menu pointing>
+                            <Menu pointing secondary color="purple">
                                 <Menu.Item as={NavLink} exact to={match.url}
                                            content="Page d'accueil"/>
                                 <Menu.Item as={NavLink} to={match.url + "/annonces"}
@@ -127,12 +142,13 @@ class GroupView extends React.Component {
                                            content="Événements"/>
                                 <Menu.Item as={NavLink} to={match.url + "/members"}
                                            content="Membres"/>
+                                {isMember &&
                                 <Menu.Item as={NavLink} to={match.url + "/interne"}
                                            position='right'
-                                           content="Page interne"/> {/*réservé aux membres du groupe*/}
+                                           content="Page interne"/>} {/* Réservé aux membres du groupe */}
+                                {isAdmin &&
                                 <Menu.Item as={NavLink} to={match.url + "/admin"}
-                                           content="Administrer"/> {/*réservé aux administrateurs du groupe*/}
-
+                                           content="Administrer"/>} {/*réservé aux administrateurs du groupe*/}
                             </Menu>
 
 
@@ -140,18 +156,31 @@ class GroupView extends React.Component {
                                 {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/
                                 }
                                 <Route exact path={`${match.url}`}
-                                       render={() => <GroupFrontPage frontPage={group.frontPage}/>}
+                                       render={() => <GroupFrontPage frontPage={group.frontPage}
+                                                                     isSpeaker={isSpeaker}/>}
                                 />
                                 <Route path={match.url + "/annonces"}
                                        render={() => <GroupAnnouncements gid={group.gid}/>}
                                 />
-                                <Route path={`${match.url}/qanda`} render={() => <GroupQanda gid={group.gid}/>}/>
+                                <Route path={`${match.url}/qanda`}
+                                       render={() => <GroupQanda gid={group.gid} isSpeaker={isSpeaker}/>}/>
                                 <Route path={match.url + "/events"} component={GroupEvents}/>
                                 <Route path={match.url + "/members"}
                                        component={() => <GroupMembers gid={group.gid} typename={group.__typename}/>}
                                 />
-                                <Route path={match.url + "/interne"} component={GroupPageInterne}/>
-                                <Route path={match.url + "/admin"} component={GroupAdministrer}/>
+                                <Route path={match.url + "/interne"}
+                                       component={isMember ? GroupPageInterne :
+                                           () => <Message error header="Droits insuffisants"
+                                                          content="Il faut être membre du groupe pour accéder à la page interne."/>}/>
+                                <Route path={match.url + "/admin"}
+                                       render={() => {
+                                           if (isAdmin)
+                                               return <GroupAdministrer isAdmin={isAdmin} g={group}/>;
+                                           else
+                                               return <Message error header="Droits insuffisants">
+                                                   Il faut être admin du groupe pour accéder à la page d'administration.
+                                               </Message>;
+                                       }}/>
                                 <Route component={Error404}/>
                             </Switch>
                         </Container>);

@@ -63,7 +63,7 @@ class Body extends React.Component {
                     <Route path="/user/:uid" component={UserPage}/>
                     <Route path="/question/:mid" component={QuestionPage}/>
                     <Route path="/post/:mid" component={PostPage}/>
-                    <Route path="/me" component={() => <UserPage uid={localStorage.getItem("uid")}/>}/>x
+                    <Route path="/me" component={UserPage}/>
                     <Route exact path="/" component={Index}/>
                     <Route component={Error404}/>
                 </Switch>

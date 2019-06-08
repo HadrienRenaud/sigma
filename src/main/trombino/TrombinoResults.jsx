@@ -23,7 +23,7 @@ class UserCardItem extends Component {
         let {user} = this.props;
 
         return (
-            <Card link as="div" onClick={() => this.setState({redirectTo: "/users/" + user.uid})}>
+            <Card link as="div" onClick={() => this.setState({redirectTo: "/user/" + user.uid})}>
                 <Image src="https://react.semantic-ui.com/images/avatar/large/justen.jpg" wrapped ui={false}/>
                 <Card.Content>
                     <Card.Header>
@@ -39,7 +39,7 @@ class UserCardItem extends Component {
                                     <List>
                                         {user.memberOf.map(gr =>
                                             <List.Item key={gr.gid} as={Link}
-                                                       to={"/groups/" + gr.gid}>{gr.name}</List.Item>
+                                                       to={"/group/" + gr.gid}>{gr.name}</List.Item>
                                         )}
                                     </List>
                                 </List.Content>
@@ -70,7 +70,7 @@ class UserListItem extends Component {
         const {user} = this.props;
 
         return (
-            <List.Item onClick={() => this.setState({redirectTo: "/users/" + user.uid})}>
+            <List.Item onClick={() => this.setState({redirectTo: "/user/" + user.uid})}>
                 <Image avatar src="https://react.semantic-ui.com/images/avatar/large/justen.jpg"/>
                 <List.Content>
                     <List.Header>
@@ -81,7 +81,7 @@ class UserListItem extends Component {
                         {user.address && <Label size="tiny" basic icon="marker" content={user.address}/>}
                         {user.memberOf.map(gr =>
                             <Label size="tiny" basic key={gr.gid} content={gr.name} icon="group"
-                                   as={Link} to={"/groups/" + gr.gid}
+                                   as={Link} to={"/group/" + gr.gid}
                             />
                         )}
                     </List.Description>

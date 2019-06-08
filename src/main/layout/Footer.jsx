@@ -8,6 +8,7 @@ const Footer = () => (
     <div>
         <Segment
             inverted
+            color="violet"
             vertical
             style={{ margin: '2em 0em 0em', padding: '2em 0em' }}
         >

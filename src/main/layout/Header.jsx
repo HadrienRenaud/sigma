@@ -3,9 +3,10 @@
  */
 
 import React from 'react';
-import {Menu, Button, Image, Container} from 'semantic-ui-react';
+import {Menu, Button, Image, Dropdown, Container} from 'semantic-ui-react';
 import {Link, NavLink} from 'react-router-dom';
 import logo_sigma from '../../assets/logo_sigma.png';
+import {UserContext} from "../utils/contexts.jsx";
 
 class Header extends React.Component {
 
@@ -16,13 +17,12 @@ class Header extends React.Component {
     }
 
     render() {
-        return (
-
-            <Menu>
+        return <Menu inverted color="violet">
+            <Container>
 
                 {/*NavLink to path /, telling Center to render main/index/Index.jsx*/}
                 <Menu.Item as={NavLink} to='/#'>
-                    <Image alt='Logo' src={logo_sigma} size='mini'/>
+                    <Image alt='Logo' src={logo_sigma} avatar/>
                 </Menu.Item>
 
                 <Menu.Item as={NavLink} to="/groups">
@@ -46,31 +46,41 @@ class Header extends React.Component {
 
                 <Menu.Menu position='right'>
 
-                    {/*NavLink to path /me, telling Center to render UserPage with my uid*/}
-                    <Menu.Item as={NavLink} to='/me' name="me" position='right'>
-                        My Account
-                    </Menu.Item>
-
                     {/*
                     If connected :
-                       Logout function
+                       Dropdown with menu, logout etc.
                     If not
                         NavLink to path /login, telling Center to render main/login/Login.jsx
                     */}
-                    {localStorage.getItem('token') ?
-                        <Menu.Item as={NavLink} to='/login' name='loginForm'>
-                            <Button color='grey' onClick={this.onLogOut.bind(this)}>Se Déconnecter</Button>
-                        </Menu.Item>
-                        :
-                        <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
-                            <Button color="blue">Se connecter</Button>
-                        </Menu.Item>
-                    }
+                    <UserContext.Consumer>
+                        {(user) => {
+                            return user !== "anonymous" ?
+                                <Dropdown item trigger={
+                                    <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png'
+                                           avatar/>
+                                }>
+                                    <Dropdown.Menu>
+                                        <Dropdown.Item as={NavLink} to='/me' name="me">
+                                            <strong>{user.givenName} {user.lastName}</strong>
+                                            <br/>
+                                            @{user.uid}
+                                        </Dropdown.Item>
+                                        <Dropdown.Divider/>
+                                        <Dropdown.Item as={NavLink} to='/login' name='loginForm'>
+                                            Se Déconnecter
+                                        </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                                :
+                                <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
+                                    <Button color="blue">Se connecter</Button>
+                                </Menu.Item>;
+                        }
+                        }
+                    </UserContext.Consumer>
                 </Menu.Menu>
-
-            </Menu>
-
-        );
+            </Container>
+        </Menu>;
     }
 }
 

@@ -20,7 +20,6 @@ class PostTemplate extends React.Component {
             if (this.cliqued)
                 this.cliqued = false;
             else {
-                console.log("Clicked! Redirecting to " + this.props.to);
                 this.props.to && this.setState({redirectTo: this.props.to});
             }
         }}>
@@ -47,7 +46,6 @@ class PostTemplate extends React.Component {
                             onClick={(e) => {
                                 e.preventDefault();
                                 this.cliqued = true;
-                                console.log("This is eventlistener of the accordion.");
                                 this.setState({expanded: !this.state.expanded});
                             }}
                         />

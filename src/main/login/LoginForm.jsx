@@ -48,6 +48,7 @@ class LoginForm extends React.Component {
         event.preventDefault();
         console.log("Sending login request to ", apiUrl + '/login');
         this.setState({loading: true});
+        const username = this.state.userInput;
         const loginRequest = fetch(apiUrl + '/login', {
             method: 'POST',
             headers: {
@@ -55,7 +56,7 @@ class LoginForm extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: this.state.userInput,
+                username: username,
                 password: this.state.passwordInput
             })
         });
@@ -65,24 +66,12 @@ class LoginForm extends React.Component {
                 console.log("Answer :", data.message);
                 if (data.authSucceeded) {
                     this.setState({mode: STATES.loggedIn});
-                    localStorage.setItem('uid', this.state.userInput);
-                    if (data.token) {
-                        localStorage.setItem("token", data.token);
-                        if (data.tokenValidity)
-                            localStorage.setItem("tokenValidity", data.tokenValidity);
-                        else {
-                            let expirationDate = new Date();
-                            expirationDate.setMinutes(expirationDate.getMinutes() + 15);
-                            localStorage.setItem("tokenValidity", expirationDate.toUTCString())
-                        }
-                    }
-                    else {
-                        localStorage.setItem("token", "Ceci est un token");
-                        console.warn("Saving a false token -> problems with identification after.");
-                        localStorage.setItem("tokenValidity", "Mon, 23 Mar 2020 22:03:25 GMT");
-                    }
+                    localStorage.setItem('uid', username);
+                    let validityLimit = new Date();
+                    validityLimit.setHours(validityLimit.getHours() + 1);
+                    localStorage.setItem('loginValidity', validityLimit.toUTCString());
                     if (this.props.onLogIn)
-                        this.props.onLogIn();
+                        this.props.onLogIn(username);
                 } else {
                     this.setState({
                         mode: STATES.error,
