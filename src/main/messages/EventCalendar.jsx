@@ -1,13 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {withRouter} from 'react-router';
-import {Route, Switch, Link} from 'react-router-dom';
-import {Button, Segment, Icon, Divider, Card, Modal} from 'semantic-ui-react';
-import AnnouncementCard from './AnnouncementCard.jsx';
-
+import {withRouter} from 'react-router-dom';
 import BigCalendar from 'react-big-calendar';
-
 import moment from 'moment';
+
 import EventResume from "./EventResume.jsx";
 
 const localizer = BigCalendar.momentLocalizer(moment);
