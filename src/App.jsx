@@ -9,21 +9,15 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import Main from './main/Main.jsx';
 
-// try to have a favicon at all cost~!
-// https://github.com/coryhouse/react-slingshot/issues/128#issuecomment-216363426
-//import icon from  './assets/favicon.ico';
-import path from 'path';
-import Favicon from 'react-favicon';
 
 // import les css de semantic-ui-react et d'autres css utilises
-import '../semantic/dist/semantic.min.css';
 import '../node_modules/react-big-calendar/lib/css/react-big-calendar.css';
 
 // les import 'apollo-*' pour utiliser apollo-graphql (une implementation de graphql en javascript)
 import {createHttpLink} from 'apollo-link-http';
 import {setContext} from 'apollo-link-context';
 import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory';
-import {Query, ApolloProvider} from 'react-apollo';
+import {ApolloProvider} from 'react-apollo';
 import {ApolloClient} from 'apollo-client';
 import {graphqlApiUrl} from './config.jsx';
 /**

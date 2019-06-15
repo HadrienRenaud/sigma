@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Route, Switch, Link, Redirect,} from 'react-router-dom';
-import {Container, Grid, Image, Segment, Sidebar} from 'semantic-ui-react';
+import {Route, Switch, Redirect,} from 'react-router-dom';
+import {Container} from 'semantic-ui-react';
 
 import Header from './layout/Header.jsx';
 import Footer from './layout/Footer.jsx';
