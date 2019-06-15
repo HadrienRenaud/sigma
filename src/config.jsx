@@ -5,4 +5,4 @@ const graphqlApiUrl = apiUrl + '/graphql';
 
 export {
     apiUrl, graphqlApiUrl
-}
+};

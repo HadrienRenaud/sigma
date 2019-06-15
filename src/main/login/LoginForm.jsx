@@ -56,7 +56,7 @@ class LoginForm extends React.Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                username: username,
+                username,
                 password: this.state.passwordInput
             })
         });
@@ -67,7 +67,7 @@ class LoginForm extends React.Component {
                 if (data.authSucceeded) {
                     this.setState({mode: STATES.loggedIn});
                     localStorage.setItem('uid', username);
-                    let validityLimit = new Date();
+                    const validityLimit = new Date();
                     validityLimit.setHours(validityLimit.getHours() + 1);
                     localStorage.setItem('loginValidity', validityLimit.toUTCString());
                     if (this.props.onLogIn)

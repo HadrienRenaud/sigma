@@ -5,7 +5,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import {BrowserRouter, Route, Switch} from 'react-router-dom';
 
 import Main from './main/Main.jsx';
 
@@ -20,20 +20,22 @@ import '../semantic/dist/semantic.min.css';
 import '../node_modules/react-big-calendar/lib/css/react-big-calendar.css';
 
 // les import 'apollo-*' pour utiliser apollo-graphql (une implementation de graphql en javascript)
-import { createHttpLink } from 'apollo-link-http';
-import { setContext } from 'apollo-link-context';
-import { InMemoryCache, defaultDataIdFromObject } from 'apollo-cache-inmemory';
-import { Query, ApolloProvider } from 'react-apollo';
-import { ApolloClient } from 'apollo-client';
+import {createHttpLink} from 'apollo-link-http';
+import {setContext} from 'apollo-link-context';
+import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory';
+import {Query, ApolloProvider} from 'react-apollo';
+import {ApolloClient} from 'apollo-client';
 import {graphqlApiUrl} from './config.jsx';
 /**
  * Fetch info on interfaces and unions in our backend API
  * or else Apollo client will complain about fragments
  */
 import apiSchemaGetter from './getSchemaInfo';
+
 apiSchemaGetter(graphqlApiUrl);
 
-import { IntrospectionFragmentMatcher } from 'apollo-cache-inmemory';
+import {IntrospectionFragmentMatcher} from 'apollo-cache-inmemory';
+
 const introspectionQueryResultData = JSON.parse(localStorage.getItem('fragmentTypes'));
 
 const fragmentMatcher = new IntrospectionFragmentMatcher({
@@ -48,7 +50,7 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
  * https://auth0.com/blog/cookies-vs-tokens-definitive-guide/
  */
 
-const authLink = setContext((_, { headers }) => {
+const authLink = setContext((_, {headers}) => {
     // get the authentication token from local storage if it exists
     const token = localStorage.getItem('token');
     // return the headers to the context so httpLink can read them
@@ -67,13 +69,16 @@ const httpLink = createHttpLink({
 const client = new ApolloClient({
     link: authLink.concat(httpLink),
     cache: new InMemoryCache({
-        dataIdFromObject: object => { 
+        dataIdFromObject: object => {
             // https://www.apollographql.com/docs/react/advanced/caching.html#normalization 
             // dit a apollo-cache-inmemory que pour Group et User, la cle primaire est "uid" et pas "id" ni "_id" (par defaut)
             switch (object.__typename) {
-            case 'Group': return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
-            case 'User': return `User:${object.uid}`;
-            default: return defaultDataIdFromObject(object); // fall back to default handling
+            case 'Group':
+                return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
+            case 'User':
+                return `User:${object.uid}`;
+            default:
+                return defaultDataIdFromObject(object); // fall back to default handling
             }
         },
         fragmentMatcher
@@ -85,11 +90,11 @@ class App extends React.Component {
         return (
             <ApolloProvider client={client}>
                 <BrowserRouter>
-                    <Main />
+                    <Main/>
                 </BrowserRouter>
             </ApolloProvider>
         );
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(<App/>, document.getElementById('app'));

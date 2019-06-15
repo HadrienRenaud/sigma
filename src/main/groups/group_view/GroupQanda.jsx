@@ -121,11 +121,11 @@ class Answer extends React.Component {
     }
 
     handleChangeTitle(e, {title}) {
-        this.setState({title: title});
+        this.setState({title});
     }
 
     handleChangeContent(e, {content}) {
-        this.setState({content: content});
+        this.setState({content});
     }
 
     render() {
@@ -134,18 +134,18 @@ class Answer extends React.Component {
                 if (!called)
                     return <Form>
                         <Form.Input fluid label='Title'
-                                    placeholder='The title of your answer here'
-                                    onChange={this.handleChangeTitle.bind(this)}
+                            placeholder='The title of your answer here'
+                            onChange={this.handleChangeTitle.bind(this)}
                         />
                         <Form.TextArea label="Content"
-                                       placeholder="Type your answer here"
-                                       onChange={this.handleChangeContent.bind(this)}
+                            placeholder="Type your answer here"
+                            onChange={this.handleChangeContent.bind(this)}
                         />
                         <Button content="Reply" labelPosition="left" icon="send" name="submit"
-                                onClick={(e) => this.handleSubmit(e, mutate)}
+                            onClick={(e) => this.handleSubmit(e, mutate)}
                         />
                         <Button content="Cancel" labelPosition="left" icon="cancel" name="cancel"
-                                onClick={this.props.handleCancelAnswer}
+                            onClick={this.props.handleCancelAnswer}
                         />
                     </Form>;
                 else if (error)
@@ -157,7 +157,7 @@ class Answer extends React.Component {
                 else
                     return <Message error>
                         <Message.Header>Problème avec la requête</Message.Header>
-                        {JSON.stringify({data: data, error: error, loading: loading, called: called})}
+                        {JSON.stringify({data, error, loading, called})}
                     </Message>;
             }}
         </Mutation>;
@@ -177,11 +177,11 @@ class Question extends React.Component {
     };
 
     handleChangeTitle(e, {title}) {
-        this.setState({title: title});
+        this.setState({title});
     }
 
     handleChangeContent(e, {content}) {
-        this.setState({content: content});
+        this.setState({content});
     }
 
     handleAnswerButton(e) {
@@ -209,11 +209,11 @@ class Question extends React.Component {
     }
 
     render() {
-        let cetUtilisateurEstSpeakerDuGroupe = true;
-        let cetUtilisateurEstAuteur = false;
-        let q = this.props.q;
+        const cetUtilisateurEstSpeakerDuGroupe = true;
+        const cetUtilisateurEstAuteur = false;
+        const q = this.props.q;
         // let hasAnswer = !!q.forAnswer
-        let hasAnswer = false;
+        const hasAnswer = false;
 
         if (this.state.redirectTo)
             return <Redirect to={this.state.redirectTo}/>;
@@ -233,17 +233,17 @@ class Question extends React.Component {
                             }
                         })}>
                             <Form.Input fluid
-                                        label='Title'
-                                        content={q.title}
-                                        onChange={this.handleChangeTitle.bind(this)}
+                                label='Title'
+                                content={q.title}
+                                onChange={this.handleChangeTitle.bind(this)}
                             />
                             <Form.TextArea label="Content"
-                                           content={q.content}
-                                           onChange={this.handleChangeContent.bind(this)}
+                                content={q.content}
+                                onChange={this.handleChangeContent.bind(this)}
                             />
                             <Button content="Reply" labelPosition="left" icon="send"/>
                             <Button content="Cancel" labelPosition="left" icon="cancel"
-                                    onClick={this.handleCancelQuestion.bind(this)}
+                                onClick={this.handleCancelQuestion.bind(this)}
                             />
                         </Form>;
                     else if (loading)
@@ -261,7 +261,7 @@ class Question extends React.Component {
 
         return <Comment>
             <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg" as={Link}
-                            to={"/user/" + q.author.uid}/>
+                to={"/user/" + q.author.uid}/>
             <Comment.Content>
                 <Comment.Author>
                     {q.title}
@@ -276,23 +276,23 @@ class Question extends React.Component {
                 <Comment.Actions>
                     {this.props.isSpeaker &&
                     <Button content="Answer" labelPosition="left" icon="reply" basic size="mini"
-                            onClick={this.handleAnswerButton.bind(this)}/>}
+                        onClick={this.handleAnswerButton.bind(this)}/>}
                     <Button content="See More" labelPosition="left" icon="external alternate" basic size="mini"
-                            onClick={() => this.setState({redirectTo: "/question/" + q.mid})}/>
+                        onClick={() => this.setState({redirectTo: "/question/" + q.mid})}/>
                     {this.context.uid === q.author.uid &&
                     <Button content="Edit Question" labelPosition="left" icon="edit" size="mini"
-                            onClick={this.handleEditButton.bind(this)} color="olive"
+                        onClick={this.handleEditButton.bind(this)} color="olive"
                     />}
                     {this.props.isSpeaker &&
                     <Mutation mutation={DELETE_QUESTION} variables={{mid: q.mid}}
-                              onCompleted={() => this.props.actualise()}>
+                        onCompleted={() => this.props.actualise()}>
                         {(mutate, {data, error, loading, called}) => {
                             if (!called)
                                 return <Button content="Delete" labelPosition="left" icon="delete"
-                                               size="mini" color="red" onClick={() => mutate()}/>;
+                                    size="mini" color="red" onClick={() => mutate()}/>;
                             else if (loading)
                                 return <Button content="Delete" labelPosition="left" icon="delete"
-                                               size="mini" color="red" disabled={true}/>;
+                                    size="mini" color="red" disabled={true}/>;
                             else if (error)
                                 return <GQLError error={error}/>;
                             else if (data)
@@ -347,11 +347,11 @@ class AskQuestion extends React.Component {
     }
 
     handleChangeTitle(e, {title}) {
-        this.setState({title: title});
+        this.setState({title});
     }
 
     handleChangeContent(e, {content}) {
-        this.setState({content: content});
+        this.setState({content});
     }
 
     render() {
@@ -360,17 +360,17 @@ class AskQuestion extends React.Component {
                 if (!called)
                     return <Form onSubmit={(e) => this.handleSubmit(e, mutate)}>
                         <Form.Input fluid
-                                    label='Title'
-                                    placeholder='The title of your question here'
-                                    onChange={this.handleChangeTitle.bind(this)}
+                            label='Title'
+                            placeholder='The title of your question here'
+                            onChange={this.handleChangeTitle.bind(this)}
                         />
                         <Form.TextArea label="Content"
-                                       placeholder="Type your question here"
-                                       onChange={this.handleChangeContent.bind(this)}
+                            placeholder="Type your question here"
+                            onChange={this.handleChangeContent.bind(this)}
                         />
                         <Button content="Reply" labelPosition="left" icon="send"/>
                         <Button content="Cancel" labelPosition="left" icon="cancel"
-                                onClick={this.props.handleCancelQuestion}
+                            onClick={this.props.handleCancelQuestion}
                         />
                     </Form>;
                 else if (error)
@@ -382,7 +382,7 @@ class AskQuestion extends React.Component {
                 else
                     return <Message error>
                         <Message.Header>Problème avec la requête</Message.Header>
-                        {JSON.stringify({data: data, error: error, loading: loading, called: called})}
+                        {JSON.stringify({data, error, loading, called})}
                     </Message>;
             }}
         </Mutation>;
@@ -430,10 +430,10 @@ class GroupQuanda extends React.Component {
                 <Menu secondary>
                     <Menu.Item>
                         <Dropdown options={this.methods}
-                                  onChange={this.handleSelectedQuestion.bind(this)}
-                                  selection
-                                  defaultValue={this.methods[0].value}
-                                  disabled={this.state.isAsking}
+                            onChange={this.handleSelectedQuestion.bind(this)}
+                            selection
+                            defaultValue={this.methods[0].value}
+                            disabled={this.state.isAsking}
                         />
                     </Menu.Item>
                     <Menu.Menu position='right'>
@@ -441,7 +441,7 @@ class GroupQuanda extends React.Component {
                         <Menu.Item>
                             {this.state.isAsking ?
                                 <Button basic content="Cancel" icon="cancel"
-                                        onClick={this.handleCancelQuestion.bind(this)}/>
+                                    onClick={this.handleCancelQuestion.bind(this)}/>
                                 :
                                 <Button basic content="Ask" icon="send" onClick={this.handleAskQuestion.bind(this)}/>
                             }
@@ -461,8 +461,8 @@ class GroupQuanda extends React.Component {
 
     renderQuestionsFirst() {
         return <Query query={GET_QUESTIONS}
-                      variables={{gid: this.props.gid}}
-                      fetchPolicy='cache-first'>
+            variables={{gid: this.props.gid}}
+            fetchPolicy='cache-first'>
             {({loading, error, data, refetch}) => {
                 if (loading) return <div>Chargement, patience SVP...</div>;
                 else if (error) return <GQLError error={error}/>;
@@ -472,7 +472,7 @@ class GroupQuanda extends React.Component {
                 return (
                     <Comment.Group>
                         {questions.map(q => <Question q={q} key={q.mid} actualise={refetch}
-                                                      isSpeaker={this.props.isSpeaker}/>)}
+                            isSpeaker={this.props.isSpeaker}/>)}
                     </Comment.Group>
                 );
             }}

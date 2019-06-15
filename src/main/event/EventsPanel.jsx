@@ -64,7 +64,7 @@ class Post extends React.Component {
     };
 
     render() {
-        let authors = this.props.authors || [];
+        const authors = this.props.authors || [];
 
         return (
             <Card.Content>
@@ -105,7 +105,7 @@ class EventsPanel extends React.Component {
 
         return (
             <Query query={ALL_EVENTS}
-                   fetchPolicy='cache-first'
+                fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <div>Chargement...</div>;

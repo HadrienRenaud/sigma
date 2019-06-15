@@ -56,7 +56,7 @@ class GroupMembers extends Component {
 
     filters = [];
 
-    componentWillMount() {
+    componentDidMount() {
         if (this.props.typename === "MetaGroup")
             this.filters = [
                 {key: 0, value: "admins", text: "Admins", disabled: false, icon: "chess queen"},
@@ -82,10 +82,11 @@ class GroupMembers extends Component {
         return <div>
             <Menu secondary>
                 <Menu.Item>
-                    <Dropdown options={this.filters}
-                              onChange={this.handleSelectedFilter.bind(this)}
-                              selection
-                              defaultValue={this.filters[0].value}
+                    <Dropdown
+                        options={this.filters}
+                        onChange={this.handleSelectedFilter.bind(this)}
+                        selection
+                        defaultValue={this.filters[0].value}
                     />
                 </Menu.Item>
                 <Menu.Menu position="right">
@@ -136,11 +137,11 @@ class GroupMembers extends Component {
                                     </List.Content>
                                     <List.Content floated="right">
                                         <Button icon="remove" color="red" labelPosition='left'
-                                                content={"Remove from " + this.state.filter}
-                                                onClick={(e) => {
-                                                    e.preventDefault();
-                                                    console.log("User wants to delete him from users.");
-                                                }}
+                                            content={"Remove from " + this.state.filter}
+                                            onClick={(e) => {
+                                                e.preventDefault();
+                                                console.log("User wants to delete him from users.");
+                                            }}
                                         />
                                     </List.Content>
                                 </List.Item>);
@@ -152,4 +153,3 @@ class GroupMembers extends Component {
 }
 
 export default GroupMembers;
-;

@@ -37,7 +37,7 @@ class Main extends Component {
     onLogin(user) {
         this.setState({
             loggedIn: true,
-            user: user
+            user
         });
     }
 
@@ -68,13 +68,15 @@ class Main extends Component {
                                 </Switch>
                                 :
                                 <Switch>
-                                    <Route path="/login"
-                                           render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
+                                    <Route
+                                        path="/login"
+                                        render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
                                     {this.state.toLogIn ?
                                         <Route path='/' render={() => <Redirect to='/login'/>}/>
                                         :
-                                        <Route path="/"
-                                               render={props => <Body {...props} {...this.state}/>}/>
+                                        <Route
+                                            path="/"
+                                            render={props => <Body {...props} {...this.state}/>}/>
                                     }
                                 </Switch>
                             }

@@ -146,23 +146,22 @@ class Post extends Component {
 
     render() {
         switch (this.props.__typename) {
-            case 'Announcement':
-                return <AnnouncementPost {...this.props} />;
-            case 'Event':
-                return <EventPost {...this.props} />;
-            case 'Question':
-                return <QuestionPost {...this.props}/>;
-            case 'PrivatePost':
-                return <PrivatePost {...this.props}/>;
-            case 'Answer':
-                return <AnswerPost {...this.props}/>;
-            default: {
-                console.warn(this.props);
-                return <Message error>Invalid type return by GQL : {this.props.__typename}</Message>;
-            }
+        case 'Announcement':
+            return <AnnouncementPost {...this.props} />;
+        case 'Event':
+            return <EventPost {...this.props} />;
+        case 'Question':
+            return <QuestionPost {...this.props}/>;
+        case 'PrivatePost':
+            return <PrivatePost {...this.props}/>;
+        case 'Answer':
+            return <AnswerPost {...this.props}/>;
+        default: {
+            console.warn(this.props);
+            return <Message error>Invalid type return by GQL : {this.props.__typename}</Message>;
+        }
         }
     }
 }
 
 export default Post;
-;

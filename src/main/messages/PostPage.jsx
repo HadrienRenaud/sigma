@@ -53,13 +53,14 @@ class PostPage extends React.Component {
 
     render() {
 
-        let jeParticipeALEvenement = true;
+        const jeParticipeALEvenement = true;
 
         return (
 
-            <Query query={ALL_POSTS}
-                   variables={{mid: this.props.match.params.mid}}
-                   fetchPolicy='cache-first'
+            <Query
+                query={ALL_POSTS}
+                variables={{mid: this.props.match.params.mid}}
+                fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
@@ -78,7 +79,7 @@ class PostPage extends React.Component {
                                         <List.Icon name="group"/>
                                         <List.Content>
                                             Par <AuthorList elements={a.authors}/> pour <AuthorList
-                                            elements={a.recipients}/>
+                                                elements={a.recipients}/>
                                         </List.Content>
                                     </List.Item>
                                     {a.forEvent ?
@@ -108,7 +109,7 @@ class PostPage extends React.Component {
                 }}
             </Query>
         )
-            ;
+        ;
     }
 }
 

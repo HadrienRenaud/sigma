@@ -57,10 +57,10 @@ class ButtonParticipate extends React.Component {
     };
 
     render() {
-        let user = this.context;
-        let userParticipate = this.props.participatingUid.indexOf(user.uid) !== -1;
+        const user = this.context;
+        const userParticipate = this.props.participatingUid.indexOf(user.uid) !== -1;
 
-        let portal = <Portal
+        const portal = <Portal
             onClose={() => this.setState({portalOpen: false})}
             open={this.state.portalOpen}
         >

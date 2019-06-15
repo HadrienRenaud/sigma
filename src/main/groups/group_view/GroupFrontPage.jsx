@@ -19,7 +19,8 @@ class GroupFrontPage extends React.Component {
     };
 
     render() {
-        let {frontPage, isSpeaker} = this.props;
+        const {isSpeaker} = this.props;
+        let {frontPage} = this.props;
         if (this.state.edition)
             frontPage = this.state.frontPage;
 
@@ -39,7 +40,7 @@ class GroupFrontPage extends React.Component {
                         <Form.Group>
                             <Form.Button disabled color="green" content="Submit" icon="check"/>
                             <Form.Button inverted color="orange" content="Cancel" icon="cancel"
-                                         onClick={(e) => this.setState({edition: false})}
+                                onClick={(e) => this.setState({edition: false})}
                             />
                             <Message warning>L'Édition n'est pas encore implémentée.</Message>
                         </Form.Group>

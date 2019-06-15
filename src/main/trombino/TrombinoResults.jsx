@@ -20,7 +20,7 @@ class UserCardItem extends Component {
         if (this.state.redirectTo)
             return <Redirect to={this.state.redirectTo}/>;
 
-        let {user} = this.props;
+        const {user} = this.props;
 
         return (
             <Card link as="div" onClick={() => this.setState({redirectTo: "/user/" + user.uid})}>
@@ -39,7 +39,7 @@ class UserCardItem extends Component {
                                     <List>
                                         {user.memberOf.map(gr =>
                                             <List.Item key={gr.gid} as={Link}
-                                                       to={"/group/" + gr.gid}>{gr.name}</List.Item>
+                                                to={"/group/" + gr.gid}>{gr.name}</List.Item>
                                         )}
                                     </List>
                                 </List.Content>
@@ -81,7 +81,7 @@ class UserListItem extends Component {
                         {user.address && <Label size="tiny" basic icon="marker" content={user.address}/>}
                         {user.memberOf.map(gr =>
                             <Label size="tiny" basic key={gr.gid} content={gr.name} icon="group"
-                                   as={Link} to={"/group/" + gr.gid}
+                                as={Link} to={"/group/" + gr.gid}
                             />
                         )}
                     </List.Description>
@@ -165,13 +165,13 @@ class TrombinoResults extends Component {
     render() {
         return (
             <Query query={GET_TROMBINO}
-                   variables={{
-                       givenName: this.props.params.givenName,
-                       lastName: this.props.params.lastName,
-                       nickname: this.props.params.nickname,
-                       groups: this.props.params.groups + [this.props.params.formation],
-                   }}
-                   fetchPolicy='cache-first'
+                variables={{
+                    givenName: this.props.params.givenName,
+                    lastName: this.props.params.lastName,
+                    nickname: this.props.params.nickname,
+                    groups: this.props.params.groups + [this.props.params.formation],
+                }}
+                fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <div>Chargement...</div>;

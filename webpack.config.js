@@ -3,9 +3,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const convert = require('koa-connect');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const history = require('connect-history-api-fallback');
 const environment = process.env.NODE_ENV || 'development';
 
 const config = {
@@ -47,6 +45,12 @@ const config = {
     module: {
         rules: [
             {
+                "enforce": "pre",
+                "test": /\.(js|jsx)$/,
+                "exclude": /node_modules/,
+                "use": "eslint-loader"
+            }
+            ,{
                 test: /\.jsx?$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
@@ -57,11 +61,12 @@ const config = {
                         '@babel/plugin-proposal-class-properties'
                     ]
                 }
-            },
-            {
+            }
+            ,{
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', 'sass-loader']
-            }, {
+            }
+            ,{
                 test: /\.(png|jpg|woff|woff2|eot|ttf|svg)$/,
                 loader: 'url-loader?limit=100000'
             }
@@ -84,6 +89,10 @@ const config = {
 
 
 if (environment == 'development') {
+
+    const convert = require('koa-connect');
+    const history = require('connect-history-api-fallback');
+
     config.serve = {
         content: [__dirname],
         port: 8080,

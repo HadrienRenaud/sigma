@@ -118,8 +118,9 @@ class PostsFeed extends React.Component {
     render() {
 
         return (
-            <Query query={ALL_POSTS}
-                   fetchPolicy='cache-first'
+            <Query
+                query={ALL_POSTS}
+                fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <Feed>Chargement...</Feed>;

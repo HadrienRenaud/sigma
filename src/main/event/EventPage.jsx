@@ -66,8 +66,8 @@ class EventPage extends React.Component {
         return (
 
             <Query query={ALL_POSTS}
-                   variables={{mid: mid}}
-                   fetchPolicy={'catch-first'}
+                variables={{mid}}
+                fetchPolicy={'catch-first'}
             >
                 {({loading, error, data, refetch}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
@@ -100,8 +100,8 @@ class EventPage extends React.Component {
                                         <List.Icon name="calendar"/>
                                         <List.Content>
                                             From <Moment date={event.startTime} withTitle fromNow/> to <Moment withTitle
-                                                                                                               fromNow
-                                                                                                               date={event.endTime}/>
+                                                fromNow
+                                                date={event.endTime}/>
                                         </List.Content>
                                     </List.Item>
                                     <List.Item icon="map marker" content={event.location}/>
@@ -109,7 +109,7 @@ class EventPage extends React.Component {
                                         <List.Icon name="group"/>
                                         <List.Content>
                                             Par <AuthorList elements={event.authors}/> pour <AuthorList
-                                            elements={event.recipients}/>
+                                                elements={event.recipients}/>
                                         </List.Content>
                                     </List.Item>
                                 </List>
@@ -142,7 +142,7 @@ class EventPage extends React.Component {
                                                 </Item.Description>
                                                 <Item.Extra>
                                                     Created <Moment fromNow withTitle
-                                                                    date={event.forAnnouncement.createdAt}/>
+                                                        date={event.forAnnouncement.createdAt}/>
                                                 </Item.Extra>
                                             </Item.Content>
                                         </Item>
@@ -186,7 +186,7 @@ class EventPage extends React.Component {
                                         {participants.map(p =>
                                             <List.Item key={p.uid || p.gid}>
                                                 <Image avatar
-                                                       src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
+                                                    src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
                                                 <List.Content>
                                                     <List.Header><Author {...p}/></List.Header>
                                                     {p.description &&
@@ -205,7 +205,7 @@ class EventPage extends React.Component {
                 }}
             </Query>
         )
-            ;
+        ;
     }
 }
 

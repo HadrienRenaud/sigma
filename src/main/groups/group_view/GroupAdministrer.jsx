@@ -13,7 +13,7 @@ class GoodForm extends React.Component {
 
     onChange(e, {value}) {
         if (!this.props.validate || this.props.validate(value))
-            this.setState({value: value});
+            this.setState({value});
     }
 
     onSubmit() {
@@ -22,18 +22,18 @@ class GoodForm extends React.Component {
     }
 
     render() {
-        let FormComponent = this.props.formComponent || Form.Input;
-        let DisplayComponent = this.props.displayComponent || "div";
+        const FormComponent = this.props.formComponent || Form.Input;
+        const DisplayComponent = this.props.displayComponent || "div";
 
         if (this.state.edit)
             return <Segment basic>
                 <Form onSubmit={this.onSubmit.bind(this)}>
                     <FormComponent label={this.props.name} placeholder={this.props.placeholder}
-                                   value={this.state.value} onChange={this.onChange.bind(this)}
+                        value={this.state.value} onChange={this.onChange.bind(this)}
                     />
                     <Button content="Edit" icon="edit" color="olive" type="submit"/>
                     <Button content="Cancel" icon="cancel" color="red" inverted
-                            onClick={() => this.setState({edit: false})}
+                        onClick={() => this.setState({edit: false})}
                     />
                 </Form></Segment>;
 
@@ -41,11 +41,11 @@ class GoodForm extends React.Component {
             <Segment basic>
                 <Header as="h5">{this.props.name}
                     <Button content="Edit" icon="edit"
-                            onClick={() => this.setState({
-                                edit: true,
-                                value: this.state.value || this.props.defaultValue
-                            })}
-                            floated={"right"}
+                        onClick={() => this.setState({
+                            edit: true,
+                            value: this.state.value || this.props.defaultValue
+                        })}
+                        floated={"right"}
                     />
                 </Header>
                 <DisplayComponent>
@@ -116,10 +116,10 @@ class GroupAdministrer extends React.Component {
                             <List.Content content={group.name} as={Link} to={'/group/' + group.gid}/>
                             <List.Content floated="right">
                                 <Button icon="remove" color="red"
-                                        onClick={(e) => {
-                                            e.preventDefault();
-                                            console.log("User wants to delete him from his visibility edges.");
-                                        }}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        console.log("User wants to delete him from his visibility edges.");
+                                    }}
                                 />
                             </List.Content>
                         </List.Item>

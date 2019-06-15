@@ -47,7 +47,7 @@ class GroupCard extends React.Component {
             return <Redirect to={this.state.redirectTo}/>;
 
 
-        let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [] , ...this.context } ;
+        const user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [] , ...this.context } ;
         let extraContent = "";
         if (this.props.gid in user.adminOf.map((g) => g.gid))
             extraContent = <Card.Content extra content={<Label color='red' corner="right" icon={"chess queen"}/>}/>;
@@ -62,8 +62,8 @@ class GroupCard extends React.Component {
 
         return (
             <Query query={GET_GROUP}
-                   variables={{gid: this.props.gid}}
-                   fetchPolicy='cache-first' //choose cache behaviour
+                variables={{gid: this.props.gid}}
+                fetchPolicy='cache-first' //choose cache behaviour
             >
                 {({loading, error, data}) => {
                     if (loading) return <div>Chargement...</div>;
@@ -73,9 +73,9 @@ class GroupCard extends React.Component {
 
                     return (
                         <Card color={"blue"} as="div" link
-                              onClick={() => this.setState({redirectTo: "/group/" + group.gid})}>
+                            onClick={() => this.setState({redirectTo: "/group/" + group.gid})}>
                             <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped
-                                   ui={false}/>
+                                ui={false}/>
                             <Card.Content>
                                 <Card.Header>
                                     <Link to={"/group/" + this.props.gid}>{group.name}</Link>

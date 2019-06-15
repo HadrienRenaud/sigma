@@ -74,11 +74,12 @@ class AnnouncementCard extends React.Component {
     render() {
 
         return (
-            <Query query={GET_ANNOUNCEMENT}
-                   variables={{
-                       mid: this.props.mid
-                   }}
-                   fetchPolicy='cache-first' //choose cache behaviour
+            <Query
+                query={GET_ANNOUNCEMENT}
+                variables={{
+                    mid: this.props.mid
+                }}
+                fetchPolicy='cache-first' //choose cache behaviour
             >
                 {({loading, error, data}) => {
                     if (loading)
@@ -97,18 +98,18 @@ class AnnouncementCard extends React.Component {
                                 <Feed.Date>
                                     {"Par "}
                                     {announcement.authors.map(group => <span key={group.gid}>
-                                                <Link to={'/group/' + group.gid}>
-                                                    {group.name}
-                                                    </Link>
+                                        <Link to={'/group/' + group.gid}>
+                                            {group.name}
+                                        </Link>
                                         {", "}
-                                            </span>)}
+                                    </span>)}
                                     {"à "}
                                     {announcement.recipients.map(group => <span key={group.gid}>
-                                                <Link to={'/group/' + group.gid}>
-                                                    {group.name}
-                                                    </Link>
+                                        <Link to={'/group/' + group.gid}>
+                                            {group.name}
+                                        </Link>
                                         {", "}
-                                            </span>)}
+                                    </span>)}
                                 </Feed.Date>
                                 <Feed.Summary>
                                     {announcement.title}

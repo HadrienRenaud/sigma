@@ -72,8 +72,8 @@ class GroupAnnouncements extends React.Component {
         if (this.state.mode == 'from' || this.state.mode == 'both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_FROM}
-                       variables={{groupid: this.props.gid}}
-                       fetchPolicy='cache-first'
+                    variables={{groupid: this.props.gid}}
+                    fetchPolicy='cache-first'
                 >
                     {({loading, error, data}) => {
                         if (loading) return <div>Chargement, patience SVP...</div>;
@@ -101,8 +101,8 @@ class GroupAnnouncements extends React.Component {
         if (this.state.mode == 'to' || this.state.mode == 'both') {
             output =
                 <Query query={GET_ANNOUNCEMENTS_TO}
-                       variables={{groupid: this.props.gid}}
-                       fetchPolicy='cache-first'
+                    variables={{groupid: this.props.gid}}
+                    fetchPolicy='cache-first'
                 >
                     {({loading, error, data}) => {
                         if (loading) return <div>Chargement, patience SVP...</div>;
@@ -134,8 +134,8 @@ class GroupAnnouncements extends React.Component {
                 <Menu secondary>
                     <Menu.Item>
                         <Dropdown options={this.modes} onChange={this.handleChangeMode.bind(this)}
-                                  defaultValue={this.modes[0].value}
-                                  selection
+                            defaultValue={this.modes[0].value}
+                            selection
                         />
                     </Menu.Item>
 

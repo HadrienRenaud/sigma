@@ -44,11 +44,11 @@ class GroupPanel extends React.Component {
                         Mes groupes
                     </Card.Header>
                 </Card.Content>
-                    <Button.Group basic vertical>
-                        {allGroups.map(gr =>
-                            <Button as={Link} to={"/group/" + gr.gid} content={gr.name} key={gr.gid}/>
-                        )}
-                    </Button.Group>
+                <Button.Group basic vertical>
+                    {allGroups.map(gr =>
+                        <Button as={Link} to={"/group/" + gr.gid} content={gr.name} key={gr.gid}/>
+                    )}
+                </Button.Group>
             </Card>
         );
     }

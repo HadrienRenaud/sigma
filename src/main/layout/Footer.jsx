@@ -1,7 +1,5 @@
 import React from 'react';
-import _ from 'lodash';
-import { Link } from 'react-router-dom';
-import { Image, Segment, Icon, Component, Grid, Container, Header, List, Divider } from 'semantic-ui-react';
+import { Image, Segment, Container} from 'semantic-ui-react';
 import logo_sigma from '../../assets/logo_sigma.png';
 
 const Footer = () => (

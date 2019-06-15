@@ -58,8 +58,8 @@ class EventResume extends React.Component {
         return (
 
             <Query query={ALL_POSTS}
-                   variables={{mid: this.props.mid}}
-                   fetchPolicy='cache-first'
+                variables={{mid: this.props.mid}}
+                fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
@@ -83,9 +83,9 @@ class EventResume extends React.Component {
                                             <List.Icon name="calendar"/>
                                             <List.Content>
                                                 From <Moment date={event.startTime} withTitle fromNow/> to <Moment
-                                                withTitle
-                                                fromNow
-                                                date={event.endTime}/>
+                                                    withTitle
+                                                    fromNow
+                                                    date={event.endTime}/>
                                             </List.Content>
                                         </List.Item>
                                         <List.Item icon="map marker" content={event.location}/>
@@ -93,7 +93,7 @@ class EventResume extends React.Component {
                                             <List.Icon name="group"/>
                                             <List.Content>
                                                 Par <AuthorList elements={event.authors}/> pour <AuthorList
-                                                elements={event.recipients}/>
+                                                    elements={event.recipients}/>
                                             </List.Content>
                                         </List.Item>
                                     </List>
@@ -119,7 +119,7 @@ class EventResume extends React.Component {
                 }}
             </Query>
         )
-            ;
+        ;
     }
 }
 

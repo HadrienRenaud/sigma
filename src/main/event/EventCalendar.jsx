@@ -77,9 +77,6 @@ const EventsList = [ //TODO
 ];
 
 class EventCalendarUnrouted extends React.Component {
-    componentWillMount() {
-        this.resetComponent();
-    }
 
     static propTypes = {
         match: PropTypes.object.isRequired,
@@ -92,8 +89,6 @@ class EventCalendarUnrouted extends React.Component {
     state = {
         selectedEvent: false
     };
-
-    resetComponent = () => this.setState({});
 
     getEvents() {
         const _events = EventsList;

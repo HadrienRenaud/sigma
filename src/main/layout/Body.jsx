@@ -66,8 +66,7 @@ class Body extends React.Component {
                     <Route component={Error404}/>
                 </Switch>
             </Container>
-        )
-            ;
+        );
     }
 }
 

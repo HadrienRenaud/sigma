@@ -49,9 +49,10 @@ const GET_QUESTION = gql`
 class QuestionPage extends React.Component {
     render() {
         return (
-            <Query query={GET_QUESTION}
-                   variables={{mid: this.props.match.params.mid}}
-                   fetchPolicy='cache-first'
+            <Query
+                query={GET_QUESTION}
+                variables={{mid: this.props.match.params.mid}}
+                fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
@@ -107,7 +108,7 @@ class QuestionPage extends React.Component {
                 }}
             </Query>
         )
-            ;
+        ;
     }
 }
 

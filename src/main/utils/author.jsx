@@ -35,13 +35,13 @@ Author.contextType = UserContext;
 
 class AuthorList extends React.Component {
     render() {
-        let elts = this.props.elements;
+        const elts = this.props.elements;
         if (elts.length === 0)
             return "";
         else if (elts.length === 1)
             return <Author {... elts[0]}/>;
         else if (elts.length === 2)
-            return <span><Author {... elts[0]}/> et <span><Author {...elts[0]}/></span></span>
+            return <span><Author {... elts[0]}/> et <span><Author {...elts[0]}/></span></span>;
         else
             return <span>
                 {elts.slice(0, -2).map((g, i) =>

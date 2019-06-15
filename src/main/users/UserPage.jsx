@@ -18,11 +18,11 @@ function iterateGroup(group, groupList) {
 }
 
 function constructGraph(groups, asked = "parents") {
-    let gidToGroup = {};
+    const gidToGroup = {};
     for (let i = 0; i < groups.length; i++)
         gidToGroup[groups[i].gid] = groups[i];
     for (let i = 0; i < groups.length; i++) {
-        let children = groups[i][asked];
+        const children = groups[i][asked];
         if (children)
             for (let i = 0; i < children.length; i++) {
                 children[i] = gidToGroup[children[i]['gid']];
@@ -98,11 +98,11 @@ class UserPage extends React.Component {
     };
 
     renderGroupTree(gid) {
-        let gr = this.gidToGroup[gid];
+        const gr = this.gidToGroup[gid];
 
         return <List.Item key={gid}>
             <Image avatar
-                   src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
+                src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
             <List.Content>
                 <List.Header as={Link} to={'/groups/' + gr.gid}>
                     {gr.name}
@@ -130,8 +130,9 @@ class UserPage extends React.Component {
             uid = this.context.uid;
 
         return (
-            <Query query={GET_USER}
-                   variables={{uid: uid}}
+            <Query
+                query={GET_USER}
+                variables={{uid}}
             >
                 {({loading, error, data}) => {
                     if (this.state.redirect)
@@ -144,7 +145,7 @@ class UserPage extends React.Component {
                     const {user} = data;
                     this.gidToGroup = constructGraph(user.inheritedMemberOf);
 
-                    let stateToGroup = {
+                    const stateToGroup = {
                         admin: user.adminOf,
                         speaker: user.speakerOf,
 
@@ -159,7 +160,7 @@ class UserPage extends React.Component {
                         <div>
                             <Segment vertical>
                                 <Image src="https://react.semantic-ui.com/images/wireframe/square-image.png"
-                                       floated="right" size='small'/>
+                                    floated="right" size='small'/>
                                 <Header>
                                     {user.givenName} {user.lastName} ({user.nickname})
                                     <Header.Subheader>@{this.props.uid || this.context.uid}</Header.Subheader>
@@ -170,7 +171,7 @@ class UserPage extends React.Component {
                                     <List.Item icon="phone" content={<a href={"tel:" + user.phone}>{user.phone}</a>}/>
                                     {user.address && <List.Item icon="marker" content={user.address}/>}
                                     <List.Item icon="mail"
-                                               content={<a href={`mailto:${user.mail}`}>{user.mail}</a>}/>
+                                        content={<a href={`mailto:${user.mail}`}>{user.mail}</a>}/>
                                 </List>
                             </Segment>
                             <Segment vertical>
@@ -182,30 +183,35 @@ class UserPage extends React.Component {
                                         </Header>
                                     </Menu.Item>
                                     {this.props.uid === this.context.uid &&
-                                    <Menu.Item active={this.state.groupView === 'dislikes'}
-                                               onClick={() => this.setState({groupView: 'dislikes'})}
-                                               icon="eye slash"
-                                               name="Dislikes"
+                                    <Menu.Item
+                                        active={this.state.groupView === 'dislikes'}
+                                        onClick={() => this.setState({groupView: 'dislikes'})}
+                                        icon="eye slash"
+                                        name="Dislikes"
                                     />}
-                                    <Menu.Item active={this.state.groupView === 'likes'}
-                                               onClick={() => this.setState({groupView: 'likes'})}
-                                               icon="eye"
-                                               name="Likes"
+                                    <Menu.Item
+                                        active={this.state.groupView === 'likes'}
+                                        onClick={() => this.setState({groupView: 'likes'})}
+                                        icon="eye"
+                                        name="Likes"
                                     />
-                                    <Menu.Item active={this.state.groupView === 'member'}
-                                               onClick={() => this.setState({groupView: 'member'})}
-                                               icon="heart"
-                                               name="Member"
+                                    <Menu.Item
+                                        active={this.state.groupView === 'member'}
+                                        onClick={() => this.setState({groupView: 'member'})}
+                                        icon="heart"
+                                        name="Member"
                                     />
-                                    <Menu.Item active={this.state.groupView === 'speaker'}
-                                               onClick={() => this.setState({groupView: 'speaker'})}
-                                               icon="bullhorn"
-                                               name="Speaker"
+                                    <Menu.Item
+                                        active={this.state.groupView === 'speaker'}
+                                        onClick={() => this.setState({groupView: 'speaker'})}
+                                        icon="bullhorn"
+                                        name="Speaker"
                                     />
-                                    <Menu.Item active={this.state.groupView === 'admin'}
-                                               onClick={() => this.setState({groupView: 'admin'})}
-                                               icon="chess queen"
-                                               name="Admin"
+                                    <Menu.Item
+                                        active={this.state.groupView === 'admin'}
+                                        onClick={() => this.setState({groupView: 'admin'})}
+                                        icon="chess queen"
+                                        name="Admin"
                                     />
                                     <Menu.Menu position="right">
                                         <Menu.Item>
@@ -217,7 +223,7 @@ class UserPage extends React.Component {
                                     {user.memberOf.map(gr =>
                                         <List.Item key={gr.gid}>
                                             <Image avatar
-                                                   src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
+                                                src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
                                             <List.Content>
                                                 <List.Header as={Link} to={'/group/' + gr.gid}>
                                                     {gr.name}
@@ -227,15 +233,16 @@ class UserPage extends React.Component {
                                                 </List.Description>
                                                 {this.state.groupView === "member" &&
                                                 <Accordion>
-                                                    <Accordion.Title active={this.state["groupIsActive:" + gr.gid]}
-                                                                     onClick={() => {
-                                                                         let state = {};
-                                                                         if (this.state["groupIsActive:" + gr.gid])
-                                                                             state["groupIsActive:" + gr.gid] = false;
-                                                                         else
-                                                                             state["groupIsActive:" + gr.gid] = true;
-                                                                         this.setState(state);
-                                                                     }}
+                                                    <Accordion.Title
+                                                        active={this.state["groupIsActive:" + gr.gid]}
+                                                        onClick={() => {
+                                                            const state = {};
+                                                            if (this.state["groupIsActive:" + gr.gid])
+                                                                state["groupIsActive:" + gr.gid] = false;
+                                                            else
+                                                                state["groupIsActive:" + gr.gid] = true;
+                                                            this.setState(state);
+                                                        }}
                                                     >
                                                         <Icon name="dropdown"/>
                                                         Expand
@@ -270,14 +277,14 @@ class UserPage extends React.Component {
                                 <List relaxed>
                                     {user.questionsFromUser.map(q =>
                                         <List.Item key={q.mid}
-                                                   onClick={() => this.setState({redirect: "/question/" + q.mid})}>
+                                            onClick={() => this.setState({redirect: "/question/" + q.mid})}>
                                             <Image avatar
-                                                   src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
+                                                src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
                                             <List.Content>
                                                 <List.Header>
                                                     To <Link to={'/group/' + q.recipient.gid + '/qanda'}>
-                                                    {q.recipient.name}
-                                                </Link> : {q.title}
+                                                        {q.recipient.name}
+                                                    </Link> : {q.title}
                                                 </List.Header>
                                                 <List.Description>
                                                     {q.content}

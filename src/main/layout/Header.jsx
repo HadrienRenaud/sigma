@@ -56,8 +56,9 @@ class Header extends React.Component {
                         {(user) => {
                             return user !== "anonymous" ?
                                 <Dropdown item trigger={
-                                    <Image src='https://react.semantic-ui.com/images/wireframe/square-image.png'
-                                           avatar/>
+                                    <Image
+                                        src='https://react.semantic-ui.com/images/wireframe/square-image.png'
+                                        avatar/>
                                 }>
                                     <Dropdown.Menu>
                                         <Dropdown.Item as={NavLink} to='/me' name="me">

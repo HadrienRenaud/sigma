@@ -21,9 +21,18 @@
     "extends": ["eslint:recommended", "plugin:react/recommended"],
 
     "rules": {
-        "indent": ["error", 4],
-        "linebreak-style": ["error", "unix"],
-        "semi": ["error","always"],
+        "indent": [
+            "error",
+            4
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "semi": [
+            "error",
+            "always"
+        ],
         "no-new-object": 1,
         "object-shorthand": 1,
         "no-console": 0,
@@ -36,4 +45,5 @@
         "prefer-rest-params": 1,
         "prefer-spread": 1,
         "prefer-arrow-callback": 1
+    }
 }
