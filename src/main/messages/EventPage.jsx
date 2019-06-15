@@ -88,12 +88,13 @@ class EventPage extends React.Component {
                             <Segment vertical>
                                 <Header>
                                     {event.title}
-                                    <ButtonParticipate
-                                        participatingUid={event.participatingUsers.map(u => u.uid)}
-                                        onChange={() => refetch()}
-                                        mid={mid}
-                                    />
                                 </Header>
+                                <ButtonParticipate
+                                    participatingUid={event.participatingUsers.map(u => u.uid)}
+                                    onChange={() => refetch()}
+                                    mid={mid}
+                                    floated="right"
+                                />
                                 <List>
                                     <List.Item>
                                         <List.Icon name="calendar"/>

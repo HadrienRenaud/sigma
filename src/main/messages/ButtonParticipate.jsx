@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Button, Message, Segment} from "semantic-ui-react";
+import {Button, Icon, Message, Segment} from "semantic-ui-react";
 import {UserContext} from "../utils/contexts.jsx";
 import {Mutation} from "react-apollo";
 import gql from "graphql-tag";
@@ -40,15 +40,16 @@ class ButtonParticipate extends React.Component {
     handleMutationRequested(action) {
         if (this.timeout) {
             this.setState({portalOpen: false});
-            clearTimeout(this.timeout)
+            clearTimeout(this.timeout);
         }
-        action()
+        action();
     }
 
     static propTypes = {
         participatingUid: PropTypes.arrayOf(PropTypes.string).isRequired,
         onChange: PropTypes.func,
-        mid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
+        mid: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+        floated: PropTypes.string,
     };
 
     state = {
@@ -85,16 +86,18 @@ class ButtonParticipate extends React.Component {
                 onCompleted={({userUnparticipate}) => this.handleMutationCompleted(userUnparticipate)}
             >
                 {(unparticipate, {loading}) => (
-                    <div>
-                        <Button
-                            content="Ne plus participer"
-                            color="orange"
-                            onClick={() => this.handleMutationRequested(unparticipate)}
-                            floated="right"
-                            loading={loading}
-                        />
+                    <Button
+                        color="orange"
+                        onClick={() => this.handleMutationRequested(unparticipate)}
+                        loading={loading}
+                        floated={this.props.floated}
+                        icon
+                        labelPosition="left"
+                    >
+                        <Icon name="delete calendar"/>
+                        Ne plus participer
                         {portal}
-                    </div>
+                    </Button>
                 )}
             </Mutation>;
         else return (
@@ -104,16 +107,18 @@ class ButtonParticipate extends React.Component {
                 onCompleted={({userParticipate}) => this.handleMutationCompleted(userParticipate)}
             >
                 {(participate, {loading}) => (
-                    <div>
-                        <Button
-                            content="Participer"
-                            color="green"
-                            onClick={() => this.handleMutationRequested(participate)}
-                            floated="right"
-                            loading={loading}
-                        />
+                    <Button
+                        color="green"
+                        onClick={() => this.handleMutationRequested(participate)}
+                        loading={loading}
+                        floated={this.props.floated}
+                        icon
+                        labelPosition="left"
+                    >
+                        <Icon name="add to calendar"/>
+                        Participer
                         {portal}
-                    </div>
+                    </Button>
                 )}
             </Mutation>);
     }

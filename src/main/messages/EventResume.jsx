@@ -9,6 +9,7 @@ import ReactMarkdown from "react-markdown";
 import {AuthorList, Author} from "../utils/author.jsx";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import ButtonParticipate from "./ButtonParticipate.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -32,6 +33,9 @@ const ALL_POSTS = gql`
             }
             createdAt
             updatedAt
+            participatingUsers {
+                uid
+            }
         }
     }
 `;
@@ -51,8 +55,6 @@ class EventResume extends React.Component {
     };
 
     render() {
-
-        let jeParticipeALEvenement = true;
 
         return (
 
@@ -107,12 +109,9 @@ class EventResume extends React.Component {
                                     labelPosition='left'
                                     icon="external"
                                 />
-                                <Button
-                                    content={jeParticipeALEvenement ? "Participer" : "Ne pas participer"}
-                                    color={jeParticipeALEvenement ? "green" : "orange"}
-                                    onClick={this.handleParticipate.bind(this)}
-                                    icon={jeParticipeALEvenement ? "add to calendar" : "delete calendar"}
-                                    labelPosition='left'
+                                <ButtonParticipate
+                                    mid={this.props.mid}
+                                    participatingUid={event.participatingUsers.map(u => u.uid)}
                                 />
                             </Modal.Actions>
                         </Modal>
