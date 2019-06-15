@@ -1,12 +1,14 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from "prop-types";
 import {Button, Feed, Grid, Header, Icon, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
 import Post from './Post.jsx';
 import {GQLError} from "../Errors.jsx";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import {AuthorList, Author} from "../utils/author.jsx";
+import {UserContext} from "../utils/contexts.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -49,6 +51,42 @@ const ALL_POSTS = gql`
     }
 `;
 
+class ButtonParticipate extends React.Component {
+    handleParticipate() {
+        console.log("Envoyer une requête pour participer");
+    }
+
+    handleDontParticipate() {
+        console.log("Envoyer une requête pour ne pas participer");
+    }
+
+    static propTypes = {
+        participatingUid: PropTypes.arrayOf(PropTypes.string).isRequired
+    };
+
+    render() {
+        let user = this.context;
+        let userParticipate = this.props.participatingUid.indexOf(user.uid) !== -1;
+        userParticipate = true;
+
+        if (userParticipate)
+            return <Button
+                content="Participer"
+                color="green"
+                onClick={this.handleParticipate.bind(this)}
+                floated="right"
+            />;
+        else return <Button
+            content="Ne pas participer"
+            color="orange"
+            onClick={this.handleDontParticipate.bind(this)}
+            floated="right"
+        />;
+    }
+}
+
+ButtonParticipate.contextType = UserContext;
+
 /**
  * @class Liste des publications effectuées.
  * @author manifold
@@ -60,14 +98,7 @@ class EventPage extends React.Component {
         feed: false,
     };
 
-    handleParticipate() {
-        console.log("Envoyer une requête pour participer");
-    }
-
     render() {
-
-        let jeParticipeALEvenement = true;
-
         return (
 
             <Query query={ALL_POSTS}
@@ -93,12 +124,7 @@ class EventPage extends React.Component {
                             <Segment vertical>
                                 <Header>
                                     {event.title}
-                                    <Button
-                                        content={jeParticipeALEvenement ? "Participer" : "Ne pas participer"}
-                                        color={jeParticipeALEvenement ? "green" : "orange"}
-                                        onClick={this.handleParticipate.bind(this)}
-                                        floated="right"
-                                    />
+                                    <ButtonParticipate participatingUid={event.participatingUsers.map(u => u.uid)}/>
                                 </Header>
                                 <List>
                                     <List.Item>
