@@ -1,8 +1,5 @@
 import React from 'react';
-import {Route, Link} from 'react-router-dom';
-
-import {Button, Segment, Icon, Divider, Card } from 'semantic-ui-react';
-import EventCalendar from '../../messages/EventCalendar.jsx';
+import EventCalendar from '../../event/EventCalendar.jsx';
 
 const GroupEvents = ({match}) => (
     <div>

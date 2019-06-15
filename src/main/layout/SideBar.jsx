@@ -7,7 +7,7 @@
 import React from 'react';
 import { Grid, Menu, Accordion, Button, Segment, Icon, Component, Sidebar, Sticky, Container } from 'semantic-ui-react';
 import GroupPanel from '../groups/GroupPanel.jsx';
-import EventsPanel from '../messages/EventsPanel.jsx';
+import EventsPanel from '../event/EventsPanel.jsx';
 
 
 const MySideBar = () => (

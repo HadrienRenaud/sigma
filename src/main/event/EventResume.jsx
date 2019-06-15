@@ -1,14 +1,13 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Button, Feed, Modal, Icon, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
-import Post from './Post.jsx';
+import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
+import {Button, Feed, Modal, Image, List} from 'semantic-ui-react';
 import {GQLError} from "../Errors.jsx";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import {AuthorList, Author} from "../utils/author.jsx";
-import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import {AuthorList} from "../utils/author.jsx";
 import ButtonParticipate from "./ButtonParticipate.jsx";
 
 /**

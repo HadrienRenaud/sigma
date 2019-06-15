@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, withRouter} from 'react-router-dom';
-import {Error404} from '../Errors.jsx';
 import {Divider} from 'semantic-ui-react';
 
 import EventCalendar from './EventCalendar.jsx';
 
-import AnnouncementCard from './AnnouncementCard.jsx';
+import AnnouncementCard from '../messages/AnnouncementCard.jsx';
 
 class EventsFoundUnrouted extends React.Component {
     state = {}

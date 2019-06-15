@@ -1,10 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Button, Icon, Message, Segment} from "semantic-ui-react";
+import {Button, Icon, Message, Portal} from "semantic-ui-react";
 import {UserContext} from "../utils/contexts.jsx";
 import {Mutation} from "react-apollo";
 import gql from "graphql-tag";
-import Portal from "semantic-ui-react/dist/commonjs/addons/Portal";
 
 const PARTICIPATE = gql`
     mutation participate($mid: ID!) {

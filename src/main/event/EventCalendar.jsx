@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {withRouter} from 'react-router-dom';
 import BigCalendar from 'react-big-calendar';
-import moment from 'moment';
+import moment from 'moment/moment';
 
 import EventResume from "./EventResume.jsx";
 

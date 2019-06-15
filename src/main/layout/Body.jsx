@@ -3,10 +3,10 @@
  * Il est lui-meme divise (horizontalement cette fois) en Center et MySideBar
  */
 import React from 'react';
-import {Route, Switch, Link,} from 'react-router-dom';
-import {Grid, Container} from 'semantic-ui-react';
+import {Route, Switch} from 'react-router-dom';
+import {Container} from 'semantic-ui-react';
 
-import Events from '../messages/Events.jsx';
+import Events from '../event/Events.jsx';
 import Index from '../index/Index.jsx';
 import GroupView from '../groups/GroupView.jsx';
 import AllGroups from '../groups/AllGroups.jsx';
@@ -14,13 +14,11 @@ import {Error404} from '../Errors.jsx';
 import Trombino from '../trombino/Trombino.jsx';
 import Services from '../services/Services.jsx';
 
-import MySideBar from './SideBar.jsx';
-
 import Background from '../../assets/sigma_bg.jpg';
 import UserPage from "../users/UserPage.jsx";
 import QuestionPage from "../messages/QuestionPage.jsx";
-import EventPage from "../messages/EventPage.jsx";
 import PostPage from "../messages/PostPage.jsx";
+import EventPage from "../event/EventPage.jsx";
 
 // inline styling to render a background image.
 // apparently it is better to use CSS classes but it would imply manipulating webpack
