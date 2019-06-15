@@ -1,12 +1,12 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Button, Feed, Grid, Header, Icon, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
-import Post from './Post.jsx';
+import {Feed, Header, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
 import {GQLError} from "../Errors.jsx";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import {AuthorList, Author} from "../utils/author.jsx";
+import {Author, AuthorList} from "../utils/author.jsx";
+import ButtonParticipate from "./ButtonParticipate.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -60,21 +60,16 @@ class EventPage extends React.Component {
         feed: false,
     };
 
-    handleParticipate() {
-        console.log("Envoyer une requête pour participer");
-    }
-
     render() {
 
-        let jeParticipeALEvenement = true;
-
+        const mid = this.props.match.params.mid;
         return (
 
             <Query query={ALL_POSTS}
-                   variables={{mid: this.props.match.params.mid}}
-                   fetchPolicy='cache-first'
+                   variables={{mid: mid}}
+                   fetchPolicy={'catch-first'}
             >
-                {({loading, error, data}) => {
+                {({loading, error, data, refetch}) => {
                     if (loading) return <Feed>Chargement...</Feed>;
                     else if (error) {
                         return <GQLError error={error}/>;
@@ -93,13 +88,13 @@ class EventPage extends React.Component {
                             <Segment vertical>
                                 <Header>
                                     {event.title}
-                                    <Button
-                                        content={jeParticipeALEvenement ? "Participer" : "Ne pas participer"}
-                                        color={jeParticipeALEvenement ? "green" : "orange"}
-                                        onClick={this.handleParticipate.bind(this)}
-                                        floated="right"
-                                    />
                                 </Header>
+                                <ButtonParticipate
+                                    participatingUid={event.participatingUsers.map(u => u.uid)}
+                                    onChange={() => refetch()}
+                                    mid={mid}
+                                    floated="right"
+                                />
                                 <List>
                                     <List.Item>
                                         <List.Icon name="calendar"/>

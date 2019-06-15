@@ -21,6 +21,7 @@ import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
 import {GQLError} from "../Errors.jsx";
 import GroupMembers from "./group_view/GroupMembers.jsx";
+import {UserContext} from "../utils/contexts.jsx";
 
 const GET_GROUP = gql`
     query getGroup($gid: ID!) {
@@ -52,7 +53,6 @@ class GroupView extends React.Component {
 
     render() {
 
-        const {contextRef} = this.state;
         const {match} = this.props;
 
         let user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [], ...this.context};
@@ -189,6 +189,8 @@ class GroupView extends React.Component {
         );
     }
 }
+
+GroupView.contextType = UserContext;
 
 export default withRouter(GroupView);
 //export default GroupViewWithRouter;

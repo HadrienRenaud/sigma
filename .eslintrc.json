@@ -36,5 +36,4 @@
         "prefer-rest-params": 1,
         "prefer-spread": 1,
         "prefer-arrow-callback": 1
-    }
 }
