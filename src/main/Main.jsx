@@ -8,6 +8,7 @@ import Body from './layout/Body.jsx';
 import Login from './login/Login.jsx';
 
 import {UserContextProvider} from "./utils/contexts.jsx";
+import {apiUrl} from "../config.jsx";
 
 /**
  * @file Le composant React principal, généré quel que soit le path, et dans lequel
@@ -29,8 +30,26 @@ function isLoggedIn() {
 
 class Main extends Component {
 
+    constructor() {
+        super();
+        fetch(apiUrl + '/login')
+            .then((data) => {
+                if (data.ok) {
+                    this.setState({loggedIn: true});
+                    console.log("loggedIn: ", data);
+                    const date = new Date();
+                    date.setHours(date.getHours() + 1);
+                    localStorage.setItem('loginValidity', date.toUTCString());
+                } else {
+                    const date = new Date();
+                    date.setHours(date.getFullYear() - 1);
+                    localStorage.setItem('loginValidity', date.toUTCString());
+                }
+            });
+    }
+
     state = {
-        loggedIn: isLoggedIn(),
+        loggedIn: false,
         toLogIn: false,
     };
 
@@ -49,6 +68,8 @@ class Main extends Component {
     }
 
     render() {
+        console.log("Main state :", this.state);
+
         return (
             <div style={{
                 minHeight: '100%',
@@ -56,7 +77,7 @@ class Main extends Component {
                 gridTemplateRows: '1fr auto',
             }}>
                 <div>
-                    <UserContextProvider uid={this.state.user || localStorage.getItem('uid')}>
+                    <UserContextProvider uid={this.state.user || localStorage.getItem('uid')} queriing={this.state.loggedIn}>
                         <Header
                             onLogOut={this.onLogOut.bind(this)}
                         />

@@ -14,8 +14,8 @@ import Main from './main/Main.jsx';
 import '../node_modules/react-big-calendar/lib/css/react-big-calendar.css';
 
 // les import 'apollo-*' pour utiliser apollo-graphql (une implementation de graphql en javascript)
-import {createHttpLink} from 'apollo-link-http';
-import {setContext} from 'apollo-link-context';
+import {HttpLink} from 'apollo-link-http';
+// import {setContext} from 'apollo-link-context';
 import {InMemoryCache, defaultDataIdFromObject} from 'apollo-cache-inmemory';
 import {ApolloProvider} from 'react-apollo';
 import {ApolloClient} from 'apollo-client';
@@ -36,32 +36,13 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
     introspectionQueryResultData
 });
 
-/**
- * this code snippet taken from https://www.apollographql.com/docs/react/recipes/authentication.html
- * only applies to websites using Basic HTTP Authentication (https://en.wikipedia.org/wiki/Basic_access_authentication)
- * but we want to use cookies, because express-session, which we use in the back, supports cookies only anyway
- * although apparently using tokens (i.e. HTTP authentication) is actually secu and elegant in modern apps such as react-based apps
- * https://auth0.com/blog/cookies-vs-tokens-definitive-guide/
- */
-
-const authLink = setContext((_, {headers}) => {
-    // get the authentication token from local storage if it exists
-    const token = localStorage.getItem('token');
-    // return the headers to the context so httpLink can read them
-    return {
-        headers: {
-            ...headers,
-            authorization: token ? `Bearer ${token}` : "",
-        }
-    };
-});
-
-const httpLink = createHttpLink({
-    uri: graphqlApiUrl
+const httpLink = new HttpLink({
+    uri: graphqlApiUrl,
+    credentials: 'include'
 });
 
 const client = new ApolloClient({
-    link: authLink.concat(httpLink),
+    link: httpLink,
     cache: new InMemoryCache({
         dataIdFromObject: object => {
             // https://www.apollographql.com/docs/react/advanced/caching.html#normalization 
@@ -71,6 +52,16 @@ const client = new ApolloClient({
                 return `Group:${object.uid}`; // use `Group` prefix  and `uid` as the primary key
             case 'User':
                 return `User:${object.uid}`;
+            case `Announcement`:
+                return `Announcement:${object.mid}`;
+            case `Event`:
+                return `Event:${object.mid}`;
+            case `Question`:
+                return `Question:${object.mid}`;
+            case `PrivatePost`:
+                return `PrivatePost:${object.mid}`;
+            case `Answer`:
+                return `Answer:${object.mid}`;
             default:
                 return defaultDataIdFromObject(object); // fall back to default handling
             }
@@ -84,7 +75,7 @@ class App extends React.Component {
         return (
             <ApolloProvider client={client}>
                 <BrowserRouter>
-                    <Main/>
+                    <Main onLogOut={client.clearStore}/>
                 </BrowserRouter>
             </ApolloProvider>
         );
