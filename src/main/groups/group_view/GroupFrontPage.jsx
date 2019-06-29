@@ -26,11 +26,23 @@ class GroupFrontPage extends React.Component {
 
         return (
             <Segment basic>
-                {isSpeaker && !this.state.edition &&
-                <Label
-                    as={Button} icon={"edit"} content={"Edit"} attached={"bottom"}
-                    onClick={() => this.setState({edition: true, frontPage: this.props.frontPage})}/>}
-                {this.state.edition && <div>
+                {isSpeaker && !this.state.edition && <>
+                    <Label
+                        as={Button}
+                        icon={"edit"}
+                        content={"Edit"}
+                        attached={"bottom"}
+                        onClick={() => this.setState({edition: true, frontPage: this.props.frontPage})}
+                    />
+                    {!frontPage &&
+                    <Message 
+                        info
+                        header="The frontPage of this group is empty."
+                        content="You can edit it by clicking on the Edit button at the bottom of the page."
+                    />
+                    }
+                </>}
+                {this.state.edition && <>
                     <Form>
                         <Form.TextArea
                             placeholder='Write here what the user will see on your frontPage. You can use Markdown !'
@@ -50,8 +62,13 @@ class GroupFrontPage extends React.Component {
                         Preview
                     </Header>
                     <Divider hidden/>
-                </div>}
-                <ReactMarkdown source={frontPage}/>
+                </>}
+                <ReactMarkdown source={frontPage}/>     
+                <Message
+                    warning
+                    content="We are working on it 🔥 -- feel free to help us."
+                    header="The title page is not currently implemented"
+                />
             </Segment>
         );
     }

@@ -24,6 +24,19 @@ import GroupMembers from "./group_view/GroupMembers.jsx";
 import {UserContext} from "../utils/contexts.jsx";
 import Message from "semantic-ui-react/dist/commonjs/collections/Message";
 
+const SMALL_GET_GROUP = gql`
+query getGroup($gid: ID!) {
+  group(gid: $gid) {
+    gid
+    name
+    website
+    mail
+    description
+    __typename
+  }
+}
+`;
+
 const GET_GROUP = gql`
     query getGroup($gid: ID!) {
         group(gid: $gid) {
@@ -65,7 +78,7 @@ class GroupView extends React.Component {
 
         return (
             <Query
-                query={GET_GROUP}
+                query={SMALL_GET_GROUP}
                 variables={{
                     gid: match.params.gid
                 }}
