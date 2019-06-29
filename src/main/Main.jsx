@@ -27,25 +27,29 @@ function isLoggedIn() {
     );
 }
 
+function testLogin() {
+    return fetch(apiUrl + '/login', {credentials: "include"})
+        .then((data) => {
+            if (data.ok) {
+                console.log("loggedIn: ", data);
+                const date = new Date();
+                date.setHours(date.getHours() + 1);
+                localStorage.setItem('loginValidity', date.toUTCString());
+                return true;
+            } else {
+                console.log("Not loggedIn", data);
+                const date = new Date();
+                date.setHours(date.getFullYear() - 1);
+                localStorage.setItem('loginValidity', date.toUTCString());
+                return false;
+            }
+        });
+}
 
 class Main extends Component {
 
     constructor() {
         super();
-        fetch(apiUrl + '/login')
-            .then((data) => {
-                if (data.ok) {
-                    this.setState({loggedIn: true});
-                    console.log("loggedIn: ", data);
-                    const date = new Date();
-                    date.setHours(date.getHours() + 1);
-                    localStorage.setItem('loginValidity', date.toUTCString());
-                } else {
-                    const date = new Date();
-                    date.setHours(date.getFullYear() - 1);
-                    localStorage.setItem('loginValidity', date.toUTCString());
-                }
-            });
     }
 
     state = {
@@ -58,6 +62,7 @@ class Main extends Component {
             loggedIn: true,
             user
         });
+        testLogin();
     }
 
     onLogOut() {
