@@ -34,11 +34,35 @@ const USER_QUERY = gql`
     }
 `;
 
+const SMALL_USER_QUERY = gql`
+query getUser($uid: ID!) {
+  user(uid: $uid) {
+    lastName
+    givenName
+    nickname
+    speakerOf {
+      gid
+    }
+    likes {
+      gid
+    }
+    inheritedMemberOf {
+      gid
+    }
+    inheritedAdminOf {
+      gid
+    }
+  }
+}
+`;
+
 export const UserContext = React.createContext("anonymous");
 
 export function UserContextProvider(props) {
-    return <Query query={USER_QUERY} variables={{uid: props.uid}}>
-        {({loading, error, data}) => {
+    return <Query query={SMALL_USER_QUERY} variables={{uid: props.uid}} pollInterval={600 * 1000}>
+        {({error, data, refetch}) => {
+            if (props.setUpRefetch)
+                props.setUpRefetch(refetch);
             if (error) {
                 console.error("UserContextProvider error: ", error);
                 data = {user: {}};

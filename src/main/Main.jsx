@@ -63,6 +63,8 @@ class Main extends Component {
             user
         });
         testLogin();
+        if (this.refetchUserData)
+            this.refetchUserData();
     }
 
     onLogOut() {
@@ -82,7 +84,11 @@ class Main extends Component {
                 gridTemplateRows: '1fr auto',
             }}>
                 <div>
-                    <UserContextProvider uid={this.state.user || localStorage.getItem('uid')} queriing={this.state.loggedIn}>
+                    <UserContextProvider
+                        uid={this.state.user || localStorage.getItem('uid')}
+                        queriing={this.state.loggedIn}
+                        setUpRefetch={(refetch) => this.refetchUserData = refetch}
+                    >
                         <Header
                             onLogOut={this.onLogOut.bind(this)}
                         />
