@@ -37,7 +37,7 @@ class UserCardItem extends Component {
                                 <List.Icon name="group"/>
                                 <List.Content>
                                     <List>
-                                        {user.memberOf.map(gr =>
+                                        {user.memberOf && user.memberOf.map(gr =>
                                             <List.Item key={gr.gid} as={Link}
                                                 to={"/group/" + gr.gid}>{gr.name}</List.Item>
                                         )}
@@ -79,7 +79,7 @@ class UserListItem extends Component {
                     <List.Description>
                         <Label size="tiny" basic icon="mail" as="a" href={"mailto:" + user.mail} content={user.mail}/>
                         {user.address && <Label size="tiny" basic icon="marker" content={user.address}/>}
-                        {user.memberOf.map(gr =>
+                        {user.memberOf && user.memberOf.map(gr =>
                             <Label size="tiny" basic key={gr.gid} content={gr.name} icon="group"
                                 as={Link} to={"/group/" + gr.gid}
                             />
@@ -142,6 +142,45 @@ const GET_TROMBINO = gql`
     }
 `;
 
+const SMALL_GET_TROMBINO = gql`
+    # Write your query or mutation here
+    query searchTOL(
+        $givenName: String
+        $lastName: String
+        $nickname: String
+        $nationality: String
+        $school: String
+        $groups: [String]
+        $studies: String
+        $phone: String
+        $mail: String
+        $address: String
+    ) {
+        searchTOL (
+            nickname: $nickname,
+            givenName: $givenName,
+            lastName: $lastName,
+            nationality: $nationality,
+            school: $school,
+            groups: $groups,
+            studies: $studies,
+            phone: $phone,
+            mail: $mail,
+            address: $address,
+        ) {
+            uid
+            givenName
+            lastName
+            nickname
+            school
+            phone
+            mail
+            address
+            photo
+        }
+    }
+`;
+
 /**
  * @class Affiche les résultats tu trombinoscope
  */
@@ -164,7 +203,7 @@ class TrombinoResults extends Component {
 
     render() {
         return (
-            <Query query={GET_TROMBINO}
+            <Query query={SMALL_GET_TROMBINO}
                 variables={{
                     givenName: this.props.params.givenName,
                     lastName: this.props.params.lastName,

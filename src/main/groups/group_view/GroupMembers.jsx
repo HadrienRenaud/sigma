@@ -125,7 +125,7 @@ class GroupMembers extends Component {
                                 </List.Item>
                             );
                         else
-                            return users.map(user =>
+                            return users.filter(user => !!user).map(user =>
                                 <List.Item key={user.uid}>
                                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'
                                     />
