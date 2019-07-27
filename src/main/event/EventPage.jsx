@@ -2,7 +2,7 @@ import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Feed, Header, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import {Author, AuthorList} from "../utils/author.jsx";

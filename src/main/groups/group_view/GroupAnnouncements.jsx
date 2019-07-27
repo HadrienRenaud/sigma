@@ -11,7 +11,7 @@ import {Menu, Header, Button, Search, Grid, Divider, Dropdown, Feed} from 'seman
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import AnnouncementCard from '../../messages/AnnouncementCard.jsx';
-import {GQLError} from "../../Errors.jsx";
+import {GQLError} from "../../utils/Errors.jsx";
 
 /**
  * @constant Requête GraphQL...

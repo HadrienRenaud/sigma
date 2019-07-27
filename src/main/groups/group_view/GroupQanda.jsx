@@ -4,7 +4,7 @@ import {Link, Redirect} from 'react-router-dom';
 import {Button, Comment, Dropdown, Form, Menu, Message, Search} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {graphql, Mutation, Query} from 'react-apollo';
-import {GQLError} from "../../Errors.jsx";
+import {GQLError} from "../../utils/Errors.jsx";
 import {UserContext} from "../../utils/contexts.jsx";
 
 const GET_QUESTIONS = gql`

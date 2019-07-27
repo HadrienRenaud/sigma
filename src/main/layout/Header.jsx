@@ -4,7 +4,7 @@
 
 import React from 'react';
 import {Menu, Button, Image, Dropdown, Container} from 'semantic-ui-react';
-import {Link, NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import logo_sigma from '../../assets/logo_sigma.png';
 import {UserContext} from "../utils/contexts.jsx";
 

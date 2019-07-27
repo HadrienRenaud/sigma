@@ -2,7 +2,7 @@ import React from 'react';
 import {Query} from 'react-apollo/index';
 import gql from 'graphql-tag';
 import {Label, Button, Card} from 'semantic-ui-react';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
 

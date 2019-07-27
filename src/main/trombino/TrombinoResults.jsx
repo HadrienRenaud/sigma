@@ -8,7 +8,7 @@ import React, {Component} from 'react';
 import {Card, List, Image, Label} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import {Link, Redirect} from "react-router-dom";
 
 class UserCardItem extends Component {

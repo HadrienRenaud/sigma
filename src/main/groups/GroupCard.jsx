@@ -6,7 +6,7 @@ import {withRouter} from 'react-router-dom';
 
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import {UserContext} from "../utils/contexts.jsx";
 
 /**

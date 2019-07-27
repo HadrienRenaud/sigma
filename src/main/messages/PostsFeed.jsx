@@ -3,7 +3,7 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Feed, Header, List} from 'semantic-ui-react';
 import Post from './Post.jsx';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.

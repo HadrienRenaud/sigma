@@ -8,7 +8,7 @@ import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import {Card, Divider, Header, Icon, Input, Menu, Search, Segment} from "semantic-ui-react";
 import GroupCard from './GroupCard.jsx';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 
 const groupReq = gql`
     query {

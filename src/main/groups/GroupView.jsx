@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Switch, NavLink, Link, withRouter, Redirect} from 'react-router-dom';
-import {Error404} from '../Errors.jsx';
+import {Error404} from '../utils/Errors.jsx';
 import {Menu, Header, Button, Container, Icon, Popup, Label, Segment, Card} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
@@ -19,7 +19,7 @@ import GroupPageInterne from './group_view/GroupPageInterne.jsx';
 import GroupAdministrer from './group_view/GroupAdministrer.jsx';
 import GroupFrontPage from './group_view/GroupFrontPage.jsx';
 import GroupEvents from './group_view/GroupEvents.jsx';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import GroupMembers from "./group_view/GroupMembers.jsx";
 import {UserContext} from "../utils/contexts.jsx";
 import Message from "semantic-ui-react/dist/commonjs/collections/Message";

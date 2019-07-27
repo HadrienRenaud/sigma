@@ -14,7 +14,7 @@ import {Card, Feed, Image} from 'semantic-ui-react';
 
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import {Link} from "react-router-dom";
 
 /**
