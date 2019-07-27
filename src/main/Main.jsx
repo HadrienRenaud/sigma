@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {Route, Switch, Redirect,} from 'react-router-dom';
-import {Container} from 'semantic-ui-react';
+import {Redirect, Route, Switch,} from 'react-router-dom';
+import {Container, Sidebar} from 'semantic-ui-react';
 
-import Header from './layout/Header.jsx';
+import Header, {HeaderSidebar} from './layout/Header.jsx';
 import Footer from './layout/Footer.jsx';
 import Body from './layout/Body.jsx';
 import Login from './login/Login.jsx';
@@ -55,6 +55,7 @@ class Main extends Component {
     state = {
         loggedIn: false,
         toLogIn: false,
+        sidebarVisible: false
     };
 
     onLogin(user) {
@@ -66,6 +67,14 @@ class Main extends Component {
         if (this.refetchUserData)
             this.refetchUserData();
     }
+
+    showSidebar = () => {
+        this.setState({sidebarVisible: true});
+    };
+
+    hideSidebar = () => {
+        this.setState({sidebarVisible: false});
+    };
 
     onLogOut() {
         this.setState({
@@ -90,29 +99,36 @@ class Main extends Component {
                         setUpRefetch={(refetch) => this.refetchUserData = refetch}
                     >
                         <Header
+                            showSidebar={this.showSidebar}
                             onLogOut={this.onLogOut.bind(this)}
                         />
-                        <Container>
-                            {this.state.loggedIn ?
-                                <Switch>
-                                    <Route path="/login" render={() => <Redirect to='/'/>}/>
-                                    <Route path="/" render={props => <Body {...props} {...this.state}/>}/>
-                                </Switch>
-                                :
-                                <Switch>
-                                    <Route
-                                        path="/login"
-                                        render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
-                                    {this.state.toLogIn ?
-                                        <Route path='/' render={() => <Redirect to='/login'/>}/>
-                                        :
+                        <Sidebar.Pushable>
+                            <HeaderSidebar
+                                visible={this.state.sidebarVisible}
+                                hideSidebar={this.hideSidebar}
+                            />
+                            <Sidebar.Pusher as={Container} style={{ paddingTop: 24 }}>
+                                {this.state.loggedIn ?
+                                    <Switch>
+                                        <Route path="/login" render={() => <Redirect to='/'/>}/>
+                                        <Route path="/" render={props => <Body {...props} {...this.state}/>}/>
+                                    </Switch>
+                                    :
+                                    <Switch>
                                         <Route
-                                            path="/"
-                                            render={props => <Body {...props} {...this.state}/>}/>
-                                    }
-                                </Switch>
-                            }
-                        </Container>
+                                            path="/login"
+                                            render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
+                                        {this.state.toLogIn ?
+                                            <Route path='/' render={() => <Redirect to='/login'/>}/>
+                                            :
+                                            <Route
+                                                path="/"
+                                                render={props => <Body {...props} {...this.state}/>}/>
+                                        }
+                                    </Switch>
+                                }
+                            </Sidebar.Pusher>
+                        </Sidebar.Pushable>
                     </UserContextProvider>
                 </div>
                 <footer style={{

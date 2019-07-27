@@ -3,13 +3,51 @@
  */
 
 import React from 'react';
-import {Menu, Button, Image, Dropdown, Container} from 'semantic-ui-react';
-import {Link, NavLink} from 'react-router-dom';
+import {Container, Icon, Image, Menu, Responsive, Sidebar} from 'semantic-ui-react';
+import {NavLink} from 'react-router-dom';
 import logo_sigma from '../../assets/logo_sigma.png';
-import {UserContext} from "../utils/contexts.jsx";
+import {UserMenuDropdown} from "../users/UserMenuDropdown.jsx";
+
+const SEPARATION_MOBILE = Responsive.onlyComputer.minWidth;
+
+const menuItems = [
+    {
+        linkTo: "/groups",
+        label: "Associations",
+    },
+    {
+        linkTo: "/events",
+        label: "Calendrier",
+    },
+    {
+        linkTo: "/tol",
+        label: "Trombinoscope",
+    },
+];
+
+export const HeaderSidebar = ({visible, hideSidebar}) => (
+    <Responsive maxWidth={SEPARATION_MOBILE - 1}>
+        <Sidebar
+            as={Menu}
+            animation='overlay'
+            icon='labeled'
+            onHide={hideSidebar}
+            vertical
+            visible={visible}
+            color="violet"
+            inverted
+        >
+            {menuItems.map(item => (
+                <Menu.Item as={NavLink} to={item.linkTo} key={item.linkTo}>
+                    {item.label}
+                </Menu.Item>
+            ))}
+        </Sidebar>
+    </Responsive>
+);
+
 
 class Header extends React.Component {
-
     onLogOut() {
         localStorage.clear();
         if (this.props.onLogOut)
@@ -17,71 +55,49 @@ class Header extends React.Component {
     }
 
     render() {
-        return <Menu inverted color="violet">
-            <Container>
+        return <>
+            <Responsive minWidth={SEPARATION_MOBILE}>
+                <Menu inverted color="violet">
+                    <Container>
+                        <Menu.Item as={NavLink} to='/#'>
+                            <Image alt='Logo' src={logo_sigma} avatar/>
+                        </Menu.Item>
 
-                {/*NavLink to path /, telling Center to render main/index/Index.jsx*/}
-                <Menu.Item as={NavLink} to='/#'>
-                    <Image alt='Logo' src={logo_sigma} avatar/>
-                </Menu.Item>
+                        {menuItems.map(item => (
+                            <Menu.Item as={NavLink} to={item.linkTo} key={item.linkTo}>
+                                {item.label}
+                            </Menu.Item>
+                        ))}
 
-                <Menu.Item as={NavLink} to="/groups">
-                    Associations
-                </Menu.Item>
+                        <Menu.Menu position='right'>
+                            <UserMenuDropdown/>
+                        </Menu.Menu>
+                    </Container>
+                </Menu>
+            </Responsive>
+            <Responsive maxWidth={SEPARATION_MOBILE - 1}>
+                <Menu inverted color="violet">
+                    <Container>
+                        <Sidebar.Pusher>
+                            <Menu.Item
+                                onClick={this.props.showSidebar}
+                                style={{display: 'flex', alignItems: 'center', height: '100%'}}
+                            >
+                                <Icon name="bars"/>
+                            </Menu.Item>
+                        </Sidebar.Pusher>
 
-                {/*NavLink to path /calendar, telling Center to render [TODO]*/}
-                <Menu.Item as={NavLink} to='/events'>
-                    Calendrier
-                </Menu.Item>
+                        <Menu.Item as={NavLink} to='/#'>
+                            <Image alt='Logo' src={logo_sigma} avatar/>
+                        </Menu.Item>
 
-                {/*NavLink to path /tol, telling Center to render main/trombino/Trombino.jsx*/}
-                <Menu.Item as={NavLink} to='/tol' name='tol'>
-                    Trombinoscope
-                </Menu.Item>
-
-                {/*NavLink to path /services, telling Center to render main/services/Services.jsx*/}
-                <Menu.Item as={NavLink} to='/services' name='services'>
-                    Services BR
-                </Menu.Item>
-
-                <Menu.Menu position='right'>
-
-                    {/*
-                    If connected :
-                       Dropdown with menu, logout etc.
-                    If not
-                        NavLink to path /login, telling Center to render main/login/Login.jsx
-                    */}
-                    <UserContext.Consumer>
-                        {(user) => {
-                            return user !== "anonymous" ?
-                                <Dropdown item trigger={
-                                    <Image
-                                        src='https://react.semantic-ui.com/images/wireframe/square-image.png'
-                                        avatar/>
-                                }>
-                                    <Dropdown.Menu>
-                                        <Dropdown.Item as={NavLink} to='/me' name="me">
-                                            <strong>{user.givenName} {user.lastName}</strong>
-                                            <br/>
-                                            @{user.uid}
-                                        </Dropdown.Item>
-                                        <Dropdown.Divider/>
-                                        <Dropdown.Item as={NavLink} to='/login' name='loginForm'>
-                                            Se Déconnecter
-                                        </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                </Dropdown>
-                                :
-                                <Menu.Item as={NavLink} to='/login' position='right' name='loginForm'>
-                                    <Button color="blue">Se connecter</Button>
-                                </Menu.Item>;
-                        }
-                        }
-                    </UserContext.Consumer>
-                </Menu.Menu>
-            </Container>
-        </Menu>;
+                        <Menu.Menu position='right'>
+                            <UserMenuDropdown/>
+                        </Menu.Menu>
+                    </Container>
+                </Menu>
+            </Responsive>
+        </>;
     }
 }
 
