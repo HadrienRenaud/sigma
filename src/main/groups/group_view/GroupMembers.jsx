@@ -49,28 +49,30 @@ const GET_MEMBERS = gql`
     }
 `;
 
+const simpleGroupFilters = [
+    {key: 0, value: "admins", text: "Admins", disabled: false, icon: "chess queen"},
+    {key: 1, value: "speakers", text: "Speakers", disabled: false, icon: "bullhorn"},
+    {key: 2, value: "members", text: "Members", disabled: false, icon: "heart"},
+    {key: 3, value: "likers", text: "Likers", disabled: false, icon: "eye"},
+];
+
+const metaGroupFilters = [
+    {key: 0, value: "admins", text: "Admins", disabled: false, icon: "chess queen"},
+    {key: 1, value: "speakers", text: "Speakers", disabled: true, icon: "bullhorn"},
+    {key: 2, value: "members", text: "Members", disabled: false, icon: "heart"},
+    {key: 3, value: "likers", text: "Likers", disabled: true, icon: "eye"},
+];
+
 class GroupMembers extends Component {
     state = {
         filter: "admins",
     };
 
-    filters = [];
+    filters = simpleGroupFilters;
 
     componentDidMount() {
         if (this.props.typename === "MetaGroup")
-            this.filters = [
-                {key: 0, value: "admins", text: "Admins", disabled: false, icon: "chess queen"},
-                {key: 1, value: "speakers", text: "Speakers", disabled: true, icon: "bullhorn"},
-                {key: 2, value: "members", text: "Members", disabled: false, icon: "heart"},
-                {key: 3, value: "likers", text: "Likers", disabled: true, icon: "eye"},
-            ];
-        else
-            this.filters = [
-                {key: 0, value: "admins", text: "Admins", disabled: false, icon: "chess queen"},
-                {key: 1, value: "speakers", text: "Speakers", disabled: false, icon: "bullhorn"},
-                {key: 2, value: "members", text: "Members", disabled: false, icon: "heart"},
-                {key: 3, value: "likers", text: "Likers", disabled: false, icon: "eye"},
-            ];
+            this.filters = metaGroupFilters;
     }
 
     handleSelectedFilter(e, {value}) {
@@ -123,7 +125,7 @@ class GroupMembers extends Component {
                                 </List.Item>
                             );
                         else
-                            return users.map(user =>
+                            return users.filter(user => !!user).map(user =>
                                 <List.Item key={user.uid}>
                                     <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'
                                     />
