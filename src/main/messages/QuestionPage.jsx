@@ -3,11 +3,12 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Button, Feed, Grid, Header, Icon, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
 import Post from './Post.jsx';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import {AuthorList, Author} from "../utils/author.jsx";
 import {Link} from "react-router-dom";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -55,7 +56,7 @@ class QuestionPage extends React.Component {
                 fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
-                    if (loading) return <Feed>Chargement...</Feed>;
+                    if (loading) return <LoadingMessage />;
                     else if (error) {
                         return <GQLError error={error}/>;
                     }

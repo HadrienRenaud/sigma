@@ -4,8 +4,9 @@ import {Link, Redirect} from 'react-router-dom';
 import {Button, Comment, Dropdown, Form, Menu, Message, Search} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {graphql, Mutation, Query} from 'react-apollo';
-import {GQLError} from "../../Errors.jsx";
+import {GQLError} from "../../utils/Errors.jsx";
 import {UserContext} from "../../utils/contexts.jsx";
+import {LoadingMessage} from "../../utils/Messages.jsx";
 
 const GET_QUESTIONS = gql`
     query getQuestions($gid: ID!) {
@@ -151,7 +152,7 @@ class Answer extends React.Component {
                 else if (error)
                     return <GQLError error={error}/>;
                 else if (loading)
-                    return <Message info content='Chargement, veuillez patientez ...'/>;
+                    return <LoadingMessage/>;
                 else if (data && data.createAnswer && data.createAnswer.mid)
                     return <Redirect to={'/question/' + this.props.qid}/>;
                 else
@@ -247,7 +248,7 @@ class Question extends React.Component {
                             />
                         </Form>;
                     else if (loading)
-                        return <Message info content="Chargement en cours, patientez svp ..."/>;
+                        return <LoadingMessage/>;
                     else if (error)
                         return <GQLError error={error}/>;
                     else if (data) {
@@ -376,7 +377,7 @@ class AskQuestion extends React.Component {
                 else if (error)
                     return <GQLError error={error}/>;
                 else if (loading)
-                    return <Message info content='Chargement, veuillez patientez ...'/>;
+                    return <LoadingMessage />;
                 else if (data && data.createQuestion && data.createQuestion.mid)
                     return <Redirect to={'/question/' + data.createQuestion.mid}/>;
                 else
@@ -464,7 +465,7 @@ class GroupQuanda extends React.Component {
             variables={{gid: this.props.gid}}
             fetchPolicy='cache-first'>
             {({loading, error, data, refetch}) => {
-                if (loading) return <div>Chargement, patience SVP...</div>;
+                if (loading) return <LoadingMessage />;
                 else if (error) return <GQLError error={error}/>;
                 const {group} = data;
                 const {questions} = group;

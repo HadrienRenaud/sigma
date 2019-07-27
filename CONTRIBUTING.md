@@ -154,7 +154,7 @@ class PaintExampleClass extends React.Component {
             >
                 { ({ loading, error, data }) => {
                     if (loading) 
-                        return <div>Chargement, patientez SVP...</div>;
+                        return <LoadingMessage />;
                     else if (error) 
                         return <div>Erreur de chargement graphQL.</div>;
 

@@ -3,7 +3,8 @@ import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {Feed, Header, List} from 'semantic-ui-react';
 import Post from './Post.jsx';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -123,7 +124,7 @@ class PostsFeed extends React.Component {
                 fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
-                    if (loading) return <Feed>Chargement...</Feed>;
+                    if (loading) return <LoadingMessage />;
                     else if (error) {
                         console.log(JSON.stringify(error));
                         return <GQLError error={error}/>;
