@@ -16,6 +16,7 @@ import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import {GQLError} from "../utils/Errors.jsx";
 import {Link} from "react-router-dom";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 /**
  * @constant Requête GraphQL
@@ -83,7 +84,7 @@ class AnnouncementCard extends React.Component {
             >
                 {({loading, error, data}) => {
                     if (loading)
-                        return <div>Chargement, patientez SVP...</div>;
+                        return <LoadingMessage/>;
                     else if (error)
                         return <GQLError error={error}/>;
 

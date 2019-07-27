@@ -5,6 +5,7 @@ import {Label, Button, Card} from 'semantic-ui-react';
 import {GQLError} from "../utils/Errors.jsx";
 import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -108,7 +109,7 @@ class EventsPanel extends React.Component {
                 fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
-                    if (loading) return <div>Chargement...</div>;
+                    if (loading) return <LoadingMessage />;
                     else if (error) {
                         console.log(JSON.stringify(error));
                         return <GQLError error={error}/>;

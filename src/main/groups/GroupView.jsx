@@ -23,6 +23,7 @@ import {GQLError} from "../utils/Errors.jsx";
 import GroupMembers from "./group_view/GroupMembers.jsx";
 import {UserContext} from "../utils/contexts.jsx";
 import Message from "semantic-ui-react/dist/commonjs/collections/Message";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 const SMALL_GET_GROUP = gql`
 query getGroup($gid: ID!) {
@@ -86,7 +87,7 @@ class GroupView extends React.Component {
             >
                 {({loading, error, data}) => {
                     if (loading)
-                        return <div>Chargement, patientez SVP...</div>;
+                        return <LoadingMessage />;
                     else if (error)
                         return <GQLError error={error}/>;
 

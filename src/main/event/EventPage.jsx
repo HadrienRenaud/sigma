@@ -7,6 +7,7 @@ import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
 import {Author, AuthorList} from "../utils/author.jsx";
 import ButtonParticipate from "./ButtonParticipate.jsx";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 /**
  * @constant Requête pour obtenir tous les posts.
@@ -70,7 +71,7 @@ class EventPage extends React.Component {
                 fetchPolicy={'catch-first'}
             >
                 {({loading, error, data, refetch}) => {
-                    if (loading) return <Feed>Chargement...</Feed>;
+                    if (loading) return <LoadingMessage/>;
                     else if (error) {
                         return <GQLError error={error}/>;
                     }

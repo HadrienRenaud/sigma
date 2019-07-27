@@ -12,6 +12,7 @@ import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import AnnouncementCard from '../../messages/AnnouncementCard.jsx';
 import {GQLError} from "../../utils/Errors.jsx";
+import {LoadingMessage} from "../../utils/Messages.jsx";
 
 /**
  * @constant Requête GraphQL...
@@ -76,7 +77,7 @@ class GroupAnnouncements extends React.Component {
                     fetchPolicy='cache-first'
                 >
                     {({loading, error, data}) => {
-                        if (loading) return <div>Chargement, patience SVP...</div>;
+                        if (loading) return <LoadingMessage />;
                         else if (error) return <GQLError error={error}/>;
                         const {group} = data; //extracts the actual data from object 'data'
                         const {announcementsFromGroup} = group;
@@ -105,7 +106,7 @@ class GroupAnnouncements extends React.Component {
                     fetchPolicy='cache-first'
                 >
                     {({loading, error, data}) => {
-                        if (loading) return <div>Chargement, patience SVP...</div>;
+                        if (loading) return <LoadingMessage/>;
                         else if (error) return <GQLError error={error}/>;
                         const {group} = data; //extracts the actual data from object 'data'
                         const {announcementsToGroup} = group; //extracts the actual data from object 'data'

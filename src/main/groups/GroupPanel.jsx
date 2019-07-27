@@ -9,6 +9,7 @@ import {Link} from 'react-router-dom';
 import gql from 'graphql-tag';
 import {graphql} from 'react-apollo';
 import {GQLError} from "../utils/Errors.jsx";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 /**
  * @constant Requête GraphQL pour récupérer tous les groupes.
@@ -32,7 +33,7 @@ class GroupPanel extends React.Component {
         const {groupQuery: {loading, error, allGroups}} = this.props;
 
         if (loading) {
-            return <li>Loading...</li>;
+            return <LoadingMessage />;
         } else if (error) {
             return <GQLError error={error}/>;
         }
