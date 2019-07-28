@@ -10,7 +10,7 @@ import Events from '../event/Events.jsx';
 import Index from '../index/Index.jsx';
 import GroupView from '../groups/GroupView.jsx';
 import AllGroups from '../groups/AllGroups.jsx';
-import {Error404} from '../Errors.jsx';
+import {Error404} from '../utils/Errors.jsx';
 import Trombino from '../trombino/Trombino.jsx';
 import Services from '../services/Services.jsx';
 

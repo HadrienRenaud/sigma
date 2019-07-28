@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import {Container, Icon, Image, Menu, Responsive, Sidebar} from 'semantic-ui-react';
+import {Menu, Button, Image, Container, Icon, Responsive, Sidebar} from 'semantic-ui-react';
 import {NavLink} from 'react-router-dom';
 import logo_sigma from '../../assets/logo_sigma.png';
 import {UserMenuDropdown} from "../users/UserMenuDropdown.jsx";

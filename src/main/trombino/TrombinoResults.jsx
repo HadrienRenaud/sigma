@@ -8,8 +8,9 @@ import React, {Component} from 'react';
 import {Card, List, Image, Label} from 'semantic-ui-react';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import {Link, Redirect} from "react-router-dom";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 class UserCardItem extends Component {
     state = {
@@ -213,7 +214,7 @@ class TrombinoResults extends Component {
                 fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
-                    if (loading) return <div>Chargement...</div>;
+                    if (loading) return <LoadingMessage />;
                     else if (error) {
                         return <GQLError error={error}/>;
                     }

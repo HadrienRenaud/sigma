@@ -6,8 +6,9 @@ import {withRouter} from 'react-router-dom';
 
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import {UserContext} from "../utils/contexts.jsx";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 /**
  * @file Composant pour afficher les informations sur un groupe.
@@ -66,7 +67,7 @@ class GroupCard extends React.Component {
                 fetchPolicy='cache-first' //choose cache behaviour
             >
                 {({loading, error, data}) => {
-                    if (loading) return <div>Chargement...</div>;
+                    if (loading) return <LoadingMessage />;
                     else if (error) return <GQLError error={error}/>;
 
                     const {group} = data; //extracts the actual data from object 'data'
