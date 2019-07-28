@@ -62,7 +62,7 @@ const config = {
                 "use": "eslint-loader"
             }
             ,{
-                test: /\.jsx?$/,
+                test: /\.(jsx|js)$/,
                 exclude: /node_modules/,
                 loader: 'babel-loader',
 
