@@ -3,7 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 
 import {Button, Comment, Dropdown, Form, Menu, Message, Search} from 'semantic-ui-react';
 import gql from 'graphql-tag';
-import {graphql, Mutation, Query} from 'react-apollo';
+import {Mutation, Query} from 'react-apollo';
 import {GQLError} from "../../Errors.jsx";
 import {UserContext} from "../../utils/contexts.jsx";
 
@@ -20,6 +20,7 @@ const GET_QUESTIONS = gql`
                     givenName
                     lastName
                     nickname
+                    photo
                 }
                 recipient {
                     gid
@@ -62,6 +63,7 @@ const GET_ANSWERS = gql`
                         givenName
                         lastName
                         nickname
+                        photo
                     }
                 }
             }
@@ -260,7 +262,7 @@ class Question extends React.Component {
 
 
         return <Comment>
-            <Comment.Avatar src="https://react.semantic-ui.com/images/avatar/small/christian.jpg" as={Link}
+            <Comment.Avatar src={q.author.photo || "https://react.semantic-ui.com/images/avatar/small/christian.jpg"} as={Link}
                 to={"/user/" + q.author.uid}/>
             <Comment.Content>
                 <Comment.Author>

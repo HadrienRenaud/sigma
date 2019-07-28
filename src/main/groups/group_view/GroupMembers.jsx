@@ -16,19 +16,23 @@ const GET_MEMBERS = gql`
                     uid
                     lastName
                     givenName
+                    photo
                 }
                 members {
                     uid
                     lastName
                     givenName
+                    photo
                 }
                 speakers {
                     uid
                     lastName
+                    photo
                     givenName
                 }
                 likers {
                     uid
+                    photo
                     lastName
                     givenName
                 }
@@ -36,6 +40,7 @@ const GET_MEMBERS = gql`
             ...on MetaGroup {
                 admins {
                     uid
+                    photo
                     lastName
                     givenName
                 }
@@ -127,7 +132,7 @@ class GroupMembers extends Component {
                         else
                             return users.filter(user => !!user).map(user =>
                                 <List.Item key={user.uid}>
-                                    <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'
+                                    <Image avatar src={user.photo || 'https://react.semantic-ui.com/images/avatar/small/rachel.png'}
                                     />
                                     <List.Content as={Link} to={'/user/' + user.uid}>
                                         <List.Header>

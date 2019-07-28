@@ -54,6 +54,7 @@ const ALL_POSTS = gql`
                     uid
                     givenName
                     lastName
+                    photo
                 }
                 startTime
                 endTime
@@ -65,6 +66,7 @@ const ALL_POSTS = gql`
                     uid
                     lastName
                     givenName
+                    photo
                 }
                 recipient {
                     gid
@@ -77,6 +79,7 @@ const ALL_POSTS = gql`
                     uid
                     givenName
                     lastName
+                    photo
                 }
                 recipient {
                     gid
@@ -97,6 +100,7 @@ const ALL_POSTS = gql`
                         uid
                         givenName
                         lastName
+                        photo
                     }
                     recipient {
                         gid

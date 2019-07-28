@@ -40,6 +40,7 @@ query getUser($uid: ID!) {
     lastName
     givenName
     nickname
+    photo
     speakerOf {
       gid
     }
