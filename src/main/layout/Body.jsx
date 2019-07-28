@@ -19,6 +19,7 @@ import UserPage from "../users/UserPage.jsx";
 import QuestionPage from "../messages/QuestionPage.jsx";
 import PostPage from "../messages/PostPage.jsx";
 import EventPage from "../event/EventPage.jsx";
+import EditUserProfile from "../users/EditUserProfile.jsx";
 
 // inline styling to render a background image.
 // apparently it is better to use CSS classes but it would imply manipulating webpack
@@ -61,6 +62,7 @@ class Body extends React.Component {
                     <Route path="/user/:uid" component={UserPage}/>
                     <Route path="/question/:mid" component={QuestionPage}/>
                     <Route path="/post/:mid" component={PostPage}/>
+                    <Route path="/me/edit-profile" component={EditUserProfile}/>
                     <Route path="/me" component={UserPage}/>
                     <Route exact path="/" component={Index}/>
                     <Route component={Error404}/>

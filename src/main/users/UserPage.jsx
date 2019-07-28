@@ -5,7 +5,7 @@
  */
 
 import React from 'react';
-import {Image, Header, Icon, List, Segment, Menu, Search} from 'semantic-ui-react';
+import {Image, Header, Icon, List, Segment, Menu, Search, Grid, Button} from 'semantic-ui-react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
 import {GQLError} from "../Errors.jsx";
@@ -89,34 +89,34 @@ const GET_USER = gql`
 `;
 
 const SMALL_GET_USER = gql`
-query getUser($uid: ID!) {
-  user(uid: $uid) {
-    lastName
-    givenName
-    nationality
-    nickname
-    mail
-    phone
-    address
-    birthdate
-    photo
-    speakerOf {
-      gid
-      name
-      description
+    query getUser($uid: ID!) {
+        user(uid: $uid) {
+            lastName
+            givenName
+            nationality
+            nickname
+            mail
+            phone
+            address
+            birthdate
+            photo
+            speakerOf {
+                gid
+                name
+                description
+            }
+            inheritedMemberOf {
+                gid
+                name
+                description
+            }
+            inheritedAdminOf {
+                gid
+                name
+                description
+            }
+        }
     }
-    inheritedMemberOf {
-      gid
-      name
-      description
-    }
-    inheritedAdminOf {
-      gid
-      name
-      description
-    }
-  }
-}
 `;
 
 class UserPage extends React.Component {
@@ -171,6 +171,7 @@ class UserPage extends React.Component {
             </Menu.Menu>
         </Menu>;
     }
+
     render() {
         let uid = "";
         if (this.props.match && this.props.match.params.uid) // route = /user/:uid
@@ -194,34 +195,52 @@ class UserPage extends React.Component {
                     const {user} = data;
                     this.gidToGroup = constructGraph(user.inheritedMemberOf);
 
-                    const stateToGroup = {
-                        admin: user.adminOf,
-                        speaker: user.speakerOf,
-
-                        // THIS IS WRONG. But the mocker doesn't guarantee memberOf in inheritedMemberOf
-                        member: user.inheritedMemberOf,
-
-                        likes: user.likes,
-                        dislikes: user.dislikes,
-                    };
-
                     return (
-                        <div>
+                        <>
                             <Segment vertical>
-                                <Image src={user.photo || "https://react.semantic-ui.com/images/wireframe/square-image.png"}
-                                    floated="right" size='small'/>
-                                <Header>
-                                    {user.givenName} {user.lastName} ({user.nickname})
-                                    <Header.Subheader>@{this.props.uid || this.context.uid}</Header.Subheader>
-                                </Header>
-                                <List>
-                                    <List.Item icon="birthday" content={user.birthdate}/>
-                                    <List.Item icon="flag outline" content={user.nationality}/>
-                                    <List.Item icon="phone" content={<a href={"tel:" + user.phone}>{user.phone}</a>}/>
-                                    {user.address && <List.Item icon="marker" content={user.address}/>}
-                                    <List.Item icon="mail"
-                                        content={<a href={`mailto:${user.mail}`}>{user.mail}</a>}/>
-                                </List>
+                                <Grid divided='vertically' stackable={true}>
+                                    <Grid.Row columns={2}>
+                                        <Grid.Column>
+                                            <Header>
+                                                {user.givenName} {user.lastName} ({user.nickname})
+                                                <Header.Subheader>@{this.props.uid || this.context.uid}</Header.Subheader>
+                                            </Header>
+                                        </Grid.Column>
+                                        <Grid.Column textAlign={'right'}>
+                                            {uid === this.context.uid &&
+                                            <Button
+                                                basic
+                                                icon='edit'
+                                                content="Edit profile"
+                                                as={Link} to='/me/edit-profile'
+                                            />}
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row columns={2}>
+                                        <Grid.Column>
+                                            <List>
+                                                <List.Item icon="birthday" content={user.birthdate}/>
+                                                <List.Item icon="flag outline" content={user.nationality}/>
+                                                <List.Item icon="phone">
+                                                    <a href={"tel:" + user.phone}>
+                                                        {user.phone}
+                                                    </a>
+                                                </List.Item>
+                                                {user.address && <List.Item icon="marker" content={user.address}/>}
+                                                <List.Item
+                                                    icon="mail"
+                                                    content={<a href={`mailto:${user.mail}`}>{user.mail}</a>}
+                                                />
+                                            </List>
+                                        </Grid.Column>
+                                        <Grid.Column textAlign='right' floated='right'>
+                                            <Image
+                                                src={user.photo || "https://react.semantic-ui.com/images/wireframe/square-image.png"}
+                                                size='small' floated='right'
+                                            />
+                                        </Grid.Column>
+                                    </Grid.Row>
+                                </Grid>
                             </Segment>
                             <Segment vertical>
                                 {this.renderMembershipMenu()}
@@ -247,13 +266,16 @@ class UserPage extends React.Component {
                                 </Menu>
                                 <List relaxed>
                                     {user.questionsFromUser && user.questionsFromUser.map(q =>
-                                        <List.Item key={q.mid}
+                                        <List.Item
+                                            key={q.mid}
                                             onClick={() => this.setState({redirect: "/question/" + q.mid})}>
-                                            <Image avatar
+                                            <Image
+                                                avatar
                                                 src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'/>
                                             <List.Content>
                                                 <List.Header>
-                                                    To <Link to={'/group/' + q.recipient.gid + '/qanda'}>
+                                                    To
+                                                    <Link to={'/group/' + q.recipient.gid + '/qanda'}>
                                                         {q.recipient.name}
                                                     </Link> : {q.title}
                                                 </List.Header>
@@ -265,7 +287,7 @@ class UserPage extends React.Component {
                                     )}
                                 </List>
                             </Segment>
-                        </div>
+                        </>
                     );
                 }}
             </Query>
