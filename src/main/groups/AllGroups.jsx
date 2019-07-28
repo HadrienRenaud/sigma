@@ -8,7 +8,8 @@ import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import {Card, Divider, Header, Icon, Input, Menu, Search, Segment} from "semantic-ui-react";
 import GroupCard from './GroupCard.jsx';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 const groupReq = gql`
     query {
@@ -23,7 +24,7 @@ const groupReq = gql`
 class AllGroups extends React.Component {
 
     loadGroups = ({loading, error, data}) => {
-        if (loading) return <div>Chargement...</div>;
+        if (loading) return <LoadingMessage />;
         else if (error) {
             console.log(error.name);
             console.log(error.message);

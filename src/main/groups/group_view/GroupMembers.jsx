@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 
 import {Button, Dropdown, Image, List, Menu, Message, Search} from 'semantic-ui-react';
 
 import gql from "graphql-tag";
 import {Query} from "react-apollo";
-import {GQLError} from "../../Errors.jsx";
+import {GQLError} from "../../utils/Errors.jsx";
 import {Link} from "react-router-dom";
+import {LoadingMessage} from "../../utils/Messages.jsx";
 
 const GET_MEMBERS = gql`
     query getMembers($gid: ID!) {
@@ -106,7 +106,7 @@ class GroupMembers extends Component {
                 <Query query={GET_MEMBERS} variables={{gid: this.props.gid}} fetchPolicy="cache-first">
                     {({loading, error, data}) => {
                         if (loading)
-                            return <Message info content="Chargement en cours ..."/>;
+                            return <LoadingMessage />;
                         else if (error)
                             return <GQLError error={error}/>;
                         if (data.group.__typename !== this.props.typename)

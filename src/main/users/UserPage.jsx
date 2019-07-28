@@ -8,10 +8,11 @@ import React from 'react';
 import {Image, Header, Icon, List, Segment, Menu, Search, Grid, Button} from 'semantic-ui-react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {GQLError} from "../Errors.jsx";
+import {GQLError} from "../utils/Errors.jsx";
 import {Link, Redirect} from "react-router-dom";
 import {UserContext} from "../utils/contexts.jsx";
 import {UserMemberships} from "./UserMemberships";
+import {LoadingMessage} from "../utils/Messages.jsx";
 
 function constructGraph(groups, asked = "parents") {
     const gidToGroup = {};
@@ -188,7 +189,7 @@ class UserPage extends React.Component {
                     if (this.state.redirect)
                         return <Redirect to={this.state.redirect}/>;
                     else if (loading)
-                        return <div>Chargement, patientez SVP...</div>;
+                        return <LoadingMessage />;
                     else if (error)
                         return <GQLError error={error}/>;
 
