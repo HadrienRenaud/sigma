@@ -90,7 +90,6 @@ class Header extends React.Component {
                         <Menu.Item as={NavLink} to='/#'>
                             <Image alt='Logo' src={logo_sigma} avatar/>
                         </Menu.Item>
-
                         <Menu.Menu position='right'>
                             <UserMenuDropdown/>
                         </Menu.Menu>

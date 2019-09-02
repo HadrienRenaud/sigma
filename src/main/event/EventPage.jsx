@@ -40,6 +40,7 @@ const ALL_POSTS = gql`
                 uid
                 givenName
                 lastName
+                photo
             }
             forAnnouncement {
                 mid
@@ -187,7 +188,7 @@ class EventPage extends React.Component {
                                         {participants.map(p =>
                                             <List.Item key={p.uid || p.gid}>
                                                 <Image avatar
-                                                    src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
+                                                    src={p.photo || 'https://react.semantic-ui.com/images/avatar/small/rachel.png'}/>
                                                 <List.Content>
                                                     <List.Header><Author {...p}/></List.Header>
                                                     {p.description &&
