@@ -24,7 +24,7 @@ class PostTemplate extends React.Component {
             }
         }}>
             <Feed.Label>
-                <Image src="https://react.semantic-ui.com/images/avatar/small/elliot.jpg"/>
+                <Image src={this.props.image || "https://react.semantic-ui.com/images/avatar/small/elliot.jpg"}/>
             </Feed.Label>
             <Feed.Content>
                 <Feed.Date>
@@ -92,6 +92,7 @@ class QuestionPost extends Component {
     render() {
         return <PostTemplate
             in={[this.props.author]}
+            image={this.props.author.photo}
             out={[this.props.recipient]}
             action="a posé une question à"
             raw={this.props}
@@ -131,6 +132,7 @@ class PrivatePost extends Component {
     render() {
         return <PostTemplate
             in={[this.props.author]}
+            image={this.props.author.photo}
             out={[this.props.recipient]}
             action="a envoyé un message privé à"
             raw={this.props}

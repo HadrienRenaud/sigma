@@ -40,6 +40,7 @@ const GET_USER = gql`
             phone
             address
             birthdate
+            photo
             memberOf {
                 gid
                 name
@@ -99,6 +100,7 @@ query getUser($uid: ID!) {
     phone
     address
     birthdate
+    photo
     speakerOf {
       gid
       name
@@ -207,7 +209,7 @@ class UserPage extends React.Component {
                     return (
                         <div>
                             <Segment vertical>
-                                <Image src="https://react.semantic-ui.com/images/wireframe/square-image.png"
+                                <Image src={user.photo || "https://react.semantic-ui.com/images/wireframe/square-image.png"}
                                     floated="right" size='small'/>
                                 <Header>
                                     {user.givenName} {user.lastName} ({user.nickname})
