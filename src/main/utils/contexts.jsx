@@ -1,14 +1,14 @@
 import React from "react";
-import gql from "graphql-tag";
 import {Query} from "react-apollo";
-import { apiUrl } from "../../config.jsx";
+import gql from "graphql-tag";
+import {userBase} from "../graphql/fragments/user";
+
+export const UserContext = React.createContext("anonymous");
 
 const USER_QUERY = gql`
     query getUser($uid: ID!) {
         user(uid: $uid) {
-            lastName
-            givenName
-            nickname
+            ...userBase
             memberOf {
                 gid
             }
@@ -21,9 +21,6 @@ const USER_QUERY = gql`
             likes {
                 gid
             }
-            dislikes {
-                gid
-            }
             inheritedMemberOf {
                 gid
             }
@@ -32,35 +29,11 @@ const USER_QUERY = gql`
             }
         }
     }
+    ${userBase}
 `;
-
-const SMALL_USER_QUERY = gql`
-query getUser($uid: ID!) {
-  user(uid: $uid) {
-    lastName
-    givenName
-    nickname
-    photo
-    speakerOf {
-      gid
-    }
-    likes {
-      gid
-    }
-    inheritedMemberOf {
-      gid
-    }
-    inheritedAdminOf {
-      gid
-    }
-  }
-}
-`;
-
-export const UserContext = React.createContext("anonymous");
 
 export function UserContextProvider(props) {
-    return <Query query={SMALL_USER_QUERY} variables={{uid: props.uid}} pollInterval={600 * 1000}>
+    return <Query query={USER_QUERY} variables={{uid: props.uid}} pollInterval={600 * 1000}>
         {({error, data, refetch}) => {
             if (props.setUpRefetch)
                 props.setUpRefetch(refetch);

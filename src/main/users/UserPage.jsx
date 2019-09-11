@@ -13,6 +13,7 @@ import {Link, Redirect} from "react-router-dom";
 import {UserContext} from "../utils/contexts.jsx";
 import {UserMemberships} from "./UserMemberships";
 import {LoadingMessage} from "../utils/Messages.jsx";
+import {userExtended} from "../graphql/fragments/user";
 
 function constructGraph(groups, asked = "parents") {
     const gidToGroup = {};
@@ -32,15 +33,7 @@ const GET_USER = gql`
     # Write your query or mutation here
     query getUser($uid: ID!) {
         user(uid: $uid) {
-            lastName
-            givenName
-            nationality
-            nickname
-            mail
-            phone
-            address
-            birthdate
-            photo
+            ...userExtended
             memberOf {
                 gid
                 name
@@ -61,11 +54,6 @@ const GET_USER = gql`
                 name
                 description
             }
-            dislikes {
-                gid
-                name
-                description
-            }
             inheritedMemberOf {
                 gid
                 name
@@ -76,48 +64,9 @@ const GET_USER = gql`
                 name
                 description
             }
-            questionsFromUser {
-                mid
-                title
-                content
-                recipient {
-                    gid
-                    name
-                }
-            }
         }
     }
-`;
-
-const SMALL_GET_USER = gql`
-query getUser($uid: ID!) {
-  user(uid: $uid) {
-    lastName
-    givenName
-    nationality
-    nickname
-    mail
-    phone
-    address
-    birthdate
-    photo
-    speakerOf {
-      gid
-      name
-      description
-    }
-    inheritedMemberOf {
-      gid
-      name
-      description
-    }
-    inheritedAdminOf {
-      gid
-      name
-      description
-    }
-  }
-}
+    ${userExtended}
 `;
 
 class UserPage extends React.Component {
@@ -181,7 +130,7 @@ class UserPage extends React.Component {
 
         return (
             <Query
-                query={SMALL_GET_USER}
+                query={GET_USER}
                 variables={{uid}}
             >
                 {({loading, error, data}) => {
@@ -213,7 +162,7 @@ class UserPage extends React.Component {
                                     floated="right" size='small'/>
                                 <Header>
                                     {user.givenName} {user.lastName} ({user.nickname})
-                                    <Header.Subheader>@{this.props.uid || this.context.uid}</Header.Subheader>
+                                    <Header.Subheader>@{user.uid}</Header.Subheader>
                                 </Header>
                                 <List>
                                     <List.Item icon="birthday" content={user.birthdate}/>

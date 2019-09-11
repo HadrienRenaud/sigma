@@ -1,0 +1,12 @@
+fragment userExtended on User {
+    uid
+    address
+    birthdate
+    givenName
+    lastName
+    mail
+    nationality
+    nickname
+    phone
+    photo
+}

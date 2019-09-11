@@ -1,0 +1,6 @@
+fragment userBase on User {
+    uid
+    givenName
+    lastName
+    nickname
+}
