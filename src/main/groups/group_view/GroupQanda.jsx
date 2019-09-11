@@ -7,101 +7,57 @@ import {Mutation, Query} from 'react-apollo';
 import {GQLError} from "../../utils/Errors.jsx";
 import {UserContext} from "../../utils/contexts.jsx";
 import {LoadingMessage} from "../../utils/Messages.jsx";
+import {groupBase} from "../../graphql/fragments/group";
+import {messageExtended, messageBase} from "../../graphql/fragments/message";
 
 const GET_QUESTIONS = gql`
     query getQuestions($gid: ID!) {
         group(gid: $gid) {
-            questions {
-                mid
-                createdAt
-                title
-                content
-                author {
-                    uid
-                    givenName
-                    lastName
-                    nickname
-                    photo
-                }
-                recipient {
-                    gid
-                    name
-                }
-                forAnswer {
+            ...groupBase
+            privatePostsToGroup(comments: true) {
+                ...messageExtended
+                children {
                     mid
-                    createdAt
-                    title
-                    content
-                    author {
-                        gid
-                        name
-                    }
                 }
             }
         }
     }
+    ${messageExtended}
+    ${groupBase}
 `;
 
-const GET_ANSWERS = gql`
-    query getAnswers($gid: ID!) {
-        group(gid: $gid) {
-            answers {
-                mid
-                createdAt
-                title
-                content
-                author {
-                    gid
-                    name
-                }
-                forQuestion {
-                    mid
-                    createdAt
-                    title
-                    content
-                    author {
-                        uid
-                        givenName
-                        lastName
-                        nickname
-                        photo
-                    }
-                }
-            }
-        }
-    }
-`;
 
 const ASK_QUESTION = gql`
-    mutation askQuestion($gid: ID!, $title: String, $content: String) {
-        createQuestion(toGroup: $gid, title: $title, content: $content) {
-            mid
+    mutation askQuestion($gid: ID!, $title: String!, $content: String!) {
+        createUserPrivatePost(title: $title, toGroups: [$gid], content: $content) {
+            ...messageBase
         }
     }
+    ${messageBase}
 `;
 
 const ANSWER = gql`
-    mutation answer($mid: ID!, $title: String, $content: String) {
-        createAnswer(forQuestion: $mid, title: $title, content: $content) {
-            mid,
-            title,
-            content
+    mutation answer($mid: ID!, $title: String!, $content: String!) {
+        createUserPrivateComment(parent: $mid, title: $title, content: $content) {
+            ...messageBase
         }
     }
+    ${messageBase}
 `;
 
 const DELETE_QUESTION = gql`
     mutation deleteQuestion($mid: ID!) {
-        removeQuestion(questionToRemove: $mid)
+        removeMessage(messageToRemove: $mid)
     }
 `;
 
 const EDIT_QUESTION = gql`
     mutation editQuestion($mid: ID!, $title: String, $content: String) {
-        editQuestion(questionToEdit: $mid, title: $title, content: $content) {
-            mid
+        editMessage(messageToEdit: $mid, title: $title, content: $content) {
+            ...messageBase
         }
     }
+    ${messageBase}
 `;
 
 

@@ -15,9 +15,9 @@ import {LoadingMessage} from "../utils/Messages.jsx";
  * @constant Requête pour obtenir tous les posts.
  */
 const ALL_POSTS = gql`
-    query getEvent ($mid: ID!) {
-        event(mid: $mid) {
-            mid
+    query getEvent ($eid: ID!) {
+        event(eid: $eid) {
+            eid
             title
             content
             location
@@ -59,7 +59,7 @@ class EventResume extends React.Component {
         return (
 
             <Query query={ALL_POSTS}
-                variables={{mid: this.props.mid}}
+                variables={{eid: this.props.mid}}
                 fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {

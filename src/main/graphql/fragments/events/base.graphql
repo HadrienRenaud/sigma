@@ -1,0 +1,10 @@
+fragment eventBase on Event {
+    eid
+    content
+    createdAt
+    endTime
+    location
+    startTime
+    title
+    updatedAt
+}

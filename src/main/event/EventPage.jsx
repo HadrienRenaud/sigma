@@ -13,9 +13,9 @@ import {LoadingMessage} from "../utils/Messages.jsx";
  * @constant Requête pour obtenir tous les posts.
  */
 const ALL_POSTS = gql`
-    query getEvent ($mid: ID!) {
-        event(mid: $mid) {
-            mid
+    query getEvent ($eid: ID!) {
+        event(eid: $eid) {
+            eid
             title
             content
             location
@@ -42,11 +42,6 @@ const ALL_POSTS = gql`
                 lastName
                 photo
             }
-            forAnnouncement {
-                mid
-                title
-                content
-            }
         }
     }
 `;
@@ -68,7 +63,7 @@ class EventPage extends React.Component {
         return (
 
             <Query query={ALL_POSTS}
-                variables={{mid}}
+                variables={{eid: mid}}
                 fetchPolicy={'catch-first'}
             >
                 {({loading, error, data, refetch}) => {

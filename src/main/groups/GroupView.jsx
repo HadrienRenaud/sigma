@@ -24,6 +24,7 @@ import GroupMembers from "./group_view/GroupMembers.jsx";
 import {UserContext} from "../utils/contexts.jsx";
 import Message from "semantic-ui-react/dist/commonjs/collections/Message";
 import {LoadingMessage} from "../utils/Messages.jsx";
+import {groupBase} from "../graphql/fragments/group";
 
 const SMALL_GET_GROUP = gql`
 query getGroup($gid: ID!) {
@@ -41,21 +42,16 @@ query getGroup($gid: ID!) {
 const GET_GROUP = gql`
     query getGroup($gid: ID!) {
         group(gid: $gid) {
-            gid
-            name
-            website
-            mail
-            description
-            createdAt
-            updatedAt
+            ...groupBase
             frontPage
-            __typename
+
             visibilityEdges {
                 name
                 gid
             }
         }
     }
+    ${groupBase}
 `;
 
 

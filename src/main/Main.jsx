@@ -7,7 +7,7 @@ import Footer from './layout/Footer.jsx';
 import Body from './layout/Body.jsx';
 import Login from './login/Login.jsx';
 
-import {UserContextProvider} from "./utils/contexts.jsx";
+import {UserContextProvider, UserContext} from "./utils/contexts.jsx";
 import {apiUrl} from "../config.jsx";
 
 /**
@@ -64,8 +64,6 @@ class Main extends Component {
             user
         });
         testLogin();
-        if (this.refetchUserData)
-            this.refetchUserData();
     }
 
     showSidebar = () => {
@@ -96,7 +94,6 @@ class Main extends Component {
                     <UserContextProvider
                         uid={this.state.user || localStorage.getItem('uid')}
                         queriing={this.state.loggedIn}
-                        setUpRefetch={(refetch) => this.refetchUserData = refetch}
                     >
                         <Header
                             showSidebar={this.showSidebar}
@@ -107,7 +104,7 @@ class Main extends Component {
                                 visible={this.state.sidebarVisible}
                                 hideSidebar={this.hideSidebar}
                             />
-                            <Sidebar.Pusher as={Container} style={{ paddingTop: 24 }}>
+                            <Sidebar.Pusher as={Container} style={{paddingTop: 24}}>
                                 {this.state.loggedIn ?
                                     <Switch>
                                         <Route path="/login" render={() => <Redirect to='/'/>}/>
@@ -117,7 +114,16 @@ class Main extends Component {
                                     <Switch>
                                         <Route
                                             path="/login"
-                                            render={props => <Login {...props} onLogIn={this.onLogin.bind(this)}/>}/>
+                                            render={props => (
+                                                <UserContext.Consumer>
+                                                    {({ refetchUser }) => (
+                                                        <Login {...props} onLogIn={() => {
+                                                            this.onLogin();
+                                                            refetchUser();
+                                                        }}/>
+                                                    )}
+                                                </UserContext.Consumer>
+                                            )}/>
                                         {this.state.toLogIn ?
                                             <Route path='/' render={() => <Redirect to='/login'/>}/>
                                             :

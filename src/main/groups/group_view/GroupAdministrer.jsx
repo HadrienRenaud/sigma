@@ -1,9 +1,11 @@
 import React from 'react';
 
-import {Button, Segment, Divider, Form, Header, Search, Label, Image, List, Message} from 'semantic-ui-react';
+import {Button, Form, Header, Image, List, Message, Search, Segment} from 'semantic-ui-react';
 import ReactMarkdown from "react-markdown";
-import Dropdown from "semantic-ui-react/dist/commonjs/modules/Dropdown";
 import {Link} from "react-router-dom";
+import Mutation from "react-apollo/Mutation";
+import gql from "graphql-tag";
+import {groupBase} from "../../graphql/fragments/group";
 
 class GoodForm extends React.Component {
     state = {
@@ -28,11 +30,13 @@ class GoodForm extends React.Component {
         if (this.state.edit)
             return <Segment basic>
                 <Form onSubmit={this.onSubmit.bind(this)}>
-                    <FormComponent label={this.props.name} placeholder={this.props.placeholder}
+                    <FormComponent
+                        label={this.props.name} placeholder={this.props.placeholder}
                         value={this.state.value} onChange={this.onChange.bind(this)}
                     />
                     <Button content="Edit" icon="edit" color="olive" type="submit"/>
-                    <Button content="Cancel" icon="cancel" color="red" inverted
+                    <Button
+                        content="Cancel" icon="cancel" color="red" inverted
                         onClick={() => this.setState({edit: false})}
                     />
                 </Form></Segment>;
@@ -40,7 +44,8 @@ class GoodForm extends React.Component {
         else return (
             <Segment basic>
                 <Header as="h5">{this.props.name}
-                    <Button content="Edit" icon="edit"
+                    <Button
+                        content="Edit" icon="edit"
                         onClick={() => this.setState({
                             edit: true,
                             value: this.state.value || this.props.defaultValue
@@ -54,81 +59,157 @@ class GoodForm extends React.Component {
             </Segment>
         );
     }
-
 }
 
-class GroupAdministrer extends React.Component {
-    render() {
-        return <div>
-
-            <Segment basic>
-                <Header as="h3" content="Général"/>
-
-                <GoodForm
-                    name="Nom"
-                    defaultValue={this.props.g.name}
-                    placeholder="Le nom du groupe"
-                />
-
-                <GoodForm
-                    name="Description"
-                    defaultValue={this.props.g.description}
-                    formComponent={Form.TextArea}
-                    displayComponent={ReactMarkdown}
-                    placeholder="La description du groupe. Tu peux utiliser du Markdown !"
-                />
-
-                <GoodForm
-                    name="Mail"
-                    defaultValue={this.props.g.mail}
-                    placeholder="Un email pour joindre tout ou partie du groupe."
-                />
-
-                <GoodForm
-                    name="Website"
-                    defaultValue={this.props.g.website}
-                    placeholder="Le website du groupe"
-                />
-            </Segment>
-
-            <Segment basic>
-                <Header as="h3" content="Ajouter des membres"/>
-                <Message info>
-                    Les membres sont supprimables dans la page <Link to={`/group/${this.props.g.gid}/members`}>Membres</Link> de ce groupe.
-                </Message>
-                <Search fluid/>
-            </Segment>
-
-            <Segment basic>
-                <Header as="h3" content="Gérer la visibilité du groupe"/>
-
-                <Header as="h4" content="Ajouter des groupes à visibilité sur ce groupe"/>
-                <Message info>
-                    Expliquer le fonctionnement de cette chose
-                </Message>
-                <Search fluid/>
-
-                <Header as="h4" content="Groupes à visibilité sur ce groupe"/>
-                <List>
-                    {this.props.g.visibilityEdges.map(group => (
-                        <List.Item key={group.gid}>
-                            <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
-                            <List.Content content={group.name} as={Link} to={'/group/' + group.gid}/>
-                            <List.Content floated="right">
-                                <Button icon="remove" color="red"
-                                    onClick={(e) => {
-                                        e.preventDefault();
-                                        console.log("User wants to delete him from his visibility edges.");
-                                    }}
-                                />
-                            </List.Content>
-                        </List.Item>
-                    ))}
-                </List>
-            </Segment>
-
-        </div>;
+const EDIT_GROUP_DESCRIPTION = gql`
+    mutation editGroupDescription($gid: ID!, $descr: String!) {
+        editGroup(description: $descr, forGroup: $gid) {
+            ...groupBase
+        }
     }
-}
+    ${groupBase}
+`;
+
+
+const EDIT_GROUP_NAME = gql`
+    mutation editGroupName($gid: ID!, $name: String!) {
+        editGroup(name: $name, forGroup: $gid) {
+            ...groupBase
+        }
+    }
+    ${groupBase}
+`;
+
+
+const EDIT_GROUP_EMAIL = gql`
+    mutation editGroupEmail($gid: ID!, $email: String!) {
+        editGroup(mail: $email, forGroup: $gid) {
+            ...groupBase
+            mail
+        }
+    }
+    ${groupBase}
+`;
+
+const EDIT_GROUP_WEBSITE = gql`
+    mutation editGroupWebsite($gid: ID!, $website: String) {
+        editGroup(website: $website, forGroup: $gid) {
+            ...groupBase
+            website
+        }
+    }
+`;
+
+
+const EditVariable = (props) => (
+    <Mutation mutation={props.mutation}>
+        {(edit) => (
+            <GoodForm
+                {...props.formProps}
+                defaultValue={props.g[props.variableName]}
+                onSubmit={(value) => ({
+                    variables: {
+                        [props.variableName]: value,
+                        gid: props.gid
+                    }
+                })}
+            />
+        )}
+    </Mutation>
+);
+
+const GroupAdministrer = ({g}) => (
+    <>
+        <Segment basic>
+            <Header as="h3" content="Général"/>
+
+            <EditVariable
+                g={g}
+                variableName={"name"}
+                mutation={EDIT_GROUP_NAME}
+                formProps={{
+                    name: "Name",
+                    placeholder: "Le nom du groupe.",
+                }}
+            />
+
+            <EditVariable
+                g={g}
+                variableName={"description"}
+                mutation={EDIT_GROUP_DESCRIPTION}
+                formProps={{
+                    name: "Description",
+                    placeholder: "La description du groupe. Tu peux utiliser du Markdown !",
+                    formComponent: Form.TextArea,
+                    displayComponent: ReactMarkdown,
+                }}
+            />
+
+            <EditVariable
+                g={g}
+                variableName={"mail"}
+                mutation={EDIT_GROUP_EMAIL}
+                formProps={{
+                    name: "Mail",
+                    placeholder: "Un email pour joindre tout ou partie du groupe.",
+                }}
+            />
+
+            <EditVariable
+                g={g}
+                variableName={"website"}
+                mutation={EDIT_GROUP_WEBSITE}
+                formProps={{
+                    name: "Website",
+                    placeholder: "Le website du groupe",
+                }}
+            />
+
+        </Segment>
+
+        <Segment basic>
+            <Header as="h3" content="Ajouter des membres"/>
+            <Message info>
+                Les membres sont supprimables dans la page{' '}
+                <Link to={`/group/${g.gid}/members`}>
+                    Membres
+                </Link>
+                {' '}
+                de ce groupe.
+            </Message>
+            <Search fluid/>
+        </Segment>
+
+        <Segment basic>
+            <Header as="h3" content="Gérer la visibilité du groupe"/>
+
+            <Header as="h4" content="Ajouter des groupes à visibilité sur ce groupe"/>
+            <Message info>
+                Expliquer le fonctionnement de cette chose
+            </Message>
+            <Search fluid/>
+
+            <Header as="h4" content="Groupes à visibilité sur ce groupe"/>
+            <List>
+                {g.visibilityEdges && g.visibilityEdges.map(group => (
+                    <List.Item key={group.gid}>
+                        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
+                        <List.Content content={group.name} as={Link} to={'/group/' + group.gid}/>
+                        <List.Content floated="right">
+                            <Button
+                                icon="remove" color="red"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    console.log("User wants to delete him from his visibility edges.");
+                                }}
+                            />
+                        </List.Content>
+                    </List.Item>
+                ))}
+            </List>
+        </Segment>
+
+    </>
+);
 
 export default GroupAdministrer;

@@ -2,13 +2,13 @@ import React from 'react';
 import {Card, Image, Label} from 'semantic-ui-react';
 import PropTypes from 'prop-types';
 import {Link, Redirect} from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
 
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 import {GQLError} from "../utils/Errors.jsx";
 import {UserContext} from "../utils/contexts.jsx";
 import {LoadingMessage} from "../utils/Messages.jsx";
+import {groupBase} from "../graphql/fragments/group";
 
 /**
  * @file Composant pour afficher les informations sur un groupe.
@@ -18,21 +18,11 @@ import {LoadingMessage} from "../utils/Messages.jsx";
  * @author manifold
  */
 
-const GET_GROUP = gql`
-    query getGroup($gid: ID!) {
-        group(gid: $gid) {
-            gid
-            name
-            website
-            description
-        }
-    }
-`;
 
 class GroupCard extends React.Component {
 
     static propTypes = {
-        gid: PropTypes.string.isRequired
+        group: PropTypes.object.isRequired
     };
 
     state = {
@@ -47,55 +37,45 @@ class GroupCard extends React.Component {
         if (this.state.redirectTo)
             return <Redirect to={this.state.redirectTo}/>;
 
+        const {group} = this.props;
 
-        const user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [] , ...this.context } ;
+        const user = {adminOf: [], speakerOf: [], memberOf: [], likes: [], dislikes: [], ...this.context};
         let extraContent = "";
-        if (this.props.gid in user.adminOf.map((g) => g.gid))
+        if (group.gid in user.adminOf.map((g) => g.gid))
             extraContent = <Card.Content extra content={<Label color='red' corner="right" icon={"chess queen"}/>}/>;
-        else if (this.props.gid in user.speakerOf.map((g) => g.gid))
+        else if (group.gid in user.speakerOf.map((g) => g.gid))
             extraContent = <Card.Content extra content={<Label color='red' corner="right" icon={"bullhorn"}/>}/>;
-        else if (this.props.gid in user.memberOf.map((g) => g.gid))
+        else if (group.gid in user.memberOf.map((g) => g.gid))
             extraContent = <Card.Content extra content={<Label color='red' corner="right" icon={"heart"}/>}/>;
-        else if (this.props.gid in user.likes.map((g) => g.gid))
+        else if (group.gid in user.likes.map((g) => g.gid))
             extraContent = <Card.Content extra content={<Label color='red' corner="right" icon={"eye"}/>}/>;
-        else if (this.props.gid in user.dislikes.map((g) => g.gid))
+        else if (group.gid in user.dislikes.map((g) => g.gid))
             extraContent = <Card.Content extra content={<Label color='red' corner="right" icon={"eye slash"}/>}/>;
 
         return (
-            <Query query={GET_GROUP}
-                variables={{gid: this.props.gid}}
-                fetchPolicy='cache-first' //choose cache behaviour
+            <Card
+                color={"blue"} as="div" link
+                onClick={() => this.setState({redirectTo: "/group/" + group.gid})}
             >
-                {({loading, error, data}) => {
-                    if (loading) return <LoadingMessage />;
-                    else if (error) return <GQLError error={error}/>;
-
-                    const {group} = data; //extracts the actual data from object 'data'
-
-                    return (
-                        <Card color={"blue"} as="div" link
-                            onClick={() => this.setState({redirectTo: "/group/" + group.gid})}>
-                            <Image src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped
-                                ui={false}/>
-                            <Card.Content>
-                                <Card.Header>
-                                    <Link to={"/group/" + this.props.gid}>{group.name}</Link>
-                                </Card.Header>
-                                <Card.Meta>
-                                    <a href={group.website}>{group.website}</a>
-                                </Card.Meta>
-
-                            </Card.Content>
-                            <Card.Content>
-                                <Card.Description>
-                                    {group.description}
-                                </Card.Description>
-                            </Card.Content>
-                            {extraContent}
-                        </Card>
-                    );
-                }}
-            </Query>
+                <Image
+                    src='https://react.semantic-ui.com/images/avatar/large/jenny.jpg' wrapped
+                    ui={false}
+                />
+                <Card.Content>
+                    <Card.Header>
+                        <Link to={"/group/" + group.gid}>{group.name}</Link>
+                    </Card.Header>
+                    <Card.Meta>
+                        <a href={group.website}>{group.website}</a>
+                    </Card.Meta>
+                </Card.Content>
+                <Card.Content>
+                    <Card.Description>
+                        {group.description}
+                    </Card.Description>
+                </Card.Content>
+                {extraContent}
+            </Card>
         );
     }
 }

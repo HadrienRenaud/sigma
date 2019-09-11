@@ -1,0 +1,7 @@
+fragment messageBase on Message {
+    mid
+    content
+    createdAt
+    title
+    updatedAt
+}

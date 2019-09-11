@@ -1,40 +1,24 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Button, Feed, Grid, Header, Icon, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
-import Post from './Post.jsx';
+import {Header, List, Message, Segment} from 'semantic-ui-react';
 import {GQLError} from "../utils/Errors.jsx";
-import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import {AuthorList, Author} from "../utils/author.jsx";
+import {AuthorList} from "../utils/author.jsx";
 import {Link} from "react-router-dom";
 import {LoadingMessage} from "../utils/Messages.jsx";
+import {messageExtended} from "../graphql/fragments/message";
 
 /**
  * @constant Requête pour obtenir tous les posts.
  */
 const ALL_POSTS = gql`
     query getAnnouncement($mid: ID!) {
-        announcement(mid: $mid) {
-            mid
-            createdAt
-            updatedAt
-            title
-            content
-            authors {
-                gid
-                name
-            }
-            recipients {
-                gid
-                name
-            }
-            forEvent {
-                mid
-                title
-            }
+        message(mid: $mid) {
+            ...messageExtended
         }
     }
+    ${messageExtended}
 `;
 
 /**
@@ -64,7 +48,7 @@ class PostPage extends React.Component {
                 fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
-                    if (loading) return <LoadingMessage />;
+                    if (loading) return <LoadingMessage/>;
                     else if (error) {
                         return <GQLError error={error}/>;
                     }
@@ -79,21 +63,20 @@ class PostPage extends React.Component {
                                     <List.Item>
                                         <List.Icon name="group"/>
                                         <List.Content>
-                                            Par <AuthorList elements={a.authors}/> pour <AuthorList
-                                                elements={a.recipients}/>
+                                            Par <AuthorList elements={a.authors}/> pour
+                                            <AuthorList elements={a.recipients}/>
                                         </List.Content>
                                     </List.Item>
-                                    {a.forEvent ?
+                                    {a.forEvent && (
                                         <List.Item>
                                             <List.Icon name="calendar"/>
 
                                             <List.Content>
-                                                For event <Link to={"/event/" + a.forEvent.mid}>{a.forEvent.title}</Link>
+                                                For event
+                                                <Link to={"/event/" + a.forEvent.mid}>{a.forEvent.title}</Link>
                                             </List.Content>
                                         </List.Item>
-                                        : ""
-                                    }
-
+                                    )}
                                 </List>
                             </Segment>
                             <Segment vertical>
@@ -109,8 +92,7 @@ class PostPage extends React.Component {
 
                 }}
             </Query>
-        )
-        ;
+        );
     }
 }
 

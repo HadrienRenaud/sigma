@@ -13,7 +13,7 @@ import {LoadingMessage} from "../utils/Messages.jsx";
 const ALL_EVENTS = gql`
     query eventsQuery {
         allEvents {
-            mid
+            eid
             title
             content
             startTime
