@@ -3,6 +3,14 @@ type AuthorGroups {
 }
 
 union AuthorUnion = AuthorGroups | User
+# Types de calendrier
+enum CalendarType {
+    ALL
+    FOLLOWER
+    MEMBER
+    PARTICIPATING
+}
+
 # A date string, such as 2007-12-03, compliant with the `full-date` format
 # outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for
 # representation of dates and times using the Gregorian calendar.
@@ -158,34 +166,36 @@ type Mutation {
     removeMessage(messageToRemove: ID!): Boolean
     likeGroup(gid: ID!): Boolean
     unlikeGroup(gid: ID!): Boolean
+    dislikeGroup(gid: ID!): Boolean
+    undislikeGroup(gid: ID!): Boolean
     userRequestJoinGroup(toGroup: ID!, comment: String): UserJoinGroup
     createUserPublicPost(
         toGroups: [ID!]
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PublicPost
     createUserPublicComment(
         parent: ID!
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PublicPost
     userLeaveGroup(gid: ID!): Boolean
     userParticipate(forEvent: ID!): Boolean
     userUnparticipate(forEvent: ID!): Boolean
     createUserPrivatePost(
         toGroups: [ID!]
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PrivatePost
     createUserPrivateEventPost(
         forEvent: ID!
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PrivatePost
     createUserPrivateComment(
         parent: ID!
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PrivatePost
     groupParticipate(gid: ID!, forEvent: ID!): Boolean
     groupUnparticipate(gid: ID!, forEvent: ID!): Boolean
@@ -198,40 +208,41 @@ type Mutation {
     createGroupPrivatePost(
         fromGroup: ID!
         toGroups: [ID!]
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PrivatePost
     createGroupPrivateEventPost(
         fromGroup: ID!
         forEvent: ID!
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PrivatePost
     createGroupPrivateComment(
         fromGroup: ID!
         parent: ID!
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PrivatePost
     createGroupPublicPost(
         fromGroup: ID!
         toGroups: [ID!]
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PublicPost
     createGroupPublicComment(
+        fromGroup: ID!
         parent: ID!
-        title: String
-        content: String
+        title: String!
+        content: String!
     ): PublicPost
     createEvent(
         fromGroup: ID!
         toGroups: [ID!]
-        title: String
-        content: String
-        location: String
-        startTime: DateTime
-        endTime: DateTime
+        title: String!
+        content: String!
+        location: String!
+        startTime: DateTime!
+        endTime: DateTime!
     ): Event
     editEvent(
         eventToEdit: ID!
@@ -244,7 +255,6 @@ type Mutation {
     removeEvent(eventToRemove: ID!): Boolean
     createSubgroup(
         fromGroup: ID!
-        subGid: ID
         subName: String!
         subDescription: String
         subMail: String
@@ -323,11 +333,7 @@ type Query {
     groupJoinMetagroupRequest(rid: ID!): GroupJoinMetagroup
     groupCoauthorEventRequest(rid: ID!): GroupCoauthorEvent
     allEvents: [Event]
-    allMessages(comments: Boolean): [Message]
     allPrivatePosts(comments: Boolean): [PrivatePost]
-    allGroups: [Group]
-    allSimpleGroups: [SimpleGroup]
-    dislikes: [Group]
     searchTOL(
         givenName: String
         lastName: String
@@ -340,7 +346,10 @@ type Query {
         mail: String
         address: String
     ): [User!]
+    searchGroup(name: String): [Group!]
     getRightsToChangeProfilePicture: String
+    dislikes: [Group]
+    iCalID(type: CalendarType!): String
 }
 
 #  Différents types de requêtes peuvent être adressées à un groupe.Elles sont
@@ -420,4 +429,3 @@ type UserJoinGroup implements Request {
     from: User!
     to: SimpleGroup!
 }
-
