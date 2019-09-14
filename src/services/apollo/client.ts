@@ -1,7 +1,7 @@
 import {HttpLink} from "apollo-link-http";
 import {defaultDataIdFromObject, InMemoryCache, IntrospectionFragmentMatcher} from 'apollo-cache-inmemory';
 import {ApolloClient} from "apollo-client";
-import {GRAPHQL_URL} from "../../config";
+import {GRAPHQL_URL} from "../../constants/config";
 
 // see https://www.apollographql.com/docs/react/advanced/fragments/#fragments-on-unions-and-interfaces
 const fragmentType = localStorage.getItem('fragmentTypes');
