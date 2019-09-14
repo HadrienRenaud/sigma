@@ -35,6 +35,9 @@ pages:
     paths:
       - node_modules
   image: node:12-alpine
+  variables:
+    PUBLIC_URL: ${CI_PAGES_URL}
+
   script:
     - npm install --silent
     - npm install react-scripts@3.0.1 -g --silent
