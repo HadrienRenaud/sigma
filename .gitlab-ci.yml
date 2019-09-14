@@ -37,6 +37,7 @@ pages:
   image: node:12-alpine
   variables:
     PUBLIC_URL: ${CI_PAGES_URL}
+    REACT_APP_BASENAME: ${CI_PAGES_URL}
 
   script:
     - npm install --silent
@@ -66,6 +67,7 @@ deploy:docker:
   # because recursive variable substitution doesn't work https://gitlab.com/gitlab-org/gitlab-runner/issues/2007
   variables:
     API_URL: $SIGMABACK_URL
+
   script:
     - export DOCKER_IMAGE=$IMAGE_TAG
     - docker-compose -f docker/docker-compose.yml stop
