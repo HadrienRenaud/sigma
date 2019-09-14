@@ -5,6 +5,7 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom';
 import Login from "./pages/login/Login";
 import {ROUTES} from "./constants/routes";
 import {PUBLIC_URL} from "./constants/config";
+import UserContextProvider from "./components/UserContext/Provider";
 
 const NotLoggedInRoutes = () => (
     <>
@@ -14,12 +15,15 @@ const NotLoggedInRoutes = () => (
 );
 
 const App: React.FC = () => {
+
     return (
         <ApolloProvider client={client}>
             <BrowserRouter basename={PUBLIC_URL}>
-                <Switch>
-                    <NotLoggedInRoutes/>
-                </Switch>
+                <UserContextProvider uid={"hadrien.renaud"}>
+                    <Switch>
+                        <NotLoggedInRoutes/>
+                    </Switch>
+                </UserContextProvider>
             </BrowserRouter>
         </ApolloProvider>
     );
