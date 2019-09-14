@@ -1,0 +1,7 @@
+version: '3.7'
+
+services:
+  sigma-frontend:
+    image: ${DOCKER_IMAGE}
+    ports:
+      - '80:80'

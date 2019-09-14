@@ -1,7 +1,0 @@
-fragment groupBase on Group {
-    gid
-    description
-    mail
-    name
-    website
-}

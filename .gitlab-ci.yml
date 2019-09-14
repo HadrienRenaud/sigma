@@ -1,35 +1,17 @@
-image: node:10-stretch
-
-variables:
-  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
-
 cache:
   paths:
   - node_modules/
 
 # Build stages
 stages:
+  - test
   - build
-  - docker
   - deploy
-
-### Jobs ###
-
-# Install dependencies, compile the bundle.js
-build:transpile:
-  stage: build
-  script:
-    - npm ci 
-    - npm run build
-  artifacts:
-    paths:
-      - build/
 
 # Build docker image and upload to registry
 docker:build:
-  stage: docker
+  stage: build
   only:
-    - dev
     - master
   image: docker:stable
   services:
@@ -41,8 +23,27 @@ docker:build:
     DOCKER_TLS_CERTDIR: ''
   script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker build --pull --build-arg version=$CI_PIPELINE_IID -t $IMAGE_TAG .
+    - docker build --pull -t $IMAGE_TAG . --file ./docker/Dockerfile
     - docker push $IMAGE_TAG
+
+pages:
+  stage: deploy
+  only:
+    - dev
+  cache:
+    key: one-key-to-rule-them-all
+    paths:
+      - node_modules
+  image: node:12-alpine
+  script:
+    - npm install --silent
+    - npm install react-scripts@3.0.1 -g --silent
+    - npm run build
+    - mv public _public
+    - mv build public
+  artifacts:
+    paths:
+      - public
 
 # Deploy the docker image to docker host
 deploy:docker:
@@ -55,7 +56,7 @@ deploy:docker:
     - master
   when: manual
   # need to overwrite entrypoint because default entrypoint is "docker-compose" https://stackoverflow.com/a/52734017
-  image: 
+  image:
     name: docker/compose:1.24.0
     entrypoint: ["/bin/sh", "-c"]
   # "DOCKER_IMAGE" variable cannot be defined here and has to be exported in script
@@ -64,7 +65,7 @@ deploy:docker:
     API_URL: $SIGMABACK_URL
   script:
     - export DOCKER_IMAGE=$IMAGE_TAG
-    - docker-compose -f docker-compose.production.yml stop
+    - docker-compose -f docker/docker-compose.yml stop
     - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
-    - docker-compose -f docker-compose.production.yml pull
-    - docker-compose -f docker-compose.production.yml up -d
+    - docker-compose -f docker/docker-compose.yml pull
+    - docker-compose -f docker/docker-compose.yml up -d
