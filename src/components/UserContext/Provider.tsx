@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import gql from "graphql-tag";
 import {useQuery} from "@apollo/react-hooks";
 import {User} from "../../constants/types";
@@ -33,29 +33,33 @@ const USER_QUERY = gql`
 `;
 
 export interface UserContextProviderProps {
-    uid: string
     children: JSX.Element
 }
 
-function UserContextProvider({uid, children}: UserContextProviderProps) {
+function UserContextProvider({children}: UserContextProviderProps) {
+    const [ uid, setUid ] = useState<string>("");
+
     const {error, data, refetch} = useQuery<{ user: User }>(USER_QUERY, {
         variables: {
             uid,
         }
     });
-    let value: UserContextType;
+    let value: UserContextType = {
+        setUid,
+        refetch,
+    };
 
     if (error || !data) {
         console.error("UserContextProvider error, data: ", error, data);
         value = {
+            ...value,
             anonymous: true,
-            refetch: refetch,
         }
     } else {
         value = {
+            ...value,
             anonymous: false,
             user: data.user,
-            refetch: refetch,
         }
     }
 

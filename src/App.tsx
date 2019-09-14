@@ -26,7 +26,7 @@ const App: React.FC = () => {
     return (
         <ApolloProvider client={client}>
             <BrowserRouter basename={PUBLIC_URL}>
-                <UserContextProvider uid={"hadrien.renaud"}>
+                <UserContextProvider>
                     <Switch>
                         <UserContext.Consumer>
                             {({anonymous}) => anonymous ? (
