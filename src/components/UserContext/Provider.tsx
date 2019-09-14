@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {ReactNode, useState} from "react";
 import gql from "graphql-tag";
 import {useQuery} from "@apollo/react-hooks";
 import {User} from "../../constants/types";
@@ -33,11 +33,11 @@ const USER_QUERY = gql`
 `;
 
 export interface UserContextProviderProps {
-    children: JSX.Element
+    children: ReactNode
 }
 
 function UserContextProvider({children}: UserContextProviderProps) {
-    const [ uid, setUid ] = useState<string>("");
+    const [uid, setUid] = useState<string>("");
 
     const {error, data, refetch} = useQuery<{ user: User }>(USER_QUERY, {
         variables: {
