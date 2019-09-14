@@ -3,7 +3,7 @@ FROM node:12-alpine as build
 WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
-RUN npm install --silent
+RUN npm install
 COPY . .
 
 ARG API_URL
