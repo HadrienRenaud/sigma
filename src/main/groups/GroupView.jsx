@@ -24,6 +24,7 @@ import GroupMembers from "./group_view/GroupMembers.jsx";
 import {UserContext} from "../utils/contexts.jsx";
 import Message from "semantic-ui-react/dist/commonjs/collections/Message";
 import {LoadingMessage} from "../utils/Messages.jsx";
+import {groupBase} from "../graphql/fragments/group";
 
 const SMALL_GET_GROUP = gql`
 query getGroup($gid: ID!) {
@@ -41,21 +42,16 @@ query getGroup($gid: ID!) {
 const GET_GROUP = gql`
     query getGroup($gid: ID!) {
         group(gid: $gid) {
-            gid
-            name
-            website
-            mail
-            description
-            createdAt
-            updatedAt
+            ...groupBase
             frontPage
-            __typename
+
             visibilityEdges {
                 name
                 gid
             }
         }
     }
+    ${groupBase}
 `;
 
 
@@ -92,6 +88,17 @@ class GroupView extends React.Component {
                         return <GQLError error={error}/>;
 
                     const {group} = data; //extracts the actual data from object 'data'
+
+                    if (!group)
+                        return (
+                            <Container>
+                                <Message
+                                    header="We couldn't find the group you are looking for"
+                                    content="Please try again later or contact your administrator."
+                                    warning
+                                />
+                            </Container>
+                        );
 
                     return (
                         <Container>
@@ -145,8 +152,6 @@ class GroupView extends React.Component {
                                 <ReactMarkdown source={group.description}/>
                             </Segment>
 
-                            {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/
-                            }
                             <Menu pointing secondary color="purple">
                                 <Menu.Item
                                     as={NavLink} exact to={match.url}
@@ -176,8 +181,6 @@ class GroupView extends React.Component {
 
 
                             < Switch>
-                                {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/
-                                }
                                 <Route
                                     exact path={`${match.url}`}
                                     render={() => <GroupFrontPage frontPage={group.frontPage}

@@ -1,45 +1,24 @@
 import React from 'react';
 import {Query} from 'react-apollo';
 import gql from 'graphql-tag';
-import {Button, Feed, Grid, Header, Icon, Image, Item, List, Menu, Message, Segment} from 'semantic-ui-react';
-import Post from './Post.jsx';
+import {Header, List, Message, Segment} from 'semantic-ui-react';
 import {GQLError} from "../utils/Errors.jsx";
 import Moment from "react-moment";
 import ReactMarkdown from "react-markdown";
-import {AuthorList, Author} from "../utils/author.jsx";
-import {Link} from "react-router-dom";
+import {Author} from "../utils/author.jsx";
 import {LoadingMessage} from "../utils/Messages.jsx";
+import {messageExtended} from "../graphql/fragments/message";
 
 /**
  * @constant Requête pour obtenir tous les posts.
  */
 const GET_QUESTION = gql`
     query getQuestion($mid: ID!) {
-        question(mid: $mid) {
-            mid
-            createdAt
-            updatedAt
-            title
-            content
-            author {
-                uid
-                givenName
-                lastName
-            }
-            recipient {
-                gid
-                name
-                description
-            }
-            forAnswer {
-                mid
-                title
-                content
-                createdAt
-                updatedAt
-            }
+        message(mid: $mid) {
+            ...messageExtended
         }
     }
+    ${messageExtended}
 `;
 
 /**
@@ -56,7 +35,7 @@ class QuestionPage extends React.Component {
                 fetchPolicy='cache-first'
             >
                 {({loading, error, data}) => {
-                    if (loading) return <LoadingMessage />;
+                    if (loading) return <LoadingMessage/>;
                     else if (error) {
                         return <GQLError error={error}/>;
                     }
@@ -108,8 +87,7 @@ class QuestionPage extends React.Component {
                     );
                 }}
             </Query>
-        )
-        ;
+        );
     }
 }
 

@@ -23,29 +23,8 @@ import {LoadingMessage} from "../utils/Messages.jsx";
  */
 const GET_ANNOUNCEMENT = gql`
     query getAnnouncement($mid: ID!) {
-        announcement(mid: $mid) {
-            createdAt
-            updatedAt
-            title
-            content
-
-            authors {
-                gid
-                name
-            }
-            recipients {
-                gid
-                name
-            }
-
-            importance # TODO: mettre un commentaire pour expliquer
-            views # TODO mettre un commentaire pour expliquer
-
-            forEvent {
-                mid,
-                title,
-                startTime
-            }
+        message(mid: $mid) {
+            ...messageExtended
         }
     }
 `;

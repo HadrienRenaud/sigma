@@ -8,9 +8,6 @@ schema {
 " L'interface Group reprÃ©sente les deux types de groupes implÃ©mentÃ©s dans Sigma:- les groupes simples,dont les membres sont des utilisateurs,et - les mÃ©tagroupes,dont les membres sont des groupes simples(tel que Federez,dont les membres incluent le BR et DaTA)."
 interface Group {
     admins: [User]
-    announcementsFromGroup: [Announcement]
-    announcementsToGroup: [Announcement]
-    answers: [Answer]
     description: String
     eventsFromGroup: [Event]
     eventsToGroup: [Event]
@@ -20,21 +17,25 @@ interface Group {
     groupJoinMetagroupRequestsToGroup: [GroupJoinMetagroup]
     mail: String
     name: String!
-    privatePosts: [PrivatePost]
-    questions: [Question]
+    postsFromGroup(comments: Boolean): [Message]
+    privatePostsToGroup(comments: Boolean): [PrivatePost]
+    publicPostsToGroup(comments: Boolean): [PublicPost]
     requestsToGroup: [Request]
     userJoinGroupRequestsToGroup: [UserJoinGroup]
     visibilityEdges: [Group]
     website: String
 }
 
-" L'interface Message reprÃ©sente toute information que veut communiquer un groupe ou un user.Par choix de paradigme,tout Message est adressÃ© Ã  un groupe(et un seul).Les types implÃ©mentÃ©s sont divisÃ©s en deux:- les Message Ã©manant d'un groupe:Announcement et Event,ainsi que Answer - les Message Ã©manant d'un user:PrivatePost,ainsi que Question "
+" L'interface Message reprÃ©sente toute information que veut communiquer un groupe ou un user.Les types implÃ©mentÃ©s sont divisÃ©s en deux:- les Message privÃ©s:correspondent aux annonces et posts crÃ©Ã©s par un groupe ou un user.- les Message publics:correspondent aux questions / rÃ©ponses adressÃ©es a un groupe."
 interface Message {
+    authors: AuthorUnion
     content: String!
     createdAt: DateTime!
     mid: ID!
+    recipients: [Group]
     title: String!
     updatedAt: DateTime!
+    views: Int
 }
 
 " DiffÃ©rents types de requÃªtes peuvent Ãªtre adressÃ©es Ã  un groupe.Elles sont stockÃ©es en BDD en attente d'Ãªtre traitÃ©es.Par exemple(le plus Ã©vident)demander Ã  devenir membre,mais il existe aussi d'autres cas de figure.On peut les voir comme des Mutations potentielles:en cas de validation de la requÃªte,des entrÃ©es de la BDD seront modifiÃ©es.Seuls les admins d'un Group(qu'il soit Simple ou Meta)ont le droit de valider ou refuser une requÃªte.Les diffÃ©rents types implÃ©mentant Request reprÃ©sentent des types de requÃªte:- UserJoinGroup:un User demande Ã  devenir membre d'un SimpleGroup - GroupCoauthorEvent:un groupe demande Ã  devenir(co-)organisateur d'un Ã©vÃ©nement *dÃ©jÃ  existant* "
@@ -45,36 +46,21 @@ interface Request {
     to: Group!
 }
 
-type Announcement implements Message {
+union AuthorUnion = AuthorGroups | User
+
+type AuthorGroups {
+    groups: [Group]
+}
+
+"ÃvÃ©nements organisÃ©s par un ou plusieurs groupes."
+type Event {
     authors: [Group]
     content: String!
     createdAt: DateTime!
-    forEvent: Event
-    mid: ID!
-    recipients: [Group]
-    title: String!
-    updatedAt: DateTime!
-    views: Int
-}
-
-type Answer implements Message {
-    author: Group
-    content: String!
-    createdAt: DateTime!
-    forQuestion: Question!
-    mid: ID!
-    title: String!
-    updatedAt: DateTime!
-}
-
-type Event implements Message {
-    authors: [Group]
-    content: String!
-    createdAt: DateTime!
+    eid: ID!
     endTime: DateTime!
-    forAnnouncements: [Announcement]
+    forPrivatePosts: [PrivatePost]
     location: String!
-    mid: ID!
     participatingGroups: [Group]
     participatingUsers: [User]
     recipients: [Group]
@@ -102,9 +88,6 @@ type GroupJoinMetagroup implements Request {
 
 type MetaGroup implements Group {
     admins: [User]
-    announcementsFromGroup: [Announcement]
-    announcementsToGroup: [Announcement]
-    answers: [Answer]
     description: String
     eventsFromGroup: [Event]
     eventsToGroup: [Event]
@@ -115,8 +98,9 @@ type MetaGroup implements Group {
     mail: String
     members: [SimpleGroup]
     name: String!
-    privatePosts: [PrivatePost]
-    questions: [Question]
+    postsFromGroup(comments: Boolean): [Message]
+    privatePostsToGroup(comments: Boolean): [PrivatePost]
+    publicPostsToGroup(comments: Boolean): [PublicPost]
     requestsToGroup: [Request]
     userJoinGroupRequestsToGroup: [UserJoinGroup]
     visibilityEdges: [Group]
@@ -128,103 +112,101 @@ type Mutation {
     acceptGroupJoinRequest(comment: String, request: ID!): Boolean
     acceptUserJoinRequest(comment: String, request: ID!): Boolean
     addVisibilityEdge(forGroup: ID!, visibleBy: ID!): Boolean
-    censorAnnouncement(announcementToCensor: ID!): Boolean
-    censorAnswer(answerToCensor: ID!): Boolean
-    censorEvent(eventToCensor: ID!): Boolean
-    censorPrivatePost(privatePostToCensor: ID!): Boolean
-    censorQuestion(questionToCensor: ID!): Boolean
-    createAnnouncement(content: String, forEvent: ID, fromGroup: ID!, title: String, toGroups: [ID!]): Announcement
-    createAnswer(content: String, forQuestion: ID!, title: String): Answer
-    createEvent(content: String, endTime: DateTime, forAnnouncement: ID, fromGroup: ID!, location: String, startTime: DateTime, title: String, toGroups: [ID!]): Event
-    createPrivatePost(content: String, title: String, toGroup: ID!): PrivatePost
-    createQuestion(content: String, title: String, toGroup: ID!): Question
+    createEvent(content: String, endTime: DateTime, fromGroup: ID!, location: String, startTime: DateTime, title: String, toGroups: [ID!]): Event
+    createGroupPrivateComment(content: String, fromGroup: ID!, parent: ID!, title: String): PrivatePost
+    createGroupPrivateEventPost(content: String, forEvent: ID!, fromGroup: ID!, title: String): PrivatePost
+    createGroupPrivatePost(content: String, fromGroup: ID!, title: String, toGroups: [ID!]): PrivatePost
+    createGroupPublicComment(content: String, parent: ID!, title: String): PublicPost
+    createGroupPublicPost(content: String, fromGroup: ID!, title: String, toGroups: [ID!]): PublicPost
     createSubgroup(fromGroup: ID!, subDescription: String, subGid: ID, subMail: String, subName: String!, subSchool: String, subWebsite: String): Group
-    editAnnouncement(announcementToEdit: ID!, content: String, forEvent: ID, title: String): Announcement
-    editAnswer(answerToEdit: ID!, content: String, title: String): Answer
-    editEvent(content: String, endTime: DateTime, eventToEdit: ID!, forAnnouncement: ID, location: String, startTime: DateTime, title: String): Event
+    createUserPrivateComment(content: String, parent: ID!, title: String): PrivatePost
+    createUserPrivateEventPost(content: String, forEvent: ID!, title: String): PrivatePost
+    createUserPrivatePost(content: String, title: String, toGroups: [ID!]): PrivatePost
+    createUserPublicComment(content: String, parent: ID!, title: String): PublicPost
+    createUserPublicPost(content: String, title: String, toGroups: [ID!]): PublicPost
+    editEvent(content: String, endTime: DateTime, eventToEdit: ID!, location: String, startTime: DateTime, title: String): Event
     editGroup(description: String, forGroup: ID!, frontPage: String, mail: String, name: String, school: String, website: String): Group
+    editMessage(content: String, messageToEdit: ID!, title: String): Message
     editPassword(newPassword: String): Boolean
-    editPrivatePost(content: String, privatePostToEdit: ID!, title: String): PrivatePost
-    " Rappels du mÃ©mo rights:Par rapport Ã  un groupe donnÃ©,un user peut avoir diffÃ©rents niveaux de droits:- none:aucun droit,ne sait mÃªme pas que le groupe existe(typiquement,une connection oÃ¹ l'utilisateur ne s'est pas authentifiÃ©)- authenticated:sait que le groupe existe,aucun autre droit(une connection on-platal sans auth,ou une connection authentifiÃ©e)- viewer:le user a aussi accÃ¨s Ã  l'activitÃ© publique du groupe:frontpage,Q&A,liste des membres,speakers et admins -(inherited)member:le user a aussi acces Ã  l'activitÃ© interne du groupe:les PrivatePost,ainsi que les annonces et events dont le groupe est auteur ou destinataire - speaker:le user peut aussi parler au nom du groupe.Il a le droit de publier des annonces et d'organiser des Ã©vÃ¨nements -(inherited)admin:le user a tous les droits sur le groupe == Pour les groupes simples == - Member:- Un user est membre strict du groupe G s'il est member de G selon la BDD sous-jacente.- Un user est membre(hÃ©ritÃ©)du groupe G s'il est membre strict d'un de ses descendants.- Speaker:un user est speaker du groupe G s'il est speaker de G selon la BDD.Pas de notion d'hÃ©ritage de speaker.- Admin:- Un user est admin strict du groupe G s'il est admin de G selon la BDD.- Un user est admin(hÃ©ritÃ©)du groupe G s'il est admin strict d'un de ses ascendants.- Viewer:un user est viewer du groupe G - s'il est membre(hÃ©ritÃ©)de G,ou - s'il est membre(hÃ©ritÃ©)d'un groupe immÃ©diatement parent de G(one-edge-down visibility),ou - s'il est membre(hÃ©ritÃ©)d'un groupe faisant partie du champ \"visibilityEdge\" de G,ou - s'il est membre d'un mÃ©tagroupe dont G est membre(implicit visibility-edges).- Dans tous les autres cas,le user a le niveau de droits \"none\" ou \"authenticated\",selon le cas de figure.== Pour les mÃ©ta-groupes == - Un user est membre d'un mÃ©ta-groupe G s'il est membre(hÃ©ritÃ©)d'un groupe simple dans G.- Un user est speaker d'un mÃ©ta-groupe G s'il est speaker d'un groupe simple dans G.- Un user est admin d'un mÃ©ta-groupe G s'il est admin(hÃ©ritÃ©)d'un groupe simple dans G.- Un user est viewer d'un mÃ©ta-groupe G s'il est viewer d'un groupe simple dans G.Les mutations ci-dessous sont divisÃ©es en quatre,selon le niveau de droit requis pour pouvoir les appeler.Les Mutations concernant les *Requests* suivent Ã  peu prÃ¨s toutes le schÃ©ma suivant:- <typeAuteur>Request<NatureDeLaRequest>(auteur,destinataire,comment):Request - accept<NatureDeLaRequest>Request(request:ID!,comment:String):Boolean - refuse<NatureDeLaRequest>Request(request:ID!,comment:String):Boolean - le paramÃ¨tre est le rid de la Request Ã  accepter ou refuser - seul les admins du groupe destinataire peuvent accepter ou refuser une Request Les Mutations concernant les *Messages* suivent Ã  peu prÃ¨s toutes le schÃ©ma suivant:- create<TypeDeMessage>(auteur,destinataire,title,content,etc.):<TypeDeMessage> - edit<TypeDeMessage>(<typeDeMessage>ToEdit:ID!):<TypeDeMessage> - remove<TypeDeMessage>(<typeDeMessage>ToRemove:ID!):Boolean - = l'auteur supprime le message - pour les Messages oÃ¹ l'auteur est un utilisateur,seul l'auteur a le droit de remove son Message - pour les Messages oÃ¹ l'auteur est un groupe,n'importe quel admin du groupe(ou speaker selon le cas)a le droit de remove le Message - censor<TypeDeMessage>(<typeDeMessage>ToCensor:ID!):Boolean - = le groupe destinataire supprime le message - n'importe quel admin du groupe a le droit de censurer un Message qui lui est adressÃ© -(le destinataire est un Group pour tous les Messages)"
+    " Rappels du mÃ©mo rights:Par rapport Ã  un groupe donnÃ©,un user peut avoir diffÃ©rents niveaux de droits:- none:aucun droit,ne sait mÃªme pas que le groupe existe(typiquement,une connection oÃ¹ l'utilisateur ne s'est pas authentifiÃ©)- authenticated:sait que le groupe existe,aucun autre droit(une connection on-platal sans auth,ou une connection authentifiÃ©e)- viewer:le user a aussi accÃ¨s Ã  l'activitÃ© publique du groupe:frontpage,Q&A,liste des membres,speakers et admins -(inherited)member:le user a aussi acces Ã  l'activitÃ© interne du groupe:les PrivatePost,ainsi que les annonces et events dont le groupe est auteur ou destinataire - speaker:le user peut aussi parler au nom du groupe.Il a le droit de publier des annonces et d'organiser des Ã©vÃ¨nements -(inherited)admin:le user a tous les droits sur le groupe == Pour les groupes simples == - Member:- Un user est membre strict du groupe G s'il est member de G selon la BDD sous-jacente.- Un user est membre(hÃ©ritÃ©)du groupe G s'il est membre strict d'un de ses descendants.- Speaker:un user est speaker du groupe G s'il est speaker de G selon la BDD.Pas de notion d'hÃ©ritage de speaker.- Admin:- Un user est admin strict du groupe G s'il est admin de G selon la BDD.- Un user est admin(hÃ©ritÃ©)du groupe G s'il est admin strict d'un de ses ascendants.- Viewer:un user est viewer du groupe G - s'il est membre(hÃ©ritÃ©)de G,ou - s'il est membre(hÃ©ritÃ©)d'un groupe immÃ©diatement parent de G(one-edge-down visibility),ou - s'il est membre(hÃ©ritÃ©)d'un groupe faisant partie du champ \"visibilityEdge\" de G,ou - s'il est membre d'un mÃ©tagroupe dont G est membre(implicit visibility-edges).- Dans tous les autres cas,le user a le niveau de droits \"none\" ou \"authenticated\",selon le cas de figure.== Pour les mÃ©ta-groupes == - Un user est membre d'un mÃ©ta-groupe G s'il est membre(hÃ©ritÃ©)d'un groupe simple dans G.- Un user est speaker d'un mÃ©ta-groupe G s'il est speaker d'un groupe simple dans G.- Un user est admin d'un mÃ©ta-groupe G s'il est admin(hÃ©ritÃ©)d'un groupe simple dans G.- Un user est viewer d'un mÃ©ta-groupe G s'il est viewer d'un groupe simple dans G.Les mutations ci-dessous sont divisÃ©es en quatre,selon le niveau de droit requis pour pouvoir les appeler.Les Mutations concernant les *Requests* suivent Ã  peu prÃ¨s toutes le schÃ©ma suivant:- <typeAuteur>Request<NatureDeLaRequest>(auteur,destinataire,comment):Request - accept<NatureDeLaRequest>Request(request:ID!,comment:String):Boolean - refuse<NatureDeLaRequest>Request(request:ID!,comment:String):Boolean - le paramÃ¨tre est le rid de la Request Ã  accepter ou refuser - seul les admins du groupe destinataire peuvent accepter ou refuser une Request Les Mutations concernant les *Messages* suivent Ã  peu prÃ¨s toutes le schÃ©ma suivant:- create<TypeDeMessage>(auteur,destinataire,title,content,etc.):<TypeDeMessage> - editMessage(messageToEdit:ID!):Message - removeMessage(messageToRemove:ID!):Boolean - = l'auteur ou les speakers du groupe destinataire suppriment le message - pour les Messages oÃ¹ l'auteur est un utilisateur,seul l'auteur(et les speakers destinataires)a le droit de remove son Message - pour les Messages oÃ¹ l'auteur est un groupe,n'importe quel speaker du groupe a le droit de remove le Message "
     editProfile(mail: String, nickname: String, phone: String): User
-    editQuestion(content: String, questionToEdit: ID!, title: String): Question
     groupParticipate(forEvent: ID!, gid: ID!): Boolean
     groupRequestCoauthorEvent(comment: String, forEvent: ID!, fromGroup: ID!, toGroup: ID!): GroupCoauthorEvent
     groupRequestJoinMetagroup(comment: String, fromGroup: ID!, toMetagroup: ID!): GroupJoinMetagroup
     groupUnparticipate(forEvent: ID!, gid: ID!): Boolean
     likeGroup(gid: ID!): Boolean
-    makeAdmin(forGroup: ID!, uid: ID!): User
-    makeSpeaker(forGroup: ID!, uid: ID!): User
+    makeAdmin(forGroup: ID!, uid: ID!): Group
+    makeSpeaker(forGroup: ID!, uid: ID!): Group
     refuseGroupCoauthorEventRequest(comment: String, request: ID!): Boolean
     refuseGroupJoinRequest(comment: String, request: ID!): Boolean
     refuseUserJoinRequest(comment: String, request: ID!): Boolean
-    removeAnnouncement(announcementToRemove: ID!): Boolean
-    removeAnswer(answerToRemove: ID!): Boolean
     removeEvent(eventToRemove: ID!): Boolean
-    removePrivatePost(privatePostToRemove: ID!): Boolean
-    removeQuestion(questionToRemove: ID!): Boolean
-    removeUser(fromGroup: ID!, uid: ID!): User
+    removeMember(fromGroup: ID!, uid: ID!): Group
+    removeMessage(messageToRemove: ID!): Boolean
     removeVisibilityEdge(forGroup: ID!, visibleBy: ID!): Boolean
     unlikeGroup(gid: ID!): Boolean
-    unmakeAdmin(forGroup: ID!, uid: ID!): User
-    unmakeSpeaker(forGroup: ID!, uid: ID!): User
+    unmakeAdmin(forGroup: ID!, uid: ID!): Group
+    unmakeSpeaker(forGroup: ID!, uid: ID!): Group
     userLeaveGroup(gid: ID!): Boolean
     userParticipate(forEvent: ID!): Boolean
     userRequestJoinGroup(comment: String, toGroup: ID!): UserJoinGroup
     userUnparticipate(forEvent: ID!): Boolean
-    writePostsSummary(content: String, forGroup: ID!): Boolean
 }
 
 type PrivatePost implements Message {
-    author: User
+    allComments: [PrivatePost]
+    authors: AuthorUnion
+    children: [PrivatePost]
+    content: String!
+    createdAt: DateTime!
+    forEvent: Event
+    mid: ID!
+    parent: PrivatePost
+    recipients: [Group]
+    title: String!
+    updatedAt: DateTime!
+    views: Int
+}
+
+type PublicPost implements Message {
+    allComments: [PublicPost]
+    authors: AuthorUnion
+    children: [PublicPost]
     content: String!
     createdAt: DateTime!
     mid: ID!
-    recipient: Group
+    parent: PublicPost
+    recipients: [Group]
     title: String!
     updatedAt: DateTime!
+    views: Int
 }
 
 " @file DÃ©finit les types spÃ©ciaux Query et Mutation,points d'entrÃ©e du schÃ©ma GraphQL.@author akka vodol,kadabra,ofacklam "
 type Query {
-    allAnnouncements: [Announcement]
     allEvents: [Event]
     allGroups: [Group]
-    allMessages: [Message]
-    allPrivatePosts: [PrivatePost]
+    allMessages(comments: Boolean): [Message]
+    allPrivatePosts(comments: Boolean): [PrivatePost]
     allSimpleGroups: [SimpleGroup]
-    announcement(mid: ID!): Announcement
-    answer(mid: ID!): Answer
     dislikes: [Group]
-    event(mid: ID!): Event
+    event(eid: ID!): Event
+    getRightsToChangeProfilePicture: String
     group(gid: ID!): Group
     groupCoauthorEventRequest(rid: ID!): GroupCoauthorEvent
     groupJoinMetagroupRequest(rid: ID!): GroupJoinMetagroup
+    message(mid: ID!): Message
     metaGroup(gid: ID!): MetaGroup
     privatePost(mid: ID!): PrivatePost
-    question(mid: ID!): Question
+    publicPost(mid: ID!): PublicPost
     searchTOL(address: String, givenName: String, groups: [String], lastName: String, mail: String, nationality: String, nickname: String, phone: String, school: String, studies: String): [User!]
     simpleGroup(gid: ID!): SimpleGroup
     user(uid: ID!): User
     userJoinGroupRequest(rid: ID!): UserJoinGroup
 }
 
-type Question implements Message {
-    author: User
-    content: String!
-    createdAt: DateTime!
-    forAnswers: [Answer]
-    mid: ID!
-    recipient: Group
-    title: String!
-    updatedAt: DateTime!
-}
-
 type SimpleGroup implements Group {
     admins: [User]
-    announcementsFromGroup: [Announcement]
-    announcementsToGroup: [Announcement]
-    answers: [Answer]
     children: [SimpleGroup]
     description: String
     eventsFromGroup: [Event]
@@ -239,8 +221,9 @@ type SimpleGroup implements Group {
     members: [User]
     name: String!
     parents: [SimpleGroup]
-    privatePosts: [PrivatePost]
-    questions: [Question]
+    postsFromGroup(comments: Boolean): [Message]
+    privatePostsToGroup(comments: Boolean): [PrivatePost]
+    publicPostsToGroup(comments: Boolean): [PublicPost]
     requestsToGroup: [Request]
     school: String
     speakers: [User]
@@ -265,7 +248,7 @@ type User {
     nickname: String
     phone: String
     photo: String
-    questionsFromUser: [Question]
+    publicPostsFromUser(comments: Boolean): [PublicPost]
     school: String
     speakerOf: [Group]
     uid: ID!

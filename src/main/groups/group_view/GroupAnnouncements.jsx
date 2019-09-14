@@ -25,7 +25,7 @@ const GET_ANNOUNCEMENTS_FROM = gql`
     ) {
         #returns [Announcement] array of JS objects with only the 'id' field, representing announcement id's
         group(gid: $groupid) {
-            announcementsFromGroup {
+            postsFromGroup {
                 mid
             }
         }
@@ -38,7 +38,11 @@ const GET_ANNOUNCEMENTS_TO = gql`
     ) {
         #returns [Announcement] array of JS objects with only the 'id' field, representing announcement id's
         group(gid: $groupid) {
-            announcementsToGroup {
+            privatePostsToGroup {
+                mid
+            }
+            
+            publicPostsToGroup {
                 mid
             }
         }
@@ -80,10 +84,10 @@ class GroupAnnouncements extends React.Component {
                         if (loading) return <LoadingMessage />;
                         else if (error) return <GQLError error={error}/>;
                         const {group} = data; //extracts the actual data from object 'data'
-                        const {announcementsFromGroup} = group;
+                        const {postsFromGroup} = group;
                         return (
                             <Feed>
-                                {announcementsFromGroup.map(res => {
+                                {postsFromGroup.map(res => {
                                     return <AnnouncementCard key={res.mid} mid={res.mid}/>;
                                 })}
                             </Feed>
@@ -109,13 +113,14 @@ class GroupAnnouncements extends React.Component {
                         if (loading) return <LoadingMessage/>;
                         else if (error) return <GQLError error={error}/>;
                         const {group} = data; //extracts the actual data from object 'data'
-                        const {announcementsToGroup} = group; //extracts the actual data from object 'data'
+                        const {privatePostsToGroup, publicPostsToGroup} = group; //extracts the actual data from object 'data'
+                        const postToGroup = [...privatePostsToGroup, ...publicPostsToGroup];
 
                         return (
                             <Feed>
-                                {announcementsToGroup.map(res => {
-                                    return <AnnouncementCard key={res.mid} mid={res.mid}/>;
-                                })}
+                                {postToGroup.map(res => (
+                                    <AnnouncementCard key={res.mid} mid={res.mid}/>
+                                ))}
                             </Feed>
                         );
                     }}
