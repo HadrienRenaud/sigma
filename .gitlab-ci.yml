@@ -1,36 +1,70 @@
 image: node:10-stretch
 
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
+
 cache:
   paths:
   - node_modules/
 
 # Build stages
-
 stages:
-  - install
   - build
+  - docker
+  - deploy
 
 ### Jobs ###
 
 # Install dependencies, compile the bundle.js
-install-dependencies:
-  stage: install
-  before_script:
-    - npm i -g npm
-  script:
-    - npm i
-  artifacts:
-    paths:
-      - semantic/
-
-build:bundle:
+build:transpile:
   stage: build
-  before_script:
-    - npm i -g webpack webpack-cli
-    - npm i
   script:
-    - webpack-cli -v
+    - npm ci 
     - npm run build
   artifacts:
     paths:
       - build/
+
+# Build docker image and upload to registry
+docker:build:
+  stage: docker
+  only:
+    - dev
+    - master
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    # For disabling TLS in docker-in-docker (not needed)
+    DOCKER_TLS_CERTDIR: ''
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --pull --build-arg version=$CI_PIPELINE_IID -t $IMAGE_TAG .
+    - docker push $IMAGE_TAG
+
+# Deploy the docker image to docker host
+deploy:docker:
+  stage: deploy
+  # tag is needed to use the deploy runner instead of the standard runner
+  tags:
+    - deploy
+  only:
+    - dev
+    - master
+  when: manual
+  # need to overwrite entrypoint because default entrypoint is "docker-compose" https://stackoverflow.com/a/52734017
+  image: 
+    name: docker/compose:1.24.0
+    entrypoint: ["/bin/sh", "-c"]
+  # "DOCKER_IMAGE" variable cannot be defined here and has to be exported in script
+  # because recursive variable substitution doesn't work https://gitlab.com/gitlab-org/gitlab-runner/issues/2007
+  variables:
+    API_URL: $SIGMABACK_URL
+  script:
+    - export DOCKER_IMAGE=$IMAGE_TAG
+    - docker-compose -f docker-compose.production.yml stop
+    - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+    - docker-compose -f docker-compose.production.yml pull
+    - docker-compose -f docker-compose.production.yml up -d
