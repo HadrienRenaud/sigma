@@ -8,7 +8,6 @@ COPY . .
 
 ARG API_URL
 ENV REACT_APP_API_URL=${API_URL}
-RUN npm ls babel-eslint
 RUN npm run build
 
 # production environment

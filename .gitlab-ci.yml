@@ -45,7 +45,6 @@ pages:
 
   script:
     - npm install --silent
-    - npm install react-scripts@3.0.1 -g --silent
     - npm run build
     - mv public _public
     - mv build public
