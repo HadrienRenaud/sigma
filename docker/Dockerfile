@@ -4,7 +4,6 @@ WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
 RUN npm install --silent
-RUN npm list
 COPY . .
 
 ARG API_URL
