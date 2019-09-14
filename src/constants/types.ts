@@ -1,3 +1,3 @@
-import {UserBase} from "../services/apollo/fragments/user";
+import {UserExtended} from "../services/apollo/fragments/user";
 
-export interface User extends UserBase {}
+export interface User extends UserExtended {}

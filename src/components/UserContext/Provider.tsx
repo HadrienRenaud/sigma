@@ -1,35 +1,16 @@
 import React, {ReactNode, useState} from "react";
 import gql from "graphql-tag";
 import {useQuery} from "@apollo/react-hooks";
-import {User} from "../../constants/types";
-import {userBase} from "../../services/apollo/fragments/user";
+import {UserExtended, userExtended} from "../../services/apollo/fragments/user";
 import UserContext, {UserContextType} from "./context";
 
 const USER_QUERY = gql`
     query getUser($uid: ID!) {
         user(uid: $uid) {
-            ...userBase
-            memberOf {
-                gid
-            }
-            adminOf {
-                gid
-            }
-            speakerOf {
-                gid
-            }
-            likes {
-                gid
-            }
-            inheritedMemberOf {
-                gid
-            }
-            inheritedAdminOf {
-                gid
-            }
+            ...userExtended
         }
     }
-    ${userBase}
+    ${userExtended}
 `;
 
 export interface UserContextProviderProps {
@@ -39,17 +20,20 @@ export interface UserContextProviderProps {
 function UserContextProvider({children}: UserContextProviderProps) {
     const [uid, setUid] = useState<string>("");
 
-    const {error, data, refetch} = useQuery<{ user: User }>(USER_QUERY, {
+    const {error, data, refetch} = useQuery<{ user: UserExtended }>(USER_QUERY, {
         variables: {
             uid,
         }
     });
+
     let value: UserContextType = {
         setUid,
         refetch,
     };
 
-    if (error || !data) {
+    console.log("context data:", data);
+
+    if (error || !data || !data.user) {
         console.error("UserContextProvider error, data: ", error, data);
         value = {
             ...value,

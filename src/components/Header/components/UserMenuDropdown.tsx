@@ -9,7 +9,7 @@ import {ROUTES} from "../../../constants/routes";
 const LoggedInUserDropdown = ({ user }: { user: User}) => (
     <Dropdown item trigger={
         <Image
-            src='https://react.semantic-ui.com/images/wireframe/square-image.png'
+            src={user.photo || 'https://react.semantic-ui.com/images/wireframe/square-image.png'}
             avatar
         />
     }>
@@ -36,6 +36,7 @@ const AnonymousUserDropdown = () => (
 export const UserMenuDropdown = () => (
     <UserContext.Consumer>
         {({anonymous, user}) => {
+            console.log("UserMenuDropdown : ", anonymous, user);
             if (anonymous || !user)
                 return <AnonymousUserDropdown />;
             else
