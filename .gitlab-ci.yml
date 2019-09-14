@@ -1,3 +1,7 @@
+#global variables
+variables:
+  IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_PIPELINE_IID
+
 cache:
   paths:
   - node_modules/
