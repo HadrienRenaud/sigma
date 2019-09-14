@@ -21,6 +21,7 @@ class GoodForm extends React.Component {
     onSubmit() {
         if (this.props.onSubmit)
             this.props.onSubmit(this.state.value);
+        this.setState({ edit: false });
     }
 
     render() {
@@ -62,8 +63,8 @@ class GoodForm extends React.Component {
 }
 
 const EDIT_GROUP_DESCRIPTION = gql`
-    mutation editGroupDescription($gid: ID!, $descr: String!) {
-        editGroup(description: $descr, forGroup: $gid) {
+    mutation editGroupDescription($gid: ID!, $description: String!) {
+        editGroup(description: $description, forGroup: $gid) {
             ...groupBase
         }
     }
@@ -82,8 +83,8 @@ const EDIT_GROUP_NAME = gql`
 
 
 const EDIT_GROUP_EMAIL = gql`
-    mutation editGroupEmail($gid: ID!, $email: String!) {
-        editGroup(mail: $email, forGroup: $gid) {
+    mutation editGroupEmail($gid: ID!, $mail: String!) {
+        editGroup(mail: $mail, forGroup: $gid) {
             ...groupBase
             mail
         }
@@ -98,6 +99,7 @@ const EDIT_GROUP_WEBSITE = gql`
             website
         }
     }
+    ${groupBase}
 `;
 
 
@@ -107,10 +109,10 @@ const EditVariable = (props) => (
             <GoodForm
                 {...props.formProps}
                 defaultValue={props.g[props.variableName]}
-                onSubmit={(value) => ({
+                onSubmit={(value) => edit({
                     variables: {
                         [props.variableName]: value,
-                        gid: props.gid
+                        gid: props.g.gid
                     }
                 })}
             />

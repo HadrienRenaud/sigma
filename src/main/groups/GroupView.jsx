@@ -89,6 +89,17 @@ class GroupView extends React.Component {
 
                     const {group} = data; //extracts the actual data from object 'data'
 
+                    if (!group)
+                        return (
+                            <Container>
+                                <Message
+                                    header="We couldn't find the group you are looking for"
+                                    content="Please try again later or contact your administrator."
+                                    warning
+                                />
+                            </Container>
+                        );
+
                     return (
                         <Container>
                             <Menu secondary>
@@ -141,8 +152,6 @@ class GroupView extends React.Component {
                                 <ReactMarkdown source={group.description}/>
                             </Segment>
 
-                            {/*voir le react-router.Switch plus bas pour voir quels components sont générés*/
-                            }
                             <Menu pointing secondary color="purple">
                                 <Menu.Item
                                     as={NavLink} exact to={match.url}
@@ -172,8 +181,6 @@ class GroupView extends React.Component {
 
 
                             < Switch>
-                                {/*Pour passer des props aux Component enfants, on est obliges d'utiliser render={...} a la place de component={...}*/
-                                }
                                 <Route
                                     exact path={`${match.url}`}
                                     render={() => <GroupFrontPage frontPage={group.frontPage}
