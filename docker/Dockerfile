@@ -2,6 +2,8 @@
 FROM node:12-alpine as build
 WORKDIR /app
 COPY package.json ./
+COPY yarn.lock ./
+RUN npm list
 RUN npm install --silent
 COPY . .
 
