@@ -3,8 +3,8 @@ FROM node:12-alpine as build
 WORKDIR /app
 COPY package.json ./
 COPY yarn.lock ./
-COPY . .
 RUN npm install
+COPY . .
 
 ARG API_URL
 ENV REACT_APP_API_URL=${API_URL}
