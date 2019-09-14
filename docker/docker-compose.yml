@@ -4,4 +4,4 @@ services:
   sigma-frontend:
     image: ${DOCKER_IMAGE}
     ports:
-      - '80:80'
+      - '${PORT}:80'
