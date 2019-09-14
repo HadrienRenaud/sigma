@@ -1,36 +1,76 @@
-image: node:10-stretch
-
 cache:
   paths:
   - node_modules/
 
 # Build stages
-
 stages:
-  - install
+  - test
   - build
+  - deploy
 
-### Jobs ###
-
-# Install dependencies, compile the bundle.js
-install-dependencies:
-  stage: install
-  before_script:
-    - npm i -g npm
-  script:
-    - npm i
-  artifacts:
-    paths:
-      - semantic/
-
-build:bundle:
+# Build docker image and upload to registry
+docker:build:
   stage: build
-  before_script:
-    - npm i -g webpack webpack-cli
-    - npm i
+  only:
+    - master
+  image: docker:stable
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: tcp://docker:2375/
+    DOCKER_DRIVER: overlay2
+    # For disabling TLS in docker-in-docker (not needed)
+    DOCKER_TLS_CERTDIR: ''
   script:
-    - webpack-cli -v
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build --pull -t $IMAGE_TAG . --file ./docker/Dockerfile
+    - docker push $IMAGE_TAG
+
+pages:
+  stage: deploy
+  only:
+    - dev
+  cache:
+    key: one-key-to-rule-them-all
+    paths:
+      - node_modules
+  image: node:12-alpine
+  variables:
+    PUBLIC_URL: ${CI_PAGES_URL}
+    REACT_APP_BASENAME: /sigma-frontend
+
+  script:
+    - npm install --silent
+    - npm install react-scripts@3.0.1 -g --silent
     - npm run build
+    - mv public _public
+    - mv build public
   artifacts:
     paths:
-      - build/
+      - public
+
+# Deploy the docker image to docker host
+deploy:docker:
+  stage: deploy
+  # tag is needed to use the deploy runner instead of the standard runner
+  tags:
+    - deploy
+  only:
+    - dev
+    - master
+  when: manual
+  # need to overwrite entrypoint because default entrypoint is "docker-compose" https://stackoverflow.com/a/52734017
+  image:
+    name: docker/compose:1.24.0
+    entrypoint: ["/bin/sh", "-c"]
+  # "DOCKER_IMAGE" variable cannot be defined here and has to be exported in script
+  # because recursive variable substitution doesn't work https://gitlab.com/gitlab-org/gitlab-runner/issues/2007
+  variables:
+    API_URL: $SIGMABACK_URL
+
+  script:
+    - export DOCKER_IMAGE=$IMAGE_TAG
+    - docker-compose -f docker/docker-compose.yml stop
+    - docker login -u ${CI_REGISTRY_USER} -p ${CI_REGISTRY_PASSWORD} ${CI_REGISTRY}
+    - docker-compose -f docker/docker-compose.yml pull
+    - docker-compose -f docker/docker-compose.yml up -d

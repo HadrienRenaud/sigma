@@ -1,82 +1,46 @@
 {
   "name": "sigma-frontend",
-  "version": "0.0.1",
-  "description": "Frontend of sigma, the new Frankiz",
-  "engines": {
-    "node": ">=0.10"
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/react-hooks": "^3.1.0",
+    "@types/jest": "24.0.18",
+    "@types/node": "12.7.5",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "apollo-boost": "^0.4.4",
+    "apollo-client": "latest",
+    "apollo-link-http": "latest",
+    "graphql": "^14.5.5",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "semantic-ui-react": "^0.88.1",
+    "typescript": "3.6.3"
   },
   "scripts": {
-    "build": "NODE_ENV=production webpack --mode production",
-    "serve": "echo 'Error: App is not ready for production... use npm run start instead. Abort'",
-    "dev": "webpack --mode development",
-    "watch": "webpack --watch --mode development",
-    "start": "webpack-serve ./webpack.config.js",
-    "doc": "jsdoc -c configfile_doc.json",
-    "lint": "eslint src/"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@gitlab.binets.fr:br/sigma-frontend"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "author": "Binet Réseau",
-  "license": "ISC",
-  "dependencies": {
-    "apollo-cache-inmemory": "^1.6.1",
-    "apollo-client": "^2.6.1",
-    "apollo-link-context": "^1.0.17",
-    "apollo-link-http": "^1.5.14",
-    "babel-polyfill": "^6.26.0",
-    "bundle-loader": "^0.5.5",
-    "connect-history-api-fallback": "^1.6.0",
-    "css-loader": "^2.1.1",
-    "eslint-loader": "^2.1.2",
-    "file-loader": "^3.0.1",
-    "graphql": "^14.3.1",
-    "graphql-tag": "^2.10.1",
-    "html-webpack-plugin": "^3.2.0",
-    "jsonwebtoken": "^8.5.1",
-    "jwt-decode": "^2.2.0",
-    "koa-connect": "^2.0.1",
-    "lodash": "^4.17.11",
-    "moment": "^2.24.0",
-    "node-sass": "^4.12.0",
-    "path": "^0.12.7",
-    "prop-types": "^15.7.2",
-    "react": "^16.4.2",
-    "react-apollo": "^2.5.6",
-    "react-big-calendar": "^0.20.4",
-    "react-dom": "^16.4.2",
-    "react-favicon": "0.0.16",
-    "react-markdown": "^4.0.8",
-    "react-moment": "^0.9.2",
-    "react-redux": "^7.0.3",
-    "react-router": "^5.0.1",
-    "react-router-dom": "^5.0.1",
-    "redux": "^4.0.1",
-    "semantic-ui": "^2.4.2",
-    "semantic-ui-react": "^0.87.1",
-    "serve-favicon": "^2.5.0",
-    "uuid": "^3.3.2",
-    "webpack": "^4.33.0",
-    "webpack-bundle-analyzer": "^2.13.1",
-    "whatwg-fetch": "^2.0.4"
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   },
   "devDependencies": {
-    "@babel/core": "^7.4.5",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/preset-env": "^7.4.5",
-    "@babel/preset-react": "^7.0.0",
-    "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.6",
-    "eslint": "^5.16.0",
-    "eslint-plugin-react": "^7.13.0",
-    "jsdoc": "^3.6.2",
-    "jsdoc-export-default-interop": "^0.3.1",
-    "replace-ext": "^1.0.0",
-    "sass-loader": "^7.1.0",
-    "style-loader": "^0.23.1",
-    "url-loader": "^1.1.2",
-    "webpack-cli": "^3.3.2",
-    "webpack-serve": "^0.3.2"
+    "@types/react-router-dom": "^4.3.5"
   }
 }
