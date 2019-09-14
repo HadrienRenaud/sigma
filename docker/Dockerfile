@@ -6,6 +6,9 @@ COPY package.json /app/package.json
 RUN npm install --silent
 RUN npm install react-scripts@3.0.1 -g --silent
 COPY . /app
+
+ARG API_URL
+ENV REACT_APP_API_URL=${API_URL}
 RUN npm run build
 
 # production environment
