@@ -37,7 +37,7 @@ pages:
   image: node:12-alpine
   variables:
     PUBLIC_URL: ${CI_PAGES_URL}
-    REACT_APP_BASENAME: ${CI_PAGES_URL}
+    REACT_APP_BASENAME: /sigma-frontend
 
   script:
     - npm install --silent
