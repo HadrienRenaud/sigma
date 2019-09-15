@@ -14,7 +14,7 @@ interface LoggedInUserDropdown {
 const LoggedInUserDropdown = ({user, logout}: LoggedInUserDropdown) => (
     <Dropdown item trigger={
         <Image
-            src={user && user.photo || 'https://react.semantic-ui.com/images/wireframe/square-image.png'}
+            src={(user && user.photo) || 'https://react.semantic-ui.com/images/wireframe/square-image.png'}
             avatar
         />
     }>
