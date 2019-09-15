@@ -6,21 +6,28 @@ import UserContext from '../../UserContext/context';
 import {ROUTES} from "../../../constants/routes";
 
 
-const LoggedInUserDropdown = ({ user }: { user: User}) => (
+interface LoggedInUserDropdown {
+    user?: User,
+    logout: () => void
+}
+
+const LoggedInUserDropdown = ({user, logout}: LoggedInUserDropdown) => (
     <Dropdown item trigger={
         <Image
-            src='https://react.semantic-ui.com/images/wireframe/square-image.png'
+            src={(user && user.photo) || 'https://react.semantic-ui.com/images/wireframe/square-image.png'}
             avatar
         />
     }>
         <Dropdown.Menu>
-            <Dropdown.Item as={NavLink} to={ROUTES.ME} name="me">
-                <strong>{user.givenName} {user.lastName}</strong>
-                <br/>
-                @{user.uid}
-            </Dropdown.Item>
+            {user && (
+                <Dropdown.Item as={NavLink} to={ROUTES.ME} name="me">
+                    <strong>{user.givenName} {user.lastName}</strong>
+                    <br/>
+                    @{user.uid}
+                </Dropdown.Item>
+            )}
             <Dropdown.Divider/>
-            <Dropdown.Item as={NavLink} to={ROUTES.LOGIN} name='loginForm'>
+            <Dropdown.Item as={Button} onClick={logout} name='loginForm'>
                 Se Déconnecter
             </Dropdown.Item>
         </Dropdown.Menu>
@@ -35,11 +42,11 @@ const AnonymousUserDropdown = () => (
 
 export const UserMenuDropdown = () => (
     <UserContext.Consumer>
-        {({anonymous, user}) => {
-            if (anonymous || !user)
-                return <AnonymousUserDropdown />;
+        {({anonymous, logout, user}) => {
+            if (anonymous)
+                return <AnonymousUserDropdown/>;
             else
-                return <LoggedInUserDropdown user={user}/>;
+                return <LoggedInUserDropdown user={user} logout={logout}/>;
         }}
     </UserContext.Consumer>
 );

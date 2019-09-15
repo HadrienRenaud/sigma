@@ -55,8 +55,8 @@ function Login() {
         <UserContext.Consumer>
             {({setUid}) => (
                 <LoginSubmitter onLoggedIn={(uid) => {
-                    setUid && setUid(uid);
                     setRedirect(ROUTES.ME);
+                    setUid && setUid(uid);
                 }}/>
             )}
         </UserContext.Consumer>
