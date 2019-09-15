@@ -8,6 +8,7 @@ import {PUBLIC_URL} from "./constants/config";
 import UserContextProvider from "./components/UserContext/Provider";
 import UserContext from './components/UserContext/context';
 import Header from "./components/Header/Header";
+import UserPage from "./pages/user/UserPage";
 
 const NotLoggedInRoutes = () => (
     <>
@@ -18,7 +19,9 @@ const NotLoggedInRoutes = () => (
 
 const LoggedInRoutes = () => (
     <>
-        <Route path="/" component={() => <>Logged</>}/>
+        <Route path={ROUTES.ME} component={UserPage}/>
+        <Route path={ROUTES.USER} component={UserPage}/>
+        <Route path={ROUTES.LOGIN} render={() => <Redirect to={ROUTES.ME}/>}/>
     </>
 );
 
@@ -28,23 +31,23 @@ const App: React.FC = () => {
         <ApolloProvider client={client}>
             <BrowserRouter basename={PUBLIC_URL}>
                 <UserContextProvider>
-                        <Header
-                            onLogOut={() => {
-                                console.log("Logout")
-                            }}
-                            showSidebar={() => {
-                                console.log("showsidebar")
-                            }}
-                        />
-                        <Switch>
-                            <UserContext.Consumer>
-                                {({anonymous}) => anonymous ? (
-                                    <NotLoggedInRoutes/>
-                                ) : (
-                                    <LoggedInRoutes/>
-                                )}
-                            </UserContext.Consumer>
-                        </Switch>
+                    <Header
+                        onLogOut={() => {
+                            console.log("Logout")
+                        }}
+                        showSidebar={() => {
+                            console.log("showsidebar")
+                        }}
+                    />
+                    <Switch>
+                        <UserContext.Consumer>
+                            {({anonymous}) => anonymous ? (
+                                <NotLoggedInRoutes/>
+                            ) : (
+                                <LoggedInRoutes/>
+                            )}
+                        </UserContext.Consumer>
+                    </Switch>
                 </UserContextProvider>
             </BrowserRouter>
         </ApolloProvider>
