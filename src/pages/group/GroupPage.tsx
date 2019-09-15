@@ -1,22 +1,26 @@
 import React from "react";
+import {Container} from "semantic-ui-react";
+import Main from "./components/Main";
 
 export interface GroupPageProps {
     match?: {
         params: {
             group?: string
         }
+        url: string
     }
 }
 
 function GroupPage(props: GroupPageProps) {
-    console.log('GroupPage.tsx props:', props);
-
-    const gid = props.match && props.match.params.group;
+    const match = props.match;
+    const gid = match && match.params.group;
 
     return (
-        <>
-            Group {gid}
-        </>
+        <Container>
+            {gid && (
+                <Main gid={gid}/>
+            )}
+        </Container>
     );
 }
 
