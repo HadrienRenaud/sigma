@@ -1,4 +1,5 @@
 import {gql} from "apollo-boost";
+import {Group} from "../../../constants/types";
 
 export const userBase = gql`
     fragment userBase on User {
@@ -52,16 +53,12 @@ export interface UserBase {
     phone?: string
 }
 
-interface minGroup {
-    gid: string
-}
-
 export interface UserExtended extends UserBase {
     photo: string,
-    memberOf: Array<minGroup>,
-    adminOf: Array<minGroup>,
-    speakerOf: Array<minGroup>,
-    likes: Array<minGroup>,
-    inheritedMemberOf: Array<minGroup>,
-    inheritedAdminOf: Array<minGroup>,
+    memberOf: Array<Group>,
+    adminOf: Array<Group>,
+    speakerOf: Array<Group>,
+    likes: Array<Group>,
+    inheritedMemberOf: Array<Group>,
+    inheritedAdminOf: Array<Group>,
 }
