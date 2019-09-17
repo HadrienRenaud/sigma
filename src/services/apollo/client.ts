@@ -2,11 +2,11 @@ import {HttpLink} from "apollo-link-http";
 import {defaultDataIdFromObject, InMemoryCache, IntrospectionFragmentMatcher} from 'apollo-cache-inmemory';
 import {ApolloClient} from "apollo-client";
 import {GRAPHQL_URL} from "../../constants/config";
+import introspectionQueryResultData from "./fragmentTypes.json";
 
 // see https://www.apollographql.com/docs/react/advanced/fragments/#fragments-on-unions-and-interfaces
-const fragmentType = localStorage.getItem('fragmentTypes');
 const fragmentMatcher = new IntrospectionFragmentMatcher({
-    introspectionQueryResultData: fragmentType ? JSON.parse(fragmentType) : null
+    introspectionQueryResultData
 });
 
 const httpLink = new HttpLink({
@@ -48,7 +48,12 @@ const client = new ApolloClient({
             }
         },
         fragmentMatcher
-    })
+    }),
+    defaultOptions: {
+        query: {
+            errorPolicy: "all"
+        }
+    }
 });
 
 export default client;
