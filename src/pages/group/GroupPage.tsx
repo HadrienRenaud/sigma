@@ -8,7 +8,8 @@ import {groupBase} from "../../services/apollo/fragments/group";
 import {useLazyQuery, useQuery} from "@apollo/react-hooks";
 import {Group} from "../../constants/types";
 import GraphQLError from "../../components/Messages/Errors";
-import Members, {GET_MEMBERS} from "./components/Members";
+import MembersPage, {GET_MEMBERS} from "./components/MembersPage";
+import AdminPage from "./components/AdminPage";
 
 export interface GroupPageProps {
     match: {
@@ -21,6 +22,7 @@ export interface GroupPageProps {
 enum Tabs {
     FRONT_PAGE,
     MEMBERS,
+    ADMIN,
 }
 
 const GET_GROUP = gql`
@@ -72,13 +74,23 @@ function GroupPage(props: GroupPageProps) {
                     active={selectedTab === Tabs.MEMBERS}
                     onClick={() => setSelectedTab(Tabs.MEMBERS)}
                     content="Membres"/>
+                {isAdmin && (
+                    <Menu.Item
+                        active={selectedTab === Tabs.ADMIN}
+                        onClick={() => setSelectedTab(Tabs.ADMIN)}
+                        content="Admin"
+                    />
+                )}
             </Menu>
 
             {selectedTab === Tabs.MEMBERS && (
-                <Members gid={gid} isAdmin={isAdmin}/>
+                <MembersPage gid={gid} isAdmin={isAdmin}/>
             )}
             {group && selectedTab === Tabs.FRONT_PAGE && (
                 <FrontPage frontPage={group.frontPage || ""} isSpeaker={isSpeaker} gid={group.gid}/>
+            )}
+            {isAdmin && group && selectedTab === Tabs.ADMIN && (
+                <AdminPage group={group}/>
             )}
         </Container>
     );

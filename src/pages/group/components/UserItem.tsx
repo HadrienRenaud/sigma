@@ -5,7 +5,7 @@ import {Button, ButtonProps, Image, List} from "semantic-ui-react";
 import {Link} from "react-router-dom";
 import {RoutesBuilders} from "../../../constants/routes";
 import React from "react";
-import {FILTERS} from "./Members";
+import {FILTERS} from "./MembersPage";
 import {useMutation} from "@apollo/react-hooks";
 
 interface ActionButtonProps extends ButtonProps {
@@ -108,10 +108,10 @@ export function UserItem(props: UserItemProps) {
                 @{props.user.uid}
             </List.Description>
         </List.Content>
-        {isAdmin && (
+        {isAdmin && filter !== FILTERS.Likers && (
             <List.Content floated="right">
                 <Button.Group>
-                    {(filter === FILTERS.Members || filter === FILTERS.Likers) && (
+                    {(filter === FILTERS.Members) && (
                         <ActionButton
                             query={ADD_TO_SPEAKERS}
                             uid={user.uid}
@@ -131,16 +131,14 @@ export function UserItem(props: UserItemProps) {
                             icon="star"
                         />
                     )}
-                    {filter !== FILTERS.Likers && isAdmin && (
-                        <ActionButton
-                            color="red"
-                            icon="remove"
-                            uid={user.uid}
-                            gid={gid}
-                            content={`Remove from ${filter}`}
-                            query={removeQuery}
-                        />
-                    )}
+                    <ActionButton
+                        color="red"
+                        icon="remove"
+                        uid={user.uid}
+                        gid={gid}
+                        content={`Remove from ${filter}`}
+                        query={removeQuery}
+                    />
                 </Button.Group>
             </List.Content>
         )}

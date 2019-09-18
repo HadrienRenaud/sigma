@@ -42,7 +42,7 @@ const metaGroupFilters = [
     {key: 1, value: FILTERS.Speakers, text: "Speakers", disabled: true, icon: "bullhorn"},
 ];
 
-function Members(props: MembersProps) {
+function MembersPage(props: MembersProps) {
     const {gid, isAdmin} = props;
     const {error, loading, data} = useQuery<{ group: GroupExtended }, { gid: string }>(GET_MEMBERS, {
         variables: {gid},
@@ -118,4 +118,4 @@ function Members(props: MembersProps) {
     </>;
 }
 
-export default Members;
+export default MembersPage;
