@@ -1,9 +1,15 @@
 version: '3.7'
 
+networks: 
+  web:
+    external: true
+
 services:
   sigma-frontend:
     image: ${DOCKER_IMAGE}
     container_name: sigma-frontend
+    networks: 
+      - web
     labels:
       # Match entry with sigma.*
       - "traefik.frontend.rule=Host:sigma.frankiz.net"
