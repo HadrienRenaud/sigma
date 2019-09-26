@@ -1,9 +1,10 @@
 # build environment
 FROM node:12-alpine as build
 WORKDIR /app
+RUN npm i -g yarn
 COPY package.json ./
 COPY yarn.lock ./
-RUN npm install
+RUN yarn install
 COPY . .
 
 ARG API_URL
