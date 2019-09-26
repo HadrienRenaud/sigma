@@ -3,5 +3,9 @@ version: '3.7'
 services:
   sigma-frontend:
     image: ${DOCKER_IMAGE}
-    ports:
-      - '${PORT}:80'
+    container_name: sigma-frontend
+    labels:
+      # Match entry with dev.sigma.*
+      - "traefik.frontend.rule=Host:dev.sigma.frankiz.net"
+      # Connect it to the container port 80
+      - "traefik.port=80"
