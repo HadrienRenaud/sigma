@@ -69,6 +69,7 @@ deploy:docker:
   # because recursive variable substitution doesn't work https://gitlab.com/gitlab-org/gitlab-runner/issues/2007
   variables:
     PORT: $SIGMAFRONT_PORT
+    COMPOSE_PROJECT_NAME: sigma-frontend
   script:
     - export DOCKER_IMAGE=$IMAGE_TAG
     - docker-compose -f docker/docker-compose.yml stop

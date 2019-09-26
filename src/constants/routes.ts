@@ -3,6 +3,7 @@ export const ROUTES = {
     ME: '/me',
     USER: '/user/:uid',
     GROUP: '/group/:group',
+    GROUPS: '/groups',
 };
 
 export const RoutesBuilders = {

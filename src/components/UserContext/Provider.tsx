@@ -55,6 +55,7 @@ class UserContextProvider extends React.Component<{ children: ReactNode }, State
             uid: undefined,
         });
         delUid();
+        client.resetStore();
     };
 
     setUid = (uid: string) => {

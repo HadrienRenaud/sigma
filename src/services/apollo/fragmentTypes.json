@@ -1,0 +1,57 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "kind": "INTERFACE",
+        "name": "Group",
+        "possibleTypes": [
+          {
+            "name": "SimpleGroup"
+          },
+          {
+            "name": "MetaGroup"
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Message",
+        "possibleTypes": [
+          {
+            "name": "PublicPost"
+          },
+          {
+            "name": "PrivatePost"
+          }
+        ]
+      },
+      {
+        "kind": "UNION",
+        "name": "AuthorUnion",
+        "possibleTypes": [
+          {
+            "name": "AuthorGroups"
+          },
+          {
+            "name": "User"
+          }
+        ]
+      },
+      {
+        "kind": "INTERFACE",
+        "name": "Request",
+        "possibleTypes": [
+          {
+            "name": "GroupCoauthorEvent"
+          },
+          {
+            "name": "GroupJoinMetagroup"
+          },
+          {
+            "name": "UserJoinGroup"
+          }
+        ]
+      }
+    ]
+  }
+}

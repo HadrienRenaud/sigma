@@ -9,6 +9,7 @@ import UserContextProvider from "./components/UserContext/Provider";
 import UserContext from './components/UserContext/context';
 import Header from "./components/Header/Header";
 import UserPage from "./pages/user/UserPage";
+import GroupPage from "./pages/group/GroupPage";
 
 const NotLoggedInRoutes = () => (
     <>
@@ -21,6 +22,7 @@ const LoggedInRoutes = () => (
     <>
         <Route path={ROUTES.ME} component={UserPage}/>
         <Route path={ROUTES.USER} component={UserPage}/>
+        <Route path={ROUTES.GROUP} component={GroupPage}/>
         <Route path={ROUTES.LOGIN} render={() => <Redirect to={ROUTES.ME}/>}/>
     </>
 );
