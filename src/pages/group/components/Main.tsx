@@ -1,7 +1,7 @@
 import React from "react";
 import {Group} from "../../../constants/types";
 import {Header, Segment} from "semantic-ui-react";
-import ReactMarkdown from "react-markdown";
+import RenderMarkdown from "../../../components/Markdown/RenderMarkdown";
 
 export interface MainProps {
     group: Group
@@ -21,7 +21,7 @@ function Main(props: MainProps) {
                 </Header>
             </Segment>
             <Segment vertical>
-                <ReactMarkdown source={group.description}/>
+                <RenderMarkdown>{group.description || ''}</RenderMarkdown>
             </Segment>
         </>
     );

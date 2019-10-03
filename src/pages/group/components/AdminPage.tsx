@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {Button, Form, Header, Segment} from 'semantic-ui-react';
-import ReactMarkdown from "react-markdown";
+import RenderMarkdown from '../../../components/Markdown/RenderMarkdown';
 import gql from "graphql-tag";
 import {groupBase} from "../../../services/apollo/fragments/group";
 import {useMutation} from "@apollo/react-hooks";
@@ -134,7 +134,7 @@ const GroupAdministrer = ({group}: { group: Group }) => (
                 name="Description"
                 placeholder="La description du groupe. Tu peux utiliser du Markdown !"
                 inputComponent={Form.TextArea}
-                displayComponent={ReactMarkdown}
+                displayComponent={RenderMarkdown}
             />
 
             <EditVariable

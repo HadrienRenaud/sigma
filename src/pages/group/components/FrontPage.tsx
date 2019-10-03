@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import ReactMarkdown from "react-markdown";
 import {Button, Divider, Form, Header, Label, Message, Segment} from "semantic-ui-react";
 import {isString} from "util";
 import {gql} from "apollo-boost";
 import {groupBase} from "../../../services/apollo/fragments/group";
 import {useMutation} from "@apollo/react-hooks";
+import RenderMarkdown from '../../../components/Markdown/RenderMarkdown';
 
 export interface FrontPageProps {
     frontPage: string
@@ -79,7 +79,12 @@ function FrontPage(props: FrontPageProps) {
                     </Header>
                     <Divider hidden/>
                 </>}
-                <ReactMarkdown source={value}/>
+
+                <RenderMarkdown>{value}</RenderMarkdown>
+                
+                
+                
+                
             </Segment>
         </>
     );
