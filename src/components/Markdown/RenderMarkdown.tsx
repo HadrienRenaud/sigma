@@ -14,7 +14,7 @@ export default function RenderMarkdown ({children} : {children: string}) {
     return (
         <div>
 
-            <Markdown options={{ forceInline: true }}>
+            <Markdown>
                 {twemoji.parse(emoji.emojify(children), {
                     folder: 'svg',
                     ext: '.svg'
