@@ -1,6 +1,6 @@
 import {gql} from "apollo-boost";
 import {GroupBase, groupBase} from "./group";
-import {UserBase} from "./user";
+import {userBase, UserBase} from "./user";
 
 export const eventBase = gql`
     fragment eventBase on Event {
@@ -33,6 +33,7 @@ export const eventExtended = gql`
     }
     ${eventBase}
     ${groupBase}
+    ${userBase}
 `;
 
 export interface EventBase {
