@@ -12,23 +12,29 @@ import UserPage from "./pages/user/UserPage";
 import GroupPage from "./pages/group/GroupPage";
 import TOLPage from "./pages/tol/TOLPage";
 import SearchGroupPage from "./pages/SearchGroup/SearchGroupPage";
+import {consumeAfterLogin, rememberBeforeLogin} from "./services/rememberBeforeLogin";
 
 const NotLoggedInRoutes = () => (
-    <>
+    <Switch>
         <Route path={ROUTES.LOGIN} component={Login}/>
-        <Route render={() => <Redirect to={ROUTES.LOGIN}/>}/>
-    </>
+        <Route
+            render={({location}) => {
+                rememberBeforeLogin(location.pathname);
+                return <Redirect to={ROUTES.LOGIN}/>
+            }}
+        />
+    </Switch>
 );
 
 const LoggedInRoutes = () => (
-    <>
+    <Switch>
         <Route path={ROUTES.ME} component={UserPage}/>
         <Route path={ROUTES.USER} component={UserPage}/>
         <Route path={ROUTES.GROUP} component={GroupPage}/>
         <Route path={ROUTES.TOL} render={TOLPage}/>
         <Route path={ROUTES.ASSOCIATIONS} render={SearchGroupPage}/>
-        <Route path={ROUTES.LOGIN} render={() => <Redirect to={ROUTES.ME}/>}/>
-    </>
+        <Route path={ROUTES.LOGIN} render={() => <Redirect to={consumeAfterLogin() || ROUTES.ME}/>}/>
+    </Switch>
 );
 
 const App: React.FC = () => {
@@ -45,15 +51,13 @@ const App: React.FC = () => {
                             console.log("showsidebar")
                         }}
                     />
-                    <Switch>
-                        <UserContext.Consumer>
-                            {({anonymous}) => anonymous ? (
-                                <NotLoggedInRoutes/>
-                            ) : (
-                                <LoggedInRoutes/>
-                            )}
-                        </UserContext.Consumer>
-                    </Switch>
+                    <UserContext.Consumer>
+                        {({anonymous}) => anonymous ? (
+                            <NotLoggedInRoutes/>
+                        ) : (
+                            <LoggedInRoutes/>
+                        )}
+                    </UserContext.Consumer>
                 </UserContextProvider>
             </BrowserRouter>
         </ApolloProvider>

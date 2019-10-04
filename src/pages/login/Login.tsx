@@ -3,8 +3,6 @@ import LoginLayout from "./components/LoginLayout";
 import LoginForm, {Credentials} from "./components/LoginForm";
 import {API_URL} from "../../constants/config";
 import UserContext from '../../components/UserContext/context';
-import {Redirect} from 'react-router-dom';
-import {ROUTES} from "../../constants/routes";
 
 export interface LoginProps {
     onLoggedIn?: (uid: string) => void,
@@ -46,18 +44,14 @@ function LoginSubmitter({onLoggedIn}: LoginProps) {
 }
 
 function Login() {
-    const [redirect, setRedirect] = useState<string>();
-
-    if (redirect)
-        return <Redirect to={redirect}/>;
-
     return (
         <UserContext.Consumer>
             {({setUid}) => (
-                <LoginSubmitter onLoggedIn={(uid) => {
-                    setRedirect(ROUTES.ME);
-                    setUid && setUid(uid);
-                }}/>
+                <LoginSubmitter
+                    onLoggedIn={(uid) => {
+                        setUid && setUid(uid);
+                    }}
+                />
             )}
         </UserContext.Consumer>
     )
