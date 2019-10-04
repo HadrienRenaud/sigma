@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import LoginLayout from "./components/LoginLayout";
 import LoginForm, {Credentials} from "./components/LoginForm";
 import {API_URL} from "../../constants/config";
@@ -44,16 +44,14 @@ function LoginSubmitter({onLoggedIn}: LoginProps) {
 }
 
 function Login() {
+    const {setUid} = useContext(UserContext);
+
     return (
-        <UserContext.Consumer>
-            {({setUid}) => (
-                <LoginSubmitter
-                    onLoggedIn={(uid) => {
-                        setUid && setUid(uid);
-                    }}
-                />
-            )}
-        </UserContext.Consumer>
+        <LoginSubmitter
+            onLoggedIn={(uid) => {
+                setUid && setUid(uid);
+            }}
+        />
     )
 }
 
