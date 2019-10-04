@@ -66,7 +66,7 @@ class Header extends React.Component<HeaderProps> {
 
     render() {
         return <>
-            <Responsive minWidth={SEPARATION_MOBILE}>
+            <Responsive minWidth={SEPARATION_MOBILE} style={{marginBottom: 24}}>
                 <Menu inverted color="violet">
                     <Container>
                         <Menu.Item as={NavLink} to='/#'>
