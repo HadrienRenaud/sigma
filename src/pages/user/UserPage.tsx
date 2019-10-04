@@ -11,6 +11,7 @@ import {User} from "../../constants/types";
 import GraphQLError from "../../components/Messages/Errors";
 import Main from "./components/Main";
 import EditForm from "./components/EditForm";
+import ChangePicture from "./components/ChangePicture";
 
 const GET_USER = gql`
     # Write your query or mutation here
@@ -101,6 +102,8 @@ function UserPage({uid}: { uid: string }) {
                         user={data.user}
                         onCompleted={() => setEdit(false)}
                     />
+                    <Divider />
+                    <ChangePicture onCompleted={() => setEdit(false)}/>
                 </Segment>
             </div>)}
         </Container>
