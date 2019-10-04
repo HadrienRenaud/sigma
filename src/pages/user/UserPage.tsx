@@ -10,6 +10,7 @@ import {useQuery} from "@apollo/react-hooks";
 import {User} from "../../constants/types";
 import GraphQLError from "../../components/Messages/Errors";
 import Main from "./components/Main";
+import EditForm from "./components/EditForm";
 
 const GET_USER = gql`
     # Write your query or mutation here
@@ -90,9 +91,15 @@ function UserPage({uid}: { uid: string }) {
                 <Segment vertical>
                     <Button
                         fluid
+                        icon="cancel"
                         content="Cancel"
                         color="yellow"
                         onClick={() => setEdit(false)}
+                    />
+                    <Divider hidden/>
+                    <EditForm
+                        user={data.user}
+                        onCompleted={() => setEdit(false)}
                     />
                 </Segment>
             </div>)}
