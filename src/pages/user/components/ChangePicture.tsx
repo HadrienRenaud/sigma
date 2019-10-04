@@ -1,8 +1,7 @@
-import React, {useContext, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {useQuery} from "@apollo/react-hooks";
 import {gql} from "apollo-boost";
 import {Button, ButtonGroup, Header} from "semantic-ui-react";
-import UserContext from "../../../components/UserContext/context";
 
 export interface ChangePictureProps {
     onCompleted: () => void
@@ -22,7 +21,6 @@ function uploadFile(to: string, file: any) {
 
 function ChangePicture(props: ChangePictureProps) {
     const {onCompleted} = props;
-    const {} = useContext(UserContext);
     const {data, loading} = useQuery<{ getRightsToChangeProfilePicture: string }, {}>(GET_RIGHT_TO_CHANGE_PICTURE);
     const [file, setFile] = useState<any>();
     const inputRef = useRef(null);

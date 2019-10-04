@@ -56,7 +56,7 @@ function UserPage({uid}: { uid: string }) {
         variables: {uid},
     });
     const {user} = useContext(UserContext);
-    const isMe = user && user.uid == uid;
+    const isMe = user && user.uid === uid;
     const [edit, setEdit] = useState<boolean>(false);
 
     return (
