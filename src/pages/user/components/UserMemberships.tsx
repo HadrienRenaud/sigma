@@ -12,7 +12,7 @@ function GroupListItem({group}: GroupItemProps) {
     return <List.Item key={group.gid}>
         <Image
             avatar
-            src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'
+            src={group.logo}
         />
         <List.Content>
             <List.Header as={Link} to={RoutesBuilders.Group(group.gid)}>
@@ -64,7 +64,7 @@ export function UserMemberships(props: UserMembershipsProps) {
             <List.Item key={gr.gid}>
                 <Image
                     avatar
-                    src='https://react.semantic-ui.com/images/avatar/small/lindsay.png'
+                    src={gr.logo}
                 />
                 <List.Content>
                     <List.Header as={Link} to={RoutesBuilders.Group(gr.gid)}>

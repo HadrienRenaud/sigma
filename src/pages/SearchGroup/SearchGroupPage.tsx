@@ -60,7 +60,7 @@ function GroupCard(props: GroupCardProps) {
         <Card
             link
             onClick={() => history.push(RoutesBuilders.Group(g.gid))}
-            image="https://react.semantic-ui.com/images/avatar/large/elliot.jpg"
+            image={g.logo}
             header={g.name}
             meta={"@" + g.gid}
             description={cropText(g.description || "")}
@@ -71,8 +71,6 @@ function GroupCard(props: GroupCardProps) {
 
 function SearchGroupPage() {
     const [search, {loading, data}] = useLazyQuery<{ searchGroup: Group[] }, { search: string }>(SEARCH_GROUP);
-
-    console.log("data:", data);
 
     return <Container>
         <Header as="h1">
