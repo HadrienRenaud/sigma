@@ -1,6 +1,6 @@
-import React from "react";
+import React, {useContext, useState} from "react";
 import {gql} from "apollo-boost";
-import {Container, Header, Image, List, Segment} from "semantic-ui-react";
+import {Button, Container, Divider, Segment} from "semantic-ui-react";
 import {userBase} from "../../services/apollo/fragments/user";
 import UserGroups from "./components/UserGroups";
 import {groupBase} from "../../services/apollo/fragments/group";
@@ -9,6 +9,7 @@ import UserContext from "../../components/UserContext/context";
 import {useQuery} from "@apollo/react-hooks";
 import {User} from "../../constants/types";
 import GraphQLError from "../../components/Messages/Errors";
+import Main from "./components/Main";
 
 const GET_USER = gql`
     # Write your query or mutation here
@@ -52,6 +53,9 @@ function UserPage({uid}: { uid: string }) {
     const {loading, error, data} = useQuery<{ user: User }, { uid: string }>(GET_USER, {
         variables: {uid},
     });
+    const {user} = useContext(UserContext);
+    const isMe = user && user.uid == uid;
+    const [edit, setEdit] = useState<boolean>(false);
 
     return (
         <Container>
@@ -63,30 +67,35 @@ function UserPage({uid}: { uid: string }) {
             {error && (
                 <GraphQLError error={error}/>
             )}
-            {data && data.user && (<>
+            {data && data.user && !edit && (<>
                 <Segment vertical>
-                    <Image
-                        src={data.user.photo || "https://react.semantic-ui.com/images/wireframe/square-image.png"}
-                        floated="right" size='small' circular
-                    />
-                    <Header>
-                        {data.user.givenName} {data.user.lastName} {data.user.nickname && <>({data.user.nickname})</>}
-                        <Header.Subheader>@{data.user.uid}</Header.Subheader>
-                    </Header>
-                    <List>
-                        <List.Item icon="birthday" content={data.user.birthdate}/>
-                        <List.Item icon="flag outline" content={data.user.nationality}/>
-                        <List.Item icon="phone" content={<a href={"tel:" + data.user.phone}>{data.user.phone}</a>}/>
-                        {data.user.address && <List.Item icon="marker" content={data.user.address}/>}
-                        <List.Item icon="mail"
-                                   content={<a href={`mailto:${data.user.mail}`}>{data.user.mail}</a>}/>
-                    </List>
+                    <Main user={data.user}/>
+                    {isMe && (<>
+                            <Divider hidden/>
+                            <Button
+                                fluid
+                                content="Edit"
+                                basic
+                                onClick={() => setEdit(true)}
+                            />
+                        </>
+                    )}
                 </Segment>
 
                 <Segment vertical>
                     <UserGroups isMe={uid === data.user.uid} user={data.user}/>
                 </Segment>
             </>)}
+            {data && data.user && edit && (<div>
+                <Segment vertical>
+                    <Button
+                        fluid
+                        content="Cancel"
+                        color="yellow"
+                        onClick={() => setEdit(false)}
+                    />
+                </Segment>
+            </div>)}
         </Container>
     );
 }
