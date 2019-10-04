@@ -13,6 +13,7 @@ import GroupPage from "./pages/group/GroupPage";
 import TOLPage from "./pages/tol/TOLPage";
 import SearchGroupPage from "./pages/SearchGroup/SearchGroupPage";
 import EventPage from "./pages/event/EventPage";
+import EventsPage from "./pages/events/EventsPage";
 
 const NotLoggedInRoutes = () => (
     <>
@@ -29,6 +30,7 @@ const LoggedInRoutes = () => (
         <Route path={ROUTES.TOL} component={TOLPage}/>
         <Route path={ROUTES.ASSOCIATIONS} component={SearchGroupPage}/>
         <Route path={ROUTES.EVENT} component={EventPage} />
+        <Route path={ROUTES.EVENTS} component={EventsPage} />
         <Route path={ROUTES.LOGIN} render={() => <Redirect to={ROUTES.ME}/>}/>
     </>
 );
