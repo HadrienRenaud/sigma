@@ -101,8 +101,8 @@ function TOLPage() {
     const [nickname, setNickname] = useState<string>("");
     const [nationality, setNationality] = useState<string>("");
     const [school, setSchool] = useState<string>("");
-    const [groups, setGroups] = useState<Array<string>>([]);
-    const [studies, setStudies] = useState<string>("");
+    const [groups] = useState<Array<string>>([]);
+    const [studies] = useState<string>("");
     const [phone, setPhone] = useState<string>("");
     const [mail, setMail] = useState<string>("");
     const [address, setAddress] = useState<string>("");
