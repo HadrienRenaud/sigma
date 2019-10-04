@@ -5,11 +5,13 @@ export const ROUTES = {
     GROUP: '/group/:group',
     GROUPS: '/groups',
     TOL: '/tol',
-    ASSOCIATIONS: "/assos",
-    EVENTS: "/events",
+    ASSOCIATIONS: '/assos',
+    EVENTS: '/events',
+    EVENT: '/event/:eid',
 };
 
 export const RoutesBuilders = {
     User: (uid: string) => `/user/${uid}`,
     Group: (gid: string) => `/group/${gid}`,
+    Event: (eid: string) => `/event/${eid}`,
 };
