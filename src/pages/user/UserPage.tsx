@@ -67,7 +67,8 @@ function UserPage({uid}: { uid: string }) {
                 <Segment vertical>
                     <Image
                         src={data.user.photo || "https://react.semantic-ui.com/images/wireframe/square-image.png"}
-                        floated="right" size='small'/>
+                        floated="right" size='small' circular
+                    />
                     <Header>
                         {data.user.givenName} {data.user.lastName} {data.user.nickname && <>({data.user.nickname})</>}
                         <Header.Subheader>@{data.user.uid}</Header.Subheader>

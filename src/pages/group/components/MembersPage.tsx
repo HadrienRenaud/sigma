@@ -104,7 +104,7 @@ function MembersPage(props: MembersProps) {
             {(group.__typename === "MetaGroup" && filter === FILTERS.Members)
                 ? group.members.map(g => (
                     <List.Item key={g.gid} as="a" href={RoutesBuilders.Group(gid)}>
-                        <Image avatar src='https://react.semantic-ui.com/images/avatar/small/rachel.png'/>
+                        <Image avatar src={g.logo}/>
                         <List.Content content={g.name}/>
                     </List.Item>
                 ))
