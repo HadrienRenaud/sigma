@@ -60,7 +60,6 @@ deploy:docker:
     - deploy
   only:
     - master
-  when: manual
   # need to overwrite entrypoint because default entrypoint is "docker-compose" https://stackoverflow.com/a/52734017
   image:
     name: docker/compose:1.24.0
