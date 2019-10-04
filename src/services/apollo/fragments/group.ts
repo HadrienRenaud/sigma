@@ -10,6 +10,7 @@ export const groupBase = gql`
         mail
         name
         website
+        logo
     }
 `;
 
@@ -20,6 +21,7 @@ export interface GroupBase {
     mail?: string
     name: string
     website: string
+    logo: string
 }
 
 export const groupExtended = gql`

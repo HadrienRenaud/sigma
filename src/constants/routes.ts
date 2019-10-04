@@ -4,6 +4,9 @@ export const ROUTES = {
     USER: '/user/:uid',
     GROUP: '/group/:group',
     GROUPS: '/groups',
+    TOL: '/tol',
+    ASSOCIATIONS: "/assos",
+    EVENTS: "/events",
 };
 
 export const RoutesBuilders = {

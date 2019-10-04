@@ -8,20 +8,21 @@ import {NavLink} from 'react-router-dom';
 // @ts-ignore
 import logo_sigma from "../../assets/logo_sigma.png";
 import {UserMenuDropdown} from './components/UserMenuDropdown';
+import {ROUTES} from "../../constants/routes";
 
 const SEPARATION_MOBILE: number = Number(Responsive.onlyComputer.minWidth);
 
 const menuItems = [
     {
-        linkTo: "/groups",
+        linkTo: ROUTES.ASSOCIATIONS,
         label: "Associations",
     },
     {
-        linkTo: "/events",
+        linkTo: ROUTES.EVENTS,
         label: "Calendrier",
     },
     {
-        linkTo: "/tol",
+        linkTo: ROUTES.TOL,
         label: "Trombinoscope",
     },
 ];
@@ -65,7 +66,7 @@ class Header extends React.Component<HeaderProps> {
 
     render() {
         return <>
-            <Responsive minWidth={SEPARATION_MOBILE}>
+            <Responsive minWidth={SEPARATION_MOBILE} style={{marginBottom: 24}}>
                 <Menu inverted color="violet">
                     <Container>
                         <Menu.Item as={NavLink} to='/#'>
