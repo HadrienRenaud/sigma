@@ -10,6 +10,8 @@ import {Group} from "../../constants/types";
 import GraphQLError from "../../components/Messages/Errors";
 import MembersPage, {GET_MEMBERS} from "./components/MembersPage";
 import AdminPage from "./components/AdminPage";
+import EventsBy from "./components/EventsBy";
+import EventsTo from "./components/EventsTo";
 
 export interface GroupPageProps {
     match: {
@@ -22,6 +24,8 @@ export interface GroupPageProps {
 enum Tabs {
     FRONT_PAGE,
     MEMBERS,
+    EVENTS_BY,
+    EVENTS_TO,
     ADMIN,
 }
 
@@ -74,6 +78,16 @@ function GroupPage(props: GroupPageProps) {
                     active={selectedTab === Tabs.MEMBERS}
                     onClick={() => setSelectedTab(Tabs.MEMBERS)}
                     content="Membres"/>
+                <Menu.Item
+                    active={selectedTab === Tabs.EVENTS_BY}
+                    onClick={() => setSelectedTab(Tabs.EVENTS_BY)}
+                    content="Évènements organisés"
+                />
+                <Menu.Item
+                    active={selectedTab === Tabs.EVENTS_TO}
+                    onClick={() => setSelectedTab(Tabs.EVENTS_TO)}
+                    content="Participe à"
+                />
                 {isAdmin && (
                     <Menu.Item
                         active={selectedTab === Tabs.ADMIN}
@@ -88,6 +102,12 @@ function GroupPage(props: GroupPageProps) {
             )}
             {group && selectedTab === Tabs.FRONT_PAGE && (
                 <FrontPage frontPage={group.frontPage || ""} isSpeaker={isSpeaker} gid={group.gid}/>
+            )}
+            {selectedTab === Tabs.EVENTS_BY && (
+                <EventsBy gid={gid}/>
+            )}
+            {selectedTab === Tabs.EVENTS_TO && (
+                <EventsTo gid={gid} />
             )}
             {isAdmin && group && selectedTab === Tabs.ADMIN && (
                 <AdminPage group={group}/>
