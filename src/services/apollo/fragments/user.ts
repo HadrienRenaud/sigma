@@ -12,6 +12,7 @@ export const userBase = gql`
         nationality
         nickname
         phone
+        photo
     }
 `;
 
@@ -51,10 +52,10 @@ export interface UserBase {
     nationality?: string
     nickname?: string
     phone?: string
+    photo?: string
 }
 
 export interface UserExtended extends UserBase {
-    photo: string,
     memberOf: Array<Group>,
     adminOf: Array<Group>,
     speakerOf: Array<Group>,
