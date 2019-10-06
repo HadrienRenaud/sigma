@@ -8,6 +8,7 @@ export const ROUTES = {
     ASSOCIATIONS: '/assos',
     EVENTS: '/events',
     EVENT: '/event/:eid',
+    NEW_EVENT: '/new/event',
 };
 
 export const RoutesBuilders = {

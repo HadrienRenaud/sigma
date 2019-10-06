@@ -29,6 +29,7 @@ const LoggedInRoutes = () => (
         <Route path={ROUTES.GROUP} component={GroupPage}/>
         <Route path={ROUTES.TOL} component={TOLPage}/>
         <Route path={ROUTES.ASSOCIATIONS} component={SearchGroupPage}/>
+        <Route path={ROUTES.NEW_EVENT} />
         <Route path={ROUTES.EVENT} component={EventPage} />
         <Route path={ROUTES.EVENTS} component={EventsPage} />
         <Route path={ROUTES.LOGIN} render={() => <Redirect to={ROUTES.ME}/>}/>
